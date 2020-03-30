@@ -1,0 +1,13 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Item",
+  "modified": "2020-03-06 16:54:00.108359",
+  "name": "Item-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "function updateUOM(frm){\n    var itemDocument = frm.doc\n    console.log(\"in function update\")\n    \n    \n    if (frm.doc.uoms.length < \"2\"){\n        console.log(\"In If of update\")\n        \n        let d = frm.add_child(\"uoms\");\n        d.uom = \"Nos\";\n\t    d.conversion_factor = itemDocument.standard_weight;\n\t\t refresh_field(\"uoms\");\n\t    console.log(\"print value of d\",d);\n\t    \n\t    console.log(\"Leaving If of update\")\n        \n    }\n    else{\n        console.log(\"In Else of update\")\n        console.log(frm.doc.uoms[1])\n        frm.doc.uoms[1].conversion_factor = itemDocument.standard_weight;\n        \n        refresh_field(\"uoms\");\n        \n        \n        console.log(\"LEaving Else of update\")\n        \n    }\n    \n    \n    \n}\n\n\nfunction weight(frm){\n    var a = frm.doc;\n    if(a.diameter!==0 && a.thickness!==0){\n        var w = 3.14 * (a.diameter/2) * (a.diameter/2) * a.thickness * (2700/1000000000);\n\t\tfrm.set_value('standard_weight',w);\n    }\n    if(a.diameter===0 || a.thickness===0){\n        frm.set_value('standard_weight','0');\n        \n    }\n}\n\n\n\n\nfrappe.ui.form.on('Item', {\n\tdiameter:function(frm) {\n\t    weight(frm)\n    }\n    \n});\n\nfrappe.ui.form.on('Item', {\n\tthickness:function(frm){\n\t     console.log(\"============\")\n\t    weight(frm)\n\t    refresh_field(\"standard_weight\");\n\t}\n\t\n});\t\n\nfrappe.ui.form.on('Item',{\n    standard_weight:function(frm){\n        updateUOM(frm);\n    }\n    \n    \n});\n    "
+ }
+]

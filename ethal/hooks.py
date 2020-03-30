@@ -138,5 +138,6 @@ fixtures = [
 			]
 		]
 	},
-	"Translation"
+	"Translation",
+	"Custom Script"
 ]
