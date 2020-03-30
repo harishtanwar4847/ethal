@@ -127,3 +127,15 @@ app_license = "MIT"
 # 	"Task": "ethal.task.get_dashboard_data"
 # }
 
+fixtures = [
+	{
+		"dt": "Custom Field",
+		"filters": [
+			[
+				"dt",
+				"in",
+				["Supplier", "Item"]
+			]
+		]
+	}
+]
