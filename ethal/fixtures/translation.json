@@ -1,0 +1,72 @@
+[
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "en",
+  "modified": "2020-03-25 12:36:20.942043",
+  "name": "94462fdbfb",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "Address Line 1",
+  "status": "Saved",
+  "target_name": "House Number"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "en",
+  "modified": "2020-03-29 13:19:35.722364",
+  "name": "7b82781e7d",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "Address Line 2",
+  "status": "Saved",
+  "target_name": "Kebele"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "en",
+  "modified": "2020-03-23 22:25:23.101903",
+  "name": "9c61b04673",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "City/Town",
+  "status": "Saved",
+  "target_name": "Woreda"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "en",
+  "modified": "2020-03-23 22:28:30.867547",
+  "name": "4732e5a0e1",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "Tax ID",
+  "status": "Saved",
+  "target_name": "TIN"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "en",
+  "modified": "2020-03-28 21:04:14.329316",
+  "name": "e879b20900",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "Territory",
+  "status": "Saved",
+  "target_name": "Zone"
+ }
+]

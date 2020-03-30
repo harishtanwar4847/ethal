@@ -137,5 +137,6 @@ fixtures = [
 				["Supplier", "Item"]
 			]
 		]
-	}
+	},
+	"Translation"
 ]
