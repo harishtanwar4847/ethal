@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include ethal *.css
+recursive-include ethal *.csv
+recursive-include ethal *.html
+recursive-include ethal *.ico
+recursive-include ethal *.js
+recursive-include ethal *.json
+recursive-include ethal *.md
+recursive-include ethal *.png
+recursive-include ethal *.py
+recursive-include ethal *.svg
+recursive-include ethal *.txt
+recursive-exclude ethal *.pyc
