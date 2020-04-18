@@ -18,28 +18,14 @@
   "docstatus": 0,
   "doctype": "Translation",
   "language": "en",
-  "modified": "2020-03-29 13:19:35.722364",
-  "name": "7b82781e7d",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "source_name": "Address Line 2",
-  "status": "Saved",
-  "target_name": "Kebele"
- },
- {
-  "contributed_translation_doctype_name": null,
-  "docstatus": 0,
-  "doctype": "Translation",
-  "language": "en",
-  "modified": "2020-03-23 22:25:23.101903",
+  "modified": "2020-04-07 12:20:27.188165",
   "name": "9c61b04673",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
   "source_name": "City/Town",
   "status": "Saved",
-  "target_name": "Woreda"
+  "target_name": "Kebele/Woreda"
  },
  {
   "contributed_translation_doctype_name": null,
@@ -68,5 +54,61 @@
   "source_name": "Territory",
   "status": "Saved",
   "target_name": "Zone"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "en",
+  "modified": "2020-04-04 14:27:54.595359",
+  "name": "e0def32e05",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "Supplier Invoice No",
+  "status": "Saved",
+  "target_name": "FS Number"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "en",
+  "modified": "2020-04-04 14:28:25.137289",
+  "name": "5f94f15771",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "Supplier Invoice Date",
+  "status": "Saved",
+  "target_name": "FS Date"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "en",
+  "modified": "2020-04-07 12:28:17.812655",
+  "name": "62d67e0000",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "County",
+  "status": "Saved",
+  "target_name": "Kifle Ketema/Sub City"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "en",
+  "modified": "2020-04-14 13:11:58.802058",
+  "name": "e0d015dec7",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "State",
+  "status": "Saved",
+  "target_name": "Region"
  }
 ]
