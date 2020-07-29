@@ -301,7 +301,7 @@
   "insert_after": "payment_type",
   "label": "Withholding Receipt No",
   "length": 0,
-  "modified": "2020-04-16 15:16:18.556835",
+  "modified": "2020-07-29 15:04:49.187331",
   "name": "Payment Entry-withholding_receipt_no",
   "no_copy": 0,
   "options": null,
@@ -318,7 +318,7 @@
   "reqd": 0,
   "search_index": 0,
   "translatable": 0,
-  "unique": 1,
+  "unique": 0,
   "width": null
  },
  {
