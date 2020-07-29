@@ -142,7 +142,7 @@ fixtures = [
 		"dt": "Print Format",
 		"filters": [
 			[
-				"name",
+				"doc_type",
 				"in",
 				["Purchase Receipt"]
 			]
