@@ -138,6 +138,16 @@ fixtures = [
 			]
 		]
 	},
+	{
+		"dt": "Print Format",
+		"filters": [
+			[
+				"name",
+				"in",
+				["Purchase Receipt"]
+			]
+		]
+	},
 	"Translation",
 	"Custom Script"
 ]
