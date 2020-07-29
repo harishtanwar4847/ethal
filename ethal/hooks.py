@@ -134,7 +134,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Item", "Payment Entry", "Delivery Note", "Sales Invoice", "Purchase Invoice"]
+				["Supplier", "Item", "Payment Entry", "Delivery Note", "Sales Invoice", "Purchase Invoice","Purchase Receipt"]
 			]
 		]
 	},
