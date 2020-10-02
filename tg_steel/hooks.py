@@ -2,10 +2,10 @@
 from __future__ import unicode_literals
 from . import __version__ as app_version
 
-app_name = "ethal"
-app_title = "Ethal"
+app_name = "tg_steel"
+app_title = "Tg Steel"
 app_publisher = "Atrina Technologies Pvt. Ltd."
-app_description = "Ethal"
+app_description = "Tg Steel"
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "developers@atritechnocrat.in"
@@ -15,12 +15,12 @@ app_license = "MIT"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/ethal/css/ethal.css"
-# app_include_js = "/assets/ethal/js/ethal.js"
+# app_include_css = "/assets/tg_steel/css/tg_steel.css"
+# app_include_js = "/assets/tg_steel/js/tg_steel.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/ethal/css/ethal.css"
-# web_include_js = "/assets/ethal/js/ethal.js"
+# web_include_css = "/assets/tg_steel/css/tg_steel.css"
+# web_include_js = "/assets/tg_steel/js/tg_steel.js"
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
@@ -43,7 +43,7 @@ app_license = "MIT"
 # }
 
 # Website user home page (by function)
-# get_website_user_home_page = "ethal.utils.get_home_page"
+# get_website_user_home_page = "tg_steel.utils.get_home_page"
 
 # Generators
 # ----------
@@ -54,14 +54,14 @@ app_license = "MIT"
 # Installation
 # ------------
 
-# before_install = "ethal.install.before_install"
-# after_install = "ethal.install.after_install"
+# before_install = "tg_steel.install.before_install"
+# after_install = "tg_steel.install.after_install"
 
 # Desk Notifications
 # ------------------
 # See frappe.core.notifications.get_notification_config
 
-# notification_config = "ethal.notifications.get_notification_config"
+# notification_config = "tg_steel.notifications.get_notification_config"
 
 # Permissions
 # -----------
@@ -92,39 +92,39 @@ app_license = "MIT"
 
 # scheduler_events = {
 # 	"all": [
-# 		"ethal.tasks.all"
+# 		"tg_steel.tasks.all"
 # 	],
 # 	"daily": [
-# 		"ethal.tasks.daily"
+# 		"tg_steel.tasks.daily"
 # 	],
 # 	"hourly": [
-# 		"ethal.tasks.hourly"
+# 		"tg_steel.tasks.hourly"
 # 	],
 # 	"weekly": [
-# 		"ethal.tasks.weekly"
+# 		"tg_steel.tasks.weekly"
 # 	]
 # 	"monthly": [
-# 		"ethal.tasks.monthly"
+# 		"tg_steel.tasks.monthly"
 # 	]
 # }
 
 # Testing
 # -------
 
-# before_tests = "ethal.install.before_tests"
+# before_tests = "tg_steel.install.before_tests"
 
 # Overriding Methods
 # ------------------------------
 #
 # override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "ethal.event.get_events"
+# 	"frappe.desk.doctype.event.event.get_events": "tg_steel.event.get_events"
 # }
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
 # along with any modifications made in other Frappe apps
 # override_doctype_dashboards = {
-# 	"Task": "ethal.task.get_dashboard_data"
+# 	"Task": "tg_steel.task.get_dashboard_data"
 # }
 
 fixtures = [
