@@ -26,4 +26,4 @@ def create_stock_entry(doc, method):
             'uom': row['uom']
         })
         stock_entry.insert(ignore_permissions=True)
-    stock_entry.docstatus = 1
+        stock_entry.docstatus = 1
