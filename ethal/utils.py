@@ -12,7 +12,7 @@ def before_save_asset_maintenance_log(doc, method):
 
 @frappe.whitelist()
 def create_stock_entry(doc, method):
-    get_part_used = frappe.get_all('Parts Used Item Table', filters = {'parent': doc.name}, fields=['*'])
+    get_part_used = frappe.get_all('Part Used Item Table', filters = {'parent': doc.name}, fields=['*'])
     print(get_part_used)
     stock_entry = frappe.new_doc('Stock Entry')
     stock_entry.stock_entry_type= 'Material Issue'
