@@ -90,6 +90,9 @@ doc_events = {
 	"Asset Maintenance Log": {
 		"after_insert": "ethal.utils.before_save_asset_maintenance_log",
 		"on_submit": "ethal.utils.create_stock_entry"
+	},
+	"Asset Repair": {
+		"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
 	}
 }
 

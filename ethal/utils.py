@@ -27,3 +27,21 @@ def create_stock_entry(doc, method):
         })
         stock_entry.insert(ignore_permissions=True)
         stock_entry.docstatus = 1
+
+@frappe.whitelist()
+def create_stock_entry_from_asset_repair(doc, method):
+    get_part_used = frappe.get_all('Part Used Item Table', filters = {'parent': doc.name}, fields=['*'])
+    print(get_part_used)
+    stock_entry = frappe.new_doc('Stock Entry')
+    stock_entry.stock_entry_type= 'Material Issue'
+    for row in get_part_used:
+        source_warehouse = frappe.db.get_all('Item Default', {'parent': row['item']}, ['default_warehouse'])
+        stock_entry.append('items', {
+            's_warehouse': source_warehouse[0].default_warehouse,
+            'item_code': row['item'],
+            'item_group': row['item_group'],
+            'qty': row['quantity'],
+            'uom': row['uom']
+        })
+    stock_entry.insert(ignore_permissions=True)
+    stock_entry.docstatus = 1
