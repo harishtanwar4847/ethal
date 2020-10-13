@@ -1,6 +1,7 @@
 import frappe
 from frappe.utils import getdate, nowdate, cint, flt
 import json
+from datetime import date
 
 @frappe.whitelist()
 def before_save_asset_maintenance_log(doc, method):  
@@ -45,3 +46,17 @@ def create_stock_entry_from_asset_repair(doc, method):
         })
     stock_entry.insert(ignore_permissions=True)
     stock_entry.docstatus = 1
+
+@frappe.whitelist()
+def before_submit_leave_allocation(doc, method):
+    print("hello")
+    doj = employee = frappe.db.get_value('Employee', doc.employee, 'date_of_joining')
+    today = date.today() 
+    total_experience = today.year - employee.year - ((today.month, today.day) < (employee.month, employee.day))
+    get_total_leaves = convert_year_to_leaves(total_experience)
+    frappe.db.set_value('Leave Allocation', doc.name, 'new_leaves_allocated', get_total_leaves)
+    frappe.db.set_value('Leave Allocation', doc.name, 'total_leaves_allocated', get_total_leaves)
+   
+def convert_year_to_leaves(year):
+    leaves = ((year-1)/2)+16 
+    return leaves

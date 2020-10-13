@@ -93,6 +93,9 @@ doc_events = {
 	},
 	"Asset Repair": {
 		"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
+	},
+	"Leave Allocation": {
+		"on_submit": "ethal.utils.before_submit_leave_allocation"
 	}
 }
 
