@@ -171,6 +171,16 @@ fixtures = [
 			]
 		]
 	},
+	{
+		"dt": "Report",
+		"filters": [
+			[
+				"name",
+				"in",
+				['Cash & Bank Balance']
+			]
+		]
+	},
 	"Translation",
 	"Custom Script"
 ]
