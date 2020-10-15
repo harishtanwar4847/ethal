@@ -2,6 +2,7 @@ import frappe
 from frappe.utils import getdate, nowdate, cint, flt
 import json
 from datetime import date
+import ast
 
 @frappe.whitelist()
 def before_save_asset_maintenance_log(doc, method):  
@@ -59,3 +60,9 @@ def before_submit_leave_allocation(doc, method):
 def convert_year_to_leaves(year):
     leaves = ((year-1)/2)+16 
     return leaves
+
+@frappe.whitelist()
+def set_items_from_stock_entry(name):
+    stock_entry_detail = frappe.get_all('Stock Entry Detail', filters={'parent': name}, fields=['*'])
+    for i in stock_entry_detail:
+        return i
