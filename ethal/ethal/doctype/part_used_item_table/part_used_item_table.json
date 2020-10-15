@@ -5,11 +5,18 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
+  "column_break_2",
+  "stock_entry",
+  "section_break_4",
   "item_name",
-  "dscription",
   "item_group",
+  "column_break_7",
   "uom",
-  "quantity"
+  "quantity",
+  "column_break_10",
+  "consumed_quantity",
+  "section_break_10",
+  "dscription"
  ],
  "fields": [
   {
@@ -24,12 +31,13 @@
    "fieldname": "item_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Item Name"
+   "label": "Item Name",
+   "read_only": 1
   },
   {
    "fetch_from": "item.description",
    "fieldname": "dscription",
-   "fieldtype": "Data",
+   "fieldtype": "Text Editor",
    "label": "Dscription"
   },
   {
@@ -38,25 +46,61 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item Group",
-   "options": "Item Group"
+   "options": "Item Group",
+   "read_only": 1
   },
   {
    "fetch_from": "item.stock_uom",
    "fieldname": "uom",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "UOM",
-   "options": "UOM"
+   "options": "UOM",
+   "read_only": 1
   },
   {
    "fieldname": "quantity",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Quantity"
+   "label": "Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stock_entry",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Stock Entry",
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "consumed_quantity",
+   "fieldtype": "Float",
+   "label": "Consumed Quantity",
+   "reqd": 1
   }
  ],
  "istable": 1,
- "modified": "2020-10-04 16:53:03.116156",
+ "modified": "2020-10-15 19:57:00.125115",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Part Used Item Table",
