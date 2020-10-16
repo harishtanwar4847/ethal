@@ -44,7 +44,6 @@
    "fetch_from": "item.item_group",
    "fieldname": "item_group",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Item Group",
    "options": "Item Group",
    "read_only": 1
@@ -95,12 +94,12 @@
   {
    "fieldname": "consumed_quantity",
    "fieldtype": "Float",
-   "label": "Consumed Quantity",
-   "reqd": 1
+   "in_list_view": 1,
+   "label": "Consumed Quantity"
   }
  ],
  "istable": 1,
- "modified": "2020-10-15 19:57:00.125115",
+ "modified": "2020-10-16 08:39:29.855384",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Part Used Item Table",
