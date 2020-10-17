@@ -1,6 +1,6 @@
-## Tg Steel
+## Ethal
 
-Tg Steel
+Ethal
 
 #### License
 

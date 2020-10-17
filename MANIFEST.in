@@ -4,15 +4,15 @@ include *.json
 include *.md
 include *.py
 include *.txt
-recursive-include tg_steel *.css
-recursive-include tg_steel *.csv
-recursive-include tg_steel *.html
-recursive-include tg_steel *.ico
-recursive-include tg_steel *.js
-recursive-include tg_steel *.json
-recursive-include tg_steel *.md
-recursive-include tg_steel *.png
-recursive-include tg_steel *.py
-recursive-include tg_steel *.svg
-recursive-include tg_steel *.txt
-recursive-exclude tg_steel *.pyc
+recursive-include ethal *.css
+recursive-include ethal *.csv
+recursive-include ethal *.html
+recursive-include ethal *.ico
+recursive-include ethal *.js
+recursive-include ethal *.json
+recursive-include ethal *.md
+recursive-include ethal *.png
+recursive-include ethal *.py
+recursive-include ethal *.svg
+recursive-include ethal *.txt
+recursive-exclude ethal *.pyc
