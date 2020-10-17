@@ -86,6 +86,19 @@ app_license = "MIT"
 # 		"on_trash": "method"
 #	}
 # }
+doc_events = {
+	"Asset Maintenance Log": {
+		"after_insert": "ethal.utils.before_save_asset_maintenance_log",
+		"on_submit": "ethal.utils.create_stock_entry"
+	},
+	"Asset Repair": {
+		"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
+	},
+	"Leave Allocation": {
+		"on_submit": "ethal.utils.before_submit_leave_allocation"
+	}
+}
+
 
 # Scheduled Tasks
 # ---------------
@@ -134,7 +147,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Item", "Payment Entry", "Delivery Note", "Sales Invoice", "Purchase Invoice","Purchase Receipt"]
+				["Supplier", "Customer", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Delivery Note", "Sales Invoice", "Sales Order", "Purchase Invoice", "Purchase Order", "Purchase Receipt", "Asset Repair", "Payment Entry", "Material Request", "Quotation Item", "Tax Category", "Address", "Print Settings", "Project", "Deleted Document", "Task", "Asset Maintenance Log", "Asset Maintenance Task"]
 			]
 		]
 	},
@@ -145,6 +158,26 @@ fixtures = [
 				"doc_type",
 				"in",
 				["Purchase Receipt"]
+			]
+		]
+	},
+	{
+		"dt": "DocType",
+		"filters": [
+			[
+				"name",
+				"in",
+				["Parts Used Item Table"]
+			]
+		]
+	},
+	{
+		"dt": "Report",
+		"filters": [
+			[
+				"name",
+				"in",
+				['Cash & Bank Balance']
 			]
 		]
 	},
