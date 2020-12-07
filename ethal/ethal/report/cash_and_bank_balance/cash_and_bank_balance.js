@@ -3,7 +3,7 @@
 // License: GNU General Public License v3. See license.txt
 
 frappe.require("assets/erpnext/js/financial_statements.js", function() {
-	frappe.query_reports["Cash & Bank Balance"] = {
+	frappe.query_reports["Cash and Bank Balance"] = {
 		"filters": [
 			{
 				"fieldname": "company",
