@@ -36,7 +36,7 @@ def des_industries():
 	return calculate_amount_of_accounts_of_advance('Des Industry', indent=2)
 
 def tg_steels():
-	return calculate_amount_of_accounts_of_debit('TG Steel', '116' , indent=2)
+	return calculate_amount_of_accounts_of_debit('TG Steel', '11601' , indent=2)
 
 def customer_advances():
 	return calculate_amount_of_accounts_of_debit('Customer Advances', '11200-01' ,indent=2)	
@@ -45,14 +45,7 @@ def deposits():
 	return {'Account': 'Deposits', 'Amount': '', 'indent': 2}
 
 def contribution_to_tg_steel():
-	accounts_des_general = get_monthly_gl_debit_no_opening_with_advances('Des General ')
-	accounts_des_general_sum = sum(accounts_des_general)
-	accounts_des_industries = get_monthly_gl_debit_no_opening_with_advances('Des Industry')
-	accounts_des_industries_sum = sum(accounts_des_industries)
-	
-	contribution_value = accounts_des_general_sum - accounts_des_industries_sum
-
-	return {'Account': 'Contribution to TG steel', 'Amount': contribution_value, 'indent': 2}
+	return calculate_amount_of_accounts_of_debit('Contribution to TG steel', '11601' , indent=2)
 
 def assets_total(asset_total):
 	return {'Account': 'Asset Total', 'Amount': asset_total, 'indent': 1}
@@ -67,7 +60,7 @@ def enat_bank_mercentile_loan():
 	return calculate_amount_of_accounts_of_creadit('ENAT Bank - Mercentile Loan', '21200-02', indent=2)
 
 def enat_bank_od_acc():
-	return calculate_amount_of_accounts_of_debit('ENAT Bank - OD A/c', '11120-19', indent=2)
+	return calculate_amount_of_accounts_of_creadit('ENAT Bank - OD A/c', '11120-19', indent=2)
 
 def enat_bank_term_loan_acc():
 	return calculate_amount_of_accounts_of_creadit('ENAT Bank - Term Loan A/c', '22100-01', indent=2)
@@ -168,13 +161,11 @@ def calculate_amount_of_accounts_of_creadit(account, account_number ,indent):
 
 def calculate_amount_of_accounts_of_advance(account, indent):
 	accounts = get_monthly_gl_debit_no_opening_with_advances(account)
-	print(accounts)
 	accounts_sum = sum(accounts)
 	return {'Account': account, 'Amount': accounts_sum, 'indent': indent}	
 
 def get_monthly_gl_debit(account):
 	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	print(a)
 	lst=[]
 	for i in a:
 		lst.append(i[0])
@@ -189,7 +180,6 @@ def get_monthly_gl_debit(account):
 
 
 	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	print(b)
 	lst_1=[]
 	for i in b:
 		lst_1.append(i[0])
@@ -270,6 +260,37 @@ def get_monthly_gl_debit_no_opening_with_advances(account):
 
 	# print("get_monthly_gl_debit ======> ",res_a)
 
+	return res_a
+
+def get_monthly_gl_debit_no_opening(account):
+	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2019 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	lst=[]
+	for i in a:
+		lst.append(i[0])
+	
+	for j in range(1,13):
+		if j not in lst:
+			a.append([j,0])
+	a.sort()
+	lst_a= []
+	for i in a:
+		lst_a.append(i[1])
+
+	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	lst_1=[]
+	for i in b:
+		lst_1.append(i[0])
+	
+	for j in range(1,13):
+		if j not in lst_1:
+			b.append([j,0])
+	b.sort()
+	lst_b= []
+	for i in b:
+		lst_b.append(i[1])
+
+	res_a = [a-b for a,b in zip(lst_a,lst_b)]
+	 
 	fin = res_a
 	# print("opening and total added is =====> ", fin)
 
@@ -279,7 +300,6 @@ def get_monthly_gl_debit_no_opening_with_advances(account):
 		fin_abs.append(abs_val)
 
 	return fin_abs
-
 
 def get_data():
 	data_list = []
@@ -309,7 +329,7 @@ def get_data():
 	data_list.append(debtors)
 
 	des_genrl = des_general()
-	asset_total += fixed_asset['Amount']
+	asset_total += des_genrl['Amount']
 	data_list.append(des_genrl)
 
 	des_indus = des_industries()
@@ -317,12 +337,17 @@ def get_data():
 	data_list.append(des_indus)
 
 	tg_steel = tg_steels()
-	asset_total += tg_steel['Amount']
-	data_list.append(tg_steel)
+	tg_steel_closing = get_monthly_gl_debit_no_opening('11601')
+	tg_steel_opening_closing = tg_steel['Amount'] - sum(tg_steel_closing)
+	tg_steel_total = {'Account': 'TG Steel', 'Amount': tg_steel_opening_closing, 'indent': 2}
+	asset_total += tg_steel_opening_closing
+	data_list.append(tg_steel_total)
 
 	customer_advnce = customer_advances()
 	asset_total += customer_advnce['Amount']
-	data_list.append(customer_advnce)
+	total = customer_advnce['Amount'] - des_genrl['Amount'] - des_indus['Amount']
+	customer_advnce_total = {'Account': 'Customer Advances', 'Amount': total, 'indent': 2}
+	data_list.append(customer_advnce_total)
 
 	deposit = deposits()
 	data_list.append(deposit)
