@@ -8,7 +8,27 @@ from ethal.ethal.report.liquidity_ratios.liquidity_ratios import get_monthly_gl_
 def execute(filters=None):
 	columns, data = [], []
 	data = get_data()
-	columns = ["Month::180"]+["Debts to Assets::180"]+["Debts to Equity::180"]
+	# columns = ["Month::180"]+["Debts to Assets::180"]+["Debts to Equity::180"]
+	columns = [
+		{
+			"label": "Month",
+			"fieldname": "month",
+			"fieldtype": "Data",
+			"width": 150
+		},
+		{
+			"label": "Debts to Assets",
+			"fieldname": "debts_to_assets",
+			"fieldtype": "Data",
+			"width": 150
+		},
+		{
+			"label": "Debts to Equity",
+			"fieldname": "debts_to_enquiry",
+			"fieldtype": "Data",
+			"width": 150
+		}
+	]
 	return columns, data
 
 def get_data():
@@ -19,7 +39,11 @@ def get_data():
 		print("lst_20000 ====> ", lst_20000)
 
 		final = [(b / m)*100 if m != 0 and b!=0 else 0 for b,m in zip(lst_20000,lst_10000)]
-		return final
+		per_final_result = []
+		for i in final:
+			print(i)
+			per_final_result.append('{:.2f}%'.format(i))
+		return per_final_result
 	
 	def debts_to_equity():
 		lst_20000 = get_monthly_gl_credit_20000("2")
@@ -30,8 +54,11 @@ def get_data():
 
 		deno = [(a+(b-c-d)) for a,b,c,d in zip(lst_30000,lst_40000,lst_50000,lst_60000)]
 		final = [(a/b)*100 if a!= 0 and b!=0 else 0 for a,b in zip(lst_20000,deno)]
-		return final
-
+		per_final_result = []
+		for i in final:
+			print(i)
+			per_final_result.append('{:.2f}%'.format(i))
+		return per_final_result
 
 	
 
