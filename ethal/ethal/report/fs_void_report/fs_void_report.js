@@ -4,6 +4,16 @@
 
 frappe.query_reports["FS Void Report"] = {
 	"filters": [
+		{
+			"label": "From No",
+			"fieldtype": 'Int',
+			"fieldname": "from_no"
+		},
+		{
+			"label": "To No",
+			"fieldtype": "Int",
+			"fieldname": 'to_no'
+		}
 
 	]
 };
