@@ -6,6 +6,10 @@ import frappe
 from frappe.utils import getdate
 from frappe import _
 
+class Percent(int):
+    def __str__(self):
+        return '{:.2%}'.format(self)
+
 def execute(filters=None):
 	if not filters: filters ={}
 	data = []
@@ -135,20 +139,22 @@ def get_data(filters, conditions):
 				(query_details, conditions["trans"], conditions["trans"], conditions["addl_tables"],
 					"%s", posting_date, "%s", "%s", cond, conditions.get("addl_tables_relational_cond", ""), conditions["group_by"]),
 				(filters.get("company"), year_start_date, year_end_date), as_list=1)
+
+			
 	if filters.get("period") == 'Yearly':
 		year = 0
 		for i in data:
 			year += i[3]	
 		for j in data:
-			j[4] = (j[3]/year)*100
+			j[4] = '{:.2f}%'.format((j[3]/year)*100)
 	elif filters.get("period") == 'Half-Yearly':
 		jan_jun, jul_dec = 0, 0
 		for i in data:
 			jan_jun += i[3]	if i[3] != None else 0
 			jul_dec += i[6]	if i[6] != None else 0	
 		for j in data:
-			j[4] = (j[3]/jan_jun)*100 if j[3] != None else 0
-			j[7] = (j[6]/jul_dec)*100 if j[6] != None else 0 		
+			j[4] = '{:.2f}%'.format((j[3]/jan_jun)*100) if j[3] != None else 0
+			j[7] = '{:.2f}%'.format((j[6]/jul_dec)*100) if j[6] != None else 0 		
 	elif filters.get("period") == 'Quarterly':
 		jan_mar, apr_jun, jul_sep, oct_dec = 0, 0, 0, 0
 		for i in data:
@@ -157,10 +163,10 @@ def get_data(filters, conditions):
 			jul_sep += i[9] if i[9] != None else 0 		
 			oct_dec += i[12] if i[12] != None else 0
 		for j in data:
-			j[4] = (j[3]/jan_mar)*100  if j[3] != None else 0
-			j[7] = (j[6]/apr_jun)*100 if j[6] != None else 0
-			j[10] = (j[9]/jul_sep)*100 if j[9] != None else 0
-			j[13] = (j[12]/oct_dec)*100 if j[12] != None else 0	
+			j[4] =  '{:.2f}%'.format((j[3]/jan_mar)*100) if j[3] != None else 0
+			j[7] =  '{:.2f}%'.format((j[6]/apr_jun)*100)  if j[6] != None else 0
+			j[10] =  '{:.2f}%'.format((j[9]/jul_sep)*100) if j[9] != None else 0
+			j[13] =  '{:.2f}%'.format((j[12]/oct_dec)*100) if j[12] != None else 0	
 	elif filters.get("period") == 'Monthly':		
 		jan , feb , mar, apr, may, jun, july, aug, sep, oct, nov, dec = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0
 		for i in data:
@@ -177,18 +183,18 @@ def get_data(filters, conditions):
 			nov += i[33] if i[33] != None else 0
 			dec += i[36] if i[36] != None else 0
 		for j in data:
-			j[4] = (j[3]/jan)*100  if j[3] != None else 0
-			j[7] = (j[6]/feb)*100 if j[6] != None else 0
-			j[10] = (j[9]/mar)*100 if j[9] != None else 0
-			j[13] = (j[12]/apr)*100 if j[12] != None else 0
-			j[16] = (j[15]/may)*100 if j[15] != None else 0
-			j[19] = (j[18]/jun)*100 if j[18] != None else 0
-			j[22] = (j[21]/july)*100 if j[21] != None else 0
-			j[25] = (j[24]/aug)*100 if j[24] != None else 0
-			j[28] = (j[27]/sep)*100 if j[27] != None else 0
-			j[31] = (j[30]/oct)*100 if j[30] != None else 0
-			j[34] = (j[33]/nov)*100 if j[33] != None else 0
-			j[37] = (j[36]/dec)*100 if j[36] != None else 0
+			j[4] = '{:.2f}%'.format((j[3]/jan)*100 ) if j[3] != None else 0
+			j[7] = '{:.2f}%'.format((j[6]/feb)*100) if j[6] != None else 0
+			j[10] = '{:.2f}%'.format((j[9]/mar)*100) if j[9] != None else 0
+			j[13] = '{:.2f}%'.format((j[12]/apr)*100) if j[12] != None else 0
+			j[16] = '{:.2f}%'.format((j[15]/may)*100) if j[15] != None else 0
+			j[19] = '{:.2f}%'.format((j[18]/jun)*100) if j[18] != None else 0
+			j[22] = '{:.2f}%'.format( (j[21]/july)*100) if j[21] != None else 0
+			j[25] = '{:.2f}%'.format( (j[24]/aug)*100) if j[24] != None else 0
+			j[28] = '{:.2f}%'.format( (j[27]/sep)*100) if j[27] != None else 0
+			j[31] = '{:.2f}%'.format((j[30]/oct)*100) if j[30] != None else 0
+			j[34] = '{:.2f}%'.format((j[33]/nov)*100) if j[33] != None else 0
+			j[37] = '{:.2f}%'.format((j[36]/dec)*100) if j[36] != None else 0
 
 	return data
 
@@ -214,7 +220,7 @@ def period_wise_columns_query(filters, trans):
 	else:
 		pwc = [_(filters.get("fiscal_year")) + " ("+_("Qty") + "):Float:120",
 			_(filters.get("fiscal_year")) + " ("+ _("Amt") + "):Currency:120",
-			_(filters.get("fiscal_year")) + " ("+ _("Per") + "):Float:120",]
+			_(filters.get("fiscal_year")) + " ("+ _("Per") + "):Data:120",]
 		query_details = " SUM(t2.stock_qty), SUM(t2.base_net_amount), NULL,"
 
 	query_details += 'SUM(t2.stock_qty), SUM(t2.base_net_amount), NULL'
@@ -224,11 +230,11 @@ def get_period_wise_columns(bet_dates, period, pwc):
 	if period == 'Monthly':
 		pwc += [_(get_mon(bet_dates[0])) + " (" + _("Qty") + "):Float:120",
 			_(get_mon(bet_dates[0])) + " (" + _("Amt") + "):Currency:120",
-			_(get_mon(bet_dates[0])) + " (" + _("Per") + "):Float:120"]
+			_(get_mon(bet_dates[0])) + " (" + _("Per") + "):Data:120"]
 	else:
 		pwc += [_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Qty") + "):Float:120",
 			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Amt") + "):Currency:120",
-			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Per") + "):Float:120"]
+			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Per") + "):Data:120"]
 
 def get_period_wise_query(bet_dates, trans_date, query_details):
 	query_details += """SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.stock_qty, NULL)),

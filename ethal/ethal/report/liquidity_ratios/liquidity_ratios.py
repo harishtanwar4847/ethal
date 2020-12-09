@@ -7,7 +7,7 @@ import frappe
 def execute(filters=None):
 	columns, data = [], []
 	data = get_data()
-	columns = ["Month::180"]+["Current/working Capital::180"]+["Total Current Asset::180"]+["Total Current Liability::180"]+["Quick(Acid)::180"]
+	columns = ["Month::180"]+["Current/working Capital::180"]+["Quick(Acid)::180"]
 	return columns, data
 
 def get_data():
@@ -42,8 +42,8 @@ def get_data():
 	quick = [b / m if m != 0 and b!=0 else 0 for b,m in zip(tca, tcl)]
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	res = []
-	for (i,j,k,l,m) in zip(month,cwc,tca,tcl,quick):
-		res.append([i,j,k,l,m])
+	for (i,j,m) in zip(month,cwc,quick):
+		res.append([i,j,m])
 	
 	print("res ======> ",res)
 
