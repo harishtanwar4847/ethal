@@ -229,9 +229,9 @@ def before_submit_stock_entry(doc, method):
 
 def on_update_employee(doc, method):
     get_salary_structure_ass = frappe.get_all('Salary Structure Assignment', filters={'employee': doc.employee, 'docstatus': 1})
-    print('ja na be')
     if get_salary_structure_ass:
-        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_structure', doc.grade)
+        grade = frappe.db.get_value('Employee Grade', doc.grade, 'default_salary_structure')
+        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_structure', grade)
         employee_grade = frappe.db.get_value('Employee Grade', doc.grade, 'base_amount')
         frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'base', employee_grade)
         frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_in_usd', employee_grade)
