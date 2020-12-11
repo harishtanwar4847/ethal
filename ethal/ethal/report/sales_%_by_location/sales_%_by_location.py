@@ -28,15 +28,15 @@ def execute(filters=None):
 			"width": 150
 		},
 		{
-			"label": "DB sales",
+			"label": "DB sales Amount",
 			"fieldname": "db_sales",
-			"fieldtype": "Data",
+			"fieldtype": "Currency",
 			"width": 150
 		},
 		{
-			"label": "TU sales",
+			"label": "TU sales Amount",
 			"fieldname": "tu_sales",
-			"fieldtype": "Data",
+			"fieldtype": "Currency",
 			"width": 150
 		}
 	]
