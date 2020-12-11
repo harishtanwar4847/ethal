@@ -193,7 +193,6 @@ def get_monthly_gl_debit(account):
 		lst_b.append(i[1])
 
 	res_a = [a-b for a,b in zip(lst_a,lst_b)]
-	print(res_a)
 	
 	return res_a
 
@@ -312,51 +311,53 @@ def get_data():
 	fixed_asset = fixed_assets_gross_block()
 	asset_total += fixed_asset['Amount']
 	data_list.append(fixed_asset)
-
+	
 	stock_value = stock_value_market_price()
 	asset_total += stock_value['Amount']
 	data_list.append(stock_value)
-
+	
 	cash_bank = cash_and_bank_account()
 	asset_total += cash_bank['Amount']
 	data_list.append(cash_bank)
-
+	
 	advance = advances()
 	data_list.append(advance)
-
+	
 	debtors = debtors_customer_advances()
 	asset_total += debtors['Amount']
 	data_list.append(debtors)
-
+	
 	des_genrl = des_general()
 	asset_total += des_genrl['Amount']
 	data_list.append(des_genrl)
-
+	
 	des_indus = des_industries()
 	asset_total += des_indus['Amount']
 	data_list.append(des_indus)
-
+	
 	tg_steel = tg_steels()
 	tg_steel_closing = get_monthly_gl_debit_no_opening('11601')
 	tg_steel_opening_closing = tg_steel['Amount'] - sum(tg_steel_closing)
 	tg_steel_total = {'Account': 'TG Steel', 'Amount': tg_steel_opening_closing, 'indent': 2}
 	asset_total += tg_steel_opening_closing
 	data_list.append(tg_steel_total)
-
+	
 	customer_advnce = customer_advances()
-	asset_total += customer_advnce['Amount']
+	
 	total = customer_advnce['Amount'] - des_genrl['Amount'] - des_indus['Amount']
 	customer_advnce_total = {'Account': 'Customer Advances', 'Amount': total, 'indent': 2}
+	asset_total += total
 	data_list.append(customer_advnce_total)
-
+	print(asset_total)
 	deposit = deposits()
 	data_list.append(deposit)
 
 	contribution_tg = contribution_to_tg_steel()
 	asset_total += contribution_tg['Amount']
 	data_list.append(contribution_tg)
-
+	
 	asset_total_return = assets_total(asset_total)
+	
 	data_list.append(asset_total_return)
 
 	liability = liabilities()
