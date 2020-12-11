@@ -89,14 +89,14 @@ def shift_rotate():
     if male_employee:
         male_employee_store_in_list = [i[0] for i in male_employee]
         male_employee_convert_tuple = tuple(male_employee_store_in_list)
-       frappe.db.sql("""
-                        Update `tabEmployee`
-                        SET default_shift = CASE 
-                        WHEN default_shift='A' THEN 'B' 
-                        WHEN default_shift='B' THEN 'C' 
-                        WHEN default_shift='C' THEN 'A' 
-                        ELSE default_shift END where employee in {}; 
-                        """.format(male_employee_convert_tuple))
+        frappe.db.sql("""
+                       Update `tabEmployee`
+                       SET default_shift = CASE 
+                       WHEN default_shift='A' THEN 'B' 
+                       WHEN default_shift='B' THEN 'C' 
+                       WHEN default_shift='C' THEN 'A' 
+                       ELSE default_shift END where employee in {}; 
+                    """.format(male_employee_convert_tuple))
         frappe.db.commit()
 
 @frappe.whitelist()
@@ -273,5 +273,5 @@ def set_conversion_rate(employee):
     employee_list = frappe.db.get_all('Payroll Employee Detail', {'employee': employee}, ['parent'], order_by='creation desc', limit=1, as_list=1)
     if employee_list:
         get_conversion_rate = frappe.db.get_value('Payroll Entry', employee_list[0][0], 'conversion_rate')
-    return get_conversion_rate
+        return get_conversion_rate
         
