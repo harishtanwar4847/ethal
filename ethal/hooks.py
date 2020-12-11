@@ -98,7 +98,7 @@ doc_events = {
 		"on_submit": "ethal.utils.before_submit_leave_allocation"
 	},
 	"Salary Slip": {
-		"before_insert": "ethal.utils.calculate_overtime_in_salary_slip"
+		"before_insert": "ethal.ethal.employee_checkin.calculate_overtime_in_salary_slip"
 	},
 	"Salary Structure Assignment": {
 		"on_submit": "ethal.utils.before_insert_salary_structure_assignment"
