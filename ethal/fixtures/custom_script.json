@@ -135,12 +135,12 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Salary Structure Assignment",
-  "modified": "2020-12-11 13:49:05.594585",
+  "modified": "2020-12-11 17:27:38.836277",
   "name": "Salary Structure Assignment-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "frappe.ui.form.on('Salary Structure Assignment', {\n\trefresh(frm) {\n\t\t// your code here\n\t},\n\temployee(frm){\n\t  frappe.db.get_value('Employee', frm.doc.employee, 'grade')\n        .then(r => {\n        console.log(r.message.grade)\n        if (r.message.grade){\n            console.log('hello')\n            frappe.db.get_value('Employee Grade', r.message.grade, 'base_amount')\n            .then(r => {\n                console.log(r.message.base_amount)\n                // frappe.db.set_value('Task', 'TASK00004', 'status', 'Open')\n                // frm.doc.base = r.message.base_amount\n                frm.set_value('base', r.message.base_amount)\n    })\n\n        }\n    })\n  \n\t},\n\tbase(frm){\n        frm.set_value('salary_in_usd', frm.doc.base)\n        frappe.call({\n            \"method\": \"ethal.utils.set_conversion_rate\",\n            \"args\": {\n                employee: frm.doc.employee\n            }\n        })\n        .success(success => {\n            console.log(success)\n            frm.set_value('salary_in_birr', success.message*frm.doc.base)\n        })\n\t}\n})"
+  "script": "frappe.ui.form.on('Salary Structure Assignment', {\n\trefresh(frm) {\n\t\t// your code here\n\t},\n\temployee(frm){\n\t  frappe.db.get_value('Employee', frm.doc.employee, 'grade')\n        .then(r => {\n        console.log(r.message.grade)\n        if (r.message.grade){\n            console.log('hello')\n            frappe.db.get_value('Employee Grade', r.message.grade, 'base_amount')\n            .then(r => {\n                console.log(r.message.base_amount)\n                // frappe.db.set_value('Task', 'TASK00004', 'status', 'Open')\n                // frm.doc.base = r.message.base_amount\n                frm.set_value('base', r.message.base_amount)\n               \n    })\n\n        }\n    })\n  \n\t},\n\tbase(frm){\n        frm.set_value('salary_in_usd', frm.doc.base)\n        frappe.call({\n            \"method\": \"ethal.utils.set_conversion_rate\",\n            \"args\": {\n                employee: frm.doc.employee\n            }\n        })\n        .success(success => {\n            console.log(success)\n            frm.set_value('salary_in_birr', success.message*frm.doc.base)\n        })\n\t}\n})"
  },
  {
   "docstatus": 0,
