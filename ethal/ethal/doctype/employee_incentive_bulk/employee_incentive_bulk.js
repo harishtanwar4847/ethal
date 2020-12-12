@@ -2,6 +2,15 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Employee Incentive Bulk', {
+	setup: function(frm) {
+	frm.set_query("salary_component", function() {
+		return {
+			filters: {
+				"type": "Earning"
+			}
+		};
+	})
+	},
 	refresh: function(frm) {
 		if (frm.doc.docstatus == 0) {
 			if(!frm.is_new()) {
