@@ -1,0 +1,115 @@
+{
+ "creation": "2020-12-01 14:09:43.114648",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date_of_request",
+  "date_of_requirement",
+  "payee_name",
+  "payment_reason",
+  "description_of_requirement",
+  "payment_type",
+  "payment_mode",
+  "amount",
+  "bank",
+  "references_section",
+  "prf_no",
+  "grn_no",
+  "supporting_documents"
+ ],
+ "fields": [
+  {
+   "fieldname": "date_of_request",
+   "fieldtype": "Date",
+   "label": "Date of Request"
+  },
+  {
+   "fieldname": "date_of_requirement",
+   "fieldtype": "Date",
+   "label": "Date of Requirement"
+  },
+  {
+   "fieldname": "payee_name",
+   "fieldtype": "Data",
+   "label": "Payee Name"
+  },
+  {
+   "fieldname": "payment_reason",
+   "fieldtype": "Text Editor",
+   "label": "Payment Reason"
+  },
+  {
+   "fieldname": "description_of_requirement",
+   "fieldtype": "Heading",
+   "label": "Description of Requirement"
+  },
+  {
+   "fieldname": "payment_type",
+   "fieldtype": "Select",
+   "label": "Payment Type",
+   "options": "\nAdvance\nPartial\nFinal"
+  },
+  {
+   "fieldname": "payment_mode",
+   "fieldtype": "Select",
+   "label": "Payment Mode",
+   "options": "\nCheque\nPetty Cash\nCash\nCPO\nTransfer Form\nLetter\nOther"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Data",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "bank",
+   "fieldtype": "Select",
+   "label": "Bank",
+   "options": "\nCBE\nZemen\nUnited\nCBO\nDebub\nLion\nAwash\nDashen\nEnat"
+  },
+  {
+   "fieldname": "references_section",
+   "fieldtype": "Section Break",
+   "label": "REFERENCES"
+  },
+  {
+   "fieldname": "prf_no",
+   "fieldtype": "Link",
+   "label": "PRF NO",
+   "options": "Material Request"
+  },
+  {
+   "fieldname": "grn_no",
+   "fieldtype": "Link",
+   "label": "GRN NO",
+   "options": "Purchase Receipt"
+  },
+  {
+   "fieldname": "supporting_documents",
+   "fieldtype": "Small Text",
+   "label": "Supporting Documents"
+  }
+ ],
+ "modified": "2020-12-12 17:49:59.814128",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Payment Request and Authorization",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
