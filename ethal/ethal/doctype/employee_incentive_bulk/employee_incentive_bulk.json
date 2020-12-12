@@ -9,7 +9,6 @@
   "payroll_date",
   "salary_component",
   "column_break_5",
-  "employee_name",
   "additional_salary",
   "amended_from",
   "section_break_9",
@@ -25,18 +24,24 @@
   {
    "fieldname": "incentive_amount",
    "fieldtype": "Currency",
-   "label": "Incentive Amount"
+   "in_list_view": 1,
+   "label": "Incentive Amount",
+   "reqd": 1
   },
   {
    "fieldname": "payroll_date",
    "fieldtype": "Date",
-   "label": "Payroll Date"
+   "in_list_view": 1,
+   "label": "Payroll Date",
+   "reqd": 1
   },
   {
    "fieldname": "salary_component",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Salary Component",
-   "options": "Salary Component"
+   "options": "Salary Component",
+   "reqd": 1
   },
   {
    "fieldname": "amended_from",
@@ -50,13 +55,6 @@
   {
    "fieldname": "column_break_5",
    "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "employee.employee_name",
-   "fieldname": "employee_name",
-   "fieldtype": "Data",
-   "label": "Employee Name",
-   "read_only": 1
   },
   {
    "fieldname": "department",
@@ -118,7 +116,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2020-12-12 14:08:20.963146",
+ "modified": "2020-12-12 21:18:48.550639",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Employee Incentive Bulk",
@@ -162,6 +160,5 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "title_field": "employee_name",
  "track_changes": 1
 }

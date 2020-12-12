@@ -9,48 +9,47 @@ from frappe import _
 
 class EmployeeIncentiveBulk(Document):
 	def on_submit(self):
-		company = frappe.db.get_value('Employee', self.employee, 'company')
-		additional_salary = frappe.db.exists('Additional Salary', {
-				'employee': self.employee, 
-				'salary_component': self.salary_component,
-				'payroll_date': self.payroll_date, 
-				'company': company,
-				'docstatus': 1
-			})
+		employees = frappe.db.get_all('Payroll Employee Detail', {'parent': self.name}, ['employee'], as_list = 1)
+		print(employees)
+		if employees:
+			for employee in employees:
+				print(employee[0])
+				company = frappe.db.get_value('Employee', employee[0], 'company')
+				additional_salary = frappe.db.exists('Additional Salary', {
+						'employee': employee[0], 
+						'salary_component': self.salary_component,
+						'payroll_date': self.payroll_date, 
+						'company': company,
+						'docstatus': 1
+					})
 
-		if not additional_salary:
-			additional_salary = frappe.new_doc('Additional Salary')
-			additional_salary.employee = self.employee
-			additional_salary.salary_component = self.salary_component
-			additional_salary.amount = self.incentive_amount
-			additional_salary.payroll_date = self.payroll_date
-			additional_salary.company = company
-			additional_salary.submit()
-			self.db_set('additional_salary', additional_salary.name)
+				if not additional_salary:
+					additional_salary = frappe.new_doc('Additional Salary')
+					additional_salary.employee = employee[0]
+					additional_salary.salary_component = self.salary_component
+					additional_salary.amount = self.incentive_amount
+					additional_salary.payroll_date = self.payroll_date
+					additional_salary.company = company
+					additional_salary.submit()
+					# self.db_set('additional_salary', additional_salary.name)
 
-		else:
-			incentive_added = frappe.db.get_value('Additional Salary', additional_salary, 'amount') + self.incentive_amount
-			frappe.db.set_value('Additional Salary', additional_salary, 'amount', incentive_added)
-			self.db_set('additional_salary', additional_salary)
+				else:
+					incentive_added = frappe.db.get_value('Additional Salary', additional_salary, 'amount') + self.incentive_amount
+					frappe.db.set_value('Additional Salary', additional_salary, 'amount', incentive_added)
+					# self.db_set('additional_salary', additional_salary)
 
 	def on_cancel(self):
-		if self.additional_salary:
-			incentive_removed = frappe.db.get_value('Additional Salary', self.additional_salary, 'amount') - self.incentive_amount
-			if incentive_removed == 0:
-				frappe.get_doc('Additional Salary', self.additional_salary).cancel()
-			else:
-				frappe.db.set_value('Additional Salary', self.additional_salary, 'amount', incentive_removed)
-
-			self.db_set('additional_salary', '')
-
-	def onload(self):
-		if not self.docstatus==1 or self.salary_slips_submitted:
-    			return
-
-		# check if salary slips were manually submitted
-		entries = frappe.db.count("Salary Slip", {'payroll_entry': self.name, 'docstatus': 1}, ['name'])
-		if cint(entries) == len(self.employee_details):
-    			self.set_onload("submitted_ss", True)
+		incentives = frappe.db.get_all('Additional Salary', {'amount': self.incentive_amount}, ['name'], as_list=1)
+		print(incentives)
+		if incentives:
+			for i in incentives:
+				incentive_removed = frappe.db.get_value('Additional Salary', i[0], 'amount') - self.incentive_amount
+				if incentive_removed == 0:
+					frappe.get_doc('Additional Salary', i[0]).cancel()
+					frappe.db.commit()
+				else:
+					frappe.db.set_value('Additional Salary', i[0], 'amount', incentive_removed)
+					frappe.db.commit()
 
 	def get_emp_list(self):
 		"""
