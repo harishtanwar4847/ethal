@@ -8,6 +8,41 @@ from frappe.model.document import Document
 from frappe import _
 
 class EmployeeIncentiveBulk(Document):
+	def on_submit(self):
+		company = frappe.db.get_value('Employee', self.employee, 'company')
+		additional_salary = frappe.db.exists('Additional Salary', {
+				'employee': self.employee, 
+				'salary_component': self.salary_component,
+				'payroll_date': self.payroll_date, 
+				'company': company,
+				'docstatus': 1
+			})
+
+		if not additional_salary:
+			additional_salary = frappe.new_doc('Additional Salary')
+			additional_salary.employee = self.employee
+			additional_salary.salary_component = self.salary_component
+			additional_salary.amount = self.incentive_amount
+			additional_salary.payroll_date = self.payroll_date
+			additional_salary.company = company
+			additional_salary.submit()
+			self.db_set('additional_salary', additional_salary.name)
+
+		else:
+			incentive_added = frappe.db.get_value('Additional Salary', additional_salary, 'amount') + self.incentive_amount
+			frappe.db.set_value('Additional Salary', additional_salary, 'amount', incentive_added)
+			self.db_set('additional_salary', additional_salary)
+
+	def on_cancel(self):
+		if self.additional_salary:
+			incentive_removed = frappe.db.get_value('Additional Salary', self.additional_salary, 'amount') - self.incentive_amount
+			if incentive_removed == 0:
+				frappe.get_doc('Additional Salary', self.additional_salary).cancel()
+			else:
+				frappe.db.set_value('Additional Salary', self.additional_salary, 'amount', incentive_removed)
+
+			self.db_set('additional_salary', '')
+
 	def onload(self):
 		if not self.docstatus==1 or self.salary_slips_submitted:
     			return
@@ -17,18 +52,6 @@ class EmployeeIncentiveBulk(Document):
 		if cint(entries) == len(self.employee_details):
     			self.set_onload("submitted_ss", True)
 
-	def on_submit(self):
-		self.create_salary_slips()
-
-	def before_submit(self):
-		if self.validate_attendance:
-			if self.validate_employee_attendance():
-				frappe.throw(_("Cannot Submit, Employees left to mark attendance"))
-
-	def on_cancel(self):
-		frappe.delete_doc("Salary Slip", frappe.db.sql_list("""select name from `tabSalary Slip`
-			where payroll_entry=%s """, (self.name)))
-
 	def get_emp_list(self):
 		"""
 			Returns list of active employees based on selected criteria
@@ -37,16 +60,23 @@ class EmployeeIncentiveBulk(Document):
 
 		cond = self.get_filter_condition()
 		# cond += self.get_joining_relieving_condition()
-
-		emp_list = frappe.db.sql("""
-			select
-				distinct t1.name as employee, t1.employee_name, t1.department, t1.designation
-			from
-				`tabEmployee` t1
-			where %s
-		""" % cond,  as_dict=True)
-		print(emp_list)
-		# frappe.throw('ja na be')
+		if cond:
+			emp_list = frappe.db.sql("""
+				select
+					distinct t1.name as employee, t1.employee_name, t1.department, t1.designation
+				from
+					`tabEmployee` t1
+				where %s
+			""" % cond,  as_dict=True)
+			print(emp_list)
+		else:
+			emp_list = frappe.db.sql("""
+				select
+					distinct t1.name as employee, t1.employee_name, t1.department, t1.designation
+				from
+					`tabEmployee` t1
+			""",  as_dict=True)
+			print(emp_list)	
 		return emp_list
 
 	def fill_employee_details(self):
