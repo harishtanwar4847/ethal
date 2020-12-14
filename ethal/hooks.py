@@ -198,6 +198,15 @@ fixtures = [
 			]
 		]
 	},
-	"Translation",
-	"Custom Script"
+	{
+		"dt": "Custom Script",
+		"filters": [
+			[
+			"dt",
+			"in",
+			['Employee', 'Salary Structure', 'Salary Structure Assignment', 'Payment Entry']
+			]
+		]
+	},
+	"Translation"
 ]
