@@ -67,7 +67,7 @@ def get_column():
 		{
 			"fieldname": "po",
 			"label": _("PO"),
-			"fieldtype": "Date",
+			"fieldtype": "Link",
 			"options": "Purchase Order",
 			"width": 150
 		},
@@ -99,7 +99,7 @@ def get_data():
 
 	return frappe.db.sql("""
 	select pe.posting_date, je.posting_date, pe.name, je.name, pe.paid_amount, je.total_debit, 
-	(pe.paid_amount - je.total_debit), je.user_remark, pi.purchase_order, poi.material_request, pi.purchase_receipt, jea.reference_name
+	(pe.paid_amount - je.total_debit), je.cheque_no, pi.purchase_order, poi.material_request, pi.purchase_receipt, jea.reference_name
 	from `tabPayment Entry` as pe 
 	left join `tabJournal Entry` as je 
 	on je.cheque_no = pe.name

@@ -24,24 +24,23 @@ def extractDigits(lst):
 def get_data(filters):
 	if filters.from_no and filters.to_no:
 		lst = frappe.db.sql("select fs_number from `tabSales Invoice` where docstatus != 2 and (fs_number between {0} AND {1})".format(filters.from_no, filters.to_no), as_list=True)
-		
-		last = []
-		
-		for i in lst:
-			for z in i:
-				last.append(z)
+		if lst:
+			last = []
+			
+			for i in lst:
+				for z in i:
+					last.append(z)
 
-		last = [ x for x in last if "F" not in x ]
-		
-		for i in range(0, len(last)):
-			last[i] = int(last[i])
-		
-		last.sort()
-		res = find_missing(last)
+			last = [ x for x in last if "F" not in x ]
+			
+			for i in range(0, len(last)):
+				last[i] = int(last[i])
+			
+			last.sort()
+			res = find_missing(last)
+			for i in range(0, len(res)):
+				res[i] = str(res[i])
 
-		for i in range(0, len(res)):
-			res[i] = str(res[i])
-
-		res = extractDigits(res)
-		
-		return res
+			res = extractDigits(res)
+			
+			return res

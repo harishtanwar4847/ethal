@@ -65,17 +65,17 @@ def enat_bank_od_acc():
 def enat_bank_term_loan_acc():
 	return calculate_amount_of_accounts_of_creadit('ENAT Bank - Term Loan A/c', '22100-01', indent=2)
 
-def supplier_credit_payment_due_heading():
-	return {'Account': 'Supplier Credit Payment Due', 'Amount': '', 'indent': 1}
+# def supplier_credit_payment_due_heading():
+# 	return {'Account': 'Supplier Credit Payment Due', 'Amount': '', 'indent': 1}
 
-def singhi_treading_co_ltd():
-	return {'Account': 'Singhi Trading Co. Ltd', 'Amount': '', 'indent': 2}
+# def singhi_treading_co_ltd():
+# 	return {'Account': 'Singhi Trading Co. Ltd', 'Amount': '', 'indent': 2}
 
-def for_raw_materials():
-	return {'Account': '(For Raw Materials - USD 657000)@ ETB 32.8128', 'Amount': '', 'indent': 2}
+# def for_raw_materials():
+# 	return {'Account': '(For Raw Materials - USD 657000)@ ETB 32.8128', 'Amount': '', 'indent': 2}
 
-def for_fixed_assets_usd():
-	return {'Account': '(For Fixed Assets - USD 392310)@ ETB 32.8128', 'Amount': '', 'indent': 2}
+# def for_fixed_assets_usd():
+# 	return {'Account': '(For Fixed Assets - USD 392310)@ ETB 32.8128', 'Amount': '', 'indent': 2}
 
 def tax_liability_due():
 	return {'Account': 'Tax liability due', 'Amount': '', 'indent': 1}
@@ -93,7 +93,7 @@ def income_tax():
 	return calculate_amount_of_accounts_of_creadit('Income Tax', '21100-01', indent=2)
 	
 def profit_tax_upto():
-	return calculate_amount_of_accounts_of_creadit('Profit tax upto 31/12/2019', '21100-09' ,indent=2)
+	return calculate_amount_of_accounts_of_creadit('Profit tax', '21100-09' ,indent=2)
 
 def dividend_distribution():
 	return {'Account': 'Dividend Distribution Tax', 'Amount': '', 'indent': 2}
@@ -111,37 +111,37 @@ def for_salary():
 	return calculate_amount_of_accounts_of_creadit('For Salary', '21400-01',  indent=2)
 
 def for_it_consultant():
-	return calculate_amount_of_accounts_of_debit('For IT consultant (Mulatu meknon)', '63000-01'  ,indent=2)
+	return calculate_amount_of_accounts_of_debit('Accrued Expenses (other than Salary)', '21400-02'  ,indent=2)
 
-def for_security_services():
-	return calculate_amount_of_accounts_of_debit('For Security Sevices', '54100-08', indent=2)
+# def for_security_services():
+# 	return calculate_amount_of_accounts_of_debit('For Security Sevices', '54100-08', indent=2)
 
-def for_bus_rental():
-	return calculate_amount_of_accounts_of_debit('For Bus Rental', '54100-07',indent=2)
+# def for_bus_rental():
+# 	return calculate_amount_of_accounts_of_debit('For Bus Rental', '54100-07',indent=2)
 
-def for_telephone_and_internet_exp():
-	return calculate_amount_of_accounts_of_debit('For Telephone & Internet Exp.', '63000-15',indent=2)
+# def for_telephone_and_internet_exp():
+# 	return calculate_amount_of_accounts_of_debit('For Telephone & Internet Exp.', '63000-15',indent=2)
 
-def for_water_bill():
-	return calculate_amount_of_accounts_of_debit('For Water Bill', '54400-02', indent=2)
+# def for_water_bill():
+# 	return calculate_amount_of_accounts_of_debit('For Water Bill', '54400-02', indent=2)
 
-def for_electricity_charges():
-	return calculate_amount_of_accounts_of_debit('For Electricity Charges', '54400-01', indent=2)
+# def for_electricity_charges():
+# 	return calculate_amount_of_accounts_of_debit('For Electricity Charges', '54400-01', indent=2)
 
-def for_solomon_bekele():
-	return calculate_amount_of_accounts_of_debit('For Soloman Bekele (Labour Contractor)', '51000-02',indent=2)
+# def for_solomon_bekele():
+# 	return calculate_amount_of_accounts_of_debit('For Soloman Bekele (Labour Contractor)', '51000-02',indent=2)
 
-def for_canteen_exp():
-	return calculate_amount_of_accounts_of_debit('For Canteen Exp.', '54100-03', indent=2)
+# def for_canteen_exp():
+# 	return calculate_amount_of_accounts_of_debit('For Canteen Exp.', '54100-03', indent=2)
 
-def for_account_consultancy():
-	return {'Account': 'For Account Consultancy (GT)', 'Amount': '', 'indent': 2}
+# def for_account_consultancy():
+# 	return {'Account': 'For Account Consultancy (GT)', 'Amount': '', 'indent': 2}
 
-def solomon_consultant():
-	return calculate_amount_of_accounts_of_debit('For Soloman (Consultant)', '63000-01', indent=2)
+# def solomon_consultant():
+# 	return calculate_amount_of_accounts_of_debit('For Soloman (Consultant)', '63000-01', indent=2)
 
-def michel_civil_work():
-	return {'Account': 'For Michel (Civil Work)', 'Amount': '', 'indent': 2}
+# def michel_civil_work():
+# 	return {'Account': 'For Michel (Civil Work)', 'Amount': '', 'indent': 2}
 
 def liabilities_total(liabilit_total):
 	return {'Account': 'Liabilities Total', 'Amount': liabilit_total, 'indent': 1}
@@ -193,7 +193,6 @@ def get_monthly_gl_debit(account):
 		lst_b.append(i[1])
 
 	res_a = [a-b for a,b in zip(lst_a,lst_b)]
-	print(res_a)
 	
 	return res_a
 
@@ -312,51 +311,53 @@ def get_data():
 	fixed_asset = fixed_assets_gross_block()
 	asset_total += fixed_asset['Amount']
 	data_list.append(fixed_asset)
-
+	
 	stock_value = stock_value_market_price()
 	asset_total += stock_value['Amount']
 	data_list.append(stock_value)
-
+	
 	cash_bank = cash_and_bank_account()
 	asset_total += cash_bank['Amount']
 	data_list.append(cash_bank)
-
+	
 	advance = advances()
 	data_list.append(advance)
-
+	
 	debtors = debtors_customer_advances()
 	asset_total += debtors['Amount']
 	data_list.append(debtors)
-
+	
 	des_genrl = des_general()
 	asset_total += des_genrl['Amount']
 	data_list.append(des_genrl)
-
+	
 	des_indus = des_industries()
 	asset_total += des_indus['Amount']
 	data_list.append(des_indus)
-
+	
 	tg_steel = tg_steels()
 	tg_steel_closing = get_monthly_gl_debit_no_opening('11601')
 	tg_steel_opening_closing = tg_steel['Amount'] - sum(tg_steel_closing)
 	tg_steel_total = {'Account': 'TG Steel', 'Amount': tg_steel_opening_closing, 'indent': 2}
 	asset_total += tg_steel_opening_closing
 	data_list.append(tg_steel_total)
-
+	
 	customer_advnce = customer_advances()
-	asset_total += customer_advnce['Amount']
+	
 	total = customer_advnce['Amount'] - des_genrl['Amount'] - des_indus['Amount']
 	customer_advnce_total = {'Account': 'Customer Advances', 'Amount': total, 'indent': 2}
+	asset_total += total
 	data_list.append(customer_advnce_total)
-
+	print(asset_total)
 	deposit = deposits()
 	data_list.append(deposit)
 
 	contribution_tg = contribution_to_tg_steel()
 	asset_total += contribution_tg['Amount']
 	data_list.append(contribution_tg)
-
+	
 	asset_total_return = assets_total(asset_total)
+	
 	data_list.append(asset_total_return)
 
 	liability = liabilities()
@@ -377,20 +378,20 @@ def get_data():
 	liabilit_total+= enat_bank_loan['Amount']
 	data_list.append(enat_bank_loan)
 
-	supplier_credit = supplier_credit_payment_due_heading()
-	data_list.append(supplier_credit)
+	# supplier_credit = supplier_credit_payment_due_heading()
+	# data_list.append(supplier_credit)
 
-	singhi_treding = singhi_treading_co_ltd()
-	# liabilit_total+= singhi_treding['Amount']
-	data_list.append(singhi_treding)
+	# singhi_treding = singhi_treading_co_ltd()
+	# # liabilit_total+= singhi_treding['Amount']
+	# data_list.append(singhi_treding)
 
-	for_material = for_raw_materials()
-	# liabilit_total+= for_material['Amount']
-	data_list.append(for_material)
+	# for_material = for_raw_materials()
+	# # liabilit_total+= for_material['Amount']
+	# data_list.append(for_material)
 
-	for_fixed = for_fixed_assets_usd()
-	# liabilit_total+= for_fixed['Amount']
-	data_list.append(for_fixed)
+	# for_fixed = for_fixed_assets_usd()
+	# # liabilit_total+= for_fixed['Amount']
+	# data_list.append(for_fixed)
 
 	tax_due = tax_liability_due()
 	data_list.append(tax_due)
@@ -438,45 +439,45 @@ def get_data():
 	liabilit_total+= it_consultant['Amount']
 	data_list.append(it_consultant)
 
-	security = for_security_services()
-	liabilit_total+= security['Amount']
-	data_list.append(security)
+	# security = for_security_services()
+	# liabilit_total+= security['Amount']
+	# data_list.append(security)
 
-	bus_rental = for_bus_rental()
-	liabilit_total+= bus_rental['Amount']
-	data_list.append(bus_rental)
+	# bus_rental = for_bus_rental()
+	# liabilit_total+= bus_rental['Amount']
+	# data_list.append(bus_rental)
 
-	telephone = for_telephone_and_internet_exp()
-	liabilit_total+= telephone['Amount']
-	data_list.append(telephone)
+	# telephone = for_telephone_and_internet_exp()
+	# liabilit_total+= telephone['Amount']
+	# data_list.append(telephone)
 
-	water = for_water_bill()
-	liabilit_total+= water['Amount']
-	data_list.append(water)
+	# water = for_water_bill()
+	# liabilit_total+= water['Amount']
+	# data_list.append(water)
 
-	electricity = for_electricity_charges()
-	liabilit_total+= electricity['Amount']
-	data_list.append(electricity)
+	# electricity = for_electricity_charges()
+	# liabilit_total+= electricity['Amount']
+	# data_list.append(electricity)
 
-	solomon_bekele = for_solomon_bekele()
-	liabilit_total+= solomon_bekele['Amount']
-	data_list.append(solomon_bekele)
+	# solomon_bekele = for_solomon_bekele()
+	# liabilit_total+= solomon_bekele['Amount']
+	# data_list.append(solomon_bekele)
 
-	canteen = for_canteen_exp()
-	liabilit_total+= canteen['Amount']
-	data_list.append(canteen)
+	# canteen = for_canteen_exp()
+	# liabilit_total+= canteen['Amount']
+	# data_list.append(canteen)
 
-	account_consultncy = for_account_consultancy()
-	# liabilit_total+= account_consultncy['Amount']
-	data_list.append(account_consultncy)
+	# account_consultncy = for_account_consultancy()
+	# # liabilit_total+= account_consultncy['Amount']
+	# data_list.append(account_consultncy)
 
-	solomon_consul = solomon_consultant()
-	liabilit_total+= solomon_consul['Amount']
-	data_list.append(solomon_consul)
+	# solomon_consul = solomon_consultant()
+	# liabilit_total+= solomon_consul['Amount']
+	# data_list.append(solomon_consul)
 
-	michel = michel_civil_work()
-	# liabilit_total+= michel['Amount']
-	data_list.append(michel)
+	# michel = michel_civil_work()
+	# # liabilit_total+= michel['Amount']
+	# data_list.append(michel)
 
 	liability_total = liabilities_total(liabilit_total)
 	data_list.append(liability_total)
