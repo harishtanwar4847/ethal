@@ -309,7 +309,7 @@ def assign_salary_structure_for_employees(employees, salary_structure, from_date
 		salary_structures_assignment = create_salary_structures_assignment(employee,
 			salary_structure, from_date, base, variable, income_tax_slab)
 		salary_structures_assignments.append(salary_structures_assignment)
-		frappe.publish_progress(count*100/len(set(employees) - set(existing_assignments_for)), title = _("Assigning Structures..."))
+		frappe.publish_progress(count*100/len(set(employees) - set(existing_assignments_for)), title = frappe._("Assigning Structures..."))
 
 	if salary_structures_assignments:
 		frappe.msgprint(frappe._("Structures have been assigned successfully"))
