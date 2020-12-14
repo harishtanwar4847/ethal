@@ -130,5 +130,38 @@
   "parentfield": null,
   "parenttype": null,
   "script": "frappe.ui.form.on('Asset Maintenance Log', {\n\trefresh(frm) {\n\tif (frm.doc.docstatus===0) {\n\t\t\tfrm.add_custom_button(__('Stock Entry'), function() {\n\t\t\t   new frappe.ui.form.MultiSelectDialog({\n                    doctype: \"Stock Entry\",\n                    target: frm,\n                    setters: {},\n                    date_field: \"posting_date\",\n                    get_query() {\n                        return {\n                            filters: { docstatus: ['!=', 2] }\n                        }\n                    },\n                    action(selections) {\n                        console.log(selections);\n                       console.log(typeof(selections))\n                       for (var i in selections){\n                           console.log(selections[i])\n                           frappe.call({\n                               method: \"ethal.utils.set_items_from_stock_entry\",\n                               args: {\n                                   name: selections[i]\n                               },\n                               callback: function(r){\n                                   console.log(r.message)\n                                  let op = r.message\n                                //   me.frm.add_child(\"part_used\").item = op['item_code'];\n                                //   me.frm.refresh_field(\"part_used\");\n                                var childTable = cur_frm.add_child(\"part_used\");\n                                childTable.item=op['item_code']\n                                childTable.item_name=op['item_name']\n                                childTable.stock_entry = op['parent']\n                                childTable.item_group=op['item_group']\n                                childTable.dscription=op['description']\n                                childTable.uom=op['uom']\n                                childTable.quantity=op['qty']\n                                cur_frm.refresh_fields(\"part_used\");\n                                $('.modal').hide();\n                               }\n                           })\n                    }\n                    }\n                });\n\t\t\t}, __(\"Get items from\"));\n\t}\n    }\n})"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Salary Structure Assignment",
+  "modified": "2020-12-12 19:29:11.013178",
+  "name": "Salary Structure Assignment-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Salary Structure Assignment', {\n\trefresh(frm) {\n\t\t// your code here\n\t},\n\temployee(frm){\n\t  frappe.db.get_value('Employee', frm.doc.employee, 'grade')\n        .then(r => {\n        console.log(r.message.grade)\n        if (r.message.grade){\n            console.log('hello')\n            frappe.db.get_value('Employee Grade', r.message.grade, 'base_amount')\n            .then(r => {\n                console.log(r.message.base_amount)\n                frm.set_value('base', r.message.base_amount)\n             })\n            frappe.db.get_value('Employee Grade', r.message.grade, 'default_salary_structure')\n            .then(r => {\n                frm.set_value('salary_structure', r.message.default_salary_structure)\n             }) \n             \n\n        }\n    })\n  \n\t},\n\tbase(frm){\n        frm.set_value('salary_in_usd', frm.doc.base)\n        frappe.call({\n            \"method\": \"ethal.utils.set_conversion_rate\",\n            \"args\": {\n                employee: frm.doc.employee\n            }\n        })\n        .success(success => {\n            console.log(success)\n            frm.set_value('salary_in_birr', success.message*frm.doc.base)\n        })\n\t}\n})"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Employee",
+  "modified": "2020-12-11 13:02:10.420669",
+  "name": "Employee-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Employee', {\n\tbefore_save(frm) {\n\t\t// your code here\n\t\tif(cur_frm.doc.employee_prerequisite === undefined || cur_frm.doc.employee_prerequisite.length != '3'){\n\t\t    frappe.throw('Please Upload Mendatory Documents')\n\t\t}\n\t},\n// \trefresh(frm){\n// \t    if(!cur_frm.doc.__islocal){\n// \t        if(cur_frm.doc.warnings.length == 3){\n// \t            frappe.call({\n// \t        \"method\": \"ethal.utils.send_notification\",\n// \t\t\t\"args\": {\n// \t\t\t\t'doc': frm.doc\n// \t\t\t},\n// \t\t\tcallback: function(r){\n// \t\t\t\tconsole.log(r.message)\n\t\t\n\t\t\t\t\n// \t\t\t}\n// \t\t})\n// \t        }\n// \t    }\n// \t}\n})\n"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Salary Structure",
+  "modified": "2020-12-11 13:02:30.818432",
+  "name": "Salary Structure-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Salary Structure', {\n\trefresh(frm) {\n\t\t// your code here\n\t\t\tfrm.remove_custom_button('Assign to Employees')\n\t\t\tfrm.add_custom_button('Assign Employees', () => {\n\t\t\t    var d = new frappe.ui.Dialog({\n\t\t\t        \n\t\t\ttitle: __(\"Assign to Employees\"),\n\t\t\tfields: [\n\t\t\t\t{fieldname: \"sec_break\", fieldtype: \"Section Break\", label: __(\"Filter Employees By (Optional)\")},\n\t\t\t\t{fieldname: \"company\", fieldtype: \"Link\", options: \"Company\", label: __(\"Company\"), default: frm.doc.company, read_only:1},\n\t\t\t\t{fieldname: \"grade\", fieldtype: \"Link\", options: \"Employee Grade\", label: __(\"Employee Grade\")},\n\t\t\t\t{fieldname:'department', fieldtype:'Link', options: 'Department', label: __('Department')},\n\t\t\t\t{fieldname:'designation', fieldtype:'Link', options: 'Designation', label: __('Designation')},\n                {fieldname:\"employee\", fieldtype: \"Link\", options: \"Employee\", label: __(\"Employee\")},\n\t\t\t\t{fieldname:'base_variable', fieldtype:'Section Break'},\n\t\t\t\t{fieldname:'from_date', fieldtype:'Date', label: __('From Date'), \"reqd\": 1},\n\t\t\t\t{fieldname:'income_tax_slab', fieldtype:'Link', label: __('Income Tax Slab'), options: 'Income Tax Slab'},\n\t\t\t\t{fieldname:'base_col_br', fieldtype:'Column Break'},\n\t\t\t\t{fieldname:'base', fieldtype:'Currency', label: __('Base'), default: frappe.db.get_value(\"Employee Grade\", d.get_value('grade'), \"base_amount\")}\n\t\t\t],\n\t\t\tprimary_action: function() {\n\t\t\t  console.log(d.get_value('grade'))\n\t\t\t\tvar data = d.get_values();\n\t\t\t\t\n\t\t\t\tfrappe.call({\n\t\t\t\t\tdoc: frm.doc,\n\t\t\t\t\tmethod: \"assign_salary_structure\",\n\t\t\t\t\targs: data,\n\t\t\t\t\tcallback: function(r) {\n\t\t\t\t\t\tif(!r.exc) {\n\t\t\t\t\t\t\td.hide();\n\t\t\t\t\t\t\tfrm.reload_doc();\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t});\n\t\t\t},\n\t\t\tprimary_action_label: __('Assign')\n\t\t});\n\n\n\t\td.show();\n\t})\n\t}\n})"
  }
 ]
