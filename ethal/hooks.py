@@ -100,9 +100,9 @@ doc_events = {
 	"Salary Slip": {
 		"before_insert": "ethal.ethal.employee_checkin.calculate_overtime_in_salary_slip"
 	},
-	"Salary Structure Assignment": {
-		"on_submit": "ethal.utils.before_insert_salary_structure_assignment"
-	},
+	# "Salary Structure Assignment": {
+	# 	"on_submit": "ethal.utils.before_insert_salary_structure_assignment"
+	# },
 	"Employee": {
 		"on_update": "ethal.utils.on_update_employee"
 	},
