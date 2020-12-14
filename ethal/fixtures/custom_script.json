@@ -25,12 +25,12 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Employee",
-  "modified": "2020-12-11 13:02:10.420669",
+  "modified": "2020-12-14 22:19:59.039465",
   "name": "Employee-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "frappe.ui.form.on('Employee', {\n\tbefore_save(frm) {\n\t\t// your code here\n\t\tif(cur_frm.doc.employee_prerequisite === undefined || cur_frm.doc.employee_prerequisite.length != '3'){\n\t\t    frappe.throw('Please Upload Mendatory Documents')\n\t\t}\n\t},\n// \trefresh(frm){\n// \t    if(!cur_frm.doc.__islocal){\n// \t        if(cur_frm.doc.warnings.length == 3){\n// \t            frappe.call({\n// \t        \"method\": \"ethal.utils.send_notification\",\n// \t\t\t\"args\": {\n// \t\t\t\t'doc': frm.doc\n// \t\t\t},\n// \t\t\tcallback: function(r){\n// \t\t\t\tconsole.log(r.message)\n\t\t\n\t\t\t\t\n// \t\t\t}\n// \t\t})\n// \t        }\n// \t    }\n// \t}\n})\n"
+  "script": "frappe.ui.form.on('Employee', {\n// \tbefore_save(frm) {\n// \t\t// your code here\n// \t\tif(cur_frm.doc.employee_prerequisite === undefined || cur_frm.doc.employee_prerequisite.length != '3'){\n// \t\t    frappe.throw('Please Upload Mendatory Documents')\n// \t\t}\n// \t},\n// \trefresh(frm){\n// \t    if(!cur_frm.doc.__islocal){\n// \t        if(cur_frm.doc.warnings.length == 3){\n// \t            frappe.call({\n// \t        \"method\": \"ethal.utils.send_notification\",\n// \t\t\t\"args\": {\n// \t\t\t\t'doc': frm.doc\n// \t\t\t},\n// \t\t\tcallback: function(r){\n// \t\t\t\tconsole.log(r.message)\n\t\t\n\t\t\t\t\n// \t\t\t}\n// \t\t})\n// \t        }\n// \t    }\n// \t}\n})\n"
  },
  {
   "docstatus": 0,
