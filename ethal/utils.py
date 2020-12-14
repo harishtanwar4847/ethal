@@ -1,7 +1,6 @@
 import frappe
 from frappe.utils import getdate, nowdate, cint, flt
 import json
-from frappe import _
 from datetime import date, timedelta, datetime
 import ast
 import itertools
@@ -294,7 +293,7 @@ def assign_salary_structure(doc, company=None, grade=None, department=None, desi
             assign_salary_structure_for_employees(employees, doc, from_date=from_date,
                 base=base, variable=variable, income_tax_slab=income_tax_slab)
     else:
-        frappe.msgprint(_("No Employee Found"))
+        frappe.msgprint(frappe._("No Employee Found"))
 
 
 
@@ -313,7 +312,7 @@ def assign_salary_structure_for_employees(employees, salary_structure, from_date
 		frappe.publish_progress(count*100/len(set(employees) - set(existing_assignments_for)), title = _("Assigning Structures..."))
 
 	if salary_structures_assignments:
-		frappe.msgprint(_("Structures have been assigned successfully"))
+		frappe.msgprint(frappe._("Structures have been assigned successfully"))
 
 
 def create_salary_structures_assignment(employee, salary_structure, from_date, base, variable, income_tax_slab=None):
@@ -339,7 +338,7 @@ def get_existing_assignments(employees, salary_structure, from_date):
         and company= %s and docstatus=1
     """ % ('%s', ', '.join(['%s']*len(employees)),'%s'), [salary_structure['name']] + employees+[salary_structure['company']])
     if salary_structures_assignments:
-        frappe.msgprint(_("Skipping Salary Structure Assignment for the following employees, as Salary Structure Assignment records already exists against them. {0}")
+        frappe.msgprint(frappe._("Skipping Salary Structure Assignment for the following employees, as Salary Structure Assignment records already exists against them. {0}")
             .format("\n".join(salary_structures_assignments)))
     return salary_structures_assignments
 
