@@ -174,7 +174,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Customer", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Delivery Note", "Sales Invoice", "Sales Order", "Purchase Invoice", "Purchase Order", "Purchase Receipt", "Asset Repair", "Payment Entry", "Material Request", "Quotation Item", "Tax Category", "Address", "Print Settings", "Project", "Deleted Document", "Task", "Asset Maintenance Log", "Asset Maintenance Task"]
+				["Supplier", "Customer", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Payment Entry", "Print Settings"]
 			]
 		]
 	},
@@ -189,15 +189,14 @@ fixtures = [
 		]
 	},
 	{
-		"dt": "Report",
+		"dt": "Custom Script",
 		"filters": [
 			[
-				"name",
-				"in",
-				['Cash & Bank Balance']
+			"dt",
+			"in",
+			['Employee', 'Salary Structure', 'Salary Structure Assignment', 'Payment Entry']
 			]
 		]
 	},
-	"Translation",
-	"Custom Script"
+	"Translation"
 ]
