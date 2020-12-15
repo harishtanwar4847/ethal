@@ -346,3 +346,416 @@ def get_employees(doc, **kwargs):
 			.format(condition=condition_str), tuple(values))
 
 		return employees
+
+@frappe.whitelist()
+def existing_interview_rounds(job_applicant, job_opening):
+    interview = frappe.get_list('Interview', filters={'job_applicant': job_applicant}, as_list = 1)
+    if len(interview) > 0:
+        rounds = frappe.get_list('Interview Round', filters={'interview': interview[0][0]}, order_by='round_number')
+        print(len(rounds))
+        if len(rounds) > 0:
+            return True
+        else:
+            return False
+
+@frappe.whitelist()
+def get_interview_rounds(job_applicant, job_opening):
+    interview = frappe.get_all('Interview', filters={'job_applicant': job_applicant, }, as_list = 1)
+    rounds = frappe.get_all('Interview Round', filters={'interview': interview[0][0]}, fields=['*'], order_by='round_number')
+    print(rounds)
+    list2 = []
+    for i in rounds:
+        comment = []
+        if i['_comments'] is not None:
+            a = json.loads(i['_comments'])
+            for j in a:
+                comment.append(j['comment'])
+            
+        print(comment)
+       
+        interviewer = frappe.get_all('Interviewer', filters={'parent': i['name']}, fields=['employee', 'employee_name'] )
+        l_ = []
+        for row in interviewer:
+                l_.append("{}-{}".format(row['employee'], row['employee_name']))    
+        k =  [
+                # {
+                #     'label': i['round_number'],
+                #     'fieldname': '',
+                #     'fieldtype': 'Section Break'
+                # },
+                {
+                    'label': 'Round Number',
+                    'fieldname': 'round_number',
+                    'fieldtype': 'Data',
+                    'default': i['round_number'],
+                    'read_only': 1
+                },
+                {
+                    'label': 'Date',
+                    'fieldname': 'date',
+                    'fieldtype': 'Datetime',
+                    'read_only': 1,
+                    'default': i['date']
+                },
+                {
+                    'label': '',
+                    'fieldname': '',
+                    'fieldtype': 'Column Break'
+                },
+                {
+                    'label': 'Round Name',
+                    'fieldname': 'round_name',
+                    'fieldtype': 'Data',
+                    'default': i['round'],
+                    'read_only': 1
+                },
+                {
+                    'label': 'Status',
+                    'fieldname': 'status',
+                    'fieldtype': 'Data',
+                    'default': i['status'],
+                    'read_only': 1
+                },
+                {
+                    'label': '',
+                    'fieldname': '',
+                    'fieldtype': 'Column Break'
+                },
+                {
+                    "label": "Interviewer's",
+                    'fieldname': "interviewers",
+                    "fieldtype": "Small Text",
+                    "options": "Interviewer",
+                    '_link_field':'employee',
+                    'default': '\n'.join(l_),
+                    'read_only': 1
+                },
+                {
+                    "label": "Overall Recommendation",
+                    'fieldname': "overall_recommendation",
+                    "fieldtype": "Data",
+                    'read_only': 1,
+                    'default': i['overall_recommendation']
+                },
+                {
+                    'label': '',
+                    'fieldname': '',
+                    'fieldtype': 'Section Break'
+
+                }
+            ]  
+        list2.append(k)
+        
+        rounds_feedback = frappe.get_all('Interview Round Feedback', filters={'parent': i['name']}, fields=['*'])
+        print(rounds_feedback, 'rounds feedback')
+        if len(rounds_feedback) > 0:
+            for i in rounds_feedback:
+                l = [
+                    {
+                        'label': 'Skill',
+                        'fieldname': 'skill',
+                        'fieldtype': 'Link',
+                        'read_only': 1,
+                        'default': i['skill']
+                    },
+                    {
+                        'label': '',
+                        'fieldname': '',
+                        'fieldtype': 'Column Break'
+                    },
+                    {
+                        'label': 'Remark',
+                        'fieldname': 'remark',
+                        'fieldtype': 'Small Text',
+                        'read_only': 1,
+                        'default': i['remark']
+                    },
+                    {
+                        'label': '',
+                        'fieldname': '',
+                        'fieldtype': 'Column Break'
+                    },
+                    {
+                        'label': 'Rating',
+                        'fieldname': 'rating',
+                        'fieldtype': 'Rating',
+                        'read_only': 1,
+                        'default': i['rating1']
+                    },
+                     
+                    {
+                        'label': '',
+                        'fieldname': '',
+                        'fieldtype': 'Section Break'
+                    }
+
+                ]
+                list2.append(l)
+        c = [
+                {
+                    'label': 'Comment',
+                    'fieldname': 'comment',
+                    'fieldtype': 'HTML Editor',
+                    'read_only': 1,
+                    'default': comment,
+                    'Bold': 1
+                    # 'default': a[0]['comment']
+                },
+                {
+                    'label': '',
+                    'fieldname': '',
+                    'fieldtype': 'Section Break'
+                }
+            ]    
+        list2.append(c)   
+    interview_rounds = [val for sublist in list2 for val in sublist] 
+    interviewer = frappe.get_doc('DocType', 'Interviewer')
+    return {'interview_rounds': interview_rounds, 'interviewer': interviewer}
+
+@frappe.whitelist()
+def get_interview_and_interview_rounds(job_applicant, job_opening):
+    interview = frappe.get_list("Interview", filters={'job_applicant': job_applicant}, fields=['*'])
+    designation = frappe.get_list("Job Opening", filters={'name': job_opening}, fields=['designation'], as_list=1)
+    print(designation)
+    configuration = frappe.get_all('Interview Configuration', filters={'designation': designation[0][0]})
+    print(len(configuration))
+    if len(configuration) == 0:
+        return False
+    if len(interview) == 0:
+        print("In if condition")
+        rounds =  [
+            {
+                'label': 'Round 1',
+                'fieldname': '',
+                'fieldtype': 'Section Break'
+            },
+
+            {
+                'label': 'Date',
+                'fieldname': 'date',
+                'fieldtype': 'Datetime'
+            },
+            {
+                'label': '',
+                'fieldname': '',
+                'fieldtype': 'Column Break'
+            },
+            {
+                    "label": "Interviewers",
+                    'fieldname': "interviewers",
+                    "fieldtype": "Table MultiSelect",
+                    "options": "Interviewer",
+                    '_link_field':'employee'
+            }
+        ] 
+        interviewer = frappe.get_doc('DocType', 'Interviewer')
+        return {'rounds':rounds, 'interviewer': interviewer}  
+    else:
+        print("in else condition")
+        # created interview section
+        list1 = []
+        k = [
+                {
+                    'label': 'Interview',
+                    'fieldname': 'interview',
+                    'fieldtype': 'Link',
+                    'options': 'Interview',
+                    'default': interview[0]['name'],
+                    'read_only': 1
+                },
+                {
+                    'label': 'Job Opening',
+                    'fieldname': 'job_opening',
+                    'fieldtype': 'Link',
+                    'options': 'Job Opening',
+                    'default': interview[0]['job_opening'],
+                    'read_only': 1
+                },
+                {
+                    'label': '',
+                    'fieldname': '',
+                    'fieldtype': 'Column Break'
+                },
+                {
+                    'label': 'Job Applicant',
+                    'fieldname': 'job_applicant',
+                    'fieldtype': 'Link',
+                    'options': 'Job Applicant',
+                    'default': interview[0]['job_applicant_name'],
+                    'read_only': 1
+                },
+                {
+                    'label': 'Designation',
+                    'fieldname': 'designation',
+                    'fieldtype': 'Link',
+                    'options': 'Designation',
+                    'default': interview[0]['designation'],
+                    'read_only': 1
+                }
+        ]
+        list1.append(k)
+        interview_round = frappe.get_list('Interview Round', filters={'interview': interview[0]['name']}, fields=['*'], order_by = 'round_number')
+        print(interview_round)
+        for l in interview_round:
+            
+            interviewer = frappe.get_all('Interviewer', filters={'parent': l['name']}, fields=['employee', 'employee_name'] )
+            l_ = []
+            for row in interviewer:
+                l_.append("{}-{}".format(row['employee'], row['employee_name']))
+            #   created rounds section
+            m =  [
+                {
+                    'label': 'Round' + ' ' + str(l['round_number']) + '-' + l['round'],
+                    'fieldname': '',
+                    'fieldtype': 'Section Break'
+                },
+                {
+                    'label': 'Date',
+                    'fieldname': 'date_',
+                    'fieldtype': 'Datetime',
+                    'default': l['date'],
+                    'read_only': 1
+
+                },
+                {
+                    'label': '',
+                    'fieldname': '',
+                    'fieldtype': 'Column Break'
+                },
+                {
+                    "label": "Interviewers",
+                    'fieldname': "interviewers",
+                    "fieldtype": "Small Text",
+                    "options": "Interviewer",
+                    '_link_field':'employee',
+                    'default': '\n'.join(l_),
+                    'read_only': 1
+                }
+                
+                ]
+            list1.append(m)
+        existing_rounds_ = frappe.get_list("Interview Round", fields=["round"], filters={
+                                'interview': interview[0]['name']}, as_list=1)
+        existing_rounds = [i[0] for i in existing_rounds_]
+        # print(designation[0][0])
+        rounds = frappe.get_list("Interview Round Configuration", fields=['*'], filters={'parent': interview[0]['designation'], 'round_name': ['not in', existing_rounds]}, order_by='round_number')
+        if len(rounds) > 0:
+            # new rounds section
+            y =  [
+                {
+                    'label': 'Round' + ' ' + str(rounds[0]['round_number']) + '-' + rounds[0]['round_name'],
+                    'fieldname': '',
+                    'fieldtype': 'Section Break'
+                },
+                {
+                    'label': 'Date',
+                    'fieldname': 'date',
+                    'fieldtype': 'Datetime',
+                    # 'default': z['date']
+
+                },
+                {
+                    'label': '',
+                    'fieldname': '',
+                    'fieldtype': 'Column Break'
+                }, 
+                {
+                    "label": "Interviewers",
+                    'fieldname': "interviewers",
+                    "fieldtype": "Table MultiSelect",
+                    "options": "Interviewer",
+                    '_link_field':'employee'
+                }
+            ]
+            list1.append(y)
+        rounds_ = [val for sublist in list1 for val in sublist] 
+        interviewer = frappe.get_doc('DocType', 'Interviewer')
+        return {'rounds':rounds_, 'interviewer': interviewer} 
+
+@frappe.whitelist()
+def save_interview_round(formdata, job_applicant):
+    data = json.loads(formdata)
+  
+    job_applicant_doc = frappe.get_doc("Job Applicant", job_applicant)
+
+    job_opening_doc = frappe.get_doc("Job Opening", job_applicant_doc.job_title)
+
+    get_interview = frappe.get_list('Interview', filters={'job_applicant': job_applicant}, as_list=1)
+
+    job_opening = frappe.get_list('Job Opening', filters={'name' : job_opening_doc.name}, fields=['designation'], as_list =1)
+
+    interview_configuration = frappe.get_list('Interview Round Configuration', filters={'parent': job_opening[0][0]}, fields=['round_number', 'round_name'], order_by='round_number')
+    interview1 = frappe.get_list('Interview', filters={'job_applicant': job_applicant}, as_list=1)
+    print(interview_configuration, len(interview_configuration))
+    # configuration = frappe.get_all('Interview Configuration', filters={'designation': job_opening[0][0]})
+    # print(len(configuration))
+    # if len(configuration) == 0:
+    #     return False
+
+    if len(get_interview) == 0:
+        interview = frappe.new_doc("Interview")
+        interview.job_applicant = job_applicant
+        interview.job_opening = job_opening_doc.name
+        interview.designation = job_opening_doc.designation
+        interview.current_round = interview_configuration[0]['round_name']
+        interview.current_round_status = "Scheduled"
+        interview.insert(ignore_permissions=True)
+    
+        interview1 = frappe.get_list('Interview', filters={'job_applicant': job_applicant}, as_list=1)
+        interview_round = frappe.new_doc('Interview Round')
+        interview_round.interview = interview1[0][0]
+        interview_round.job_applicant = job_applicant
+        interview_round.job_opening = job_opening_doc.name
+        interview_round.designation = job_opening_doc.designation
+        interview_round.attached_resume = job_applicant_doc.resume_attachment
+        interview_round.round = interview_configuration[0]['round_name']
+        interview_round.date = data['date']
+        interview_round.round_number = interview_configuration[0]['round_number']
+        # interview_round.interviewers = data['interviewers']
+        for row in data['interviewers']:
+            interview_round.append('interviewers', {
+                'employee': row['employee']
+            })
+        interview_round.insert(ignore_permissions=True)
+
+        job_applicant = frappe.get_doc('Job Applicant', job_applicant)
+        job_applicant.current_round = 'Round' + " " + interview_configuration[0]['round_number']
+        job_applicant.applicant_status = 'Round' + " " + interview_configuration[0]['round_number'] + " " + 'Scheduled'    
+        job_applicant.save(ignore_permissions=True)
+       
+        print("Save interview round")
+
+    else:
+        existing_rounds_ = frappe.get_list("Interview Round", fields=["round"], filters={
+                                'interview': interview1[0][0]}, as_list=1)
+        existing_rounds = [i[0] for i in existing_rounds_]
+        rounds = frappe.get_list("Interview Round Configuration", fields=['*'], filters={'parent': job_opening_doc.designation, 'round_name': ['not in', existing_rounds]}, order_by='round_number')
+       
+       
+        interview = frappe.get_doc("Interview", get_interview[0][0])
+        interview.current_round = rounds[0]['round_name']
+        interview.current_round_status = "Scheduled"
+        interview.save(ignore_permissions=True)
+
+        interview_round = frappe.new_doc('Interview Round')
+        interview_round.interview = get_interview[0][0]
+        interview_round.job_applicant = job_applicant
+        interview_round.job_opening = job_opening_doc.name
+        interview_round.designation = job_opening_doc.designation
+        interview_round.attached_resume = job_applicant_doc.resume_attachment
+        interview_round.round = rounds[0]['round_name']
+        interview_round.date = data['date']
+        interview_round.round_number = rounds[0]['round_number']
+        # interview_round.interviewers = data['interviewers']
+        # interview_round.comments = 
+        for row in data['interviewers']:
+            interview_round.append('interviewers', {
+                'employee': row['employee']
+            })
+        interview_round.insert(ignore_permissions=True)
+
+        job_applicant = frappe.get_doc('Job Applicant', job_applicant)
+        job_applicant.current_round = 'Round' + " " + rounds[0]['round_number']
+        job_applicant.applicant_status = 'Round' + " " + rounds[0]['round_number'] + " " + 'Scheduled'    
+        job_applicant.save(ignore_permissions=True)
+

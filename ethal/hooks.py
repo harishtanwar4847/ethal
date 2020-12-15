@@ -111,7 +111,10 @@ doc_events = {
 	},
 	"Payroll Entry": {
 		"before_submit": "ethal.utils.update_salary_structure_assignment_rate"
-	}
+	},
+	"Interview Configuration": {
+        "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
+    },
 }
 
 scheduler_events = {
@@ -194,7 +197,7 @@ fixtures = [
 			[
 			"dt",
 			"in",
-			['Employee', 'Salary Structure', 'Salary Structure Assignment', 'Payment Entry']
+			['Employee', 'Salary Structure', 'Salary Structure Assignment', 'Payment Entry', 'Job Applicant']
 			]
 		]
 	},
