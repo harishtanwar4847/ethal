@@ -198,5 +198,6 @@ fixtures = [
 			]
 		]
 	},
-	"Translation"
+	"Translation",
+	"Shift Type",
 ]
