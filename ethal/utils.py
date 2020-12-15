@@ -141,6 +141,7 @@ def holiday_overtime(doc):
         if attendances:
             doc.holiday_ot_hours = attendances[0].working_hours
 
+@frappe.whitelist()
 def before_insert_salary_structure_assignment(doc, method):
     get_employee_base_amount = frappe.db.get_value('Employee Grade', {'default_salary_structure': doc.salary_structure}, 'base_amount')
     frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
@@ -179,10 +180,12 @@ def process_auto_attendance_for_holidays(doc):
     sunday_overtime(doc)
     holiday_overtime(doc)
 
+@frappe.whitelist()
 def before_submit_stock_entry(doc, method):
     if doc.value_difference > 1:
         frappe.throw('Incoming Value not equal to Outgoing Value! Please Correct the rate.')
 
+@frappe.whitelist()
 def on_update_employee(doc, method):
     get_salary_structure_ass = frappe.get_all('Salary Structure Assignment', filters={'employee': doc.employee, 'docstatus': 1})
     if get_salary_structure_ass:
@@ -194,6 +197,7 @@ def on_update_employee(doc, method):
         frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'staus', 'Salary Updated')
         frappe.db.commit()
 
+@frappe.whitelist()
 def trigger_mail_if_absent_consecutive_5_days(doc, method):
 
     attendance = frappe.db.sql("""
