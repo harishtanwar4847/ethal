@@ -162,16 +162,6 @@ fixtures = [
 		]
 	},
 	{
-		"dt": "DocType",
-		"filters": [
-			[
-				"name",
-				"in",
-				["Parts Used Item Table"]
-			]
-		]
-	},
-	{
 		"dt": "Report",
 		"filters": [
 			[
