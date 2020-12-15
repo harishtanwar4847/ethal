@@ -1,0 +1,37 @@
+{
+ "creation": "2020-11-21 11:21:10.445631",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "round_name",
+  "skill"
+ ],
+ "fields": [
+  {
+   "fieldname": "round_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Round Name",
+   "options": "Interview Round Name"
+  },
+  {
+   "fieldname": "skill",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Skill",
+   "options": "Skill"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-12-15 21:59:48.073322",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Interview Round Feedback Parameter",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
