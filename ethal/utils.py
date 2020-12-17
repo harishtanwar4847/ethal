@@ -66,3 +66,11 @@ def set_items_from_stock_entry(name):
     stock_entry_detail = frappe.get_all('Stock Entry Detail', filters={'parent': name}, fields=['*'])
     for i in stock_entry_detail:
         return i
+
+@frappe.whitelist()
+def before_submit_all_doctypes(doc, method):
+    admin_settings = frappe.get_doc('Admin Settings')
+    admin_settings_document = frappe.get_all('Admin Settings Document', {'parent': 'Admin Settings', 'document': doc.doctype}, ['posting_date'], as_list=1)  
+    if admin_settings_document:
+        if admin_settings.closure_date > doc.posting_date:
+            frappe.throw('please contact manager')

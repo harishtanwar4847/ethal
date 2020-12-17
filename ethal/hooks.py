@@ -96,6 +96,9 @@ doc_events = {
 	},
 	"Leave Allocation": {
 		"on_submit": "ethal.utils.before_submit_leave_allocation"
+	},
+	"*": {
+		"before_submit": "ethal.utils.before_submit_all_doctypes"
 	}
 }
 
