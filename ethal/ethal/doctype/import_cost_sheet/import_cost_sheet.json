@@ -6,7 +6,6 @@
  "engine": "InnoDB",
  "field_order": [
   "purchase_order_no",
-  "invoice_value",
   "bl",
   "column_break_4",
   "supplier_name",
@@ -21,12 +20,6 @@
    "fieldname": "purchase_order_no",
    "fieldtype": "Data",
    "label": "Purchase Order No"
-  },
-  {
-   "fieldname": "invoice_value",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Invoice Value"
   },
   {
    "fieldname": "bl",
@@ -68,7 +61,7 @@
    "options": "Import Cost Sheet Details"
   }
  ],
- "modified": "2020-12-15 15:57:48.131716",
+ "modified": "2020-12-17 21:18:09.606436",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet",
