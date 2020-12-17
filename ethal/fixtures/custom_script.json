@@ -2,6 +2,72 @@
  {
   "docstatus": 0,
   "doctype": "Custom Script",
+  "dt": "Salary Structure Assignment",
+  "modified": "2020-12-12 19:29:11.013178",
+  "name": "Salary Structure Assignment-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Salary Structure Assignment', {\n\trefresh(frm) {\n\t\t// your code here\n\t},\n\temployee(frm){\n\t  frappe.db.get_value('Employee', frm.doc.employee, 'grade')\n        .then(r => {\n        console.log(r.message.grade)\n        if (r.message.grade){\n            console.log('hello')\n            frappe.db.get_value('Employee Grade', r.message.grade, 'base_amount')\n            .then(r => {\n                console.log(r.message.base_amount)\n                frm.set_value('base', r.message.base_amount)\n             })\n            frappe.db.get_value('Employee Grade', r.message.grade, 'default_salary_structure')\n            .then(r => {\n                frm.set_value('salary_structure', r.message.default_salary_structure)\n             }) \n             \n\n        }\n    })\n  \n\t},\n\tbase(frm){\n        frm.set_value('salary_in_usd', frm.doc.base)\n        frappe.call({\n            \"method\": \"ethal.utils.set_conversion_rate\",\n            \"args\": {\n                employee: frm.doc.employee\n            }\n        })\n        .success(success => {\n            console.log(success)\n            frm.set_value('salary_in_birr', success.message*frm.doc.base)\n        })\n\t}\n})"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Employee",
+  "modified": "2020-12-14 22:19:59.039465",
+  "name": "Employee-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Employee', {\n// \tbefore_save(frm) {\n// \t\t// your code here\n// \t\tif(cur_frm.doc.employee_prerequisite === undefined || cur_frm.doc.employee_prerequisite.length != '3'){\n// \t\t    frappe.throw('Please Upload Mendatory Documents')\n// \t\t}\n// \t},\n// \trefresh(frm){\n// \t    if(!cur_frm.doc.__islocal){\n// \t        if(cur_frm.doc.warnings.length == 3){\n// \t            frappe.call({\n// \t        \"method\": \"ethal.utils.send_notification\",\n// \t\t\t\"args\": {\n// \t\t\t\t'doc': frm.doc\n// \t\t\t},\n// \t\t\tcallback: function(r){\n// \t\t\t\tconsole.log(r.message)\n\t\t\n\t\t\t\t\n// \t\t\t}\n// \t\t})\n// \t        }\n// \t    }\n// \t}\n})\n"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Salary Structure",
+  "modified": "2020-12-14 13:02:25.124318",
+  "name": "Salary Structure-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Salary Structure', {\n\trefresh(frm) {\n\t\t// your code here\n\t\t\tfrm.remove_custom_button('Assign to Employees')\n\t\t\tfrm.add_custom_button('Assign Employees', () => {\n\t\t\t    var d = new frappe.ui.Dialog({\n\t\t\t        \n\t\t\ttitle: __(\"Assign to Employees\"),\n\t\t\tfields: [\n\t\t\t\t{fieldname: \"sec_break\", fieldtype: \"Section Break\", label: __(\"Filter Employees By (Optional)\")},\n\t\t\t\t{fieldname: \"company\", fieldtype: \"Link\", options: \"Company\", label: __(\"Company\"), default: frm.doc.company, read_only:1},\n\t\t\t\t{fieldname: \"grade\", fieldtype: \"Link\", options: \"Employee Grade\", label: __(\"Employee Grade\"), change: () => {\n\t\t\t\t\t\t\n\t\t\t\t    frappe.db.get_value('Employee Grade', d.get_value('grade'), 'base_amount')\n                    .then(r => {\n                        console.log(r.message) // Open\n                        d.set_value('base', r.message.base_amount)\n                    })\n\n\t\t\t\t}},\n\t\t\t\t{fieldname:'department', fieldtype:'Link', options: 'Department', label: __('Department')},\n\t\t\t\t{fieldname:'designation', fieldtype:'Link', options: 'Designation', label: __('Designation')},\n                {fieldname:\"employee\", fieldtype: \"Link\", options: \"Employee\", label: __(\"Employee\")},\n\t\t\t\t{fieldname:'base_variable', fieldtype:'Section Break'},\n\t\t\t\t{fieldname:'from_date', fieldtype:'Date', label: __('From Date'), \"reqd\": 1},\n\t\t\t\t{fieldname:'income_tax_slab', fieldtype:'Link', label: __('Income Tax Slab'), options: 'Income Tax Slab'},\n\t\t\t\t{fieldname:'base_col_br', fieldtype:'Column Break'},\n\t\t\t\t{fieldname:'base', fieldtype:'Currency', label: __('Base'), read_only: 1}\n\t\t\t],\n\t\t\tprimary_action: function() {\n\t\t\t  console.log(d.get_value('grade'))\n\t\t\t\tvar data = d.get_values();\n\t\t\t\tdata['doc'] = frm.doc\n\t\t\t\tconsole.log(data)\n\t\t\t\tfrappe.call({\n\t\t\t\t\n\t\t\t\t\tmethod: \"ethal.utils.assign_salary_structure\",\n\t\t\t\t\targs: data,\n\t\t\t\t\tcallback: function(r) {\n\t\t\t\t\t\tif(!r.exc) {\n\t\t\t\t\t\t\td.hide();\n\t\t\t\t\t\t\tfrm.reload_doc();\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t});\n\t\t\t},\n\t\t\tprimary_action_label: __('Assign')\n\t\t});\n\n\n\t\td.show();\n\t})\n\t}\n})"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Job Applicant",
+  "modified": "2020-12-15 22:16:30.845524",
+  "name": "Job Applicant-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Job Applicant', {\n    refresh: function(frm) {\n    if(frm.doc.status != \"Selected\"){\n        frm.remove_custom_button(\"Job Offer\");\n    }\n    \n        // console.log(\"Selected\")\n        // frm.remove_custom_button(\"Schedule Interview\");\n        //   }\n    if (!frm.doc.__islocal) {\n        frappe.call({\n            'method': 'ethal.utils.existing_interview_rounds',\n            'args': {\n                job_applicant: frm.doc.name,\n                job_opening: frm.doc.job_title\n                }\n         })\n    \n            .success(success => {\n                console.log(success.message);\n                if(success.message === true) {\n                      frm.add_custom_button(__(\"Show Feedback\"), function() {\n         frappe.call({\n            'method': 'ethal.utils.get_interview_rounds',\n            'args': {\n                job_applicant: frm.doc.name,\n                job_opening: frm.doc.job_title\n                }\n         })\n    \n            .success(success => {\n                console.log(success.message);\n                 locals.DocType['Interviewer'] = success.message.interviewer\n                let d = new frappe.ui.Dialog({\n                title: 'Interviewers Feedback',\n                fields: success.message.interview_rounds,\n            \n                primary_action_label: 'Show Details',\n                primary_action(values) {\n                    frappe.set_route(\"List\", \"Interview Round\");\n                    console.log(values);\n                    d.hide();\n            }\n            });\n\n                 d.show();\n            });\n    });\n                }\n            })\n    if(frm.doc.status !== \"Selected\" && frm.doc.status !== \"Offered\" && frm.doc.status !== \"Offer Accepted\"){  \n     frm.add_custom_button(__(\"Schedule Interview\"), function() {\n         frappe.call({\n            'method': 'ethal.utils.get_interview_and_interview_rounds',\n            'args': {\n                job_applicant: frm.doc.name,\n                job_opening: frm.doc.job_title\n                },\n    // disable the button until the request is completed\n    // btn: $('.primary-action'),\n    // freeze the screen until the request is completed\n    freeze: true,\n     error: (r) => {\n        // on error\n    },\n    callback: (r) => {\n        console.log(r.message);\n         if(r.message === false) {\n            frappe.msgprint({\n                title: __('Notification'),\n                message: __('Please Configure Interview process before Scheduling Interview'),\n               \n                primary_action:{\n                    'label': 'Create Interview Configuration',\n                    action(values) { \n                        frappe.set_route(\"Form\", \"Interview Configuration\", \"New Interview Configuration\", {\n                            designation: cur_frm.doc.designation\n                        });\n            console.log(values);\n                    }\n                }\n            });\n            }\n        else {  \n            locals.DocType['Interviewer'] = r.message.interviewer\n        let d = new frappe.ui.Dialog({\n        title: 'Interview details',\n        fields: r.message.rounds,\n    \n        primary_action_label: 'Save',\n        primary_action(values) {\n            console.log(isEmpty(values));\n            if(isEmpty(values)){\n                 d.hide();\n                 return;\n            }\n            else{\n            ScheduleInterview(values, frm.doc.name);\n            // console.log(values);\n            d.hide();\n            }\n    }\n        });\n\n    d.show();\n        }\n    },\n    });\n    });\n    }\n    }   \n        // on success\n    },\n\n});\nfunction ScheduleInterview(values, job_applicant){\n    frappe.call({\n        \"method\": \"ethal.utils.save_interview_round\",\n        \"args\":{\n            \"formdata\": values,\n            \"job_applicant\": job_applicant\n        }\n    })\n    .success(success => {\n        console.log(typeof(success.message))\n        msgprint(\"Interview has been scheduled....\");\n    })\n}\nfunction isEmpty(obj) {\n    for(var key in obj) {\n        if(obj.hasOwnProperty(key))\n            return false;\n    }\n    return true;\n}"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Job Opening",
+  "modified": "2020-12-15 22:22:18.478604",
+  "name": "Job Opening-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Job Opening', {\n\trefresh(frm) {\n\t\t// your code here\n\t\t\n\t\tvar today = new Date();\n        var dd = String(today.getDate()).padStart(2, '0');\n        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!\n        var yyyy = today.getFullYear();\n        today = yyyy + '-' + mm + '-' + dd;\n        console.log(today)\n        console.log(frm.doc.end_date)\n        if (frm.doc.end_date > today) {\n            console.log(\"helloooooooooo\")\n            frm.set_value('status', 'Closed')\n           \n        }\n\t}\n})"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Asset Repair",
+  "modified": "2020-10-15 20:13:48.213187",
+  "name": "Asset Repair-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Asset Repair', {\n\tasset_name(frm) {\n\t\t// your code here\n\t\tif(frm.doc.asset_name) {\n\t\t    frappe.model.get_value('Asset', {'name': frm.doc.asset_name}, 'engineer', \n\t\t        function(res){\n\t\t            frm.set_value('assign_to', res.engineer)\n\t\t            \n                })\n\t\t}\n    },\n    refresh(frm) {\n\tif (frm.doc.docstatus===0) {\n\t\t\tfrm.add_custom_button(__('Stock Entry'), function() {\n\t\t\t   new frappe.ui.form.MultiSelectDialog({\n                    doctype: \"Stock Entry\",\n                    target: frm,\n                    setters: {},\n                    date_field: \"posting_date\",\n                    get_query() {\n                        return {\n                            filters: { docstatus: ['!=', 2] }\n                        }\n                    },\n                    action(selections) {\n                        console.log(selections);\n                       console.log(typeof(selections))\n                       for (var i in selections){\n                           console.log(selections[i])\n                           frappe.call({\n                               method: \"ethal.utils.set_items_from_stock_entry\",\n                               args: {\n                                   name: selections[i]\n                               },\n                               callback: function(r){\n                                   console.log(r.message)\n                                  let op = r.message\n                                //   me.frm.add_child(\"part_used\").item = op['item_code'];\n                                //   me.frm.refresh_field(\"part_used\");\n                                var childTable = cur_frm.add_child(\"parts_used\");\n                                childTable.item=op['item_code']\n                                childTable.item_name=op['item_name']\n                                childTable.stock_entry = op['parent']\n                                childTable.item_group=op['item_group']\n                                childTable.dscription=op['description']\n                                childTable.uom=op['uom']\n                                childTable.quantity=op['qty']\n                                cur_frm.refresh_fields(\"part_used\");\n                                $('.modal').hide();\n                               }\n                           })\n                    }\n                    }\n                });\n\t\t\t}, __(\"Get items from\"));\n\t}\n    }\n})\n\n"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
   "dt": "Item",
   "modified": "2020-04-16 12:02:15.717061",
   "name": "Item-Client",
@@ -9,6 +75,17 @@
   "parentfield": null,
   "parenttype": null,
   "script": "function updateUOM(frm){\n    var itemDocument = frm.doc\n    console.log(\"in function update\")\n    \n    \n    if (frm.doc.uoms.length < \"2\"){\n        console.log(\"In If of update\")\n        \n        let d = frm.add_child(\"uoms\");\n        d.uom = \"Nos\";\n\t    d.conversion_factor = itemDocument.standard_weight;\n\t\t refresh_field(\"uoms\");\n\t    console.log(\"print value of d\",d);\n\t    \n\t    console.log(\"Leaving If of update\")\n        \n    }\n    else{\n        console.log(\"In Else of update\")\n        console.log(frm.doc.uoms[1])\n        frm.doc.uoms[1].conversion_factor = itemDocument.standard_weight;\n        \n        refresh_field(\"uoms\");\n        \n        \n        console.log(\"LEaving Else of update\")\n        \n    }\n    \n    \n    \n}\n\n\nfunction weight(frm){\n    var a = frm.doc;\n    if(a.diameter!==0 && a.thickness!==0){\n        var w = 3.14 * (a.diameter/2) * (a.diameter/2) * a.thickness * (2700/1000000000);\n\t\tfrm.set_value('standard_weight',w);\n    }\n    if(a.diameter===0 || a.thickness===0){\n        frm.set_value('standard_weight','0');\n        \n    }\n}\n\n\n\n\nfrappe.ui.form.on('Item', {\n\tdiameter:function(frm) {\n\t    weight(frm)\n    }\n    \n});\n\nfrappe.ui.form.on('Item', {\n\tthickness:function(frm){\n\t     console.log(\"============\")\n\t     console.log(doc.name)\n\t    weight(frm)\n\t    refresh_field(\"standard_weight\");\n\t}\n\t\n});\t\n\nfrappe.ui.form.on('Item',{\n    standard_weight:function(frm){\n        updateUOM(frm);\n        console.log(doc.name)\n    }\n    \n    \n});\n    "
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Payment Entry",
+  "modified": "2020-12-09 21:05:02.184797",
+  "name": "Payment Entry-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "// function series(frm){\n//     var mode = frm.doc.payment_type;\n//     console.log(\"mode-->\",mode);\n//         if (mode ===\"Receive\"){\n//             var crv = \"CRV-.YYYY.-\";\n//             frm.set_value('naming_series',crv);\n//         }\n//         else{\n//             var cpv = \"CPV-.YYYY.-\";\n//             frm.set_value('naming_series',cpv);\n//             // if (mode == \"Pay\"){\n// //               frappe.call({\n// // \t\t    method: \"frappe.client.get\",\n// // \t\t    args:{\n// // \t\t        \"doctype\":\"Purchase Invoice\",\n// // \t\t        \"name\": frappe.inv\n// // \t\t    },\n// // \t\t    callback(r){\n// // \t\t        console.log(r.message)\n// // \t\t        var cl = r.message;\n// // \t\t        if (mode ===\"Pay\"){\n// // \t\t            console.log(cl.withholding_receipt_no, \"with holding no\")\n// // \t\t           frm.set_value('withholding_receipt_no',cl.withholding_receipt_no); \n// // \t\t        } \n\t\t        \n// // \t\t    }\n// // \t\t}) \n//             // }\n//         }\n   \n// }\n\n\n\n\n\n\n// frappe.ui.form.on('Payment Entry', {\n// \tpayment_type:function(frm) {\n\t    \n// \t\tseries(frm)\n// \t\trefresh_field(\"naming_series\");\n// \t} \n// })\n\n// frappe.ui.form.on('Payment Entry', {\n// \trefresh: function(frm) {\n//         series(frm)\n// \t\trefresh_field(\"naming_series\");\n// \t\tfrm.fields_dict['payment_accounts_section'].collapse(1);\n// \t\tfrm.fields_dict['section_break_12'].collapse(1);\n// \t\trefresh_field('payment_accounts_section');\n// \t\trefresh_field('section_break_12');\n\t\t\n\t\t\n\n\t\t\n// \t\t}\n// })"
  },
  {
   "docstatus": 0,
@@ -108,49 +185,5 @@
   "parentfield": null,
   "parenttype": null,
   "script": "frappe.ui.form.on('Asset Maintenance Log', {\n\trefresh(frm) {\n\tif (frm.doc.docstatus===0) {\n\t\t\tfrm.add_custom_button(__('Stock Entry'), function() {\n\t\t\t   new frappe.ui.form.MultiSelectDialog({\n                    doctype: \"Stock Entry\",\n                    target: frm,\n                    setters: {},\n                    date_field: \"posting_date\",\n                    get_query() {\n                        return {\n                            filters: { docstatus: ['!=', 2] }\n                        }\n                    },\n                    action(selections) {\n                        console.log(selections);\n                       console.log(typeof(selections))\n                       for (var i in selections){\n                           console.log(selections[i])\n                           frappe.call({\n                               method: \"ethal.utils.set_items_from_stock_entry\",\n                               args: {\n                                   name: selections[i]\n                               },\n                               callback: function(r){\n                                   console.log(r.message)\n                                  let op = r.message\n                                //   me.frm.add_child(\"part_used\").item = op['item_code'];\n                                //   me.frm.refresh_field(\"part_used\");\n                                var childTable = cur_frm.add_child(\"part_used\");\n                                childTable.item=op['item_code']\n                                childTable.item_name=op['item_name']\n                                childTable.stock_entry = op['parent']\n                                childTable.item_group=op['item_group']\n                                childTable.dscription=op['description']\n                                childTable.uom=op['uom']\n                                childTable.quantity=op['qty']\n                                cur_frm.refresh_fields(\"part_used\");\n                                $('.modal').hide();\n                               }\n                           })\n                    }\n                    }\n                });\n\t\t\t}, __(\"Get items from\"));\n\t}\n    }\n})"
- },
- {
-  "docstatus": 0,
-  "doctype": "Custom Script",
-  "dt": "Payment Entry",
-  "modified": "2020-12-09 21:05:02.184797",
-  "name": "Payment Entry-Client",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "script": "// function series(frm){\n//     var mode = frm.doc.payment_type;\n//     console.log(\"mode-->\",mode);\n//         if (mode ===\"Receive\"){\n//             var crv = \"CRV-.YYYY.-\";\n//             frm.set_value('naming_series',crv);\n//         }\n//         else{\n//             var cpv = \"CPV-.YYYY.-\";\n//             frm.set_value('naming_series',cpv);\n//             // if (mode == \"Pay\"){\n// //               frappe.call({\n// // \t\t    method: \"frappe.client.get\",\n// // \t\t    args:{\n// // \t\t        \"doctype\":\"Purchase Invoice\",\n// // \t\t        \"name\": frappe.inv\n// // \t\t    },\n// // \t\t    callback(r){\n// // \t\t        console.log(r.message)\n// // \t\t        var cl = r.message;\n// // \t\t        if (mode ===\"Pay\"){\n// // \t\t            console.log(cl.withholding_receipt_no, \"with holding no\")\n// // \t\t           frm.set_value('withholding_receipt_no',cl.withholding_receipt_no); \n// // \t\t        } \n\t\t        \n// // \t\t    }\n// // \t\t}) \n//             // }\n//         }\n   \n// }\n\n\n\n\n\n\n// frappe.ui.form.on('Payment Entry', {\n// \tpayment_type:function(frm) {\n\t    \n// \t\tseries(frm)\n// \t\trefresh_field(\"naming_series\");\n// \t} \n// })\n\n// frappe.ui.form.on('Payment Entry', {\n// \trefresh: function(frm) {\n//         series(frm)\n// \t\trefresh_field(\"naming_series\");\n// \t\tfrm.fields_dict['payment_accounts_section'].collapse(1);\n// \t\tfrm.fields_dict['section_break_12'].collapse(1);\n// \t\trefresh_field('payment_accounts_section');\n// \t\trefresh_field('section_break_12');\n\t\t\n\t\t\n\n\t\t\n// \t\t}\n// })"
- },
- {
-  "docstatus": 0,
-  "doctype": "Custom Script",
-  "dt": "Salary Structure Assignment",
-  "modified": "2020-12-12 19:29:11.013178",
-  "name": "Salary Structure Assignment-Client",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "script": "frappe.ui.form.on('Salary Structure Assignment', {\n\trefresh(frm) {\n\t\t// your code here\n\t},\n\temployee(frm){\n\t  frappe.db.get_value('Employee', frm.doc.employee, 'grade')\n        .then(r => {\n        console.log(r.message.grade)\n        if (r.message.grade){\n            console.log('hello')\n            frappe.db.get_value('Employee Grade', r.message.grade, 'base_amount')\n            .then(r => {\n                console.log(r.message.base_amount)\n                frm.set_value('base', r.message.base_amount)\n             })\n            frappe.db.get_value('Employee Grade', r.message.grade, 'default_salary_structure')\n            .then(r => {\n                frm.set_value('salary_structure', r.message.default_salary_structure)\n             }) \n             \n\n        }\n    })\n  \n\t},\n\tbase(frm){\n        frm.set_value('salary_in_usd', frm.doc.base)\n        frappe.call({\n            \"method\": \"ethal.utils.set_conversion_rate\",\n            \"args\": {\n                employee: frm.doc.employee\n            }\n        })\n        .success(success => {\n            console.log(success)\n            frm.set_value('salary_in_birr', success.message*frm.doc.base)\n        })\n\t}\n})"
- },
- {
-  "docstatus": 0,
-  "doctype": "Custom Script",
-  "dt": "Employee",
-  "modified": "2020-12-14 22:19:59.039465",
-  "name": "Employee-Client",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "script": "frappe.ui.form.on('Employee', {\n// \tbefore_save(frm) {\n// \t\t// your code here\n// \t\tif(cur_frm.doc.employee_prerequisite === undefined || cur_frm.doc.employee_prerequisite.length != '3'){\n// \t\t    frappe.throw('Please Upload Mendatory Documents')\n// \t\t}\n// \t},\n// \trefresh(frm){\n// \t    if(!cur_frm.doc.__islocal){\n// \t        if(cur_frm.doc.warnings.length == 3){\n// \t            frappe.call({\n// \t        \"method\": \"ethal.utils.send_notification\",\n// \t\t\t\"args\": {\n// \t\t\t\t'doc': frm.doc\n// \t\t\t},\n// \t\t\tcallback: function(r){\n// \t\t\t\tconsole.log(r.message)\n\t\t\n\t\t\t\t\n// \t\t\t}\n// \t\t})\n// \t        }\n// \t    }\n// \t}\n})\n"
- },
- {
-  "docstatus": 0,
-  "doctype": "Custom Script",
-  "dt": "Salary Structure",
-  "modified": "2020-12-14 13:02:25.124318",
-  "name": "Salary Structure-Client",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "script": "frappe.ui.form.on('Salary Structure', {\n\trefresh(frm) {\n\t\t// your code here\n\t\t\tfrm.remove_custom_button('Assign to Employees')\n\t\t\tfrm.add_custom_button('Assign Employees', () => {\n\t\t\t    var d = new frappe.ui.Dialog({\n\t\t\t        \n\t\t\ttitle: __(\"Assign to Employees\"),\n\t\t\tfields: [\n\t\t\t\t{fieldname: \"sec_break\", fieldtype: \"Section Break\", label: __(\"Filter Employees By (Optional)\")},\n\t\t\t\t{fieldname: \"company\", fieldtype: \"Link\", options: \"Company\", label: __(\"Company\"), default: frm.doc.company, read_only:1},\n\t\t\t\t{fieldname: \"grade\", fieldtype: \"Link\", options: \"Employee Grade\", label: __(\"Employee Grade\"), change: () => {\n\t\t\t\t\t\t\n\t\t\t\t    frappe.db.get_value('Employee Grade', d.get_value('grade'), 'base_amount')\n                    .then(r => {\n                        console.log(r.message) // Open\n                        d.set_value('base', r.message.base_amount)\n                    })\n\n\t\t\t\t}},\n\t\t\t\t{fieldname:'department', fieldtype:'Link', options: 'Department', label: __('Department')},\n\t\t\t\t{fieldname:'designation', fieldtype:'Link', options: 'Designation', label: __('Designation')},\n                {fieldname:\"employee\", fieldtype: \"Link\", options: \"Employee\", label: __(\"Employee\")},\n\t\t\t\t{fieldname:'base_variable', fieldtype:'Section Break'},\n\t\t\t\t{fieldname:'from_date', fieldtype:'Date', label: __('From Date'), \"reqd\": 1},\n\t\t\t\t{fieldname:'income_tax_slab', fieldtype:'Link', label: __('Income Tax Slab'), options: 'Income Tax Slab'},\n\t\t\t\t{fieldname:'base_col_br', fieldtype:'Column Break'},\n\t\t\t\t{fieldname:'base', fieldtype:'Currency', label: __('Base'), read_only: 1}\n\t\t\t],\n\t\t\tprimary_action: function() {\n\t\t\t  console.log(d.get_value('grade'))\n\t\t\t\tvar data = d.get_values();\n\t\t\t\tdata['doc'] = frm.doc\n\t\t\t\tconsole.log(data)\n\t\t\t\tfrappe.call({\n\t\t\t\t\n\t\t\t\t\tmethod: \"ethal.utils.assign_salary_structure\",\n\t\t\t\t\targs: data,\n\t\t\t\t\tcallback: function(r) {\n\t\t\t\t\t\tif(!r.exc) {\n\t\t\t\t\t\t\td.hide();\n\t\t\t\t\t\t\tfrm.reload_doc();\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t});\n\t\t\t},\n\t\t\tprimary_action_label: __('Assign')\n\t\t});\n\n\n\t\td.show();\n\t})\n\t}\n})"
  }
 ]
