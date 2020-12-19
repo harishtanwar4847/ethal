@@ -8,7 +8,51 @@ from ethal.ethal.report.liquidity_ratios.liquidity_ratios import get_monthly_gl_
 def execute(filters=None):
 	columns, data = [], []
 	data = get_data()
-	columns = ["Month::180"]+["Gross Profit Margin::180"]+["Net Profit Margin::180"]+["EBITDA Margin::180"]+["EBIT Margin::180"]+["Return on Assets (ROA)::180"]+["Return on Equity/Investment::180"]
+	# columns = ["Month::180"]+["Gross Profit Margin::180"]+["Net Profit Margin::180"]+["EBITDA Margin::180"]+["EBIT Margin::180"]+["Return on Assets (ROA)::180"]+["Return on Equity/Investment::180"]
+	columns = [
+		{
+			"label": "Month",
+			"fieldname": "month",
+			"fieldtype": "Data",
+			"width": 150
+		},
+		{
+			"label": "Gross Profit Margin",
+			"fieldname": "gross_profit_margin",
+			"fieldtype": "Data",
+			"width": 150
+		},
+		{
+			"label": "Net Profit Margin",
+			"fieldname": "net_profit_margin",
+			"fieldtype": "Data",
+			"width": 150
+		},
+		{
+			"label": "EBITDA Margin",
+			"fieldname": "ebitda_margin",
+			"fieldtype": "Data",
+			"width": 150
+		},
+		{
+			"label": "EBIT Margin",
+			"fieldname": "ebit_margin",
+			"fieldtype": "Data",
+			"width": 150
+		},
+		{
+			"label": "Return on Assets (ROA)",
+			"fieldname": "return_on_assets",
+			"fieldtype": "Data",
+			"width": 150
+		},
+		{
+			"label": "Return on Equity/Investment",
+			"fieldname": "return_on_equity",
+			"fieldtype": "Data",
+			"width": 150
+		}
+	]
 	return columns, data
 
 def get_data():
@@ -18,7 +62,12 @@ def get_data():
 		lst_50000 = get_monthly_gl_debit_no_opening("5%")
 		
 		final_res = [(b-m) / b*100 if m != 0 and b!=0 else 0 for b,m in zip(lst_41000, lst_50000)]
-		return final_res
+		per_final_result = []
+		for i in final_res:
+			print(i)
+			per_final_result.append('{:.2f}%'.format(i))
+		return per_final_result
+
 
 	def net_profit_margin():
 		lst_40000 = get_monthly_gl_credit_no_opening("4%")
@@ -26,7 +75,12 @@ def get_data():
 		lst_60000 = get_monthly_gl_debit_no_opening("6%")
 		
 		final_res = [(b-m-k) / b*100 if m != 0 and b!=0 else 0 for b,m,k in zip(lst_40000, lst_50000, lst_60000)]
-		return final_res
+		per_final_result = []
+		for i in final_res:
+			print(i)
+			per_final_result.append('{:.2f}%'.format(i))
+		return per_final_result
+
 
 	def EBITDA_margin():
 		lst_40000 = get_monthly_gl_credit_no_opening("4%")
@@ -37,7 +91,12 @@ def get_data():
 		lst_41000 = get_monthly_gl_credit_no_opening("41%")
 		numeratr = [a-b-c+d+e for a,b,c,d,e in zip(lst_40000, lst_50000, lst_60000, lst_62000, lst_63000_16)]
 		final_res = [a / f*100 if a!=0 and f!=0 else 0 for a,f in zip(numeratr, lst_41000)]
-		return final_res
+		per_final_result = []
+		for i in final_res:
+			print(i)
+			per_final_result.append('{:.2f}%'.format(i))
+		return per_final_result	
+
 	
 	def EBIT_margin():
 		lst_40000 = get_monthly_gl_credit_no_opening("4%")
@@ -47,7 +106,12 @@ def get_data():
 		lst_41000 = get_monthly_gl_credit_no_opening("41%")
 		numeratr = [a-b-c+d for a,b,c,d in zip(lst_40000, lst_50000, lst_60000, lst_62000)]
 		final_res = [a / f*100 if a!=0 and f!=0 else 0 for a,f in zip(numeratr, lst_41000)]
-		return final_res
+		per_final_result = []
+		for i in final_res:
+			print(i)
+			per_final_result.append('{:.2f}%'.format(i))
+		return per_final_result
+
 
 	def return_on_assets():
 		lst_40000 = get_monthly_gl_credit_no_opening("4%")
@@ -56,7 +120,12 @@ def get_data():
 		lst_10000 = get_monthly_gl_debit_10000("1%")
 		numeratr = [a-b-c for a,b,c in zip(lst_40000, lst_50000, lst_60000)]
 		final_res = [a / f*100 if a!=0 and f!=0 else 0 for a,f in zip(numeratr, lst_10000)]
-		return final_res
+		per_final_result = []
+		for i in final_res:
+			print(i)
+			per_final_result.append('{:.2f}%'.format(i))
+		return per_final_result
+
 
 	def return_on_equity():
 		lst_40000_no = get_monthly_gl_credit_no_opening("4%")
@@ -70,7 +139,12 @@ def get_data():
 		diff = [a-b-c for a,b,c in zip(lst_40000, lst_50000, lst_60000)]
 		denominatr = [a+b for a,b in zip(lst_30000,diff)]
 		final_res = [a / f*100 if a!=0 and f!=0 else 0 for a,f in zip(numeratr, denominatr)]
-		return final_res
+		per_final_result = []
+		for i in final_res:
+			print(i)
+			per_final_result.append('{:.2f}%'.format(i))
+		return per_final_result
+
 
 	roe = return_on_equity()
 	roa = return_on_assets()

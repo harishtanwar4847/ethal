@@ -1,0 +1,58 @@
+{
+ "creation": "2020-11-20 13:56:35.067664",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "warning_letter",
+  "warning_template",
+  "warning_number",
+  "section_break_4",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "warning_letter",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Warning Letter",
+   "options": "Warning Letter"
+  },
+  {
+   "fetch_from": "warning_letter.template",
+   "fieldname": "warning_template",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Warning Template",
+   "options": "Warning Letter Template"
+  },
+  {
+   "default": "warning_letter.warning_number",
+   "fieldname": "warning_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Warning Number"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "warning_letter.description",
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-12-11 12:41:12.536091",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Warning Letter Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

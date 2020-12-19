@@ -87,13 +87,13 @@ app_license = "MIT"
 #	}
 # }
 doc_events = {
-	"Asset Maintenance Log": {
-		"after_insert": "ethal.utils.before_save_asset_maintenance_log",
-		"on_submit": "ethal.utils.create_stock_entry"
-	},
-	"Asset Repair": {
-		"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
-	},
+	# "Asset Maintenance Log": {
+	# 	"after_insert": "ethal.utils.before_save_asset_maintenance_log",
+	# 	"on_submit": "ethal.utils.create_stock_entry"
+	# },
+	# "Asset Repair": {
+	# 	"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
+	# },
 	"Leave Allocation": {
 		"on_submit": "ethal.utils.before_submit_leave_allocation"
 	},
@@ -101,6 +101,10 @@ doc_events = {
 		"before_submit": "ethal.utils.before_submit_all_doctypes"
 	}
 }
+
+doctype_list_js = {
+    "Salary Structure Assignment" : "public/js/salary_structure_assignment_list.js"
+ 	}
 
 
 # Scheduled Tasks
@@ -150,7 +154,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Customer", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Delivery Note", "Sales Invoice", "Sales Order", "Purchase Invoice", "Purchase Order", "Purchase Receipt", "Asset Repair", "Payment Entry", "Material Request", "Quotation Item", "Tax Category", "Address", "Print Settings", "Project", "Deleted Document", "Task", "Asset Maintenance Log", "Asset Maintenance Task"]
+				["Supplier", "Customer", "Payroll Entry", "Employee", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Payment Entry", "Print Settings"]
 			]
 		]
 	},
@@ -165,25 +169,15 @@ fixtures = [
 		]
 	},
 	{
-		"dt": "DocType",
+		"dt": "Custom Script",
 		"filters": [
 			[
-				"name",
-				"in",
-				["Parts Used Item Table"]
-			]
-		]
-	},
-	{
-		"dt": "Report",
-		"filters": [
-			[
-				"name",
-				"in",
-				['Cash & Bank Balance']
+			"dt",
+			"in",
+			['Employee', 'Salary Structure', 'Salary Structure Assignment', 'Payment Entry']
 			]
 		]
 	},
 	"Translation",
-	"Custom Script"
+	"Shift Type",
 ]
