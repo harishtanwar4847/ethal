@@ -15,8 +15,12 @@ def cash_flows_operating_activities():
 
 def cash_receipt_from_customer(party_type, payment_type, from_date, to_date):
 	a = get_payment_entry_value(party_type, payment_type, from_date, to_date)
-	print(a)
 	return {'Account': 'Cash receipts from customers', 'ETB': a}
+
+def cash_paid_to_supplier(party_type, payment_type, from_date, to_date):
+	a = get_payment_entry_value(party_type, payment_type, from_date, to_date)
+	return {'Account': 'Cash paid to suppliers', 'ETB': a}
+
 
 def get_payment_entry_value(party_type, payment_type, from_date, to_date):
 	return frappe.db.sql(""" 
@@ -31,5 +35,8 @@ def get_data(filters):
 
 	crfc = cash_receipt_from_customer('Customer', 'Receive', filters.from_date, filters.to_date)
 	data_list.append(crfc)
+
+	cpts = cash_paid_to_supplier('Supplier', 'Pay', filters.from_date, filters.to_date)
+	data_list.append(cpts)
 
 	return data_list
