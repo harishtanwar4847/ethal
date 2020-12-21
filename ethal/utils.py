@@ -74,3 +74,7 @@ def before_submit_all_doctypes(doc, method):
     if admin_settings_document:
         if admin_settings.closure_date > doc.posting_date:
             frappe.throw('please contact manager')
+
+def set_approver_name(doc, method):
+    frappe.db.set_value(doc.doctype, {'name': doc.name}, 'approver_person', doc.modified_by)
+    frappe.db.commit()

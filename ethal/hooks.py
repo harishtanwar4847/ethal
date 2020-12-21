@@ -99,7 +99,26 @@ doc_events = {
 	},
 	"*": {
 		"before_submit": "ethal.utils.before_submit_all_doctypes"
-	}
+	},
+	"Purchase Order": {
+		"on_submit": "ethal.utils.set_approver_name"
+	},
+	"Sales Invoice": {
+		"on_submit": "ethal.utils.set_approver_name"
+	},
+	"Sales Order": {
+		"on_submit": "ethal.utils.set_approver_name"
+	},
+	"Material Request": {
+		"on_submit": "ethal.utils.set_approver_name"
+	},
+	"Payment Entry": {
+		"on_submit": "ethal.utils.set_approver_name"
+	},
+	"Purchase Invoice": {
+		"on_submit": "ethal.utils.set_approver_name"
+	},
+
 }
 
 
@@ -160,7 +179,7 @@ fixtures = [
 			[
 				"doc_type",
 				"in",
-				["Purchase Receipt"]
+				["Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request"]
 			]
 		]
 	},
@@ -185,5 +204,5 @@ fixtures = [
 		]
 	},
 	"Translation",
-	"Custom Script"
+	"Custom Script",
 ]
