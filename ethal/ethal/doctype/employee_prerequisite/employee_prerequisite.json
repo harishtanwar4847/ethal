@@ -1,0 +1,28 @@
+{
+ "creation": "2020-11-18 09:20:51.407854",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "attachments"
+ ],
+ "fields": [
+  {
+   "fieldname": "attachments",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Attachments"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-12-11 12:41:34.606200",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Employee Prerequisite",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
