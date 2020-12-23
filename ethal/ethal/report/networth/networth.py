@@ -124,8 +124,6 @@ def calculate_amount_of_accounts_of_advance(filters, account, indent):
 	return {'Account': account, 'Amount': accounts_sum, 'indent': indent}	
 
 def get_monthly_gl_debit(filters, account):
-	print(filters.from_date)
-	print(filters.to_date)
 	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' AND '{2}') GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters.from_date, filters.to_date), as_list=True)
 	lst=[]
 	for i in a:
