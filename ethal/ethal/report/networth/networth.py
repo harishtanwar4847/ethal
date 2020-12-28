@@ -165,7 +165,9 @@ def calculate_amount_of_accounts_of_advance(account, indent):
 	return {'Account': account, 'Amount': accounts_sum, 'indent': indent}	
 
 def get_monthly_gl_debit(account):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
+	from `tabGL Entry` where account like "{0}%" 
+	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
 	lst=[]
 	for i in a:
 		lst.append(i[0])
@@ -179,7 +181,9 @@ def get_monthly_gl_debit(account):
 		lst_a.append(i[1])
 
 
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
+	from `tabGL Entry` where account like "{0}%" 
+	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
 	lst_1=[]
 	for i in b:
 		lst_1.append(i[0])
@@ -197,7 +201,9 @@ def get_monthly_gl_debit(account):
 	return res_a
 
 def get_monthly_gl_credit(account):
-		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
+		from `tabGL Entry` where account like "{0}%" 
+		and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
 		lst=[]
 		for i in a:
 			lst.append(i[0])
@@ -210,7 +216,9 @@ def get_monthly_gl_credit(account):
 		for i in a:
 			lst_a.append(i[1])
 
-		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
+		from `tabGL Entry` where account like "{0}%" 
+		and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
 		lst_1=[]
 		for i in b:
 			lst_1.append(i[0])
@@ -228,7 +236,9 @@ def get_monthly_gl_credit(account):
 		return res_a
 
 def get_monthly_gl_debit_no_opening_with_advances(account):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where party_type='Customer' and party like '{0}%'  and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
+	from `tabGL Entry` where party_type='Customer' and party like '{0}%'  
+	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
 	lst=[]
 	for i in a:
 		lst.append(i[0])
@@ -242,7 +252,9 @@ def get_monthly_gl_debit_no_opening_with_advances(account):
 		lst_a.append(i[1])
 
 
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where party_type='Customer' and party like '{0}%'  and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
+	from `tabGL Entry` where party_type='Customer' and party like '{0}%'  
+	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
 	lst_1=[]
 	for i in b:
 		lst_1.append(i[0])
@@ -262,7 +274,8 @@ def get_monthly_gl_debit_no_opening_with_advances(account):
 	return res_a
 
 def get_monthly_gl_debit_no_opening(account):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2019 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
+	from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2019 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
 	lst=[]
 	for i in a:
 		lst.append(i[0])
@@ -275,7 +288,9 @@ def get_monthly_gl_debit_no_opening(account):
 	for i in a:
 		lst_a.append(i[1])
 
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = 2020 GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
+	from `tabGL Entry` where account like "{0}%" 
+	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
 	lst_1=[]
 	for i in b:
 		lst_1.append(i[0])
