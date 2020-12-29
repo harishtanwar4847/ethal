@@ -238,7 +238,7 @@ def get_data():
 		b = get_last_day_credit(account)
 		print(b)
 
-		res_a = [a+b for a,b in zip(a,b)]
+		res_a = [a+b/2 for a,b in zip(a,b)]
 		print(res_a)
 		c = get_monthly_gl_credit_no_opening('41')
 
@@ -256,7 +256,7 @@ def get_data():
 		b = get_last_day_credit(account)
 		print(b)
 
-		res_a = [a+b for a,b in zip(a,b)]
+		res_a = [a+b/2 for a,b in zip(a,b)]
 		print(res_a)
 		c = get_monthly_gl_debit_no_opening('114')
 
