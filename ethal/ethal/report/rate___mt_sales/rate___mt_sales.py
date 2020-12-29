@@ -30,7 +30,7 @@ def sales_invoice():
 	 """, as_list=True)
 
 def sales_invoice_qty():
-	return frappe.db.sql(""" select sum(total_net_weight_aluminium/100) from `tabSales Invoice`
+	return frappe.db.sql(""" select sum(total_net_weight_aluminium/1000) from `tabSales Invoice`
 	 where docstatus!=1 GROUP BY MONTH(posting_date) 
 	 ORDER BY posting_date;
 	 """, as_list=True)
