@@ -40,7 +40,7 @@ def cash_paid_to_supplier(party_type, payment_type, from_date, to_date):
 	a = get_payment_entry_value(party_type, payment_type, from_date, to_date)
 	return {'account': 'Cash paid to suppliers', 'etb': a, 'indent': 1}
 
-def cash_paid_to_supplier(party_type, payment_type, from_date, to_date):
+def cash_paid_to_employee(party_type, payment_type, from_date, to_date):
 	a = get_payment_entry_value(party_type, payment_type, from_date, to_date)
 	return {'account': 'Cash paid to employees', 'etb': a, 'indent': 1}
 
@@ -146,7 +146,7 @@ def get_data(filters):
 	cpts = cash_paid_to_supplier('Supplier', 'Pay', filters.from_date, filters.to_date)
 	data_list.append(cpts)
 
-	cpte = cash_paid_to_supplier('Employee', 'Pay', filters.from_date, filters.to_date)
+	cpte = cash_paid_to_employee('Employee', 'Pay', filters.from_date, filters.to_date)
 	data_list.append(cpte)
 
 	cgfo = cash_generated_from_operation('41', filters.from_date, filters.to_date)
