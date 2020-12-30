@@ -9,6 +9,7 @@ def get_data():
 			"color": "grey",
 			"icon": "octicon octicon-file-directory",
 			"type": "module",
+			"force_show": True,
 			"label": _("Import")
 		}
 	]

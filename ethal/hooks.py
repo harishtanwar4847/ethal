@@ -173,7 +173,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Customer", "Payroll Entry", "Employee", "Employee Grade", "Salary Structure Assignment", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings"]
+				["Supplier", "Customer", "Payroll Entry", "Employee", "Employee Grade", "Salary Structure Assignment", "Employee Tax Exemption Proof Submission", "Payment Entry", "Journal Entry", "Print Settings"]
 			]
 		]
 	},
