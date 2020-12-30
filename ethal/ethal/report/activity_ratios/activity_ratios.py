@@ -233,38 +233,28 @@ def get_data():
 		return get_monthly_gl_credit('21000-01')	
 
 	def get_monthly_gl_debit(account):
-		a = get_1st_day_debit(account)
-		print(a)
-		b = get_last_day_credit(account)
-		print(b)
+		first_day = get_1st_day_debit(account)
+		last_day = get_last_day_credit(account)
 
-		res_a = [a+b/2 for a,b in zip(a,b)]
-		print(res_a)
+		res_a = [(a+b)/2 for a,b in zip(first_day,last_day)]
 		c = get_monthly_gl_credit_no_opening('41')
 
 		final_res = [a/b for a,b in zip(c,res_a)]
-		print("final",final_res)
 		per_final_result = []
 		for i in final_res:
-			print(i)
 			per_final_result.append('{:.2f}%'.format(i))
 		return per_final_result
 
 	def get_monthly_gl_credit(account):
-		a = get_1st_day_credit(account)
-		print(a)
-		b = get_last_day_credit(account)
-		print(b)
+		first_day = get_1st_day_credit(account)
+		last_day = get_last_day_credit(account)
 
-		res_a = [a+b/2 for a,b in zip(a,b)]
-		print(res_a)
+		res_a = [(a+b)/2 for a,b in zip(first_day,last_day)]
 		c = get_monthly_gl_debit_no_opening('114')
 
 		final_res = [a/b for a,b in zip(c,res_a)]
-		print("final",final_res)
 		per_final_result = []
 		for i in final_res:
-			print(i)
 			per_final_result.append('{:.2f}%'.format(i))
 		return per_final_result	
 
