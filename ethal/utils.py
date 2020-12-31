@@ -34,6 +34,11 @@ def before_submit_all_doctypes(doc, method):
         if admin_settings.closure_date > doc.posting_date:
             frappe.throw('please contact manager')
 
-def set_approver_name(doc, method):
-    frappe.db.set_value(doc.doctype, {'name': doc.name}, 'approver_person', doc.modified_by)
+@frappe.whitelist()
+def set_approver_name(data):
+    data=json.loads(data)
+    print(data)
+    get_approver_name = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'owner')
+    print(get_approver_name)
+    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_person', get_approver_name)
     frappe.db.commit()
