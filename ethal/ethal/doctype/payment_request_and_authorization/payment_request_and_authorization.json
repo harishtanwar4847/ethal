@@ -18,7 +18,11 @@
   "grn_no",
   "supporting_documents",
   "amended_from",
-  "approver_person"
+  "approver_person",
+  "checked_person",
+  "approver_date",
+  "checked_date",
+  "workflow_state"
  ],
  "fields": [
   {
@@ -105,10 +109,37 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Approver Person"
+  },
+  {
+   "fieldname": "checked_person",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Checked Person"
+  },
+  {
+   "fieldname": "checked_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Checked Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "workflow_state",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Workflow State",
+   "no_copy": 1,
+   "options": "Workflow State"
+  },
+  {
+   "fieldname": "approver_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Approved Date"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-01 13:32:06.908023",
+ "modified": "2021-01-01 19:34:00.804469",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
