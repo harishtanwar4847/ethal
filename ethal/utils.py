@@ -43,5 +43,5 @@ def set_approver_name(data):
     get_approved_date = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'modified')
     
     frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_person', get_approver_name)
-    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approved_date', get_approved_date)
+    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_date', get_approved_date)
     frappe.db.commit()
