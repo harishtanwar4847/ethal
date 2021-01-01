@@ -16,7 +16,9 @@
   "references_section",
   "prf_no",
   "grn_no",
-  "supporting_documents"
+  "supporting_documents",
+  "amended_from",
+  "approver_person"
  ],
  "fields": [
   {
@@ -88,9 +90,25 @@
    "fieldname": "supporting_documents",
    "fieldtype": "Small Text",
    "label": "Supporting Documents"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Payment Request and Authorization",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "approver_person",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Approver Person"
   }
  ],
- "modified": "2020-12-12 17:49:59.814128",
+ "is_submittable": 1,
+ "modified": "2021-01-01 13:32:06.908023",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
