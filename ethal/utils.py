@@ -37,8 +37,11 @@ def before_submit_all_doctypes(doc, method):
 @frappe.whitelist()
 def set_approver_name(data):
     data=json.loads(data)
-    print(data)
+    
     get_approver_name = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'owner')
-    print(get_approver_name)
+    
+    get_approved_date = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'modified')
+    
     frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_person', get_approver_name)
+    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approved_date', get_approved_date)
     frappe.db.commit()
