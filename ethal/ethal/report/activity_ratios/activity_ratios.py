@@ -235,11 +235,11 @@ def get_data():
 	def get_monthly_gl_debit(account):
 		first_day = get_1st_day_debit(account)
 		last_day = get_last_day_credit(account)
-
+		print(first_day)
 		res_a = [(a+b)/2 for a,b in zip(first_day,last_day)]
 		c = get_monthly_gl_credit_no_opening('41')
 
-		final_res = [a/b for a,b in zip(c,res_a)]
+		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(c,res_a)]
 		per_final_result = []
 		for i in final_res:
 			per_final_result.append('{:.2f}%'.format(i))
@@ -252,7 +252,7 @@ def get_data():
 		res_a = [(a+b)/2 for a,b in zip(first_day,last_day)]
 		c = get_monthly_gl_debit_no_opening('114')
 
-		final_res = [a/b for a,b in zip(c,res_a)]
+		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(c,res_a)]
 		per_final_result = []
 		for i in final_res:
 			per_final_result.append('{:.2f}%'.format(i))
