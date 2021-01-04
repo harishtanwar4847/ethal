@@ -1,28 +1,33 @@
 {
+ "autoname": "naming_series:",
  "creation": "2020-12-01 14:09:43.114648",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "date_of_request",
-  "date_of_requirement",
   "payee_name",
   "payment_reason",
-  "description_of_requirement",
+  "column_break_3",
+  "date_of_request",
+  "date_of_requirement",
+  "description_of_requirement_section",
   "payment_type",
   "payment_mode",
+  "column_break_9",
   "amount",
   "bank",
   "references_section",
   "prf_no",
   "grn_no",
+  "column_break_15",
   "supporting_documents",
   "amended_from",
   "approver_person",
   "checked_person",
   "approver_date",
   "checked_date",
-  "workflow_state"
+  "workflow_state",
+  "naming_series"
  ],
  "fields": [
   {
@@ -42,13 +47,8 @@
   },
   {
    "fieldname": "payment_reason",
-   "fieldtype": "Text Editor",
+   "fieldtype": "Small Text",
    "label": "Payment Reason"
-  },
-  {
-   "fieldname": "description_of_requirement",
-   "fieldtype": "Heading",
-   "label": "Description of Requirement"
   },
   {
    "fieldname": "payment_type",
@@ -140,11 +140,39 @@
    "hidden": 1,
    "label": "Approved Date",
    "set_only_once": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "no_copy": 1,
+   "options": "PRA-HO-.YYYY.-",
+   "print_hide": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description_of_requirement_section",
+   "fieldtype": "Section Break",
+   "label": "Description of Requirement"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-02 13:34:27.902160",
- "modified_by": "karan.bhanushali@atritechnocrat.in",
+ "modified": "2021-01-04 11:29:11.714259",
+ "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
  "owner": "Administrator",
