@@ -16,13 +16,13 @@ def execute(filters=None):
 		{
 			"label": "ETB",
 			"fieldname": "etb",
-			"fieldtype": "Currency",
+			"fieldtype": "Data",
 			"width": 150
 		},
 		{
 			"label": "ETB",
 			"fieldname": "etb1",
-			"fieldtype": "Currency",
+			"fieldtype": "Data",
 			"width": 150
 		}
 	]
@@ -38,18 +38,18 @@ def cash_receipt_from_customer(party_type, payment_type, from_date, to_date):
 
 def cash_paid_to_supplier(party_type, payment_type, from_date, to_date):
 	a = get_payment_entry_value(party_type, payment_type, from_date, to_date)
-	return {'account': 'Cash paid to suppliers', 'etb': a, 'indent': 1}
+	return {'account': 'Cash paid to suppliers', 'etb': "-"+str(a), 'indent': 1}
 
 def cash_paid_to_employee(party_type, payment_type, from_date, to_date):
 	a = get_payment_entry_value(party_type, payment_type, from_date, to_date)
-	return {'account': 'Cash paid to employees', 'etb': a, 'indent': 1}
+	return {'account': 'Cash paid to employees', 'etb': "-"+str(a), 'indent': 1}
 
 def cash_generated_from_operation(account_number, from_date, to_date):
 	a = get_monthly_gl_credit(account_number, from_date, to_date)
 	return {'account': 'Cash generated from operations', 'etb': a, 'indent': 1}
 
 def interest_paid(account_number, from_date, to_date):
-	a = get_monthly_gl_debit(account_number, from_date, to_date)
+	a = get_monthly_gl_debit_for_negative(account_number, from_date, to_date)
 	return {'account': 'Interest paid', 'etb': a, 'indent': 1}
 
 def income_tax_paid(account_number, from_date, to_date):
@@ -68,7 +68,7 @@ def get_payment_entry_value(party_type, payment_type, from_date, to_date):
 	""".format(party_type, payment_type, from_date, to_date), as_list=1)[0][0]	
 
 def purchase_of_property_plant_equipment(account_number, from_date, to_date):
-	a = get_monthly_gl_debit(account_number, from_date, to_date)
+	a = get_monthly_gl_debit_for_negative(account_number, from_date, to_date)
 	return {'account': 'Purchase of property, plant, and equipment', 'etb': a, 'indent': 1}
 
 def process_from_sales_equipment():
@@ -89,7 +89,7 @@ def proceed_from_issuance_long_term_dept(account_number, from_date, to_date):
 	return {'account': 'Proceeds from issuance of long-term debt', 'etb': a, 'indent': 1}
 
 def principle_payment_under_capital(account_number, from_date, to_date):
-	a = get_monthly_gl_debit(account_number, from_date, to_date)
+	a = get_monthly_gl_debit_for_negative(account_number, from_date, to_date)
 	return {'account': 'Principal payments under capital lease obligation', 'etb': a, 'indent': 1}
 
 def dividends_paid():
@@ -126,6 +126,15 @@ def get_monthly_gl_credit(account, from_date, to_date):
 	
 	return final_res
 
+def get_monthly_gl_debit_for_negative(account, from_date, to_date):
+	a = frappe.db.sql("""select sum(credit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') ;""".format(account, from_date, to_date), as_list=True)
+	print(a)
+	b = frappe.db.sql("""select sum(debit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') ;""".format(account, from_date, to_date), as_list=True)
+	if (a[0][0] != None and b[0][0] != None):  
+		res_a = a[0][0] - b[0][0]
+
+		return res_a
+
 def get_monthly_gl_debit(account, from_date, to_date):
 	a = frappe.db.sql("""select sum(debit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') ;""".format(account, from_date, to_date), as_list=True)
 	print(a)
@@ -133,7 +142,7 @@ def get_monthly_gl_debit(account, from_date, to_date):
 	if (a[0][0] != None and b[0][0] != None):  
 		res_a = a[0][0] - b[0][0]
 
-		return res_a
+		return res_a		
 
 def get_monthly_debit_gl_credit(account, from_date, to_date):
 	a = frappe.db.sql("""select sum(debit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') ;""".format(account, from_date, to_date), as_list=True)
