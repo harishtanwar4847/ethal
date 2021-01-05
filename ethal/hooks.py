@@ -18,6 +18,8 @@ app_license = "MIT"
 # app_include_css = "/assets/ethal/css/ethal.css"
 # app_include_js = "/assets/ethal/js/ethal.js"
 
+app_include_js = "/assets/ethal/js/transaction.js"
+
 # include js, css files in header of web template
 # web_include_css = "/assets/ethal/css/ethal.css"
 # web_include_js = "/assets/ethal/js/ethal.js"
