@@ -5,4 +5,29 @@ frappe.ui.form.on('Payment Request and Authorization', {
 	// refresh: function(frm) {
 
 	// }
+   onload: function(frm){
+	if(frm.doc.workflow_state == 'Sent For Approval' && !frm.doc.checked_person){
+		frappe.call({
+			method: "ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.set_approver_name",
+			args: {
+				data: frm.doc
+			}
+		})
+		.success(success =>{
+			console.log(success)
+		})
+
+	} 
+	if(frm.doc.workflow_state == 'Approved' && !frm.doc.approver_person){
+			frappe.call({
+				method: "ethal.utils.set_approver_name",
+				args: {
+					data: frm.doc
+				}
+			})
+			.success(success =>{
+				console.log(success)
+			})
+  		 }
+	}
 });

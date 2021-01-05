@@ -71,12 +71,11 @@ def get_data():
 
 		deno = [(a-b-c+d) for a,b,c,d in zip(lst_40000,lst_50000,lst_60000,lst_62000)]
 		final = [(a/b) if a!= 0 and b!=0 else 0 for a,b in zip(deno, lst_62000)]
-		return final
-		# per_final_result = []
-		# for i in final:
-		# 	print(i)
-		# 	per_final_result.append('{:.2f}%'.format(i))
-		# return per_final_result
+		per_final_result = []
+		for i in final:
+			print(i)
+			per_final_result.append('{:.2f}%'.format(i))
+		return per_final_result
 
 	# total_liability_10000 = total_liability_10000()
 	# total_equity = total_equity()
