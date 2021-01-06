@@ -1,0 +1,125 @@
+{
+ "creation": "2020-12-15 11:14:12.035479",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "parameters",
+  "purchase_invoice",
+  "amount",
+  "invoice_value",
+  "sea_fright_etb",
+  "inland_fright_etb",
+  "insurance_etb",
+  "import_customs_duty_etb",
+  "other_etb",
+  "bank_charge_etb",
+  "storage_etb",
+  "port_handling_charge_etb",
+  "transit_and_clearing_etb",
+  "loading_and_unloading_etb",
+  "inland_transport_etb",
+  "miscellaneous_etb"
+ ],
+ "fields": [
+  {
+   "fieldname": "parameters",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Parameters "
+  },
+  {
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Purchase Invoice",
+   "options": "Purchase Invoice",
+   "unique": 1
+  },
+  {
+   "fetch_from": "purchase_invoice.total",
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
+  },
+  {
+   "fieldname": "invoice_value",
+   "fieldtype": "Currency",
+   "label": "Invoice Value"
+  },
+  {
+   "fieldname": "sea_fright_etb",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sea Fright (ETB)"
+  },
+  {
+   "fieldname": "inland_fright_etb",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Inland Fright (ETB)"
+  },
+  {
+   "fieldname": "insurance_etb",
+   "fieldtype": "Data",
+   "label": "Insurance (ETB)"
+  },
+  {
+   "fieldname": "import_customs_duty_etb",
+   "fieldtype": "Data",
+   "label": "Import Customs Duty (ETB)"
+  },
+  {
+   "fieldname": "other_etb",
+   "fieldtype": "Data",
+   "label": "Other (ETB)"
+  },
+  {
+   "fieldname": "bank_charge_etb",
+   "fieldtype": "Data",
+   "label": "Bank charge (ETB)"
+  },
+  {
+   "fieldname": "storage_etb",
+   "fieldtype": "Data",
+   "label": "Storage (ETB)"
+  },
+  {
+   "fieldname": "port_handling_charge_etb",
+   "fieldtype": "Data",
+   "label": "Port handling charge (ETB)"
+  },
+  {
+   "fieldname": "transit_and_clearing_etb",
+   "fieldtype": "Data",
+   "label": "Transit and clearing (ETB)"
+  },
+  {
+   "fieldname": "loading_and_unloading_etb",
+   "fieldtype": "Data",
+   "label": "Loading and unloading (ETB)"
+  },
+  {
+   "fieldname": "inland_transport_etb",
+   "fieldtype": "Data",
+   "label": "Inland transport (ETB)"
+  },
+  {
+   "fieldname": "miscellaneous_etb",
+   "fieldtype": "Data",
+   "label": "Miscellaneous (ETB)"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-01-05 16:05:50.863331",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Import Cost Sheet Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

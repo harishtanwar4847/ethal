@@ -7,8 +7,15 @@ def get_data():
 		{
 			"module_name": "Ethal",
 			"color": "grey",
+			"icon": "octicon octicon-database",
+			"type": "module",
+			"label": _("Import")
+		},
+			{
+			"module_name": "Accounts",
+			"color": "grey",
 			"icon": "octicon octicon-file-directory",
 			"type": "module",
-			"label": _("Ethal")
+			"label": _("Accounting")
 		}
 	]

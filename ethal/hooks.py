@@ -18,6 +18,8 @@ app_license = "MIT"
 # app_include_css = "/assets/ethal/css/ethal.css"
 # app_include_js = "/assets/ethal/js/ethal.js"
 
+app_include_js = "/assets/ethal/js/transaction.js"
+
 # include js, css files in header of web template
 # web_include_css = "/assets/ethal/css/ethal.css"
 # web_include_js = "/assets/ethal/js/ethal.js"
@@ -97,29 +99,28 @@ doc_events = {
 	"Leave Allocation": {
 		"on_submit": "ethal.utils.before_submit_leave_allocation"
 	},
-	"Salary Slip": {
-		"before_insert": "ethal.ethal.employee_checkin.calculate_overtime_in_salary_slip"
+	"*": {
+		"before_submit": "ethal.utils.before_submit_all_doctypes"
 	},
-	# "Salary Structure Assignment": {
-	# 	"on_submit": "ethal.utils.before_insert_salary_structure_assignment"
+	# "Purchase Order": {
+	# 	"on_submit": "ethal.utils.set_approver_name"
 	# },
-	"Employee": {
-		"on_update": "ethal.utils.on_update_employee"
-	},
-	"Attendance": {
-		"before_submit": "ethal.utils.trigger_mail_if_absent_consecutive_5_days"
-	},
-	"Payroll Entry": {
-		"before_submit": "ethal.utils.update_salary_structure_assignment_rate"
-	}
-}
+	# "Sales Invoice": {
+	# 	"on_submit": "ethal.utils.set_approver_name"
+	# },
+	# "Sales Order": {
+	# 	"on_submit": "ethal.utils.set_approver_name"
+	# },
+	# "Material Request": {
+	# 	"on_submit": "ethal.utils.set_approver_name"
+	# },
+	# "Payment Entry": {
+	# 	"on_submit": "ethal.utils.set_approver_name"
+	# },
+	# "Purchase Invoice": {
+	# 	"on_submit": "ethal.utils.set_approver_name"
+	# },
 
-scheduler_events = {
-	"cron": {
-		"59 11 * * 0": [
-			"ethal.utils.shift_rotate"
-		]
-	}
 }
 
 doctype_list_js = {
@@ -174,7 +175,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Customer", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Payment Entry", "Print Settings"]
+				["Supplier", "Customer", "Payroll Entry", "Employee", "Employee Grade", "Salary Structure Assignment", "Employee Tax Exemption Proof Submission", "Journal Entry", "Print Settings", "Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request"]
 			]
 		]
 	},
@@ -184,7 +185,7 @@ fixtures = [
 			[
 				"doc_type",
 				"in",
-				["Purchase Receipt"]
+				["Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "PRA"]
 			]
 		]
 	},
@@ -198,5 +199,7 @@ fixtures = [
 			]
 		]
 	},
-	"Translation"
+	"Translation",
+	"Custom Script",
+	"Shift Type",
 ]

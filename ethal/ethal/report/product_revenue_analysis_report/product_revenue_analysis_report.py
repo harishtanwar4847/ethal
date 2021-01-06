@@ -140,8 +140,7 @@ def get_data(filters, conditions):
 					"%s", posting_date, "%s", "%s", cond, conditions.get("addl_tables_relational_cond", ""), conditions["group_by"]),
 				(filters.get("company"), year_start_date, year_end_date), as_list=1)
 	# str = 'Total'
-	# total = "\033[1m" + str + "\033[0m"
-
+	# total = 	"\033[1m" + str + "\033[0m"
 	list_total = ['Total', '']		
 	if filters.get("period") == 'Yearly':
 		year = 0
@@ -395,7 +394,6 @@ def get_data(filters, conditions):
 			j[31] = '{:.2f}%'.format((j[30]/oct)*100) if j[30] != None else 0
 			j[34] = '{:.2f}%'.format((j[33]/nov)*100) if j[33] != None else 0
 			j[37] = '{:.2f}%'.format((j[36]/dec)*100) if j[36] != None else 0
-	print(data)
 	data.append(list_total)
 	return data
 
@@ -422,9 +420,9 @@ def period_wise_columns_query(filters, trans):
 		pwc = [_(filters.get("fiscal_year")) + " ("+_("Qty") + "):Float:120",
 			_(filters.get("fiscal_year")) + " ("+ _("Amt") + "):Currency:120",
 			_(filters.get("fiscal_year")) + " ("+ _("Per") + "):Percent:120",]
-		query_details = " SUM(t2.stock_qty), SUM(t2.base_net_amount), NULL,"
+		query_details = " SUM(t1.total_net_weight_aluminium), SUM(t2.base_net_amount), NULL,"
 
-	query_details += 'SUM(t2.stock_qty), SUM(t2.base_net_amount), NULL'
+	query_details += 'SUM(t1.total_net_weight_aluminium), SUM(t2.base_net_amount), NULL'
 	return pwc, query_details
 
 def get_period_wise_columns(bet_dates, period, pwc):
@@ -438,7 +436,7 @@ def get_period_wise_columns(bet_dates, period, pwc):
 			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Per") + "):Percent:120"]
 
 def get_period_wise_query(bet_dates, trans_date, query_details):
-	query_details += """SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.stock_qty, NULL)),
+	query_details += """SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t1.total_net_weight_aluminium, NULL)),
 					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.base_net_amount, NULL)),
 					NULL,
 				""" % {"trans_date": trans_date, "sd": bet_dates[0],"ed": bet_dates[1]}
