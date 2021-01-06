@@ -1091,6 +1091,11 @@
    "label": "Update Auto Repeat Reference"
   },
   {
+   "fieldname": "cargo_status_section",
+   "fieldtype": "Section Break",
+   "label": "Cargo Status"
+  },
+  {
    "fieldname": "cargo_details_section",
    "fieldtype": "Section Break",
    "label": "Cargo Details"
@@ -1176,11 +1181,6 @@
    "label": "Buyer Bank Details"
   },
   {
-   "fieldname": "cargo_status_section",
-   "fieldtype": "Section Break",
-   "label": "Cargo Status"
-  },
-  {
    "fieldname": "applied_for_foreign_currency",
    "fieldtype": "Select",
    "label": "Applied for foreign currency ",
@@ -1248,10 +1248,6 @@
    "fieldtype": "Select",
    "label": "Container Deposit Payment Done",
    "options": "\nYes\nNo"
-  },
-  {
-   "fieldname": "data_160",
-   "fieldtype": "Column Break"
   },
   {
    "depends_on": "eval:doc.container_deposit_payment_done=='Yes'",
@@ -1322,12 +1318,16 @@
    "fieldtype": "Select",
    "label": "Documents Submitted from Clearing Agent for Payment",
    "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "data_160",
+   "fieldtype": "Column Break"
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 105,
  "is_submittable": 1,
- "modified": "2021-01-05 11:42:24.388482",
+ "modified": "2021-01-05 10:35:41.268587",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import PO",
