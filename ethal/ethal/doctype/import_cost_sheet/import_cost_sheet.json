@@ -1,5 +1,5 @@
 {
- "autoname": "format:IMP-{purchase_order_no}-{####}",
+ "autoname": "format:Import-{YYYY}-{####}",
  "creation": "2020-12-15 11:10:43.525289",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -7,6 +7,7 @@
  "field_order": [
   "purchase_order_no",
   "bl",
+  "purchase_invoice",
   "column_break_4",
   "supplier_name",
   "grn",
@@ -59,9 +60,15 @@
    "fieldname": "import_cost_sheet_details",
    "fieldtype": "Table",
    "options": "Import Cost Sheet Details"
+  },
+  {
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "label": "Purchase Invoice",
+   "options": "Purchase Invoice"
   }
  ],
- "modified": "2020-12-17 21:18:09.606436",
+ "modified": "2021-01-07 17:13:04.675398",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet",
