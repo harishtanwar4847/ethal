@@ -15,7 +15,67 @@ frappe.ui.form.on('Import Cost Sheet', {
 	// 	}
 	// 	cur_frm.refresh_fields("import_cost_sheet_details");
 	// },
-		
+	purchase_invoice: function(frm){
+	
+		frappe.call({
+			method:"ethal.ethal.doctype.import_cost_sheet.import_cost_sheet.get_value",
+			args: {
+			name: frm.doc.purchase_invoice
+			}
+		})
+		.success(success => {
+		var total_amount = 0
+		for (var i=0; i<success.message.length; i++){
+			total_amount += success.message[i].amount
+		}
+		for (var i=0; i<success.message.length; i++){
+			let row = frm.add_child('import_cost_sheet_details')
+			row.parameters= success.message[i].item_code
+			
+				console.log(success.message[i])
+				switch(success.message[i].item_name) {
+					case "Sea Fright":
+						row.sea_fright_etb = success.message[i].rate
+						break;
+					case "Inland Fright":
+						row.inland_fright_etb = success.message[i].rate
+					    break;
+					case "Insurance":
+						row.insurance_etb = success.message[i].rate
+					  	break;
+					case "Import Customs Duty":
+						row.import_customs_duty_etb = success.message[i].rate
+						break;
+					case "Other":
+						row.other_etb = success.message[i].rate
+					  	break;
+					case "Bank charge":
+						row.bank_charge_etb = success.message[i].rate
+					  	break;
+					case "Storage":
+						row.storage_etb = success.message[i].rate
+						break;
+					case "Port handling charge":
+						row.port_handling_charge_etb = success.message[i].rate
+					  	break;
+					case "Transit and clearing":
+						row.transit_and_clearing_etb = success.message[i].rate
+					  	break;
+					case "Loading and unloading":
+						row.loading_and_unloading_etb = success.message[i].rate
+						break;
+					case "Inland transport":
+						row.inland_transport_etb = success.message[i].rate
+					  	break;
+					case "Miscellaneous":
+						row.miscellaneous_etb = success.message[i].rate
+					  	break;
+				  }
+			row.amount = total_amount
+	    }
+		  frm.refresh_field('import_cost_sheet_details');
+		})
+	}
 });
 
 frappe.ui.form.on('Import Cost Sheet Details', {
@@ -28,27 +88,5 @@ frappe.ui.form.on('Import Cost Sheet Details', {
 		frm.set_value("net_total", total_sales);
 		frm.set_df_property('net_total', 'read_only', 1)
 	},
-	purchase_invoice: function(frm){
-		$.each(frm.doc.import_cost_sheet_details || [], function(i, d) {
-			console.log('hello', d.purchase_invoice)
-		console.log('ja na be')
-		frappe.call({
-			method:"ethal.ethal.doctype.import_cost_sheet.import_cost_sheet.get_value",
-			args: {
-			name: d.purchase_invoice
-			}
-		})
-		.success(success => {
-
-			for (var i=0; i<success.message.length; i++){
-			
-			let row = frm.add_child('import_cost_sheet_details')
-			row.parameters= success.message[i].item_code
-			row.purchase_invoice = success.message[i].parent
-			row.amount = success.message[i].amount
-		  }
-		  frm.refresh_field('import_cost_sheet_details');
-		})
-	});
-	}
+	
 });
