@@ -1538,11 +1538,10 @@ erpnext.TransactionController = erpnext.taxes_and_totals.extend({
 	},
 
 	validate_company_and_party: function() {
-		console.log("in core")
 		var me = this;
 		var valid = true;
 		$.each(["company", "customer"], function(i, fieldname) {
-			if(frappe.meta.has_field(me.frm.doc.doctype, fieldname) && me.frm.doc.doctype != "Import PO") {
+			if(frappe.meta.has_field(me.frm.doc.doctype, fieldname) && (!(me.frm.doc.doctype != "Purchase Order" || me.frm.doc.doctype != "Import PO"))) {
 				if (!me.frm.doc[fieldname]) {
 					frappe.msgprint(__("Please specify") + ": " +
 						frappe.meta.get_label(me.frm.doc.doctype, fieldname, me.frm.doc.name) +
