@@ -35,40 +35,40 @@ frappe.ui.form.on('Import Cost Sheet', {
 				console.log(success.message[i])
 				switch(success.message[i].item_name) {
 					case "Sea Fright":
-						row.sea_fright_etb = success.message[i].rate
+						row.sea_fright_etb = success.message[i].amount
 						break;
 					case "Inland Fright":
-						row.inland_fright_etb = success.message[i].rate
+						row.inland_fright_etb = success.message[i].amount
 					    break;
 					case "Insurance":
-						row.insurance_etb = success.message[i].rate
+						row.insurance_etb = success.message[i].amount
 					  	break;
 					case "Import Customs Duty":
-						row.import_customs_duty_etb = success.message[i].rate
+						row.import_customs_duty_etb = success.message[i].amount
 						break;
 					case "Other":
-						row.other_etb = success.message[i].rate
+						row.other_etb = success.message[i].amount
 					  	break;
 					case "Bank charge":
-						row.bank_charge_etb = success.message[i].rate
+						row.bank_charge_etb = success.message[i].amount
 					  	break;
 					case "Storage":
-						row.storage_etb = success.message[i].rate
+						row.storage_etb = success.message[i].amount
 						break;
 					case "Port handling charge":
-						row.port_handling_charge_etb = success.message[i].rate
+						row.port_handling_charge_etb = success.message[i].amount
 					  	break;
 					case "Transit and clearing":
-						row.transit_and_clearing_etb = success.message[i].rate
+						row.transit_and_clearing_etb = success.message[i].amount
 					  	break;
 					case "Loading and unloading":
-						row.loading_and_unloading_etb = success.message[i].rate
+						row.loading_and_unloading_etb = success.message[i].amount
 						break;
 					case "Inland transport":
-						row.inland_transport_etb = success.message[i].rate
+						row.inland_transport_etb = success.message[i].amount
 					  	break;
 					case "Miscellaneous":
-						row.miscellaneous_etb = success.message[i].rate
+						row.miscellaneous_etb = success.message[i].amount
 					  	break;
 				  }
 			row.amount = total_amount
@@ -79,14 +79,15 @@ frappe.ui.form.on('Import Cost Sheet', {
 });
 
 frappe.ui.form.on('Import Cost Sheet Details', {
-	amount: function(frm){
-		var total_sales = 0;
-		$.each(frm.doc.import_cost_sheet_details || [], function(i, d) {
-			console.log('hello', d)
-		total_sales += flt(d.amount);
-		});
-		frm.set_value("net_total", total_sales);
-		frm.set_df_property('net_total', 'read_only', 1)
-	},
+	// import_cost_sheet_details_add: function(frm){
+	// 	console.log('hello')
+	// 	var total_sales = 0;
+	// 	$.each(frm.doc.import_cost_sheet_details || [], function(i, d) {
+	// 		console.log('hello', d)
+	// 	total_sales += flt(d.amount);
+	// 	});
+	// 	frm.set_value("net_total", total_sales);
+	// 	frm.set_df_property('net_total', 'read_only', 1)
+	// },
 	
 });
