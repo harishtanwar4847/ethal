@@ -65,7 +65,8 @@
   {
    "fieldname": "amount",
    "fieldtype": "Currency",
-   "label": "Amount"
+   "label": "Amount",
+   "reqd": 1
   },
   {
    "fieldname": "bank",
@@ -171,7 +172,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-11 11:45:37.934725",
+ "modified": "2021-01-11 12:19:08.530600",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
