@@ -8,11 +8,11 @@ from ethal.ethal.report.liquidity_ratios.liquidity_ratios import get_monthly_gl_
 def execute(filters=None):
 	columns, data = [], []
 	columns = ["Month::180"]+["Account Receivables Turnover::180"]+["Account Payables Turnover::180"]
-	data = get_data()
+	data = get_data(filters)
 	return columns, data
 
-def get_1st_day_debit(account):
-		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+def get_1st_day_debit(account, filters):
+		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 		# print("a", a)
 		# month_list.append(a)
 		lst=[]
@@ -28,7 +28,7 @@ def get_1st_day_debit(account):
 			lst_a.append(i[1])
 
 
-		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 		# print("b", b)
 		lst_1=[]
 		for i in b:
@@ -64,8 +64,8 @@ def get_1st_day_debit(account):
 		# print("opening and total added is =====> ", fin_abs)
 		return fin_abs
 
-def get_last_day_debit(account):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and LAST_DAY(posting_date) and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+def get_last_day_debit(account, filters):
+	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and LAST_DAY(posting_date) and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 	# print("a", a)
 	# month_list.append(a)
 	lst=[]
@@ -81,7 +81,7 @@ def get_last_day_debit(account):
 		lst_a.append(i[1])
 
 
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and LAST_DAY(posting_date) and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account, like "{0}%" and LAST_DAY(posting_date) and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 	# print("b", b)
 	lst_1=[]
 	for i in b:
@@ -117,8 +117,8 @@ def get_last_day_debit(account):
 	# print("opening and total added is =====> ", fin_abs)
 	return fin_abs	
 
-def get_1st_day_credit(account):
-		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+def get_1st_day_credit(account, filters):
+		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 		# print("a", a)
 		# month_list.append(a)
 		lst=[]
@@ -134,7 +134,7 @@ def get_1st_day_credit(account):
 			lst_a.append(i[1])
 
 
-		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 		# print("b", b)
 		lst_1=[]
 		for i in b:
@@ -170,8 +170,8 @@ def get_1st_day_credit(account):
 		# print("opening and total added is =====> ", fin_abs)
 		return fin_abs
 
-def get_last_day_credit(account):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and LAST_DAY(posting_date) and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+def get_last_day_credit(account, filters):
+	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and LAST_DAY(posting_date) and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 	# print("a", a)
 	# month_list.append(a)
 	lst=[]
@@ -187,7 +187,7 @@ def get_last_day_credit(account):
 		lst_a.append(i[1])
 
 
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and LAST_DAY(posting_date) and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
+	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and LAST_DAY(posting_date) and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 	# print("b", b)
 	lst_1=[]
 	for i in b:
@@ -224,20 +224,20 @@ def get_last_day_credit(account):
 	return fin_abs	
 
 
-def get_data():
+def get_data(filters):
 
-	def account_receivable_turnover():
-		return get_monthly_gl_debit('11200-01')
+	def account_receivable_turnover(filters):
+		return get_monthly_gl_debit('11200-01', filters)
 
-	def account_payable_turnover():
-		return get_monthly_gl_credit('21000-01')	
+	def account_payable_turnover(filters):
+		return get_monthly_gl_credit('21000-01', filters)	
 
-	def get_monthly_gl_debit(account):
-		first_day = get_1st_day_debit(account)
-		last_day = get_last_day_credit(account)
+	def get_monthly_gl_debit(account, filters):
+		first_day = get_1st_day_debit(account, filters)
+		last_day = get_last_day_credit(account, filters)
 		print(first_day)
 		res_a = [(a+b)/2 for a,b in zip(first_day,last_day)]
-		c = get_monthly_gl_credit_no_opening('41')
+		c = get_monthly_gl_credit_no_opening('41', filters)
 
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(c,res_a)]
 		per_final_result = []
@@ -245,12 +245,12 @@ def get_data():
 			per_final_result.append('{:.2f}%'.format(i))
 		return per_final_result
 
-	def get_monthly_gl_credit(account):
-		first_day = get_1st_day_credit(account)
-		last_day = get_last_day_credit(account)
+	def get_monthly_gl_credit(account, filters):
+		first_day = get_1st_day_credit(account, filters)
+		last_day = get_last_day_credit(account, filters)
 
 		res_a = [(a+b)/2 for a,b in zip(first_day,last_day)]
-		c = get_monthly_gl_debit_no_opening('114')
+		c = get_monthly_gl_debit_no_opening('114', filters)
 
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(c,res_a)]
 		per_final_result = []
@@ -258,8 +258,8 @@ def get_data():
 			per_final_result.append('{:.2f}%'.format(i))
 		return per_final_result	
 
-	art = account_receivable_turnover()
-	apt = account_payable_turnover()
+	art = account_receivable_turnover(filters)
+	apt = account_payable_turnover(filters)
 	# print(art)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	res = []

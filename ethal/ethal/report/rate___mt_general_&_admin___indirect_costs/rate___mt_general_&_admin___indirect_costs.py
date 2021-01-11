@@ -40,39 +40,39 @@ def execute(filters=None):
 			"width": 150
 		}
 	]
-	data = get_data()
+	data = get_data(filters)
 	return columns, data
 
-def get_data():
+def get_data(filters):
 
-	def manpower_cost():
-		lst_61000 = get_monthly_gl_debit_no_opening("61000%")
+	def manpower_cost(filters):
+		lst_61000 = get_monthly_gl_debit_no_opening("61000%", filters)
 		sales_invoice = sales_invoice_qty()
 		final_res = [(a/e[0]) if e[0]!=0 else 0 for a,e in zip(lst_61000, sales_invoice)]
 		return final_res
 
-	def financial_expenses():
-		lst_62000 = get_monthly_gl_debit_no_opening("62000%")
+	def financial_expenses(filters):
+		lst_62000 = get_monthly_gl_debit_no_opening("62000%", filters)
 		sales_invoice = sales_invoice_qty()
 		final_res = [(a/b[0]) if b[0]!=0 else 0 for a,b in zip(lst_62000, sales_invoice)]
 		return final_res
 
-	def general_admin_costs():
-		lst_63000 = get_monthly_gl_debit_no_opening("63000%")
+	def general_admin_costs(filters):
+		lst_63000 = get_monthly_gl_debit_no_opening("63000%", filters)
 		sales_invoice = sales_invoice_qty()
 		final_res = [(a/b[0]) if b[0]!=0 else 0 for a,b in zip(lst_63000, sales_invoice)]
 		return final_res
 
-	def non_operational_expenses():
-		lst_64000 = get_monthly_gl_debit_no_opening("64000%")
+	def non_operational_expenses(filters):
+		lst_64000 = get_monthly_gl_debit_no_opening("64000%", filters)
 		sales_invoice = sales_invoice_qty()
 		final_res = [(a/b[0]) if b[0]!=0 else 0 for a,b in zip(lst_64000, sales_invoice)]
 		return final_res
 
-	manpower = manpower_cost()
-	financial = financial_expenses()
-	general = general_admin_costs()
-	operational = non_operational_expenses()
+	manpower = manpower_cost(filters)
+	financial = financial_expenses(filters)
+	general = general_admin_costs(filters)
+	operational = non_operational_expenses(filters)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	res = []
 	for (i,j,k,l,m) in zip(month,manpower,financial,general,operational):

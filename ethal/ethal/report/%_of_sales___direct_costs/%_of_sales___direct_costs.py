@@ -46,17 +46,17 @@ def execute(filters=None):
 			"width": 150
 		}
 	]
-	data = get_data()
+	data = get_data(filters)
 	return columns, data
 
-def get_data():
+def get_data(filters):
 
-	def direct_material():
-		lst_51000_01 = get_monthly_gl_debit_no_opening("51000-01")
-		lst_51000_02 = get_monthly_gl_debit_no_opening("51000-02")
-		lst_52000_01 = get_monthly_gl_debit_no_opening("52000-01")
-		lst_53000_01 = get_monthly_gl_debit_no_opening("53000-01")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def direct_material(filters):
+		lst_51000_01 = get_monthly_gl_debit_no_opening("51000-01", filters)
+		lst_51000_02 = get_monthly_gl_debit_no_opening("51000-02", filters)
+		lst_52000_01 = get_monthly_gl_debit_no_opening("52000-01", filters)
+		lst_53000_01 = get_monthly_gl_debit_no_opening("53000-01", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		numeratr = [a+b+c+d for a,b,c,d in zip(lst_51000_01,lst_51000_02,lst_52000_01,lst_53000_01)]
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(numeratr,lst_41100)]
 		per_final_result = []
@@ -66,9 +66,9 @@ def get_data():
 		return per_final_result
 
 
-	def fuel():
-		lst_51000_03 = get_monthly_gl_debit_no_opening("51000-03")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def fuel(filters):
+		lst_51000_03 = get_monthly_gl_debit_no_opening("51000-03", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(lst_51000_03,lst_41100)]
 		per_final_result = []
 		for i in final_res:
@@ -76,12 +76,12 @@ def get_data():
 			per_final_result.append('{:.2f}%'.format(i))
 		return per_final_result
 
-	def manpower_cost():
-		lst_51000_04 = get_monthly_gl_debit_no_opening("51000-04")
-		lst_51000_02 = get_monthly_gl_debit_no_opening("52000-02")
-		lst_53000_02 = get_monthly_gl_debit_no_opening("53000-02")
-		lst_54100 = get_monthly_gl_debit_no_opening("541%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def manpower_cost(filters):
+		lst_51000_04 = get_monthly_gl_debit_no_opening("51000-04", filters)
+		lst_51000_02 = get_monthly_gl_debit_no_opening("52000-02", filters)
+		lst_53000_02 = get_monthly_gl_debit_no_opening("53000-02", filters)
+		lst_54100 = get_monthly_gl_debit_no_opening("541%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		numeratr = [a+b+c+d for a,b,c,d in zip(lst_51000_04, lst_51000_02, lst_53000_02, lst_54100)]
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(numeratr,lst_41100)]
 		per_final_result = []
@@ -91,10 +91,10 @@ def get_data():
 		return per_final_result
 
 
-	def stores_and_repairs():
-		lst_54200 = get_monthly_gl_debit_no_opening("542%")
-		lst_54300 = get_monthly_gl_debit_no_opening("543%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def stores_and_repairs(filters):
+		lst_54200 = get_monthly_gl_debit_no_opening("542%", filters)
+		lst_54300 = get_monthly_gl_debit_no_opening("543%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		numeratr = [a+b for a,b in zip(lst_54200, lst_54300)]
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(numeratr,lst_41100)]
 		per_final_result = []
@@ -104,12 +104,12 @@ def get_data():
 		return per_final_result
 
 
-	def utilities():
-		lst_54400  = get_monthly_gl_debit_no_opening("544%")
-		lst_51000_05 = get_monthly_gl_debit_no_opening("51000-05")
-		lst_52000_04 = get_monthly_gl_debit_no_opening("52000-04")
-		lst_53000_04 = get_monthly_gl_debit_no_opening("53000-04")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def utilities(filters):
+		lst_54400  = get_monthly_gl_debit_no_opening("544%", filters)
+		lst_51000_05 = get_monthly_gl_debit_no_opening("51000-05", filters)
+		lst_52000_04 = get_monthly_gl_debit_no_opening("52000-04", filters)
+		lst_53000_04 = get_monthly_gl_debit_no_opening("53000-04", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		numeratr = [a+b+c+d for a,b,c,d in zip(lst_54400, lst_51000_05,lst_52000_04,lst_53000_04)]
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(numeratr,lst_41100)]
 		per_final_result = []
@@ -119,11 +119,11 @@ def get_data():
 		return per_final_result
 
 
-	ut = utilities()
-	sr = stores_and_repairs()
-	mp = manpower_cost()
-	fu = fuel()
-	dm = direct_material()
+	ut = utilities(filters)
+	sr = stores_and_repairs(filters)
+	mp = manpower_cost(filters)
+	fu = fuel(filters)
+	dm = direct_material(filters)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	res = []
 	for (i,j,k,l,m,n) in zip(month,dm,fu,mp,sr,ut):

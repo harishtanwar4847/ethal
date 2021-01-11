@@ -41,14 +41,14 @@ def execute(filters=None):
 			"width": 150
 		},
 	]
-	data = get_data()
+	data = get_data(filters)
 	return columns, data
 
-def get_data():
+def get_data(filters):
 	
-	def manpower():
-		lst_61000  = get_monthly_gl_debit_no_opening("61%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def manpower(filters):
+		lst_61000  = get_monthly_gl_debit_no_opening("61%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(lst_61000,lst_41100)]
 		per_final_result = []
 		for i in final_res:
@@ -56,9 +56,9 @@ def get_data():
 			per_final_result.append('{:.2f}%'.format(i))
 		return per_final_result
 
-	def financial_expenses():
-		lst_62000  = get_monthly_gl_debit_no_opening("62%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def financial_expenses(filters):
+		lst_62000  = get_monthly_gl_debit_no_opening("62%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(lst_62000,lst_41100)]
 		per_final_result = []
 		for i in final_res:
@@ -67,9 +67,9 @@ def get_data():
 		return per_final_result
 
 
-	def general_and_administrative():
-		lst_63000  = get_monthly_gl_debit_no_opening("63%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def general_and_administrative(filters):
+		lst_63000  = get_monthly_gl_debit_no_opening("63%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(lst_63000,lst_41100)]
 		per_final_result = []
 		for i in final_res:
@@ -78,9 +78,9 @@ def get_data():
 		return per_final_result
 
 
-	def non_operational():
-		lst_64000  = get_monthly_gl_debit_no_opening("64%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def non_operational(filters):
+		lst_64000  = get_monthly_gl_debit_no_opening("64%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(lst_64000,lst_41100)]
 		per_final_result = []
 		for i in final_res:
@@ -91,10 +91,10 @@ def get_data():
 
 
 
-	m = manpower()
-	fe = financial_expenses()
-	ga = general_and_administrative()
-	nop = non_operational()
+	m = manpower(filters)
+	fe = financial_expenses(filters)
+	ga = general_and_administrative(filters)
+	nop = non_operational(filters)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	res = []
 	for (i,j,k,l,m) in zip(month,m,fe,ga,nop):
