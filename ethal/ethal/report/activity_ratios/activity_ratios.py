@@ -12,7 +12,7 @@ def execute(filters=None):
 	return columns, data
 
 def get_1st_day_debit(account, filters):
-		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
+		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and DATE_SUB(LAST_DAY(posting_date),INTERVAL DAY(LAST_DAY(posting_date))- 1 DAY) and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 		# print("a", a)
 		# month_list.append(a)
 		lst=[]
@@ -28,7 +28,7 @@ def get_1st_day_debit(account, filters):
 			lst_a.append(i[1])
 
 
-		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
+		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and DATE_SUB(LAST_DAY(posting_date),INTERVAL DAY(LAST_DAY(posting_date))- 1 DAY) and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 		# print("b", b)
 		lst_1=[]
 		for i in b:
@@ -118,7 +118,7 @@ def get_last_day_debit(account, filters):
 	return fin_abs	
 
 def get_1st_day_credit(account, filters):
-		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
+		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) from `tabGL Entry` where account like "{0}%" and DATE_SUB(LAST_DAY(posting_date),INTERVAL DAY(LAST_DAY(posting_date))- 1 DAY) and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 		# print("a", a)
 		# month_list.append(a)
 		lst=[]
@@ -134,7 +134,7 @@ def get_1st_day_credit(account, filters):
 			lst_a.append(i[1])
 
 
-		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and DAY(posting_date) = '1' and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
+		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) from `tabGL Entry` where account like "{0}%" and DATE_SUB(LAST_DAY(posting_date),INTERVAL DAY(LAST_DAY(posting_date))- 1 DAY) and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 		# print("b", b)
 		lst_1=[]
 		for i in b:
