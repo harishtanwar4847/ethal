@@ -115,8 +115,8 @@ def get_monthly_gl_credit(account, from_date, to_date):
 	if (credit_amount_of_current_date[0][0] != None and debit_amount_of_current_date[0][0] != None):  
 		res_a = credit_amount_of_current_date[0][0] - debit_amount_of_current_date[0][0]
 	
-	credit_amount_of_previous_date = frappe.db.sql("""select sum(credit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') and month(posting_date) -1 ;""".format(account, from_date, to_date), as_list=True)
-	debit_amount_of_previous_date = frappe.db.sql("""select sum(debit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') and month(posting_date) -1 ;""".format(account, from_date, to_date), as_list=True)
+	credit_amount_of_previous_date = frappe.db.sql("""select sum(credit) from `tabGL Entry` where account like "{0}%" and (posting_date between last_day('{1}' - interval 2 month) + interval 1 day and last_day('{2}' - interval 1 month));""".format(account, from_date, to_date), as_list=True)
+	debit_amount_of_previous_date = frappe.db.sql("""select sum(debit) from `tabGL Entry` where account like "{0}%" and (posting_date between last_day('{1}' - interval 2 month) + interval 1 day and last_day('{1}' - interval 1 month));""".format(account, from_date), as_list=True)
 	res_b = []
 
 	if (credit_amount_of_previous_date[0][0] != None and debit_amount_of_previous_date[0][0] != None):  
