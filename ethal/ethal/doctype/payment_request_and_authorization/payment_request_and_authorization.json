@@ -81,15 +81,15 @@
   },
   {
    "fieldname": "prf_no",
-   "fieldtype": "Link",
+   "fieldtype": "Table MultiSelect",
    "label": "PRF NO",
-   "options": "Material Request"
+   "options": "PRF"
   },
   {
    "fieldname": "grn_no",
-   "fieldtype": "Link",
+   "fieldtype": "Table MultiSelect",
    "label": "GRN NO",
-   "options": "Purchase Receipt"
+   "options": "GRN"
   },
   {
    "fieldname": "supporting_documents",
@@ -172,7 +172,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-11 12:19:08.530600",
+ "modified": "2021-01-13 09:16:22.551786",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
