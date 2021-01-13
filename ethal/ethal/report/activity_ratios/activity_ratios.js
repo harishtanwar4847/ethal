@@ -4,6 +4,14 @@
 
 frappe.query_reports["Activity Ratios"] = {
 	"filters": [
-
+		{
+			"fieldname":"year",
+			"label": __("Year"),
+			"fieldtype": "Link",
+			"options": "Fiscal Year",
+			"default": frappe.defaults.get_user_default("fiscal_year"),
+			"reqd": 1,
+			"width": "60px"
+		}
 	]
 };
