@@ -1,0 +1,29 @@
+{
+ "creation": "2021-01-13 09:14:47.722498",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "material_request"
+ ],
+ "fields": [
+  {
+   "fieldname": "material_request",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Material Request",
+   "options": "Material Request"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-01-13 09:14:47.722498",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "PRF",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
