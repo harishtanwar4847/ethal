@@ -102,6 +102,9 @@ doc_events = {
 	"*": {
 		"before_submit": "ethal.utils.before_submit_all_doctypes"
 	},
+	"Payment Entry": {
+		"before_insert": "ethal.utils.before_insert_payment_entry"
+	}
 	# "Purchase Order": {
 	# 	"on_submit": "ethal.utils.set_approver_name"
 	# },
