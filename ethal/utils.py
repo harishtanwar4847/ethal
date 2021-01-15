@@ -48,7 +48,7 @@ def set_approver_name(data):
 
 @frappe.whitelist()
 def before_insert_payment_entry(doc, method):
-    if doc.payment_type == "Pay":
+    if doc.naming_series.startswith('CPV'):
         payment_entries = frappe.db.get_value('Payment Entry', {'reference_no': doc.reference_no}, ['name'])
         if payment_entries:
             frappe.throw('Cheque/Reference no must be unique')   
