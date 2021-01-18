@@ -45,7 +45,7 @@ def cash_paid_to_employee(party_type, payment_type, from_date, to_date):
 	return {'account': 'Cash paid to employees', 'etb': "-"+str(a), 'indent': 1}
 
 def cash_generated_from_operation(account_number, from_date, to_date):
-	a = get_monthly_gl_credit(account_number, from_date, to_date)
+	a = get_monthly_gl_credit_amount(account_number, from_date, to_date)
 	return {'account': 'Cash generated from operations', 'etb': a, 'indent': 1}
 
 def interest_paid(account_number, from_date, to_date):
@@ -107,24 +107,81 @@ def cash_and_cash_equivalents_at_beginning():
 def cash_and_cash_equivalents_at_end(total):
 	return {'account': 'Cash and cash equivalents at end of period', 'etb1': total, 'indent': 0}
 
-def get_monthly_gl_credit(account, from_date, to_date):
+def get_monthly_gl_credit_amount(account, from_date, to_date):
+
 	credit_amount_of_current_date = frappe.db.sql("""select sum(credit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') ;""".format(account, from_date, to_date), as_list=True)
 	debit_amount_of_current_date = frappe.db.sql("""select sum(debit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}');""".format(account, from_date, to_date), as_list=True)
-	res_a = []
+	res_credit_and_debit = []
 	
 	if (credit_amount_of_current_date[0][0] != None and debit_amount_of_current_date[0][0] != None):  
-		res_a = credit_amount_of_current_date[0][0] - debit_amount_of_current_date[0][0]
+		res_credit_and_debit = credit_amount_of_current_date[0][0] - debit_amount_of_current_date[0][0]
 	
-	credit_amount_of_previous_date = frappe.db.sql("""select sum(credit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') and month(posting_date) -1 ;""".format(account, from_date, to_date), as_list=True)
-	debit_amount_of_previous_date = frappe.db.sql("""select sum(debit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') and month(posting_date) -1 ;""".format(account, from_date, to_date), as_list=True)
-	res_b = []
-
-	if (credit_amount_of_previous_date[0][0] != None and debit_amount_of_previous_date[0][0] != None):  
-		res_b = credit_amount_of_previous_date[0][0] - debit_amount_of_previous_date[0][0]
-
-	final_res = res_a+res_b
+	# credit_amount_of_previous_date = frappe.db.sql("""select sum(credit) from `tabGL Entry` where account like "{0}%" and (posting_date between last_day('{1}' - interval 2 month) + interval 1 day and last_day('{2}' - interval 1 month));""".format(account, from_date, to_date), as_list=True)
+	# debit_amount_of_previous_date = frappe.db.sql("""select sum(debit) from `tabGL Entry` where account like "{0}%" and (posting_date between last_day('{1}' - interval 2 month) + interval 1 day and last_day('{1}' - interval 1 month));""".format(account, from_date), as_list=True)
+	# res_b = []
 	
-	return final_res
+	# if (credit_amount_of_previous_date[0][0] != None and debit_amount_of_previous_date[0][0] != None):  
+	# 	res_b = credit_amount_of_previous_date[0][0] - debit_amount_of_previous_date[0][0]
+	# print("res b",res_b)
+	# final_res = res_a+res_b
+	# print("final_res",final_res)
+	if res_credit_and_debit:
+		year = from_date.split('-')
+		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
+		from `tabGL Entry` where account like "{0}%" 
+		and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, year[0]), as_list=True)
+		lst=[]
+		for i in a:
+			lst.append(i[0])
+		
+		for j in range(1,13):
+			if j not in lst:
+				a.append([j,0])
+		a.sort()
+		lst_a= []
+		for i in a:
+			lst_a.append(i[1])
+
+		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
+		from `tabGL Entry` where account like "{0}%" 
+		and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, year[0]), as_list=True)
+		lst_1=[]
+		for i in b:
+			lst_1.append(i[0])
+		
+		for j in range(1,13):
+			if j not in lst_1:
+				b.append([j,0])
+		b.sort()
+		lst_b= []
+		for i in b:
+			lst_b.append(i[1])
+
+		res_a = [a-b for a,b in zip(lst_a,lst_b)]
+		print("get_monthly_gl_credit ======> ",res_a)
+
+		def add_one_by_one(l):
+			new_l = []
+			cumsum = 0
+			for elt in l:
+				cumsum += elt
+				new_l.append(cumsum)
+			return new_l
+
+		fin = add_one_by_one(res_a)
+		# print("opening and total added is =====> ", fin)
+
+		fin_abs= []
+		for i in fin:
+			abs_val = abs(i)
+			fin_abs.append(abs_val)
+		
+		a = int(year[1]) - 1
+
+		fin_abs.insert(0, 0)
+		final_res = res_credit_and_debit + fin_abs[a]
+
+		return final_res
 
 def get_monthly_gl_debit_for_negative(account, from_date, to_date):
 	a = frappe.db.sql("""select sum(credit) from `tabGL Entry` where account like "{0}%" and (posting_date between '{1}' and '{2}') ;""".format(account, from_date, to_date), as_list=True)

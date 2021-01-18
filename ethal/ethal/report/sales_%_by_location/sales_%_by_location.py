@@ -40,14 +40,14 @@ def execute(filters=None):
 			"width": 150
 		}
 	]
-	data = get_data()
+	data = get_data(filters)
 	return columns, data
 
-def get_data():
+def get_data(filters):
 	
-	def db_sales_percent():
-		lst_41110 = get_monthly_gl_credit_no_opening("4111%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def db_sales_percent(filters):
+		lst_41110 = get_monthly_gl_credit_no_opening("4111%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		final_res = [a / f*100 if a!=0 and f!=0 else 0 for a,f in zip(lst_41110, lst_41100)]
 		per_final_result = []
 		for i in final_res:
@@ -55,9 +55,9 @@ def get_data():
 			per_final_result.append('{:.2f}%'.format(i))
 		return per_final_result
 
-	def tu_sales_percent():
-		lst_41120 = get_monthly_gl_credit_no_opening("4112%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def tu_sales_percent(filters):
+		lst_41120 = get_monthly_gl_credit_no_opening("4112%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		final_res = [a / f*100 if a!=0 and f!=0 else 0 for a,f in zip(lst_41120, lst_41100)]
 		per_final_result = []
 		for i in final_res:
@@ -65,22 +65,22 @@ def get_data():
 			per_final_result.append('{:.2f}%'.format(i))
 		return per_final_result
 
-	def db_sales():
-		lst_41110 = get_monthly_gl_credit_no_opening("4111%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def db_sales(filters):
+		lst_41110 = get_monthly_gl_credit_no_opening("4111%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		final_res = [a / f if a!=0 and f!=0 else 0 for a,f in zip(lst_41110, lst_41100)]
 		return final_res
 
-	def tu_sales():
-		lst_41120 = get_monthly_gl_credit_no_opening("4112%")
-		lst_41100 = get_monthly_gl_credit_no_opening("411%")
+	def tu_sales(filters):
+		lst_41120 = get_monthly_gl_credit_no_opening("4112%", filters)
+		lst_41100 = get_monthly_gl_credit_no_opening("411%", filters)
 		final_res = [a / f if a!=0 and f!=0 else 0 for a,f in zip(lst_41120, lst_41100)]
 		return final_res
 
-	dsp = db_sales_percent()
-	tsp = tu_sales_percent()
-	dp = db_sales()
-	tu = tu_sales()
+	dsp = db_sales_percent(filters)
+	tsp = tu_sales_percent(filters)
+	dp = db_sales(filters)
+	tu = tu_sales(filters)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	res = []
 	for (i,j,k,l,m) in zip(month,dsp,tsp,dp,tu):
