@@ -2,6 +2,7 @@ import frappe
 from frappe.utils import getdate, nowdate, cint, flt
 import json
 from datetime import date, timedelta, datetime
+from frappe.utils import formatdate
 import ast
 import itertools
 from erpnext.hr.doctype.employee_checkin.employee_checkin import mark_attendance_and_link_log
@@ -28,11 +29,18 @@ def set_items_from_stock_entry(name):
 
 @frappe.whitelist()
 def before_submit_all_doctypes(doc, method):
+    user = frappe.get_roles(frappe.session.user)
     admin_settings = frappe.get_doc('Admin Settings')
-    admin_settings_document = frappe.get_all('Admin Settings Document', {'parent': 'Admin Settings', 'document': doc.doctype}, ['posting_date'], as_list=1)  
-    if admin_settings_document:
-        if admin_settings.closure_date > doc.posting_date:
-            frappe.throw('please contact manager')
+    admin_settings_document = frappe.get_all('Admin Settings Document', {'parent': 'Admin Settings', 'document': doc.doctype}, ['date'], as_list=1)  
+   
+    if admin_settings.applicable_for_role not in user:
+        if admin_settings_document:
+            if admin_settings_document[0][0] == 'posting_date':
+                if admin_settings.closure_date > doc.posting_date:
+                    frappe.throw(frappe._("You are not authorized to add or update entries before {0}").format(formatdate(admin_settings.closure_date)))
+            elif admin_settings_document[0][0] == 'transaction_date':
+                if admin_settings.closure_date > doc.transaction_date:
+                    frappe.throw(frappe._("You are not authorized to add or update entries before {0}").format(formatdate(admin_settings.closure_date)))
 
 @frappe.whitelist()
 def set_approver_name(data):
