@@ -5,7 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "document",
-  "posting_date"
+  "date"
  ],
  "fields": [
   {
@@ -16,14 +16,15 @@
    "options": "DocType"
   },
   {
-   "fieldname": "posting_date",
-   "fieldtype": "Date",
-   "label": "Posting Date",
-   "read_only": 1
+   "fieldname": "date",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Date",
+   "options": "posting_date\ntransaction_date"
   }
  ],
  "istable": 1,
- "modified": "2020-12-17 17:29:56.272073",
+ "modified": "2021-01-19 14:50:56.538787",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Admin Settings Document",
