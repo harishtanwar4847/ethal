@@ -20,8 +20,7 @@
   "section_break_10",
   "feedback",
   "section_break_12",
-  "status",
-  "comments"
+  "status"
  ],
  "fields": [
   {
@@ -114,14 +113,9 @@
    "label": "Status",
    "options": "Scheduled\nSelected\nRejected",
    "read_only": 1
-  },
-  {
-   "fieldname": "comments",
-   "fieldtype": "HTML Editor",
-   "label": "Comments"
   }
  ],
- "modified": "2020-12-15 22:08:29.464319",
+ "modified": "2021-01-20 17:10:47.464617",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Interview Round",
