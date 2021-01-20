@@ -492,7 +492,7 @@ def get_interview_rounds(job_applicant, job_opening):
                     {
                         'label': 'Rating',
                         'fieldname': 'rating',
-                        'fieldtype': 'Rating',
+                        'fieldtype': 'Int',
                         'read_only': 1,
                         'default': i['rating1']
                     },
