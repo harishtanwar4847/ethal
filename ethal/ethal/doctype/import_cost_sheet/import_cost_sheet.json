@@ -1,0 +1,96 @@
+{
+ "autoname": "format:Import-{YYYY}-{####}",
+ "creation": "2020-12-15 11:10:43.525289",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "purchase_order_no",
+  "bl",
+  "purchase_invoice",
+  "column_break_4",
+  "supplier_name",
+  "grn",
+  "section_break_7",
+  "import_cost_sheet_details",
+  "section_break_9",
+  "net_total"
+ ],
+ "fields": [
+  {
+   "fieldname": "purchase_order_no",
+   "fieldtype": "Data",
+   "label": "Purchase Order No"
+  },
+  {
+   "fieldname": "bl",
+   "fieldtype": "Data",
+   "label": "BL"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Supplier Name"
+  },
+  {
+   "fieldname": "grn",
+   "fieldtype": "Data",
+   "label": "GRN"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "purchase_invoice.total",
+   "fieldname": "net_total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Net Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "import_cost_sheet_details",
+   "fieldtype": "Table",
+   "options": "Import Cost Sheet Details"
+  },
+  {
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "label": "Purchase Invoice",
+   "options": "Purchase Invoice"
+  }
+ ],
+ "modified": "2021-01-07 20:43:14.534595",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Import Cost Sheet",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

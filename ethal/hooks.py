@@ -18,6 +18,8 @@ app_license = "MIT"
 # app_include_css = "/assets/ethal/css/ethal.css"
 # app_include_js = "/assets/ethal/js/ethal.js"
 
+app_include_js = "/assets/ethal/js/transaction.js"
+
 # include js, css files in header of web template
 # web_include_css = "/assets/ethal/css/ethal.css"
 # web_include_js = "/assets/ethal/js/ethal.js"
@@ -97,17 +99,8 @@ doc_events = {
 	"Leave Allocation": {
 		"on_submit": "ethal.utils.before_submit_leave_allocation"
 	},
-	"Salary Slip": {
-		"before_insert": "ethal.ethal.employee_checkin.calculate_overtime_in_salary_slip"
-	},
-	# "Salary Structure Assignment": {
-	# 	"on_submit": "ethal.utils.before_insert_salary_structure_assignment"
-	# },
-	"Employee": {
-		"on_update": "ethal.utils.on_update_employee"
-	},
-	"Attendance": {
-		"before_submit": "ethal.utils.trigger_mail_if_absent_consecutive_5_days"
+	"*": {
+		"before_submit": "ethal.utils.before_submit_all_doctypes"
 	},
 	"Payroll Entry": {
 		"before_submit": "ethal.utils.update_salary_structure_assignment_rate"
@@ -117,12 +110,6 @@ doc_events = {
     },
 }
 
-scheduler_events = {
-	"cron": {
-		"59 11 * * 0": [
-			"ethal.utils.shift_rotate"
-		]
-	}
 }
 
 doctype_list_js = {
@@ -187,7 +174,7 @@ fixtures = [
 			[
 				"doc_type",
 				"in",
-				["Purchase Receipt"]
+				["Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "PRA"]
 			]
 		]
 	},
@@ -202,5 +189,6 @@ fixtures = [
 		]
 	},
 	"Translation",
+	"Custom Script",
 	"Shift Type",
 ]

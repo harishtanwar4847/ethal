@@ -1,22 +1,33 @@
 {
+ "autoname": "naming_series:",
  "creation": "2020-12-01 14:09:43.114648",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "date_of_request",
-  "date_of_requirement",
   "payee_name",
   "payment_reason",
-  "description_of_requirement",
+  "column_break_3",
+  "date_of_request",
+  "date_of_requirement",
+  "description_of_requirement_section",
   "payment_type",
   "payment_mode",
+  "column_break_9",
   "amount",
   "bank",
   "references_section",
   "prf_no",
   "grn_no",
-  "supporting_documents"
+  "column_break_15",
+  "supporting_documents",
+  "amended_from",
+  "approver_person",
+  "checked_person",
+  "approver_date",
+  "checked_date",
+  "workflow_state",
+  "naming_series"
  ],
  "fields": [
   {
@@ -36,13 +47,8 @@
   },
   {
    "fieldname": "payment_reason",
-   "fieldtype": "Text Editor",
+   "fieldtype": "Small Text",
    "label": "Payment Reason"
-  },
-  {
-   "fieldname": "description_of_requirement",
-   "fieldtype": "Heading",
-   "label": "Description of Requirement"
   },
   {
    "fieldname": "payment_type",
@@ -58,8 +64,9 @@
   },
   {
    "fieldname": "amount",
-   "fieldtype": "Data",
-   "label": "Amount"
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "reqd": 1
   },
   {
    "fieldname": "bank",
@@ -74,29 +81,105 @@
   },
   {
    "fieldname": "prf_no",
-   "fieldtype": "Link",
+   "fieldtype": "Table MultiSelect",
    "label": "PRF NO",
-   "options": "Material Request"
+   "options": "PRF"
   },
   {
    "fieldname": "grn_no",
-   "fieldtype": "Link",
+   "fieldtype": "Table MultiSelect",
    "label": "GRN NO",
-   "options": "Purchase Receipt"
+   "options": "GRN"
   },
   {
    "fieldname": "supporting_documents",
    "fieldtype": "Small Text",
    "label": "Supporting Documents"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Payment Request and Authorization",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "approver_person",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Approver Person",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "checked_person",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Checked Person",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "checked_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Checked Date",
+   "set_only_once": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "workflow_state",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Workflow State",
+   "no_copy": 1,
+   "options": "Workflow State"
+  },
+  {
+   "fieldname": "approver_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Approved Date",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "no_copy": 1,
+   "options": "PRA-HO-.YYYY.-",
+   "print_hide": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description_of_requirement_section",
+   "fieldtype": "Section Break",
+   "label": "Description of Requirement"
   }
  ],
- "modified": "2020-12-12 17:49:59.814128",
+ "is_submittable": 1,
+ "modified": "2021-01-13 09:16:22.551786",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -105,6 +188,19 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
    "share": 1,
    "write": 1
   }

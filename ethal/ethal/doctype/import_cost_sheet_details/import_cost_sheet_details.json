@@ -1,0 +1,122 @@
+{
+ "creation": "2020-12-15 11:14:12.035479",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "parameters",
+  "amount",
+  "sea_fright_etb",
+  "inland_fright_etb",
+  "insurance_etb",
+  "import_customs_duty_etb",
+  "other_etb",
+  "bank_charge_etb",
+  "storage_etb",
+  "port_handling_charge_etb",
+  "transit_and_clearing_etb",
+  "loading_and_unloading_etb",
+  "inland_transport_etb",
+  "miscellaneous_etb"
+ ],
+ "fields": [
+  {
+   "fieldname": "parameters",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Parameters ",
+   "options": "Item"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
+  },
+  {
+   "default": "0",
+   "fieldname": "sea_fright_etb",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Sea Fright (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "inland_fright_etb",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Inland Fright (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "insurance_etb",
+   "fieldtype": "Currency",
+   "label": "Insurance (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "import_customs_duty_etb",
+   "fieldtype": "Currency",
+   "label": "Import Customs Duty (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "other_etb",
+   "fieldtype": "Currency",
+   "label": "Other (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "bank_charge_etb",
+   "fieldtype": "Currency",
+   "label": "Bank charge (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "storage_etb",
+   "fieldtype": "Currency",
+   "label": "Storage (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "port_handling_charge_etb",
+   "fieldtype": "Currency",
+   "label": "Port handling charge (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "transit_and_clearing_etb",
+   "fieldtype": "Currency",
+   "label": "Transit and clearing (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "loading_and_unloading_etb",
+   "fieldtype": "Currency",
+   "label": "Loading and unloading (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "inland_transport_etb",
+   "fieldtype": "Currency",
+   "label": "Inland transport (ETB)"
+  },
+  {
+   "default": "0",
+   "fieldname": "miscellaneous_etb",
+   "fieldtype": "Currency",
+   "label": "Miscellaneous (ETB)"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-01-07 17:11:41.799137",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Import Cost Sheet Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
