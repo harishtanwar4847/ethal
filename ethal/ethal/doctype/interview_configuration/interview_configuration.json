@@ -21,8 +21,10 @@
   {
    "fieldname": "no_of_rounds",
    "fieldtype": "Int",
+   "hidden": 1,
    "in_list_view": 1,
-   "label": "No of Rounds"
+   "label": "No of Rounds",
+   "read_only": 1
   },
   {
    "fieldname": "rounds",
@@ -37,7 +39,7 @@
    "options": "Interview Round Feedback Parameter"
   }
  ],
- "modified": "2020-12-15 22:07:38.631916",
+ "modified": "2021-01-20 14:17:25.642064",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Interview Configuration",
