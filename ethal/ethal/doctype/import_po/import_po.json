@@ -12,10 +12,12 @@
   "supplier",
   "get_items_from_open_material_requests",
   "supplier_name",
+  "supplier_pi_no",
   "company",
   "column_break1",
   "transaction_date",
   "schedule_date",
+  "supplier_pi_date",
   "order_confirmation_no",
   "order_confirmation_date",
   "amended_from",
@@ -1322,12 +1324,22 @@
   {
    "fieldname": "data_160",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_pi_no",
+   "fieldtype": "Data",
+   "label": "Supplier PI No"
+  },
+  {
+   "fieldname": "supplier_pi_date",
+   "fieldtype": "Date",
+   "label": "Supplier PI Date"
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 105,
  "is_submittable": 1,
- "modified": "2021-01-05 10:35:41.268587",
+ "modified": "2021-01-20 15:26:29.977789",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import PO",
