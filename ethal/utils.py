@@ -8,6 +8,23 @@ import itertools
 from erpnext.hr.doctype.employee_checkin.employee_checkin import mark_attendance_and_link_log
 from frappe.utils.background_jobs import enqueue
 
+def override_job_applicant_dashboard(data):
+    print(data)
+    return {
+        'fieldname': 'job_applicant',
+        'transactions': [
+            # {
+            #     'items': ['Employee', 'Employee Onboarding']
+            # },
+            # {
+            #     'items': ['Job Offer']
+            # },
+            # {
+            #     'items': ['Interview']
+            # },
+        ],
+    }
+
 @frappe.whitelist()
 def before_submit_leave_allocation(doc, method):
     doj = frappe.db.get_value('Employee', doc.employee, 'date_of_joining')

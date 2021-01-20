@@ -117,6 +117,13 @@ doctype_list_js = {
     "Salary Structure Assignment" : "public/js/salary_structure_assignment_list.js"
  	}
 
+override_doctype_dashboards = {
+	"Job Applicant": "ethal.utils.override_job_applicant_dashboard"
+}
+
+permission_query_conditions = {
+    "Interview Round form": "ethal.ethal.doctype.interview_round.interview_round.interview_round_permissions_query_conditions"
+}
 
 # Scheduled Tasks
 # ---------------
