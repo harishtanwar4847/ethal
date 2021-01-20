@@ -136,10 +136,6 @@ def before_insert_salary_structure_assignment(doc, method):
     frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
     frappe.db.commit()
 
-def before_submit_purchase_order(doc, method):
-    frappe.db.set_value('Purchase Order', {'name': doc.name}, 'approver_person', doc.modified_by)
-    frappe.db.commit()
-
 def process_auto_attendance_for_holidays(doc):
     # sauce: shift_type.py
     # get employee checkins that don't have shifts and don't have marked attendances
