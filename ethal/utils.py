@@ -40,20 +40,104 @@ def set_approver_name(data):
     
     get_approver_name = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'owner')
     
+    get_approved_date = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'modified')
+    
+    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_person', get_approver_name)
+    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_date', get_approved_date)
+    frappe.db.commit()
+
+@frappe.whitelist()
+def calculate_overtime_in_salary_slip(doc, method):
+    daily_overtime(doc)
+    process_auto_attendance_for_holidays(doc)
+
+def daily_overtime(doc):
+    filters = [
+        ['employee', '=', doc.employee],
+        ['attendance_date', '<=', doc.end_date],
+        ['attendance_date', '>=', doc.start_date]
+    ]
+    filters_checkout = [
+        ['employee', '=', doc.employee],
+        ['shift_end', '<=', doc.end_date],
+        ['shift_end', '>=', doc.start_date],
+        ['log_type','=','OUT']
+    ]
+
+    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
+    attendance_list = []
+    for i in attendances:
+        for j in i:
+            attendance_list.append(j)
+
+    shift = frappe.db.get_value('Employee', {'employee': doc.employee, 'is_overtime_applicable': 1}, ['default_shift'])
+    if shift: 
+        shift_start = frappe.db.get_value('Shift Type',shift,'start_time')
+        shift_end = frappe.db.get_value('Shift Type',shift,'end_time')
+        shift_start_hours = shift_start.seconds//3600
+        shift_end_hours = shift_end.seconds//3600
+
+        shift_time = shift_end_hours - shift_start_hours
+
+        for i in attendance_list:
+            i = int(i)
+            if i > shift_time and i < 15:
+                doc.normal_ot_hours = doc.normal_ot_hours + (i - shift_time)
+
+        midnight_checkout = frappe.db.get_all('Employee Checkin', filters=filters_checkout, fields=['time'], as_list=True)
+
+        for i in midnight_checkout:
+            for j in i:
+                if j.hour== 23 and j.minute == 59 and j.second == 59:
+                    doc.normal_ot_hours = doc.normal_ot_hours + 1
+
+def sunday_overtime(doc):
+    holiday = frappe.db.get_all('Holiday', filters={'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+
+    holiday_ = []
+    for i in holiday:
+        splitdate = i[0].strftime('%Y-%m-%d')
+        holiday_.append(splitdate)
+  
     filters = [
         ['employee', '=', doc.employee],
         ['attendance_date', 'in', holiday_]
     ]
-    shift = frappe.db.get_value('Employee', {'employee': doc.employee, 'is_overtime_applicable': 1}, ['default_shift'])
-    if shift:   
-        attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'])
-        if attendances:
-            doc.holiday_ot_hours = attendances[0].working_hours
+      
+    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'])
+    if attendances:
+        doc.sunday_ot_hours = attendances[0].working_hours
+
+def holiday_overtime(doc):
+    sunday = frappe.db.get_all('Holiday', filters={'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    sunday_ = []
+    for i in sunday:
+        splitsundaydate = i[0].strftime('%Y-%m-%d')
+        sunday_.append(splitsundaydate)
+    
+    holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ['not in', sunday_]},  fields=['holiday_date'], as_list=1)
+    holiday_ = []
+    for i in holiday:
+        splitholidaydate = i[0].strftime('%Y-%m-%d')
+        holiday_.append(splitholidaydate)
+    
+    filters = [
+        ['employee', '=', doc.employee],
+        ['attendance_date', 'in', holiday_]
+    ]
+      
+    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'])
+    if attendances:
+        doc.holiday_ot_hours = attendances[0].working_hours
 
 @frappe.whitelist()
 def before_insert_salary_structure_assignment(doc, method):
     get_employee_base_amount = frappe.db.get_value('Employee Grade', {'default_salary_structure': doc.salary_structure}, 'base_amount')
     frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
+    frappe.db.commit()
+
+def before_submit_purchase_order(doc, method):
+    frappe.db.set_value('Purchase Order', {'name': doc.name}, 'approver_person', doc.modified_by)
     frappe.db.commit()
 
 def process_auto_attendance_for_holidays(doc):
