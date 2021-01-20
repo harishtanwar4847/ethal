@@ -734,7 +734,7 @@ def save_interview_round(formdata, job_applicant):
 
         job_applicant = frappe.get_doc('Job Applicant', job_applicant)
         job_applicant.current_round = 'Round' + " " + interview_configuration[0]['round_number']
-        job_applicant.applicant_status = 'Round' + " " + interview_configuration[0]['round_number'] + " " + 'Scheduled'    
+        job_applicant.status = 'Round' + " " + interview_configuration[0]['round_number'] + " " + 'Scheduled'    
         job_applicant.save(ignore_permissions=True)
        
         print("Save interview round")
@@ -770,7 +770,7 @@ def save_interview_round(formdata, job_applicant):
 
         job_applicant = frappe.get_doc('Job Applicant', job_applicant)
         job_applicant.current_round = 'Round' + " " + rounds[0]['round_number']
-        job_applicant.applicant_status = 'Round' + " " + rounds[0]['round_number'] + " " + 'Scheduled'    
+        job_applicant.status = 'Round' + " " + rounds[0]['round_number'] + " " + 'Scheduled'    
         job_applicant.save(ignore_permissions=True)
 
 @frappe.whitelist()
