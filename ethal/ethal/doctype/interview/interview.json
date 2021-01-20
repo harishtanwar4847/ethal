@@ -1,0 +1,98 @@
+{
+ "autoname": "format:INT-{MM}-{YYYY}-{####}",
+ "creation": "2020-11-21 11:06:38.521108",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "job_applicant",
+  "job_applicant_name",
+  "job_opening",
+  "designation",
+  "column_break_5",
+  "current_round",
+  "current_round_status",
+  "status",
+  "round_number"
+ ],
+ "fields": [
+  {
+   "fieldname": "job_applicant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Job Applicant",
+   "options": "Job Applicant",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "job_applicant.applicant_name",
+   "fieldname": "job_applicant_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Job Applicant Name"
+  },
+  {
+   "fieldname": "job_opening",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Job Opening"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Designation"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "current_round",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Current Round",
+   "options": "Interview Round Name"
+  },
+  {
+   "fieldname": "current_round_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Current Round Status",
+   "options": "Scheduled\nOngoing\nOn Hold\nSelected\nRejected\nAccepted"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Accepted\nRejected"
+  },
+  {
+   "fieldname": "round_number",
+   "fieldtype": "Data",
+   "label": "Round Number"
+  }
+ ],
+ "modified": "2020-12-15 21:59:22.787003",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Interview",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
