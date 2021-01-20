@@ -107,9 +107,7 @@ doc_events = {
 	},
 	"Interview Configuration": {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
-    },
-}
-
+    }
 }
 
 doctype_list_js = {
