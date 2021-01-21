@@ -6,6 +6,7 @@
  "field_order": [
   "parameters",
   "amount",
+  "amount__etb_",
   "sea_fright_etb",
   "inland_fright_etb",
   "insurance_etb",
@@ -31,7 +32,8 @@
    "fieldname": "amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Amount"
+   "label": "Amount (USD)",
+   "reqd": 1
   },
   {
    "default": "0",
@@ -106,10 +108,16 @@
    "fieldname": "miscellaneous_etb",
    "fieldtype": "Currency",
    "label": "Miscellaneous (ETB)"
+  },
+  {
+   "fieldname": "amount__etb_",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount ( ETB )"
   }
  ],
  "istable": 1,
- "modified": "2021-01-07 17:11:41.799137",
+ "modified": "2021-01-21 22:48:32.921313",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet Details",

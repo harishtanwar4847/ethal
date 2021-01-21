@@ -6,7 +6,7 @@ frappe.ui.form.on('Import Cost Sheet', {
 
 	},
 	setup: function(frm){
-		if (frm.doc.import_cost_sheet_items.length != 12) {
+		if (frm.doc.import_cost_sheet_items == undefined) {
 		var l = ['Sea Fright (ETB)', 'Inland Fright (ETB)', 'Insurance (ETB)', 'Import Customs Duty (ETB)', 'Other (ETB)', 'Bank charge (ETB)', 'Storage (ETB)', 'Port handling charge (ETB)', 'Transit and clearing (ETB)', 'Loading & unloading (ETB)', 'Inland transport (ETB)', 'Miscellaneous (ETB)']
 		
 		for (var i = 0; i < l.length; i++) {
@@ -33,7 +33,7 @@ frappe.ui.form.on('Import Cost Sheet', {
 		for (var i=0; i<success.message.length; i++){
 			let row = frm.add_child('import_cost_sheet_details')
 			row.parameters= success.message[i].item_code
-			row.amount = success.message[i].amount
+			// row.amount = success.message[i].amount
 			
 			// 	console.log(success.message[i])
 			// 	switch(success.message[i].item_name) {
@@ -78,7 +78,11 @@ frappe.ui.form.on('Import Cost Sheet', {
 	    }
 		  frm.refresh_field('import_cost_sheet_details');
 		})
-	}
+	},
+	
+	// amount: function(frm, cdt, cdn){
+	// 	console.log('ja na be')
+	// }
 });
 
 frappe.ui.form.on('Import Cost Sheet Details', {
@@ -92,5 +96,12 @@ frappe.ui.form.on('Import Cost Sheet Details', {
 	// 	frm.set_value("net_total", total_sales);
 	// 	frm.set_df_property('net_total', 'read_only', 1)
 	// },
-	
+	// amount: function(frm){
+	// 	// console.log(amount)
+	// 	console.log('ja na be')
+	// 	console.log(frm.doc.exchange_rate )
+	// 	var a = frm.doc.exchange_rate * frm.doc.amount
+	// 	frm.doc.amount__etb_ = a
+	// 	frm.refresh_field("import_cost_sheet_details");
+	// }
 });
