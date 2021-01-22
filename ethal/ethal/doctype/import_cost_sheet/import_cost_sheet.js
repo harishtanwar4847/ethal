@@ -17,12 +17,12 @@ frappe.ui.form.on('Import Cost Sheet', {
 		cur_frm.refresh_fields("import_cost_sheet_items");
 		}
 	},
-	purchase_invoice: function(frm){
+	grn: function(frm){
 	
 		frappe.call({
 			method:"ethal.ethal.doctype.import_cost_sheet.import_cost_sheet.get_value",
 			args: {
-			name: frm.doc.purchase_invoice
+			name: frm.doc.grn
 			}
 		})
 		.success(success => {

@@ -23,30 +23,30 @@ class ImportCostSheet(Document):
 		miscellaneous_etb = 0
 
 		for i in self.import_cost_sheet_items:
-			print(i.items)
-			if i.items == 'Sea Fright (ETB)':
+			print(i.amount)
+			if i.items == 'Sea Fright (ETB)' and i.amount is not None:
 				sea_fright_etb = i.amount
-			if i.items == 'Inland Fright (ETB)':
+			if i.items == 'Inland Fright (ETB)' and i.amount is not None:
 				inland_fright_etb = i.amount 
-			if i.items == 'Insurance (ETB)':
+			if i.items == 'Insurance (ETB)' and i.amount is not None:
 				insurance_etb = i.amount 
-			if i.items == 'Import Customs Duty (ETB)':
+			if i.items == 'Import Customs Duty (ETB)' and i.amount is not None:
 				import_customs_duty_etb = i.amount
-			if i.items == 'Other (ETB)':
+			if i.items == 'Other (ETB)' and i.amount is not None:
 				other_etb = i.amount 
-			if i.items == 'Bank charge (ETB)':
+			if i.items == 'Bank charge (ETB)' and i.amount is not None:
 				bank_charge_etb = i.amount
-			if i.items == 'Storage (ETB)':
+			if i.items == 'Storage (ETB)' and i.amount is not None:
 				storage_etb = i.amount
-			if i.items == 'Port handling charge (ETB)':
+			if i.items == 'Port handling charge (ETB)' and i.amount is not None:
 				port_handling_charge_etb = i.amount
-			if i.items == 'Transit and clearing (ETB)':
+			if i.items == 'Transit and clearing (ETB)' and i.amount is not None: 
 				transit_and_clearing_etb = i.amount
-			if i.items == 'Loading & unloading (ETB)':
+			if i.items == 'Loading & unloading (ETB)' and i.amount is not None:
 				loading_and_unloading_etb = i.amount
-			if i.items == 'Inland transport (ETB)':
+			if i.items == 'Inland transport (ETB)' and i.amount is not None:
 				inland_transport_etb = i.amount 
-			if i.items == 'Miscellaneous (ETB)':
+			if i.items == 'Miscellaneous (ETB)' and i.amount is not None:
 				miscellaneous_etb = i.amount 
  
 		for j in self.import_cost_sheet_details:
@@ -68,4 +68,4 @@ class ImportCostSheet(Document):
 
 @frappe.whitelist()
 def get_value(name):
-	return frappe.db.get_all('Purchase Invoice Item', {'parent': name}, ['*'])
+	return frappe.db.get_all('Purchase Receipt Item', {'parent': name}, ['*'])
