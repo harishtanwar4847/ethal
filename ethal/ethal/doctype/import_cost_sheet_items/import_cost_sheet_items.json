@@ -1,0 +1,44 @@
+{
+ "creation": "2021-01-20 20:59:27.629290",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "items",
+  "purchase_invoice",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "items",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Items"
+  },
+  {
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Purchase Invoice",
+   "options": "Purchase Invoice"
+  },
+  {
+   "fetch_from": "purchase_invoice.total",
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-01-22 10:43:18.967344",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Import Cost Sheet Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -7,8 +7,65 @@ import frappe
 from frappe.model.document import Document
 
 class ImportCostSheet(Document):
-	pass
+	def after_insert(self):
+		
+		sea_fright_etb = 0 
+		inland_fright_etb = 0 
+		insurance_etb = 0
+		import_customs_duty_etb = 0
+		other_etb = 0
+		bank_charge_etb = 0
+		storage_etb = 0
+		port_handling_charge_etb = 0
+		transit_and_clearing_etb = 0
+		loading_and_unloading_etb = 0
+		inland_transport_etb = 0
+		miscellaneous_etb = 0
+
+		for i in self.import_cost_sheet_items:
+			print(i.amount)
+			if i.items == 'Sea Fright (ETB)' and i.amount is not None:
+				sea_fright_etb = i.amount
+			if i.items == 'Inland Fright (ETB)' and i.amount is not None:
+				inland_fright_etb = i.amount 
+			if i.items == 'Insurance (ETB)' and i.amount is not None:
+				insurance_etb = i.amount 
+			if i.items == 'Import Customs Duty (ETB)' and i.amount is not None:
+				import_customs_duty_etb = i.amount
+			if i.items == 'Other (ETB)' and i.amount is not None:
+				other_etb = i.amount 
+			if i.items == 'Bank charge (ETB)' and i.amount is not None:
+				bank_charge_etb = i.amount
+			if i.items == 'Storage (ETB)' and i.amount is not None:
+				storage_etb = i.amount
+			if i.items == 'Port handling charge (ETB)' and i.amount is not None:
+				port_handling_charge_etb = i.amount
+			if i.items == 'Transit and clearing (ETB)' and i.amount is not None: 
+				transit_and_clearing_etb = i.amount
+			if i.items == 'Loading & unloading (ETB)' and i.amount is not None:
+				loading_and_unloading_etb = i.amount
+			if i.items == 'Inland transport (ETB)' and i.amount is not None:
+				inland_transport_etb = i.amount 
+			if i.items == 'Miscellaneous (ETB)' and i.amount is not None:
+				miscellaneous_etb = i.amount 
+ 
+		for j in self.import_cost_sheet_details:
+			j.amount__etb_ = j.amount * self.exchange_rate
+			j.sea_fright_etb = (sea_fright_etb/self.usd_value)*j.amount 
+			j.inland_fright_etb = (inland_fright_etb/self.usd_value)*j.amount
+			j.insurance_etb = (insurance_etb/self.usd_value)*j.amount
+			j.import_customs_duty_etb = (import_customs_duty_etb/self.usd_value)*j.amount 
+			j.other_etb = (other_etb/self.usd_value)*j.amount 
+			j.bank_charge_etb = (bank_charge_etb/self.usd_value)*j.amount 
+			j.storage_etb = (storage_etb/self.usd_value)*j.amount 
+			j.port_handling_charge_etb = (port_handling_charge_etb/self.usd_value)*j.amount 
+			j.transit_and_clearing_etb = (transit_and_clearing_etb/self.usd_value)*j.amount 
+			j.loading_and_unloading_etb = (loading_and_unloading_etb/self.usd_value)*j.amount 
+			j.inland_transport_etb = (inland_fright_etb/self.usd_value)*j.amount 
+			j.miscellaneous_etb = (miscellaneous_etb/self.usd_value)*j.amount 
+			j.save()
+
 
 @frappe.whitelist()
 def get_value(name):
-	return frappe.db.get_all('Purchase Invoice Item', {'parent': name}, ['*'])
+	return frappe.db.get_all('Purchase Receipt Item', {'parent': name}, ['*'])
