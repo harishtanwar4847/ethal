@@ -9,9 +9,13 @@
   "item_code",
   "supplier_part_no",
   "item_name",
+  "hsn_code",
+  "make",
   "column_break_4",
   "schedule_date",
   "expected_delivery_date",
+  "model",
+  "yom",
   "section_break_5",
   "description",
   "col_break1",
@@ -707,11 +711,33 @@
    "print_hide": 1,
    "read_only": 1,
    "report_hide": 1
+  },
+  {
+   "fetch_from": "item_code.gst_hsn_code",
+   "fieldname": "hsn_code",
+   "fieldtype": "Link",
+   "label": "HSN Code",
+   "options": "GST HSN Code"
+  },
+  {
+   "fieldname": "make",
+   "fieldtype": "Data",
+   "label": "Make"
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model"
+  },
+  {
+   "fieldname": "yom",
+   "fieldtype": "Data",
+   "label": "YOM"
   }
  ],
  "idx": 1,
  "istable": 1,
- "modified": "2021-01-05 12:17:56.159614",
+ "modified": "2021-01-20 15:23:03.877078",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import PO Item",

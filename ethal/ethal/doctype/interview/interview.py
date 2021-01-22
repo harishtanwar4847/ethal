@@ -68,9 +68,9 @@ def set_rounds(interview, round, designation, name):
 	job_applicant.current_round = 'Round' + " " + get_inerview_round_configuration[0][0]
 
 	if get_interview.current_round_status == 'Selected':
-		job_applicant.applicant_status = 'Round' + " " + get_inerview_round_configuration[0][0] + " " + 'Cleared'
+		job_applicant.status = 'Round' + " " + get_inerview_round_configuration[0][0] + " " + 'Cleared'
 	else:
-		job_applicant.applicant_status = 'Round' + " " + get_inerview_round_configuration[0][0] + " " + 'Reject'    
+		job_applicant.status = 'Round' + " " + get_inerview_round_configuration[0][0] + " " + 'Reject'    
 	job_applicant.save(ignore_permissions=True)
 
 	existing_rounds_ = frappe.get_list("Interview Round", fields=["round"], filters={
@@ -86,14 +86,14 @@ def set_rounds(interview, round, designation, name):
 		print(rounds_status[-1])
 		
 		if(rounds_status[-1]['status'] == 'Selected'):
-			job_applicant.applicant_status = "Selected"
+			job_applicant.status = "Selected"
 			job_applicant.save(ignore_permissions=True)
 		else:
-			job_applicant.applicant_status = "Rejected"
+			job_applicant.status = "Rejected"
 			job_applicant.save(ignore_permissions=True)
 
 # @frappe.whitelist()
-# def set_applicant_status(job_applicant, status):
+# def set_status(job_applicant, status):
 #     job_applicant = frappe.get_doc('Job Applicant', job_applicant)
 #     job_applicant.status =  status
 #     job_applicant.save(ignore_permissions=True)

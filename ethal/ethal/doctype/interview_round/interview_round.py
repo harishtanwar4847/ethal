@@ -194,7 +194,7 @@ def previous_interview_rounds(interview, interview_round):
                         {
                             'label': 'Rating',
                             'fieldname': 'rating',
-                            'fieldtype': 'Rating',
+                            'fieldtype': 'Int',
                             'read_only': 1,
                             'default': i['rating1']
                         },

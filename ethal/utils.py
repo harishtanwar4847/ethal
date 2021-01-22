@@ -2,10 +2,28 @@ import frappe
 from frappe.utils import getdate, nowdate, cint, flt
 import json
 from datetime import date, timedelta, datetime
+from frappe.utils import formatdate
 import ast
 import itertools
 from erpnext.hr.doctype.employee_checkin.employee_checkin import mark_attendance_and_link_log
 from frappe.utils.background_jobs import enqueue
+
+def override_job_applicant_dashboard(data):
+    print(data)
+    return {
+        'fieldname': 'job_applicant',
+        'transactions': [
+            # {
+            #     'items': ['Employee', 'Employee Onboarding']
+            # },
+            # {
+            #     'items': ['Job Offer']
+            # },
+            # {
+            #     'items': ['Interview']
+            # },
+        ],
+    }
 
 @frappe.whitelist()
 def before_submit_leave_allocation(doc, method):
@@ -28,11 +46,18 @@ def set_items_from_stock_entry(name):
 
 @frappe.whitelist()
 def before_submit_all_doctypes(doc, method):
+    user = frappe.get_roles(frappe.session.user)
     admin_settings = frappe.get_doc('Admin Settings')
-    admin_settings_document = frappe.get_all('Admin Settings Document', {'parent': 'Admin Settings', 'document': doc.doctype}, ['posting_date'], as_list=1)  
-    if admin_settings_document:
-        if admin_settings.closure_date > doc.posting_date:
-            frappe.throw('please contact manager')
+    admin_settings_document = frappe.get_all('Admin Settings Document', {'parent': 'Admin Settings', 'document': doc.doctype}, ['date'], as_list=1)  
+   
+    if admin_settings.applicable_for_role not in user:
+        if admin_settings_document:
+            if admin_settings_document[0][0] == 'posting_date':
+                if admin_settings.closure_date > doc.posting_date:
+                    frappe.throw(frappe._("You are not authorized to add or update entries before {0}").format(formatdate(admin_settings.closure_date)))
+            elif admin_settings_document[0][0] == 'transaction_date':
+                if admin_settings.closure_date > doc.transaction_date:
+                    frappe.throw(frappe._("You are not authorized to add or update entries before {0}").format(formatdate(admin_settings.closure_date)))
 
 @frappe.whitelist()
 def set_approver_name(data):
@@ -467,7 +492,7 @@ def get_interview_rounds(job_applicant, job_opening):
                     {
                         'label': 'Rating',
                         'fieldname': 'rating',
-                        'fieldtype': 'Rating',
+                        'fieldtype': 'Int',
                         'read_only': 1,
                         'default': i['rating1']
                     },
@@ -709,7 +734,7 @@ def save_interview_round(formdata, job_applicant):
 
         job_applicant = frappe.get_doc('Job Applicant', job_applicant)
         job_applicant.current_round = 'Round' + " " + interview_configuration[0]['round_number']
-        job_applicant.applicant_status = 'Round' + " " + interview_configuration[0]['round_number'] + " " + 'Scheduled'    
+        job_applicant.status = 'Round' + " " + interview_configuration[0]['round_number'] + " " + 'Scheduled'    
         job_applicant.save(ignore_permissions=True)
        
         print("Save interview round")
@@ -745,12 +770,12 @@ def save_interview_round(formdata, job_applicant):
 
         job_applicant = frappe.get_doc('Job Applicant', job_applicant)
         job_applicant.current_round = 'Round' + " " + rounds[0]['round_number']
-        job_applicant.applicant_status = 'Round' + " " + rounds[0]['round_number'] + " " + 'Scheduled'    
+        job_applicant.status = 'Round' + " " + rounds[0]['round_number'] + " " + 'Scheduled'    
         job_applicant.save(ignore_permissions=True)
 
 @frappe.whitelist()
 def before_insert_payment_entry(doc, method):
-    if doc.naming_series.startswith('CPV'):
+    if doc.naming_series.startswith('CPV') and doc.mode_of_payment == 'Cheque':
         payment_entries = frappe.db.get_value('Payment Entry', {'reference_no': doc.reference_no}, ['name'])
         if payment_entries:
             frappe.throw('Cheque/Reference no must be unique')   
