@@ -9,12 +9,17 @@
   "purchase_order_no",
   "bl",
   "purchase_invoice",
+  "usd_value",
   "column_break_4",
   "supplier_name",
   "grn",
+  "invoice_value",
+  "exchange_rate",
   "section_break_7",
   "import_cost_sheet_details",
   "section_break_9",
+  "import_cost_sheet_items",
+  "section_break_11",
   "net_total"
  ],
  "fields": [
@@ -40,8 +45,10 @@
   },
   {
    "fieldname": "grn",
-   "fieldtype": "Data",
-   "label": "GRN"
+   "fieldtype": "Link",
+   "label": "GRN",
+   "options": "Purchase Receipt",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_7",
@@ -51,6 +58,7 @@
    "fetch_from": "purchase_invoice.total",
    "fieldname": "net_total",
    "fieldtype": "Currency",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Net Total",
    "read_only": 1
@@ -68,10 +76,39 @@
    "fieldname": "purchase_invoice",
    "fieldtype": "Link",
    "label": "Purchase Invoice",
-   "options": "Purchase Invoice"
+   "options": "Purchase Invoice",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "import_cost_sheet_items",
+   "fieldtype": "Table",
+   "options": "Import Cost Sheet Items"
+  },
+  {
+   "fieldname": "usd_value",
+   "fieldtype": "Float",
+   "label": "USD Value",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "purchase_invoice.total",
+   "fieldname": "invoice_value",
+   "fieldtype": "Currency",
+   "label": "Invoice value",
+   "reqd": 1
+  },
+  {
+   "fieldname": "exchange_rate",
+   "fieldtype": "Currency",
+   "label": "Exchange Rate",
+   "reqd": 1
   }
  ],
- "modified": "2021-01-07 20:43:14.534595",
+ "modified": "2021-01-22 10:46:51.323910",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet",
