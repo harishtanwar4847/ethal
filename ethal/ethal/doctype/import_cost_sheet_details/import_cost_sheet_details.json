@@ -30,7 +30,7 @@
   },
   {
    "fieldname": "amount",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Amount (USD)",
    "reqd": 1
@@ -38,86 +38,86 @@
   {
    "default": "0",
    "fieldname": "sea_fright_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Sea Fright (ETB)"
   },
   {
    "default": "0",
    "fieldname": "inland_fright_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Inland Fright (ETB)"
   },
   {
    "default": "0",
    "fieldname": "insurance_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Insurance (ETB)"
   },
   {
    "default": "0",
    "fieldname": "import_customs_duty_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Import Customs Duty (ETB)"
   },
   {
    "default": "0",
    "fieldname": "other_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Other (ETB)"
   },
   {
    "default": "0",
    "fieldname": "bank_charge_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Bank charge (ETB)"
   },
   {
    "default": "0",
    "fieldname": "storage_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Storage (ETB)"
   },
   {
    "default": "0",
    "fieldname": "port_handling_charge_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Port handling charge (ETB)"
   },
   {
    "default": "0",
    "fieldname": "transit_and_clearing_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Transit and clearing (ETB)"
   },
   {
    "default": "0",
    "fieldname": "loading_and_unloading_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Loading and unloading (ETB)"
   },
   {
    "default": "0",
    "fieldname": "inland_transport_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Inland transport (ETB)"
   },
   {
    "default": "0",
    "fieldname": "miscellaneous_etb",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Miscellaneous (ETB)"
   },
   {
    "fieldname": "amount__etb_",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Amount ( ETB )"
   }
  ],
  "istable": 1,
- "modified": "2021-01-21 22:48:32.921313",
+ "modified": "2021-01-22 10:40:54.429530",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet Details",
