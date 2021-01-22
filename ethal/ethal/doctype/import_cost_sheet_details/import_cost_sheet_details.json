@@ -18,7 +18,8 @@
   "transit_and_clearing_etb",
   "loading_and_unloading_etb",
   "inland_transport_etb",
-  "miscellaneous_etb"
+  "miscellaneous_etb",
+  "total"
  ],
  "fields": [
   {
@@ -114,10 +115,15 @@
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Amount ( ETB )"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total"
   }
  ],
  "istable": 1,
- "modified": "2021-01-22 10:40:54.429530",
+ "modified": "2021-01-22 20:01:14.973313",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet Details",
