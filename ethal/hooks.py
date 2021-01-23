@@ -110,6 +110,9 @@ doc_events = {
     },
 	"Payment Entry": {
 		"before_insert": "ethal.utils.before_insert_payment_entry"
+	},
+	"Sales Invoice": {
+		"before_insert": "ethal.utils.before_insert_sales_invoice"
 	}	
 }
 
