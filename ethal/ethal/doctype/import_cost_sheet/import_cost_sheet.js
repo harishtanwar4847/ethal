@@ -3,8 +3,17 @@
 
 frappe.ui.form.on('Import Cost Sheet', {
 	refresh: function(frm) {
-
-	},
+		if (frm.doc.import_cost_sheet_items == undefined) {
+			var l = ['Sea Fright (ETB)', 'Inland Fright (ETB)', 'Insurance (ETB)', 'Import Customs Duty (ETB)', 'Other (ETB)', 'Bank charge (ETB)', 'Storage (ETB)', 'Port handling charge (ETB)', 'Transit and clearing (ETB)', 'Loading & unloading (ETB)', 'Inland transport (ETB)', 'Miscellaneous (ETB)']
+			
+			for (var i = 0; i < l.length; i++) {
+				var childTable = cur_frm.add_child("import_cost_sheet_items");
+				console.log(i)
+				childTable.items = l[i]
+			}
+			cur_frm.refresh_fields("import_cost_sheet_items");
+			}
+		},
 	setup: function(frm){
 		if (frm.doc.import_cost_sheet_items == undefined) {
 		var l = ['Sea Fright (ETB)', 'Inland Fright (ETB)', 'Insurance (ETB)', 'Import Customs Duty (ETB)', 'Other (ETB)', 'Bank charge (ETB)', 'Storage (ETB)', 'Port handling charge (ETB)', 'Transit and clearing (ETB)', 'Loading & unloading (ETB)', 'Inland transport (ETB)', 'Miscellaneous (ETB)']
