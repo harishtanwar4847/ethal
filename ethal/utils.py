@@ -783,9 +783,13 @@ def before_insert_payment_entry(doc, method):
 def before_insert_sales_invoice(doc, method):
     if doc.naming_series.startswith('ACSI-TU'):
         sales_invoice = frappe.db.get_value('Sales Invoice', {'fs_number': doc.fs_number, 'naming_series': ['like', '%ACSI-TU-%'], 'docstatus': ['!=', '2']}, ['name'])
-        if sales_invoice:
+        if sales_invoice == None:
+            return
+        elif sales_invoice != doc.name:    
             frappe.throw('FS Numer must be unique')   
     elif doc.naming_series.startswith('ACSI-DB'):  
         sales_invoice = frappe.db.get_value('Sales Invoice', {'fs_number': doc.fs_number, 'naming_series': ['like', '%ACSI-DB-%'], 'docstatus': ['!=', '2']}, ['name'])
-        if sales_invoice:
-            frappe.throw('FS Number must be unique')   
+        if sales_invoice == None:
+            return
+        elif sales_invoice != doc.name:    
+            frappe.throw('FS Numer must be unique')   
