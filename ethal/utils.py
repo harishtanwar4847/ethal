@@ -60,16 +60,9 @@ def before_submit_all_doctypes(doc, method):
                     frappe.throw(frappe._("You are not authorized to add or update entries before {0}").format(formatdate(admin_settings.closure_date)))
 
 @frappe.whitelist()
-def set_approver_name(data):
-    data=json.loads(data)
-    
-    get_approver_name = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'owner')
-    
-    get_approved_date = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'modified')
-    
-    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_person', get_approver_name)
-    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_date', get_approved_date)
-    frappe.db.commit()
+def set_approver_name(doc, method):
+    doc.approver_person = doc.modified_by
+    doc.approver_date = doc.modified
 
 @frappe.whitelist()
 def calculate_overtime_in_salary_slip(doc, method):

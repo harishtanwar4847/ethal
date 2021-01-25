@@ -109,11 +109,25 @@ doc_events = {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
     },
 	"Payment Entry": {
-		"before_insert": "ethal.utils.before_insert_payment_entry"
+		"before_insert": "ethal.utils.before_insert_payment_entry",
+		"before_submit": "ethal.utils.set_approver_name"
 	},
 	"Sales Invoice": {
-		"validate": "ethal.utils.before_insert_sales_invoice"
-	}	
+		"validate": "ethal.utils.before_insert_sales_invoice",
+		"before_submit": "ethal.utils.set_approver_name"
+	},
+	"Sales Order": {
+		"before_submit": "ethal.utils.set_approver_name"
+	},
+	"Purchase Order": {
+		"before_submit": "ethal.utils.set_approver_name"
+	},	
+	"Purchase Invoice": {
+		"before_submit": "ethal.utils.set_approver_name"
+	},
+	"Material Request": {
+		"before_submit": "ethal.utils.set_approver_name"
+	}
 }
 
 doctype_list_js = {
@@ -175,7 +189,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings"]
+				["Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Material Request"]
 			]
 		]
 	},
