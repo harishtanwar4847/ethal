@@ -110,6 +110,9 @@ doc_events = {
     },
 	"Payment Entry": {
 		"before_insert": "ethal.utils.before_insert_payment_entry"
+	},
+	"Sales Invoice": {
+		"validate": "ethal.utils.before_insert_sales_invoice"
 	}	
 }
 
@@ -172,7 +175,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Payment Entry", "Print Settings"]
+				["Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings"]
 			]
 		]
 	},
