@@ -130,6 +130,9 @@ doc_events = {
 	},
 	"Payment Request and Authorization": {
 		"before_submit": "ethal.utils.set_approver_name"
+	},
+	"Attendance": {
+		"before_submit": "ethal.utils.trigger_mail_if_absent_consecutive_5_days"
 	}
 }
 
