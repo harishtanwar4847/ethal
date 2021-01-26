@@ -202,7 +202,17 @@ fixtures = [
 			[
 				"doc_type",
 				"in",
-				["Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "PRA"]
+				["Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
+			]
+		]
+	},
+	{
+		"dt": "Workflow",
+		"filters": [
+			[
+				"document_type",
+				"in",
+				["Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
 			]
 		]
 	},
