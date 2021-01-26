@@ -211,10 +211,10 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
     select count(attendance_date) as count
     from `tabAttendance` 
     where  attendance_date >= DATE_SUB(CURDATE(), INTERVAL 5 DAY) 
-    and status='Absent' and employee='{}' order by attendance_date;
+    and status in ('Absent', 'On Leave') and docstatus = 1 and employee='{}' order by attendance_date;
 
     """.format(doc.employee), as_dict = 1)
-
+    print(attendance)
     if attendance[0]['count'] == 5:
         notification = frappe.get_doc('Notification', 'Consecutive Leave')
 
