@@ -222,10 +222,11 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
         recipients = notification.get_list_of_recipients(doc, args)
         print(recipients)
         recipients_list = list(recipients[0])
+        print(recipients_list)
         message = 'Alert! {} has been on Leave for 5 consecutive days.'.format(doc.employee_name)
         for user in recipients_list:
             frappe.publish_realtime(event='msgprint',message=message,user=user)
-        frappe.enqueue(method=frappe.sendmail, recipients=recipients, sender=None, now=True,
+        frappe.enqueue(method=frappe.sendmail, recipients=recipients_list, sender=None, now=True,
         subject=frappe.render_template(notification.subject, args), message=frappe.render_template(notification.message, args))
 
 
