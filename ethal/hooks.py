@@ -127,6 +127,9 @@ doc_events = {
 	},
 	"Material Request": {
 		"before_submit": "ethal.utils.set_approver_name"
+	},
+	"Payment Request and Authorization": {
+		"before_submit": "ethal.utils.set_approver_name"
 	}
 }
 
