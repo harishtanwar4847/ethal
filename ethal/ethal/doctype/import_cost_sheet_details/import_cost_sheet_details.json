@@ -34,8 +34,7 @@
    "fieldname": "amount",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Amount (USD)",
-   "reqd": 1
+   "label": "Amount (USD)"
   },
   {
    "default": "0",
@@ -131,7 +130,7 @@
   }
  ],
  "istable": 1,
- "modified": "2021-01-22 20:54:30.397085",
+ "modified": "2021-01-26 14:54:37.565864",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet Details",
