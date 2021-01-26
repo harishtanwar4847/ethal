@@ -39,9 +39,10 @@
   },
   {
    "fieldname": "supplier_name",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Supplier Name"
+   "label": "Supplier Name",
+   "options": "Supplier"
   },
   {
    "fieldname": "grn",
@@ -91,24 +92,21 @@
   {
    "fieldname": "usd_value",
    "fieldtype": "Float",
-   "label": "USD Value",
-   "reqd": 1
+   "label": "USD Value"
   },
   {
    "fetch_from": "purchase_invoice.total",
    "fieldname": "invoice_value",
    "fieldtype": "Currency",
-   "label": "Invoice value",
-   "reqd": 1
+   "label": "Invoice value"
   },
   {
    "fieldname": "exchange_rate",
    "fieldtype": "Currency",
-   "label": "Exchange Rate",
-   "reqd": 1
+   "label": "Exchange Rate"
   }
  ],
- "modified": "2021-01-22 10:46:51.323910",
+ "modified": "2021-01-26 15:01:27.115444",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet",
