@@ -5,6 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "parameters",
+  "item_name",
   "amount",
   "amount__etb_",
   "sea_fright_etb",
@@ -119,6 +120,13 @@
    "fieldname": "total",
    "fieldtype": "Float",
    "label": "Total"
+  },
+  {
+   "fetch_from": "parameters.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name"
   }
  ],
  "istable": 1,
