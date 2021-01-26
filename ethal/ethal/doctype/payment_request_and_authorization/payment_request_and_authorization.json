@@ -109,22 +109,19 @@
    "fieldname": "approver_person",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "Approver Person",
-   "set_only_once": 1
+   "label": "Approver Person"
   },
   {
    "fieldname": "checked_person",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "Checked Person",
-   "set_only_once": 1
+   "label": "Checked Person"
   },
   {
    "fieldname": "checked_date",
    "fieldtype": "Date",
    "hidden": 1,
-   "label": "Checked Date",
-   "set_only_once": 1
+   "label": "Checked Date"
   },
   {
    "allow_on_submit": 1,
@@ -139,8 +136,7 @@
    "fieldname": "approver_date",
    "fieldtype": "Date",
    "hidden": 1,
-   "label": "Approved Date",
-   "set_only_once": 1
+   "label": "Approver Date"
   },
   {
    "fieldname": "naming_series",
@@ -172,7 +168,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-13 09:16:22.551786",
+ "modified": "2021-01-26 14:46:38.221405",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
