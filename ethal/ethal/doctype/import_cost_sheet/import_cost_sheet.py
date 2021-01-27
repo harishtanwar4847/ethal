@@ -128,4 +128,4 @@ class ImportCostSheet(Document):
 
 @frappe.whitelist()
 def get_value(name):
-	return frappe.db.get_all('Purchase Receipt Item', filters={'parent': name}, fields=['*'], order_by='item_code desc')
+	return frappe.db.get_all('Purchase Receipt Item', filters={'parent': name}, fields=['*'], order_by='idx')
