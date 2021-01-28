@@ -109,7 +109,7 @@ doc_events = {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
     },
 	"Payment Entry": {
-		"before_insert": "ethal.utils.before_insert_payment_entry",
+		"validate": "ethal.utils.before_insert_payment_entry",
 		"before_submit": "ethal.utils.set_approver_name"
 	},
 	"Sales Invoice": {

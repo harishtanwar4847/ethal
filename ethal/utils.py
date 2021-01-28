@@ -770,8 +770,10 @@ def save_interview_round(formdata, job_applicant):
 @frappe.whitelist()
 def before_insert_payment_entry(doc, method):
     if doc.naming_series.startswith('CPV') and doc.mode_of_payment == 'Cheque':
-        payment_entries = frappe.db.get_value('Payment Entry', {'reference_no': doc.reference_no}, ['name'])
-        if payment_entries:
+        payment_entries = frappe.db.get_value('Payment Entry', {'reference_no': doc.reference_no, 'docstatus': ['!=', '2']}, ['name'])
+        if payment_entries == None:
+            return
+        elif payment_entries != doc.name:    
             frappe.throw('Cheque/Reference no must be unique')   
 
 def before_insert_sales_invoice(doc, method):
