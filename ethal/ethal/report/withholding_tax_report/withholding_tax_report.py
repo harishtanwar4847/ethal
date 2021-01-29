@@ -36,5 +36,5 @@ def get_data(filters):
 			AND ptc.account_head = '21100-03 - Withholding Tax Payable on Purchase ( Type Tax ) - E21'
 			AND pi.docstatus='1'
 			AND a.name = pi.supplier_address
-			AND pi.withholding_receipt_date between {} and {}
+			AND pi.withholding_receipt_date between '{}' and '{}'
 	""".format(filters.from_date, filters.to_date))
