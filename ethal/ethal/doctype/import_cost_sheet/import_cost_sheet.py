@@ -63,7 +63,7 @@ class ImportCostSheet(Document):
 			j.loading_and_unloading_etb = (loading_and_unloading_etb/self.usd_value)*j.amount if j.amount else 0
 			j.inland_transport_etb = (inland_transport_etb/self.usd_value)*j.amount if j.amount else 0
 			j.miscellaneous_etb = (miscellaneous_etb/self.usd_value)*j.amount if j.amount else 0
-			j.total =  j.amount__etb_ + j.sea_fright_etb+j.inland_fright_etb+j.insurance_etb+j.import_customs_duty_etb+j.other_etb+j.bank_charge_etb+j.storage_etb+j.port_handling_charge_etb+j.transit_and_clearing_etb+j.loading_and_unloading_etb+j.inland_transport_etb+j.miscellaneous_etb 
+			j.total_actual_cost =  j.amount__etb_ + j.sea_fright_etb+j.inland_fright_etb+j.insurance_etb+j.import_customs_duty_etb+j.other_etb+j.bank_charge_etb+j.storage_etb+j.port_handling_charge_etb+j.transit_and_clearing_etb+j.loading_and_unloading_etb+j.inland_transport_etb+j.miscellaneous_etb 
 			j.save()
 
 	def before_save(self):
@@ -122,7 +122,7 @@ class ImportCostSheet(Document):
 			j.loading_and_unloading_etb = (loading_and_unloading_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
 			j.inland_transport_etb = (inland_transport_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
 			j.miscellaneous_etb = (miscellaneous_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
-			j.total =  j.amount__etb_ + j.sea_fright_etb+j.inland_fright_etb+j.insurance_etb+j.import_customs_duty_etb+j.other_etb+j.bank_charge_etb+j.storage_etb+j.port_handling_charge_etb+j.transit_and_clearing_etb+j.loading_and_unloading_etb+j.inland_transport_etb+j.miscellaneous_etb 
+			j.total_actual_cost =  j.amount__etb_ + j.sea_fright_etb+j.inland_fright_etb+j.insurance_etb+j.import_customs_duty_etb+j.other_etb+j.bank_charge_etb+j.storage_etb+j.port_handling_charge_etb+j.transit_and_clearing_etb+j.loading_and_unloading_etb+j.inland_transport_etb+j.miscellaneous_etb 
 			# j.save()
 
 

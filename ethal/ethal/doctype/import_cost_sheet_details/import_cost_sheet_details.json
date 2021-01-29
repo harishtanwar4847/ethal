@@ -6,6 +6,7 @@
  "field_order": [
   "parameters",
   "item_name",
+  "qty",
   "amount",
   "amount__etb_",
   "sea_fright_etb",
@@ -20,7 +21,10 @@
   "loading_and_unloading_etb",
   "inland_transport_etb",
   "miscellaneous_etb",
-  "total"
+  "total_actual_cost",
+  "customs_valuation_difference_etb",
+  "grand_total_cost_etb",
+  "unit_cost_per_kg_etb"
  ],
  "fields": [
   {
@@ -40,14 +44,12 @@
    "default": "0",
    "fieldname": "sea_fright_etb",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Sea Fright (ETB)"
   },
   {
    "default": "0",
    "fieldname": "inland_fright_etb",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Inland Fright (ETB)"
   },
   {
@@ -117,20 +119,41 @@
    "label": "Amount ( ETB )"
   },
   {
-   "fieldname": "total",
-   "fieldtype": "Float",
-   "label": "Total"
-  },
-  {
    "fetch_from": "parameters.item_name",
    "fieldname": "item_name",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Item Name"
+  },
+  {
+   "fieldname": "total_actual_cost",
+   "fieldtype": "Float",
+   "label": "Total Actual Cost"
+  },
+  {
+   "fieldname": "customs_valuation_difference_etb",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Customs valuation difference (ETB) "
+  },
+  {
+   "fieldname": "grand_total_cost_etb",
+   "fieldtype": "Float",
+   "label": "Grand Total Cost (ETB)"
+  },
+  {
+   "fieldname": "unit_cost_per_kg_etb",
+   "fieldtype": "Float",
+   "label": "Unit Cost per KG (ETB)"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "label": "Qty"
   }
  ],
  "istable": 1,
- "modified": "2021-01-26 14:54:37.565864",
+ "modified": "2021-01-29 13:50:38.336684",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet Details",
