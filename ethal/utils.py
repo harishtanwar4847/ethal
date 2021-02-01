@@ -136,15 +136,40 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
 
     """.format(doc.employee), as_dict = 1)
     print(attendance)
-    if attendance[0]['count'] == 5:
+    if attendance[0]['count'] == 4:
         notification = frappe.get_doc('Notification', 'Consecutive Leave')
 
         args={'doc': doc}
         recipients = notification.get_list_of_recipients(doc, args)
-        print(recipients)
         recipients_list = list(recipients[0])
-        print(recipients_list)
         message = 'Alert! {} has been on Leave for 5 consecutive days.'.format(doc.employee_name)
+        get_employee_warnings = frappe.get_all('Warning Letter Detail', filters={'parent': doc.employee}, fields=['warning_number'], order_by='warning_number desc', page_length=1)
+        print('get employees', get_employee_warnings)
+        warning_template = frappe.db.get_value('Warning Letter Template', 'Consecutive Leave', 'name')
+        print(warning_template)
+        warning_letter = frappe.new_doc('Warning Letter')
+        warning_letter.employee = doc.employee
+        warning_letter.template = warning_template
+
+        if not get_employee_warnings:
+            # frappe.throw('ja na be')
+            warning_letter.warning_number = 1
+           
+        else:
+            warning_letter.warning_number = get_employee_warnings[0]['warning_number'] + 1
+           
+        warning_letter.save(ignore_permissions=True)
+
+        set_employee_warnings = frappe.get_doc('Employee', doc.employee)
+        set_employee_warnings.append('warnings', {
+            'warning_letter': warning_letter.name
+        })
+        if not get_employee_warnings:
+            set_employee_warnings.warnings_status = 1
+        else:
+            set_employee_warnings.warnings_status = get_employee_warnings[0]['warning_number']+1
+        set_employee_warnings.save(ignore_permissions=True)
+
         for user in recipients_list:
             frappe.publish_realtime(event='msgprint',message=message,user=user)
         frappe.enqueue(method=frappe.sendmail, recipients=recipients_list, sender=None, now=True,
@@ -694,8 +719,10 @@ def save_interview_round(formdata, job_applicant):
 @frappe.whitelist()
 def before_insert_payment_entry(doc, method):
     if doc.naming_series.startswith('CPV') and doc.mode_of_payment == 'Cheque':
-        payment_entries = frappe.db.get_value('Payment Entry', {'reference_no': doc.reference_no}, ['name'])
-        if payment_entries:
+        payment_entries = frappe.db.get_value('Payment Entry', {'reference_no': doc.reference_no, 'docstatus': ['!=', '2']}, ['name'])
+        if payment_entries == None:
+            return
+        elif payment_entries != doc.name:    
             frappe.throw('Cheque/Reference no must be unique')   
 
 def before_insert_sales_invoice(doc, method):

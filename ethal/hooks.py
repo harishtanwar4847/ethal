@@ -105,11 +105,14 @@ doc_events = {
 	"Payroll Entry": {
 		"before_submit": "ethal.utils.update_salary_structure_assignment_rate"
 	},
+	"Salary Slip": {
+		"before_insert": "ethal.ethal.employee_checkin.calculate_overtime_in_salary_slip"
+	},
 	"Interview Configuration": {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
     },
 	"Payment Entry": {
-		"before_insert": "ethal.utils.before_insert_payment_entry",
+		"validate": "ethal.utils.before_insert_payment_entry",
 		"before_submit": "ethal.utils.set_approver_name"
 	},
 	"Sales Invoice": {
