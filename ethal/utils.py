@@ -184,7 +184,10 @@ def assign_salary_structure(doc, company=None, grade=None, department=None, desi
     else:
         frappe.msgprint(frappe._("No Employee Found"))
 
-
+def before_insert_salary_structure_assignment(doc, method):
+    get_employee_base_amount = frappe.db.get_value('Employee Grade', {'default_salary_structure': doc.salary_structure}, 'base_amount')
+    set_base_amount_in_salary_structure_ass = frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
+    frappe.db.commit()
 
 def assign_salary_structure_for_employees(employees, salary_structure, from_date=None, base=None, variable=None, income_tax_slab=None):
 	salary_structures_assignments = []
