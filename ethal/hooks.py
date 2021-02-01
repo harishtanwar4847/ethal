@@ -218,7 +218,7 @@ fixtures = [
 			[
 				"document_type",
 				"in",
-				["Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request"]
+				["Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
 			]
 		]
 	},
