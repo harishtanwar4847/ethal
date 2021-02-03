@@ -18,7 +18,6 @@ from erpnext.accounts.report.general_ledger.general_ledger import (validate_filt
 get_conditions, get_data_with_opening_closing, get_accountwise_gle)
 
 def execute(filters=None):
-	year = int(frappe.defaults.get_user_default("fiscal_year"))
 
 	if not filters:
 		return [], []
@@ -41,144 +40,36 @@ def execute(filters=None):
 
 	filters = set_account_currency(filters)
 
-	columns = ["Month::180"]+["Current/working Capital::180"]+["Quick(Acid)::180"]
-	res_data_20000 = []
-	
-	for i in range(1,13):
-		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
-		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
-		for i in first_date:
-			for j in i:
-				first_date = j
-		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
-		for i in last_date:
-			for j in i:
-				last_date = j
-		filters["from_date"] = first_date
-		filters["to_date"] = last_date
-		filters['presentation_currency'] = 'Ethiopia Birrr'
-		filters['account_currency'] = 'Ethiopia Birrr'
-		filters["account"] = "20000 - Source of Funds (Liabilities) - ETL"
-		res = get_result(filters, account_details)
-		res_data_20000.append(res[-1]["balance"])
-	print("200000=====>", res_data_20000)
-	res_data_10000 = []
+	columns = ["Month::180"]+["Debt to Assets::180"]+["Debt to Equity /Leverage (gearing) ratio::180"]+["Interest Coverage::180"]
 
-	for i in range(1,13):
-		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
-		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
-		for i in first_date:
-			for j in i:
-				first_date = j
-		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
-		for i in last_date:
-			for j in i:
-				last_date = j
-		filters["from_date"] = first_date
-		filters["to_date"] = last_date
-		filters['presentation_currency'] = 'Ethiopia Birrr'
-		filters['account_currency'] = 'Ethiopia Birrr'
-		filters["account"] = "10000 - Application of Funds (Assets) - ETL"
-		res = get_result(filters, account_details)
-		res_data_10000.append(res[-1]["balance"])
-	print("100000=====>", res_data_10000)
-
-	res_data_30000 = []
-
-	for i in range(1,13):
-		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
-		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
-		for i in first_date:
-			for j in i:
-				first_date = j
-		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
-		for i in last_date:
-			for j in i:
-				last_date = j
-		filters["from_date"] = first_date
-		filters["to_date"] = last_date
-		filters['presentation_currency'] = 'Ethiopia Birrr'
-		filters['account_currency'] = 'Ethiopia Birrr'
-		filters["account"] = "30000 - Capital - ETL"
-		res = get_result(filters, account_details)
-		res_data_30000.append(res[-1]["balance"])
-
-	res_data_40000 = []
-
-	for i in range(1,13):
-		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
-		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
-		for i in first_date:
-			for j in i:
-				first_date = j
-		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
-		for i in last_date:
-			for j in i:
-				last_date = j
-		filters["from_date"] = first_date
-		filters["to_date"] = last_date
-		filters['presentation_currency'] = 'Ethiopia Birrr'
-		filters['account_currency'] = 'Ethiopia Birrr'
-		filters["account"] = "11500 - Stock Assets - ETL"
-		res = get_result(filters, account_details)
-		res_data_40000.append(res[-1]["balance"])
-
-	res_data_50000 = []
-
-	for i in range(1,13):
-		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
-		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
-		for i in first_date:
-			for j in i:
-				first_date = j
-		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
-		for i in last_date:
-			for j in i:
-				last_date = j
-		filters["from_date"] = first_date
-		filters["to_date"] = last_date
-		filters['presentation_currency'] = 'Ethiopia Birrr'
-		filters['account_currency'] = 'Ethiopia Birrr'
-		filters["account"] = "21500 - Stock Liabilities - ETL"
-		res = get_result(filters, account_details)
-		res_data_50000.append(res[-1]["balance"])
-
-	res_data_60000 = []
-
-	for i in range(1,13):
-		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
-		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
-		for i in first_date:
-			for j in i:
-				first_date = j
-		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
-		for i in last_date:
-			for j in i:
-				last_date = j
-		filters["from_date"] = first_date
-		filters["to_date"] = last_date
-		filters['presentation_currency'] = 'Ethiopia Birrr'
-		filters['account_currency'] = 'Ethiopia Birrr'
-		filters["account"] = "21500 - Stock Liabilities - ETL"
-		res = get_result(filters, account_details)
-		res_data_60000.append(res[-1]["balance"])
+	res_data_20000 = get_result_with_filters('20000 - Source of Funds (Liabilities) - ETL', filters, account_details)
+	res_data_10000 = get_result_with_filters('10000 - Application of Funds (Assets) - ETL', filters, account_details)
+	res_data_30000 = get_result_with_filters('30000 - Capital - ETL', filters, account_details)
+	res_data_40000 = get_result_with_filters('40000 - Income - ETL', filters, account_details)
+	res_data_50000 = get_result_with_filters('50000 - Direct Costs - ETL', filters, account_details)
+	res_data_60000 = get_result_with_filters('60000 - Indirect Costs - ETL', filters, account_details)
+	res_data_62000 = get_result_with_filters('62000 - Financial expenses - ETL', filters, account_details)
 
 	debt_of_assets = [(b / m)*100  for b,m in zip(res_data_20000, res_data_10000)]
+	debt_of_assets = aboslute_value(debt_of_assets)
 	print("dets os assets =====================")
 	print(debt_of_assets)
-	# total_current_liability = [b - m  for b,m in zip(res_data_21000, res_data_21500)]
-	# quick = [b / m if m != 0 and b!=0 else 0 for b,m in zip(total_current_assets, total_current_liability)]
-	# quick = aboslute_value(quick)
-	# # print("11000 ==> ",res_data_11000)
-	# # print("21000 ==> ",res_data_21000)
-	# total_working_capital = [b / m if m != 0 and b!=0 else 0 for b,m in zip(res_data_11000, res_data_21000)]
-	# total_working_capital = aboslute_value(total_working_capital)
-	# month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
-	# rep= []
-	# for (i,j,m) in zip(month,total_working_capital,quick):
-	# 	rep.append([i,j,m])
-	# print("reports", rep)
-	# return columns, rep
+	debt_to_enquiry = [(a+(b-c-d)) for a,b,c,d in zip(res_data_30000, res_data_40000, res_data_50000, res_data_60000)]
+	debt_to_enquiry_leverage = [(a/b)*100 for a,b in zip(res_data_20000, debt_to_enquiry)]
+	debt_to_enquiry_leverage = aboslute_value(debt_to_enquiry_leverage)
+	interest = [(a-b-c+d) for a,b,c,d in zip(res_data_40000, res_data_50000, res_data_60000, res_data_62000) ]
+	interest_coverage = [(b/a)*100 for a,b in zip(interest, res_data_62000)]
+	interest_coverage = aboslute_value(interest_coverage)
+	print("=======dept of enquiry=============")
+	print(debt_to_enquiry_leverage)
+	print("=========interest ================")
+	print(interest_coverage)
+	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
+	rep= []
+	for (i,j,m,n) in zip(month,debt_of_assets,debt_to_enquiry_leverage,interest_coverage):
+		rep.append([i,j,m,n])
+	print("reports", rep)
+	return columns, rep
 
 def aboslute_value(value):	
 	fin_abs= []
@@ -187,3 +78,27 @@ def aboslute_value(value):
 		fin_abs.append(abs_val)
 
 	return fin_abs
+
+def get_result_with_filters(account, filters, account_details):
+
+	year = int(frappe.defaults.get_user_default("fiscal_year"))
+	account_res = []
+	for i in range(1,13):
+		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
+		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
+		for i in first_date:
+			for j in i:
+				first_date = j
+		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
+		for i in last_date:
+			for j in i:
+				last_date = j
+		filters["from_date"] = first_date
+		filters["to_date"] = last_date
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
+		filters["account"] = account
+		res = get_result(filters, account_details)
+		account_res.append(res[-1]["balance"])
+
+	return	account_res

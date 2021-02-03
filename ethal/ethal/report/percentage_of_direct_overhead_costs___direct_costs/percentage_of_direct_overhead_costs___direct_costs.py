@@ -1,134 +1,86 @@
-# Copyright (c) 2013, Atrina Technologies Pvt. Ltd. and contributors
-# For license information, please see license.txt
+# Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
+# License: GNU General Public License v3. See license.txt
 
 from __future__ import unicode_literals
-import frappe
-from ethal.ethal.report.liquidity_ratios.liquidity_ratios import get_monthly_gl_credit,get_monthly_gl_credit_no_opening,get_monthly_gl_debit,get_monthly_gl_debit_no_opening,get_monthly_gl_credit_20000,get_monthly_gl_debit_10000
-
+import datetime
+import calendar
+import frappe, erpnext
+from erpnext import get_company_currency, get_default_company
+from erpnext.accounts.report.utils import get_currency, convert_to_presentation_currency
+from frappe.utils import getdate, cstr, flt, fmt_money
+from frappe import _, _dict
+from erpnext.accounts.utils import get_account_currency
+from erpnext.accounts.report.financial_statements import get_cost_centers_with_children
+from six import iteritems
+from erpnext.accounts.doctype.accounting_dimension.accounting_dimension import get_accounting_dimensions, get_dimension_with_children
+from collections import OrderedDict
+from erpnext.accounts.report.general_ledger.general_ledger import (validate_filters, validate_party, set_account_currency, get_result, get_gl_entries, 
+get_conditions, get_data_with_opening_closing, get_accountwise_gle)
+from ethal.ethal.report.solvency_ratios.solvency_ratios import get_result_with_filters
 
 def execute(filters=None):
-	columns, data = [], []
-	# columns = ["Month::180"]+["Direct Material as a % of total costs ::180"]+["Fuel ::180"]+["Manpower Cost - Factory ::180"]+["Stores & Repairs ::180"]+["Utilities - Electricity & Water ::180"]
-	columns = [
-		{
-			"label": "Month",
-			"fieldname": "month",
-			"fieldtype": "Data",
-			"width": 150
-		},
-		{
-			"label": "Direct Material as a % of total costs",
-			"fieldname": "direct_material",
-			"fieldtype": "Data",
-			"width": 150
-		},
-		{
-			"label": "Fuel",
-			"fieldname": "fuel",
-			"fieldtype": "Data",
-			"width": 150
-		},
-		{
-			"label": "Manpower Cost - Factory",
-			"fieldname": "manpower_cost",
-			"fieldtype": "Data",
-			"width": 150
-		},
-		{
-			"label": "Stores & Repairs",
-			"fieldname": "stores_repair",
-			"fieldtype": "Data",
-			"width": 150
-		},
-		{
-			"label": "Utilities - Electricity & Water",
-			"fieldname": "utilities_electricity",
-			"fieldtype": "Data",
-			"width": 150
-		}
-	]
-	
-	data = get_data(filters)
-	return columns, data
 
-def get_data(filters):
-	
-	def direct_material(filters):
-		lst_51000_01 = get_monthly_gl_debit_no_opening("51000-01", filters)
-		lst_51000_02 = get_monthly_gl_debit_no_opening("51000-02", filters)
-		lst_52000_01 = get_monthly_gl_debit_no_opening("52000-01", filters)
-		lst_53000_01 = get_monthly_gl_debit_no_opening("53000-01", filters)
-		lst_50000 = get_monthly_gl_credit_no_opening("5%", filters)
-		numeratr = [a+b+c+d for a,b,c,d in zip(lst_51000_01,lst_51000_02,lst_52000_01,lst_53000_01)]
-		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(numeratr,lst_50000)]
-		per_final_result = []
-		for i in final_res:
-			print(i)
-			per_final_result.append('{:.2f}%'.format(i))
-		return per_final_result
+	if not filters:
+		return [], []
 
+	account_details = {}
 
-	def fuel(filters):
-		lst_51000_03 = get_monthly_gl_debit_no_opening("51000-03", filters)
-		lst_50000 = get_monthly_gl_credit_no_opening("5%", filters)
-		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(lst_51000_03,lst_50000)]
-		per_final_result = []
-		for i in final_res:
-			print(i)
-			per_final_result.append('{:.2f}%'.format(i))
-		return per_final_result
+	if filters and filters.get('print_in_account_currency') and \
+		not filters.get('account'):
+		frappe.throw(_("Select an account to print in account currency"))
 
+	for acc in frappe.db.sql("""select name, is_group from tabAccount""", as_dict=1):
+		account_details.setdefault(acc.name, acc)
 
-	def manpower_cost(filters):
-		lst_51000_04 = get_monthly_gl_debit_no_opening("51000-04", filters)
-		lst_51000_02 = get_monthly_gl_debit_no_opening("52000-02", filters)
-		lst_53000_02 = get_monthly_gl_debit_no_opening("53000-02", filters)
-		lst_54100 = get_monthly_gl_debit_no_opening("541%", filters)
-		lst_50000 = get_monthly_gl_credit_no_opening("5%", filters)
-		numeratr = [a+b+c+d for a,b,c,d in zip(lst_51000_04, lst_51000_02, lst_53000_02, lst_54100)]
-		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(numeratr,lst_50000)]
-		per_final_result = []
-		for i in final_res:
-			print(i)
-			per_final_result.append('{:.2f}%'.format(i))
-		return per_final_result
+	if filters.get('party'):
+		filters.party = frappe.parse_json(filters.get("party"))
 
+	validate_filters(filters, account_details)
 
-	def stores_and_repairs(filters):
-		lst_54200 = get_monthly_gl_debit_no_opening("542%", filters)
-		lst_54300 = get_monthly_gl_debit_no_opening("543%", filters)
-		lst_50000 = get_monthly_gl_credit_no_opening("5%", filters)
-		numeratr = [a+b for a,b in zip(lst_54200, lst_54300)]
-		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(numeratr,lst_50000)]
-		per_final_result = []
-		for i in final_res:
-			print(i)
-			per_final_result.append('{:.2f}%'.format(i))
-		return per_final_result
+	validate_party(filters)
 
+	filters = set_account_currency(filters)
 
-	def utilities(filters):
-		lst_54400  = get_monthly_gl_debit_no_opening("544%", filters)
-		lst_51000_05 = get_monthly_gl_debit_no_opening("51000-05", filters)
-		lst_52000_04 = get_monthly_gl_debit_no_opening("52000-04", filters)
-		lst_53000_04 = get_monthly_gl_debit_no_opening("53000-04", filters)
-		lst_50000 = get_monthly_gl_credit_no_opening("5%", filters)
-		numeratr = [a+b+c+d for a,b,c,d in zip(lst_54400, lst_51000_05,lst_52000_04,lst_53000_04)]
-		final_res = [a/b if a!=0 and b!=0 else 0 for a,b in zip(numeratr,lst_50000)]
-		per_final_result = []
-		for i in final_res:
-			print(i)
-			per_final_result.append('{:.2f}%'.format(i))
-		return per_final_result
+	columns = ["Month::180"]+["Direct material/Total sales ::180"]+["Fuel/Total sales::180"]+["Manpower Cost - Factory/Total sales::180"]+["Stores & Repairs/Total sales::180"]+["Utilities - Electricity & Water/Total sales::180"]
+	res_data_51000_01 = get_result_with_filters('51000-01 - Direct Material - ETL', filters, account_details)
+	res_data_51000_02 = get_result_with_filters('51000-02 - Material Handling-Circle-DB - ETL', filters, account_details)
+	res_data_52000_01 = get_result_with_filters('52000-01 - Direct Material-UD-DB - ETL', filters, account_details)
+	res_data_53000_01 = get_result_with_filters('53000-01 - Direct Material-UD-TU - ETL', filters, account_details)
+	res_data_51000_03 = get_result_with_filters('51000-03 - Fuel-Diesel-Circle-DB - ETL', filters, account_details)
+	res_data_51000_04 = get_result_with_filters('51000-04 - Direct Labour-Circle-DB - ETL', filters, account_details)
+	res_data_52000_02 = get_result_with_filters('52000-02 - Direct Labour-UD-DB - ETL', filters, account_details)
+	res_data_53000_02 = get_result_with_filters('53000-02 - Direct Labour-UD-TU - ETL', filters, account_details)
+	res_data_54100 = get_result_with_filters('54100 - Wages ,Salaries and Benefits - ETL', filters, account_details)
+	res_data_54200 = get_result_with_filters('54200 - Stores - ETL', filters, account_details)
+	res_data_54300 = get_result_with_filters('54300 - Repairs and Maintenance - ETL', filters, account_details)
+	res_data_54400 = get_result_with_filters('54400 - Utilities - ETL', filters, account_details)
+	res_data_51000_05 = get_result_with_filters('51000-05 - Electricity Consumption - Circle - DB - ETL', filters, account_details)
+	res_data_52000_04 = get_result_with_filters('52000-04 - Transportation for RM-UD - ETL', filters, account_details)
+	res_data_53000_04 = get_result_with_filters('53000-04 - Electricity consumption -UD-TU - ETL', filters, account_details)
+	res_data_50000 = get_result_with_filters('50000 - Direct Costs - ETL', filters, account_details)	
 
-
-	ut = utilities(filters)
-	sr = stores_and_repairs(filters)
-	mp = manpower_cost(filters)
-	fu = fuel(filters)
-	dm = direct_material(filters)
+	direct_material = [(a+b+c+d)/e  for a,b,c,d,e in zip(res_data_51000_01, res_data_51000_02, res_data_52000_01, res_data_53000_01,res_data_50000)]
+	direct_material = aboslute_value(direct_material)
+	print(db_sales)
+	fuel = [(a/b) for a,b in zip(res_data_51000_03, res_data_50000)]
+	fuel = aboslute_value(fuel)
+	manpower_cost = [(a+b+c+d)/e  for a,b,c,d,e in zip(res_data_51000_04, res_data_52000_02, res_data_53000_02,res_data_54100, res_data_50000)]
+	manpower_cost = aboslute_value(manpower_cost)
+	stores_and_repairs = [(a+b)/c for a,b,c in zip(res_data_54200, res_data_54300, res_data_50000)]
+	stores_and_repairs = aboslute_value(stores_and_repairs)
+	utilities = [(a+b+c+d)/e  for a,b,c,d,e in zip(res_data_54400, res_data_51000_05, res_data_52000_04, res_data_53000_04,res_data_50000)]
+	utilities = aboslute_value(utilities)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
-	res = []
-	for (i,j,k,l,m,n) in zip(month,dm,fu,mp,sr,ut):
-		res.append([i,j,k,l,m,n])
-	return res
+	rep= []
+	for (i,j,m) in zip(month,direct_material, fuel, manpower_cost, stores_and_repairs, utilities):
+		rep.append([i,j,m,n,k,l])
+	print("reports", rep)
+	return columns, rep
+
+def aboslute_value(value):	
+	fin_abs= []
+	for i in value:
+		abs_val = abs(i)
+		fin_abs.append(abs_val)
+
+	return fin_abs
