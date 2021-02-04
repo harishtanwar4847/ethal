@@ -512,18 +512,20 @@ def get_data(filters, conditions):
 			nov += i[43] if i[43] != None else 0
 			dec += i[47] if i[47] != None else 0
 		for j in data:
-			j[5] = '{:.2f}%'.format((j[3]/jan)*100) if j[3] != None else 0
-			j[9] = '{:.2f}%'.format((j[7]/feb)*100) if j[7] != None else 0
-			j[13] = '{:.2f}%'.format((j[11]/mar)*100) if j[11] != None else 0
-			j[17] = '{:.2f}%'.format((j[15]/apr)*100) if j[15] != None else 0
-			j[21] = '{:.2f}%'.format((j[19]/may)*100) if j[19] != None else 0
-			j[25] = '{:.2f}%'.format((j[23]/jun)*100) if j[23] != None else 0
-			j[29] = '{:.2f}%'.format((j[27]/july)*100) if j[27] != None else 0
-			j[33] = '{:.2f}%'.format((j[31]/aug)*100) if j[31] != None else 0
-			j[37] = '{:.2f}%'.format((j[35]/sep)*100) if j[35] != None else 0
-			j[41] = '{:.2f}%'.format((j[39]/oct)*100) if j[39] != None else 0
-			j[45] = '{:.2f}%'.format((j[43]/nov)*100) if j[43] != None else 0
-			j[49] = '{:.2f}%'.format((j[47]/dec)*100) if j[47] != None else 0
+			print(j[3])
+			print(jan)
+			j[5] = '{:.2f}%'.format((j[3]/jan)*100) if j[3] != 0 else 0
+			j[9] = '{:.2f}%'.format((j[7]/feb)*100) if j[7] != 0 else 0
+			j[13] = '{:.2f}%'.format((j[11]/mar)*100) if j[11] != 0 else 0
+			j[17] = '{:.2f}%'.format((j[15]/apr)*100) if j[15] != 0 else 0
+			j[21] = '{:.2f}%'.format((j[19]/may)*100) if j[19] != 0 else 0
+			j[25] = '{:.2f}%'.format((j[23]/jun)*100) if j[23] != 0 else 0
+			j[29] = '{:.2f}%'.format((j[27]/july)*100) if j[27] != 0 else 0
+			j[33] = '{:.2f}%'.format((j[31]/aug)*100) if j[31] != 0 else 0
+			j[37] = '{:.2f}%'.format((j[35]/sep)*100) if j[35] != 0 else 0
+			j[41] = '{:.2f}%'.format((j[39]/oct)*100) if j[39] != 0 else 0
+			j[45] = '{:.2f}%'.format((j[43]/nov)*100) if j[43] != 0 else 0
+			j[49] = '{:.2f}%'.format((j[47]/dec)*100) if j[47] != 0 else 0
 	data.append(list_total)
 	return data
 
