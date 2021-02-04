@@ -297,10 +297,10 @@ def get_data(filters, conditions):
 			jul_sep += i[11] if i[11] != None else 0 		
 			oct_dec += i[15] if i[15] != None else 0
 		for j in data:
-			j[5] =  '{:.2f}%'.format((j[3]/jan_mar)*100) if j[3] != None else 0
-			j[9] =  '{:.2f}%'.format((j[7]/apr_jun)*100)  if j[7] != None else 0
-			j[13] =  '{:.2f}%'.format((j[11]/jul_sep)*100) if j[11] != None else 0
-			j[17] =  '{:.2f}%'.format((j[15]/oct_dec)*100) if j[15] != None else 0	
+			j[5] =  '{:.2f}%'.format((j[3]/jan_mar)*100) if j[3] != 0 else 0
+			j[9] =  '{:.2f}%'.format((j[7]/apr_jun)*100)  if j[7] != 0 else 0
+			j[13] =  '{:.2f}%'.format((j[11]/jul_sep)*100) if j[11] != 0 else 0
+			j[17] =  '{:.2f}%'.format((j[15]/oct_dec)*100) if j[15] != 0 else 0	
 	elif filters.get("period") == 'Monthly':		
 		jan , feb , mar, apr, may, jun, july, aug, sep, oct, nov, dec = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0
 		qty = 0
