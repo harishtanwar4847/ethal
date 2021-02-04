@@ -1,0 +1,122 @@
+{
+ "creation": "2021-02-04 13:07:03.975279",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_name",
+  "section_break_2",
+  "rejection_ash",
+  "rejection_blister",
+  "column_break_5",
+  "rejection_rolling",
+  "rejection_others",
+  "section_break_8",
+  "ok_circle_received",
+  "column_break_10",
+  "ok_circle_receivedpieces",
+  "section_break_12",
+  "total_rejection",
+  "melting_rejection",
+  "column_break_15",
+  "total_circle_received"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Name",
+   "options": "Item"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "rejection_ash",
+   "fieldtype": "Float",
+   "label": "Rejection Ash"
+  },
+  {
+   "default": "0",
+   "fieldname": "rejection_blister",
+   "fieldtype": "Float",
+   "label": "Rejection Blister"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "rejection_rolling",
+   "fieldtype": "Float",
+   "label": "Rejection Rolling"
+  },
+  {
+   "default": "0",
+   "fieldname": "rejection_others",
+   "fieldtype": "Float",
+   "label": "Rejection Others"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "ok_circle_received",
+   "fieldtype": "Float",
+   "label": "OK Circle Received"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "ok_circle_receivedpieces",
+   "fieldtype": "Int",
+   "label": "OK Circle Received(Pieces)"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_rejection",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Rejection"
+  },
+  {
+   "fieldname": "melting_rejection",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Melting Rejection"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_circle_received",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Circle Received"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-02-04 13:17:36.356865",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "QC Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
