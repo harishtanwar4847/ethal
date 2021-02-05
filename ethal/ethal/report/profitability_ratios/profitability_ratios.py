@@ -57,7 +57,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "41000 - Direct Income - ETL"
+		filters["account"] = "41000 - Direct Income - E21"
 		res = get_result(filters, account_details)
 		res_data_41000_total.append(res[-2]["balance"])
 
@@ -78,7 +78,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "50000 - Direct Costs - ETL"
+		filters["account"] = "50000 - Direct Costs - E21"
 		res = get_result(filters, account_details)
 		res_data_50000_total.append(res[-2]["balance"])
 
@@ -98,7 +98,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "40000 - Income - ETL"
+		filters["account"] = "40000 - Income - E21"
 		res = get_result(filters, account_details)
 		res_data_40000_total.append(res[-2]["balance"])
 
@@ -116,7 +116,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "60000 - Indirect Costs - ETL"
+		filters["account"] = "60000 - General and Administrative Expenses - E21"
 		res = get_result(filters, account_details)
 		res_data_60000_total.append(res[-2]["balance"])
 
@@ -134,27 +134,27 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "62000 - Financial expenses - ETL"
+		filters["account"] = "62000 - Tax Expense - E21"
 		res = get_result(filters, account_details)
 		res_data_62000_total.append(res[-2]["balance"])
 
 	# res_data_63000_16_total = result_data_total("63000-16 - Depreciation - ETL",filters, account_details)
-	res_data_63000_16_total = []
-	for i in range(1,13):
-		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
-		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
-		for i in first_date:
-			for j in i:
-				first_date = j
-		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
-		for i in last_date:
-			for j in i:
-				last_date = j
-		filters["from_date"] = first_date
-		filters["to_date"] = last_date
-		filters["account"] = "63000-16 - Depreciation - ETL"
-		res = get_result(filters, account_details)
-		res_data_63000_16_total.append(res[-2]["balance"])
+	# res_data_63000_16_total = []
+	# for i in range(1,13):
+	# 	date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
+	# 	first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
+	# 	for i in first_date:
+	# 		for j in i:
+	# 			first_date = j
+	# 	last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
+	# 	for i in last_date:
+	# 		for j in i:
+	# 			last_date = j
+	# 	filters["from_date"] = first_date
+	# 	filters["to_date"] = last_date
+	# 	filters["account"] = "63000-16 - Depreciation - ETL"
+	# 	res = get_result(filters, account_details)
+	# 	res_data_63000_16_total.append(res[-2]["balance"])
 
 
 	# res_data_10000_closing = result_data_closing("10000 - Application of Funds (Assets) - ETL",filters, account_details)
@@ -171,7 +171,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "10000 - Application of Funds (Assets) - ETL"
+		filters["account"] = "10000 - Application of Funds - E21"
 		res = get_result(filters, account_details)
 		res_data_10000_closing.append(res[-1]["balance"])
 
@@ -190,7 +190,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "30000 - Capital - ETL"
+		filters["account"] = "30000 - Capital - E21"
 		res = get_result(filters, account_details)
 		res_data_30000_closing.append(res[-1]["balance"])
 
@@ -208,7 +208,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "50000 - Direct Costs - ETL"
+		filters["account"] = "50000 - Direct Costs - E21"
 		res = get_result(filters, account_details)
 		res_data_50000_closing.append(res[-1]["balance"])
 
@@ -226,7 +226,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "40000 - Income - ETL"
+		filters["account"] = "40000 - Income - E21"
 		res = get_result(filters, account_details)
 		res_data_40000_closing.append(res[-1]["balance"])
 
@@ -244,7 +244,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "60000 - Indirect Costs - ETL"
+		filters["account"] = "60000 - General and Administrative Expenses - E21"
 		res = get_result(filters, account_details)
 		res_data_60000_closing.append(res[-1]["balance"])
 
@@ -258,7 +258,7 @@ def execute(filters=None):
 	net_profit_margin = [(b / m)*100 if m != 0 and b!=0 else 0 for b,m in zip(npm_numerator, res_data_40000_total)]
 	net_profit_margin= absolute_value(net_profit_margin)
 
-	ebidta_margin_numerator = [a-b-c+d+e  for a,b,c,d,e in zip(res_data_40000_total,res_data_50000_total,res_data_60000_total,res_data_62000_total,res_data_63000_16_total)]
+	ebidta_margin_numerator = [a-b-c+d for a,b,c,d,e in zip(res_data_40000_total,res_data_50000_total,res_data_60000_total,res_data_62000_total)]
 	ebidta_margin = [(b / m)*100 if m != 0 and b!=0 else 0 for b,m in zip(ebidta_margin_numerator, res_data_41000_total)]
 	ebidta_margin = absolute_value(ebidta_margin)
 
