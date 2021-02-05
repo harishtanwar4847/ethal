@@ -5,6 +5,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "party",
   "payee_name",
   "payment_reason",
   "column_break_3",
@@ -41,6 +42,7 @@
    "label": "Date of Requirement"
   },
   {
+   "fetch_from": "party.Payee_name",
    "fieldname": "payee_name",
    "fieldtype": "Data",
    "label": "Payee Name"
@@ -165,10 +167,16 @@
    "fieldname": "description_of_requirement_section",
    "fieldtype": "Section Break",
    "label": "Description of Requirement"
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Link",
+   "label": "Party",
+   "options": "Employee"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-26 14:46:38.221405",
+ "modified": "2021-02-05 10:34:38.501103",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
@@ -186,18 +194,6 @@
    "role": "System Manager",
    "share": 1,
    "submit": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Sales User",
-   "share": 1,
    "write": 1
   }
  ],
