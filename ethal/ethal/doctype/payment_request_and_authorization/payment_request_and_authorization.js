@@ -2,11 +2,36 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Payment Request and Authorization', {
-	refresh: function(frm) {
-		if(frm.doc.workflow_state == 'Approved'){
-			frm.add_custom_button('Create Payment Entry', () => {
-				frappe.set_route('Form', 'Payment Entry', 'New Payment Entry');
-			})
+	// refresh: function(frm) {
+	// 	if(frm.doc.workflow_state == 'Approved'){
+	// 		frm.add_custom_button('Create Payment Entry', () => {
+	// 			var option = {
+	// 				company : 'Ethal',
+	// 				doctype : 'Payment Entry',
+	// 				name : 'New Payment Entry 1',
+	// 				party_type : 'Employee',
+	// 				party : frm.doc.party
+	// 			}
+	// 			frappe.model.sync(option)
+	// 			frappe.set_route('Form', option.doctype, option.name);
+	// 		})
+	// 	}
+	// },
+	setup: function(frm){
+		frm.set_query("party_type", function() {
+			return{
+				filters: {
+					"name": ["in", Object.keys(frappe.boot.party_account_types)],
+				}
+			}
+		});
+	},
+	party_type: function(frm) {
+
+		let party_types = Object.keys(frappe.boot.party_account_types);
+		if(frm.doc.party_type && !party_types.includes(frm.doc.party_type)){
+			frm.set_value("party_type", "");
+			frappe.throw(__("Party can only be one of "+ party_types.join(", ")));
 		}
 	},
    onload: function(frm){

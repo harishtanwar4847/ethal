@@ -223,6 +223,16 @@ fixtures = [
 		]
 	},
 	{
+		"dt": "Role",
+		"filters": [
+			[
+				"name",
+				"in",
+				['Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller']
+			]
+		]
+	},
+	{
 		"dt": "Custom Script",
 		"filters": [
 			[

@@ -5,6 +5,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "party_type",
   "party",
   "payee_name",
   "payment_reason",
@@ -60,9 +61,9 @@
   },
   {
    "fieldname": "payment_mode",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Payment Mode",
-   "options": "\nCheque\nPetty Cash\nCash\nCPO\nTransfer Form\nLetter\nOther"
+   "options": "Mode of Payment"
   },
   {
    "fieldname": "amount",
@@ -170,13 +171,19 @@
   },
   {
    "fieldname": "party",
-   "fieldtype": "Link",
+   "fieldtype": "Dynamic Link",
    "label": "Party",
-   "options": "Employee"
+   "options": "party_type"
+  },
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Link",
+   "label": "Party Type",
+   "options": "DocType"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-02-05 10:40:41.778787",
+ "modified": "2021-02-05 17:48:08.932614",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
