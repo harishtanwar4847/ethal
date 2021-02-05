@@ -552,7 +552,7 @@ def period_wise_columns_query(filters, trans):
 		pwc = [_(filters.get("fiscal_year")) + " ("+_("Qty") + "):Float:120",
 			_(filters.get("fiscal_year")) + " ("+ _("Amt") + "):Currency:120",
 			_(filters.get("fiscal_year")) + " ("+_("Rate") + "):Float:120",
-			_(filters.get("fiscal_year")) + " ("+ _("Per") + "):Percent:120",]
+			_(filters.get("fiscal_year")) + " ("+ _("Percentage") + "):Percent:120",]
 		query_details = " SUM(t1.total_net_weight_aluminium), SUM(t2.base_net_amount), NULL, NULL,"
 
 	query_details += 'SUM(t1.total_net_weight_aluminium), SUM(t2.base_net_amount), NULL, NULL'
@@ -563,12 +563,12 @@ def get_period_wise_columns(bet_dates, period, pwc):
 		pwc += [_(get_mon(bet_dates[0])) + " (" + _("Qty") + "):Float:120",
 			_(get_mon(bet_dates[0])) + " (" + _("Amt") + "):Currency:120",
 			_(get_mon(bet_dates[0])) + " (" + _("Rate") + "):Float:120",
-			_(get_mon(bet_dates[0])) + " (" + _("Per") + "):Percent:120"]
+			_(get_mon(bet_dates[0])) + " (" + _("Percentage") + "):Percent:120"]
 	else:
 		pwc += [_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Qty") + "):Float:120",
 			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Amt") + "):Currency:120",
 			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Rate") + "):Float:120",
-			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Per") + "):Percent:120"]
+			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Percentage") + "):Percent:120"]
 
 def get_period_wise_query(bet_dates, trans_date, query_details):
 	query_details += """SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t1.total_net_weight_aluminium, NULL)),
