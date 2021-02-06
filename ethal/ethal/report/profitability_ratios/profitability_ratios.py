@@ -258,7 +258,7 @@ def execute(filters=None):
 	net_profit_margin = [(b / m)*100 if m != 0 and b!=0 else 0 for b,m in zip(npm_numerator, res_data_40000_total)]
 	net_profit_margin= absolute_value(net_profit_margin)
 
-	ebidta_margin_numerator = [a-b-c+d for a,b,c,d,e in zip(res_data_40000_total,res_data_50000_total,res_data_60000_total,res_data_62000_total)]
+	ebidta_margin_numerator = [a-b-c+d for a,b,c,d in zip(res_data_40000_total,res_data_50000_total,res_data_60000_total,res_data_62000_total)]
 	ebidta_margin = [(b / m)*100 if m != 0 and b!=0 else 0 for b,m in zip(ebidta_margin_numerator, res_data_41000_total)]
 	ebidta_margin = absolute_value(ebidta_margin)
 
