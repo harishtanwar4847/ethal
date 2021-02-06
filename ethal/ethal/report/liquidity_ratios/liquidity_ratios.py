@@ -57,6 +57,8 @@ def execute(filters=None):
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
 		filters["account"] = "11000 - Current Assets - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
 		res = get_result(filters, account_details)
 		res_data_11000.append(res[-1]["balance"])
 
@@ -75,6 +77,8 @@ def execute(filters=None):
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
 		filters["account"] = "21000 - Current Liabilities - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
 		res = get_result(filters, account_details)
 		res_data_21000.append(res[-1]["balance"])
 
@@ -93,6 +97,8 @@ def execute(filters=None):
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
 		filters["account"] = "11500 - Stock Assets - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
 		res = get_result(filters, account_details)
 		res_data_11500.append(res[-1]["balance"])
 
@@ -111,6 +117,8 @@ def execute(filters=None):
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
 		filters["account"] = "11500 - Stock Assets - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
 		res = get_result(filters, account_details)
 		res_data_11500.append(res[-1]["balance"])
 
@@ -129,6 +137,8 @@ def execute(filters=None):
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
 		filters["account"] = "21500 - Stock Liabilities - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
 		res = get_result(filters, account_details)
 		res_data_21500.append(res[-1]["balance"])
 
