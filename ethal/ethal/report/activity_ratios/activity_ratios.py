@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals
 import frappe
-from ethal.ethal.report.liquidity_ratios.liquidity_ratios import get_monthly_gl_credit,get_monthly_gl_debit,get_monthly_gl_credit_20000,get_monthly_gl_debit_10000, get_monthly_gl_credit_no_opening, get_monthly_gl_debit_no_opening
+from ethal.ethal.report.ofcf_cash_flow_report.ofcf_cash_flow_report import get_monthly_gl_debit_no_opening, get_monthly_gl_credit_no_opening
 
 def execute(filters=None):
 	columns, data = [], []
