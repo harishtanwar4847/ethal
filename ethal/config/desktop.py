@@ -16,6 +16,7 @@ def get_data():
 			"color": "grey",
 			"icon": "octicon octicon-file-directory",
 			"type": "module",
-			"label": _("Accounting")
+			"label": _("Accounting"),
+			"force_show": False
 		}
 	]
