@@ -63,16 +63,16 @@ def execute(filters=None):
 
 	
 	addition_of_50000_and_60000 = [a+b for a,b in zip(res_data_50000,res_data_60000)]
-	direct_material = [(a+b+c+d)/e  for a,b,c,d,e in zip(res_data_51000_01, res_data_51000_02, res_data_52000_01, res_data_53000_01,addition_of_50000_and_60000)]
+	direct_material = [(a+b+c+d)/e if e !=0 for a,b,c,d,e in zip(res_data_51000_01, res_data_51000_02, res_data_52000_01, res_data_53000_01,addition_of_50000_and_60000)]
 	direct_material = aboslute_value(direct_material)
 	print(db_sales)
-	fuel = [(a/b) for a,b in zip(res_data_51000_03, addition_of_50000_and_60000)]
+	fuel = [(a/b) if b !=0 for a,b in zip(res_data_51000_03, addition_of_50000_and_60000)]
 	fuel = aboslute_value(fuel)
-	manpower_cost = [(a+b+c+d)/e  for a,b,c,d,e in zip(res_data_51000_04, res_data_52000_02, res_data_53000_02,res_data_54100, addition_of_50000_and_60000)]
+	manpower_cost = [(a+b+c+d)/e if e !=0 for a,b,c,d,e in zip(res_data_51000_04, res_data_52000_02, res_data_53000_02,res_data_54100, addition_of_50000_and_60000)]
 	manpower_cost = aboslute_value(manpower_cost)
-	stores_and_repairs = [(a+b)/c for a,b,c in zip(res_data_54200, res_data_54300, addition_of_50000_and_60000)]
+	stores_and_repairs = [(a+b)/c if c !=0 for a,b,c in zip(res_data_54200, res_data_54300, addition_of_50000_and_60000)]
 	stores_and_repairs = aboslute_value(stores_and_repairs)
-	utilities = [(c+d)/e  for a,b,c,d,e in zip(res_data_52000_04, res_data_53000_04,addition_of_50000_and_60000)]
+	utilities = [(c+d)/e if e !=0 for a,b,c,d,e in zip(res_data_52000_04, res_data_53000_04,addition_of_50000_and_60000)]
 	utilities = aboslute_value(utilities)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	rep= []

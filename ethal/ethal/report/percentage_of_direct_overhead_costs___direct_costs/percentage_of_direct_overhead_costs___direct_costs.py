@@ -59,16 +59,16 @@ def execute(filters=None):
 	res_data_53000_04 = get_result_with_filters('53000-04 - Electricity consumption - UD - TU - E21', filters, account_details)
 	res_data_50000 = get_result_with_filters('50000 - Direct Costs - E21', filters, account_details)	
 
-	direct_material = [(a+b+c+d)/e  for a,b,c,d,e in zip(res_data_51000_01, res_data_51000_02, res_data_52000_01, res_data_53000_01,res_data_50000)]
+	direct_material = [(a+b+c+d)/e if e !=0 for a,b,c,d,e in zip(res_data_51000_01, res_data_51000_02, res_data_52000_01, res_data_53000_01,res_data_50000)]
 	direct_material = aboslute_value(direct_material)
 	print(db_sales)
-	fuel = [(a/b) for a,b in zip(res_data_51000_03, res_data_50000)]
+	fuel = [(a/b) if b !=0 for a,b in zip(res_data_51000_03, res_data_50000)]
 	fuel = aboslute_value(fuel)
-	manpower_cost = [(a+b+c+d)/e  for a,b,c,d,e in zip(res_data_51000_04, res_data_52000_02, res_data_53000_02,res_data_54100, res_data_50000)]
+	manpower_cost = [(a+b+c+d)/e if e !=0 for a,b,c,d,e in zip(res_data_51000_04, res_data_52000_02, res_data_53000_02,res_data_54100, res_data_50000)]
 	manpower_cost = aboslute_value(manpower_cost)
-	stores_and_repairs = [(a+b)/c for a,b,c in zip(res_data_54200, res_data_54300, res_data_50000)]
+	stores_and_repairs = [(a+b)/c if c !=0 for a,b,c in zip(res_data_54200, res_data_54300, res_data_50000)]
 	stores_and_repairs = aboslute_value(stores_and_repairs)
-	utilities = [(c+d)/e  for a,b,c,d,e in zip(res_data_52000_04, res_data_53000_04,res_data_50000)]
+	utilities = [(c+d)/e if e !=0 for a,b,c,d,e in zip(res_data_52000_04, res_data_53000_04,res_data_50000)]
 	utilities = aboslute_value(utilities)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	rep= []
