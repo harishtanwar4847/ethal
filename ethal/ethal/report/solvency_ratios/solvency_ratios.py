@@ -50,15 +50,15 @@ def execute(filters=None):
 	res_data_60000 = get_result_with_filters('60000 - Indirect Costs - ETL', filters, account_details)
 	res_data_62000 = get_result_with_filters('62000 - Financial expenses - ETL', filters, account_details)
 
-	debt_of_assets = [(b / m)*100  for b,m in zip(res_data_20000, res_data_10000)]
+	debt_of_assets = [(b / m)*100 if m !=0 else 0 for b,m in zip(res_data_20000, res_data_10000)]
 	debt_of_assets = aboslute_value(debt_of_assets)
 	print("dets os assets =====================")
 	print(debt_of_assets)
 	debt_to_enquiry = [(a+(b-c-d)) for a,b,c,d in zip(res_data_30000, res_data_40000, res_data_50000, res_data_60000)]
-	debt_to_enquiry_leverage = [(a/b)*100 for a,b in zip(res_data_20000, debt_to_enquiry)]
+	debt_to_enquiry_leverage = [(a/b)*100 if b !=0 else 0 for a,b in zip(res_data_20000, debt_to_enquiry)]
 	debt_to_enquiry_leverage = aboslute_value(debt_to_enquiry_leverage)
 	interest = [(a-b-c+d) for a,b,c,d in zip(res_data_40000, res_data_50000, res_data_60000, res_data_62000) ]
-	interest_coverage = [(b/a)*100 for a,b in zip(interest, res_data_62000)]
+	interest_coverage = [(b/a)*100 if a !=0 else 0 for a,b in zip(interest, res_data_62000)]
 	interest_coverage = aboslute_value(interest_coverage)
 	print("=======dept of enquiry=============")
 	print(debt_to_enquiry_leverage)
