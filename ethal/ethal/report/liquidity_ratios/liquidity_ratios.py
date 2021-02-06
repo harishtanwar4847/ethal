@@ -56,7 +56,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "11000 - Current Assets - ETL"
+		filters["account"] = "11000 - Current Assets - E21"
 		res = get_result(filters, account_details)
 		res_data_11000.append(res[-1]["balance"])
 
@@ -74,7 +74,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "21000 - Current Liabilities - ETL"
+		filters["account"] = "21000 - Current Liabilities - E21"
 		res = get_result(filters, account_details)
 		res_data_21000.append(res[-1]["balance"])
 
@@ -92,7 +92,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "11500 - Stock Assets - ETL"
+		filters["account"] = "11500 - Stock Assets - E21"
 		res = get_result(filters, account_details)
 		res_data_11500.append(res[-1]["balance"])
 
@@ -110,7 +110,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "11500 - Stock Assets - ETL"
+		filters["account"] = "11500 - Stock Assets - E21"
 		res = get_result(filters, account_details)
 		res_data_11500.append(res[-1]["balance"])
 
@@ -128,7 +128,7 @@ def execute(filters=None):
 				last_date = j
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "21500 - Stock Liabilities - ETL"
+		filters["account"] = "21500 - Stock Liabilities - E21"
 		res = get_result(filters, account_details)
 		res_data_21500.append(res[-1]["balance"])
 

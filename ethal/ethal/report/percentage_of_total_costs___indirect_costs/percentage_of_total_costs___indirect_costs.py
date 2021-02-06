@@ -58,7 +58,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "50000 - Direct Costs - ETL"
+		filters["account"] = "50000 - Direct Costs - E21"
 		res = get_result(filters, account_details)
 		res_data_50000_total.append(res[-2]["balance"])
 
@@ -77,7 +77,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "60000 - Indirect Costs - ETL"
+		filters["account"] = "60000 - General and Administrative Expenses - E21"
 		res = get_result(filters, account_details)
 		res_data_60000_total.append(res[-2]["balance"])
 
@@ -96,7 +96,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "61000 - Salary and benefits - ETL"
+		filters["account"] = "61000 - Salary and benefits - E21"
 		res = get_result(filters, account_details)
 		res_data_61000_total.append(res[-2]["balance"])
 
@@ -115,7 +115,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "62000 - Financial expenses - ETL"
+		filters["account"] = "62000 - Tax Expense - E21"
 		res = get_result(filters, account_details)
 		res_data_62000_total.append(res[-2]["balance"])
 
@@ -134,7 +134,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "63000 - General and Admin Expenses - ETL"
+		filters["account"] = "63000 - Non-Operational Expenses - E21"
 		res = get_result(filters, account_details)
 		res_data_63000_total.append(res[-2]["balance"])
 
@@ -153,7 +153,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "64000 - Non-Operational exp - ETL"
+		filters["account"] = "64000 - Financial expenses - E21"
 		res = get_result(filters, account_details)
 		res_data_64000_total.append(res[-2]["balance"])
 
