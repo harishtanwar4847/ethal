@@ -153,7 +153,8 @@ def daily_overtime(doc):
         ['employee', '=', doc.employee],
         ['attendance_date', '<=', doc.end_date],
         ['attendance_date', '>=', doc.start_date],
-        ['docstatus', '!=', 2]
+        ['docstatus', '!=', 2],
+        ['status', '=', 'Present']
     ]
     filters_checkout = [
         ['employee', '=', doc.employee],
@@ -201,7 +202,8 @@ def sunday_overtime(doc):
     filters = [
         ['employee', '=', doc.employee],
         ['attendance_date', 'in', holiday_],
-        ['docstatus', '!=', 2]
+        ['docstatus', '!=', 2],
+        ['status', '=', 'Present']
     ]
    
     attendances = frappe.db.get_all('Attendance', filters=filters, fields=['attendance_date'], as_list=True)
@@ -248,7 +250,8 @@ def holiday_overtime(doc):
     filters = [
         ['employee', '=', doc.employee],
         ['attendance_date', 'in', holiday_],
-        ['docstatus', '!=', 2]
+        ['docstatus', '!=', 2],
+        ['status', '=', 'Present']
     ]
     
     attendances = frappe.db.get_all('Attendance', filters=filters, fields=['attendance_date'], as_list=True)
