@@ -5,7 +5,7 @@ frappe.ui.form.on('Payment Request and Authorization', {
 	refresh: function(frm) {
 		if(frm.doc.workflow_state == 'Approved'){
 			frm.add_custom_button('Create Payment Entry', () => {
-				frappe.set_route('Form', 'Payment Entry', 'New Payment Entry', {'pra': frm.doc.name});
+				frappe.set_route('Form', 'Payment Entry', 'New Payment Entry 1', {'pra': frm.doc.name});
 			})
 
 		}
