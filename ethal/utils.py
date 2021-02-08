@@ -27,6 +27,50 @@ def override_job_applicant_dashboard(data):
     }
 
 @frappe.whitelist()
+def before_save_asset_maintenance_log(doc, method):  
+    asset_maintenance_task = frappe.get_all('Asset Maintenance Task', filters={'parent': doc.asset_maintenance}, fields=['maintanence_category', 'maintenance_task'])
+    if asset_maintenance_task:
+        for row in asset_maintenance_task:
+            print(row['maintenance_task'])
+            frappe.db.set_value('Asset Maintenance Log', {'task_name': row['maintenance_task']}, 'maintanence_category', row['maintanence_category'])
+
+@frappe.whitelist()
+def create_stock_entry(doc, method):
+    get_part_used = frappe.get_all('Parts Used Item Table', filters = {'parent': doc.name}, fields=['*'])
+    print(get_part_used)
+    stock_entry = frappe.new_doc('Stock Entry')
+    stock_entry.stock_entry_type= 'Material Issue'
+    for row in get_part_used:
+        source_warehouse = frappe.db.get_all('Item Default', {'parent': row['item']}, ['default_warehouse'])
+        stock_entry.append('items', {
+            's_warehouse': source_warehouse[0].default_warehouse,
+            'item_code': row['item'],
+            'item_group': row['item_group'],
+            'qty': row['quantity'],
+            'uom': row['uom']
+        })
+        stock_entry.insert(ignore_permissions=True)
+        stock_entry.docstatus = 1
+
+@frappe.whitelist()
+def create_stock_entry_from_asset_repair(doc, method):
+    get_part_used = frappe.get_all('Parts Used Item Table', filters = {'parent': doc.name}, fields=['*'])
+    print(get_part_used)
+    stock_entry = frappe.new_doc('Stock Entry')
+    stock_entry.stock_entry_type= 'Material Issue'
+    for row in get_part_used:
+        source_warehouse = frappe.db.get_all('Item Default', {'parent': row['item']}, ['default_warehouse'])
+        stock_entry.append('items', {
+            's_warehouse': source_warehouse[0].default_warehouse,
+            'item_code': row['item'],
+            'item_group': row['item_group'],
+            'qty': row['quantity'],
+            'uom': row['uom']
+        })
+    stock_entry.insert(ignore_permissions=True)
+    stock_entry.docstatus = 1
+
+@frappe.whitelist()
 def before_submit_leave_allocation(doc, method):
     doj = frappe.db.get_value('Employee', doc.employee, 'date_of_joining')
     today = frappe.db.get_value('Leave Allocation', doc.name, 'from_date')
@@ -96,16 +140,21 @@ def set_approver_name(doc, method):
 
 @frappe.whitelist()
 def calculate_overtime_in_salary_slip(doc, method):
-    daily_overtime(doc)
-    sunday_overtime(doc)
-    holiday_overtime(doc)
+    overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
+    print(overtime_applicable)
+    if overtime_applicable:
+        daily_overtime(doc)
+        sunday_overtime(doc)
+        holiday_overtime(doc)
     # process_auto_attendance_for_holidays(doc)
 
 def daily_overtime(doc):
     filters = [
         ['employee', '=', doc.employee],
         ['attendance_date', '<=', doc.end_date],
-        ['attendance_date', '>=', doc.start_date]
+        ['attendance_date', '>=', doc.start_date],
+        ['docstatus', '!=', 2],
+        ['status', '=', 'Present']
     ]
     filters_checkout = [
         ['employee', '=', doc.employee],
@@ -152,7 +201,9 @@ def sunday_overtime(doc):
   
     filters = [
         ['employee', '=', doc.employee],
-        ['attendance_date', 'in', holiday_]
+        ['attendance_date', 'in', holiday_],
+        ['docstatus', '!=', 2],
+        ['status', '=', 'Present']
     ]
    
     attendances = frappe.db.get_all('Attendance', filters=filters, fields=['attendance_date'], as_list=True)
@@ -198,7 +249,9 @@ def holiday_overtime(doc):
     
     filters = [
         ['employee', '=', doc.employee],
-        ['attendance_date', 'in', holiday_]
+        ['attendance_date', 'in', holiday_],
+        ['docstatus', '!=', 2],
+        ['status', '=', 'Present']
     ]
     
     attendances = frappe.db.get_all('Attendance', filters=filters, fields=['attendance_date'], as_list=True)
@@ -363,7 +416,10 @@ def assign_salary_structure(doc, company=None, grade=None, department=None, desi
     else:
         frappe.msgprint(frappe._("No Employee Found"))
 
-
+def before_insert_salary_structure_assignment(doc, method):
+    get_employee_base_amount = frappe.db.get_value('Employee Grade', {'default_salary_structure': doc.salary_structure}, 'base_amount')
+    set_base_amount_in_salary_structure_ass = frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
+    frappe.db.commit()
 
 def assign_salary_structure_for_employees(employees, salary_structure, from_date=None, base=None, variable=None, income_tax_slab=None):
 	salary_structures_assignments = []
