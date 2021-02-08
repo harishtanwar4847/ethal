@@ -2,21 +2,14 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Payment Request and Authorization', {
-	// refresh: function(frm) {
-	// 	if(frm.doc.workflow_state == 'Approved'){
-	// 		frm.add_custom_button('Create Payment Entry', () => {
-	// 			var option = {
-	// 				company : 'Ethal',
-	// 				doctype : 'Payment Entry',
-	// 				name : 'New Payment Entry 1',
-	// 				party_type : 'Employee',
-	// 				party : frm.doc.party
-	// 			}
-	// 			frappe.model.sync(option)
-	// 			frappe.set_route('Form', option.doctype, option.name);
-	// 		})
-	// 	}
-	// },
+	refresh: function(frm) {
+		if(frm.doc.workflow_state == 'Approved'){
+			frm.add_custom_button('Create Payment Entry', () => {
+				frappe.set_route('Form', 'Payment Entry', 'New Payment Entry', {'pra': frm.doc.name});
+			})
+
+		}
+	},
 	setup: function(frm){
 		frm.set_query("party_type", function() {
 			return{
