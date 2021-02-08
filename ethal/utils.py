@@ -2,6 +2,7 @@ import frappe
 from frappe.utils import getdate, nowdate, cint, flt
 import json
 from datetime import date, timedelta, datetime
+import time
 from frappe.utils import formatdate
 import ast
 import itertools
@@ -67,7 +68,9 @@ def set_approver_name(doc, method):
 @frappe.whitelist()
 def calculate_overtime_in_salary_slip(doc, method):
     daily_overtime(doc)
-    process_auto_attendance_for_holidays(doc)
+    sunday_overtime(doc)
+    holiday_overtime(doc)
+    # process_auto_attendance_for_holidays(doc)
 
 def daily_overtime(doc):
     filters = [
@@ -110,8 +113,9 @@ def daily_overtime(doc):
                     doc.normal_ot_hours = doc.normal_ot_hours + 1
 
 def sunday_overtime(doc):
+   
     holiday = frappe.db.get_all('Holiday', filters={'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
-
+   
     holiday_ = []
     for i in holiday:
         splitdate = i[0].strftime('%Y-%m-%d')
@@ -121,19 +125,43 @@ def sunday_overtime(doc):
         ['employee', '=', doc.employee],
         ['attendance_date', 'in', holiday_]
     ]
-      
-    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'])
-    if attendances:
-        doc.sunday_ot_hours = attendances[0].working_hours
+   
+    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['attendance_date'], as_list=True)
+    attendance_ = []
+    if attendances: 
+        for i in attendances:
+            splitdate = i[0].strftime('%Y-%m-%d')
+            attendance_.append(splitdate +' 00:00:00')
+    for i in attendance_:
+        start_date = i
+        end_date = datetime.strptime(i, '%Y-%m-%d %H:%M:%S')
+        end_date = end_date + timedelta(days=1)
+        midnight_checkout = frappe.db.sql(""" select time from `tabEmployee Checkin` where time between '{0}' and '{1}';
+        """.format(start_date, end_date), as_list=True)
+        date = []
+        for i in midnight_checkout:
+            for j in i:
+                date.append(j)
+        differences = date[1] - date[0]
+        hours = differences.seconds//3600
+        minutes = (differences.seconds//60)%60
+        minutes = minutes /100
+
+        # frappe.throw('ja na be')
+        doc.sunday_ot_hours += hours+minutes       
+        # for i in attendances:
+        #     print(i.working_hours)
+        #     doc.sunday_ot_hours += i.working_hours
 
 def holiday_overtime(doc):
-    sunday = frappe.db.get_all('Holiday', filters={'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    sunday = frappe.db.get_all('Holiday', filters={'description': ['!=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+   
     sunday_ = []
     for i in sunday:
         splitsundaydate = i[0].strftime('%Y-%m-%d')
         sunday_.append(splitsundaydate)
     
-    holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ['not in', sunday_]},  fields=['holiday_date'], as_list=1)
+    holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ['in', sunday_]},  fields=['holiday_date'], as_list=1)
     holiday_ = []
     for i in holiday:
         splitholidaydate = i[0].strftime('%Y-%m-%d')
@@ -143,10 +171,28 @@ def holiday_overtime(doc):
         ['employee', '=', doc.employee],
         ['attendance_date', 'in', holiday_]
     ]
-      
-    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'])
-    if attendances:
-        doc.holiday_ot_hours = attendances[0].working_hours
+    
+    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['attendance_date'], as_list=True)
+    attendance_ = []
+    if attendances: 
+        for i in attendances:
+            splitdate = i[0].strftime('%Y-%m-%d')
+            attendance_.append(splitdate +' 00:00:00')
+    for i in attendance_:
+        start_date = i
+        end_date = datetime.strptime(i, '%Y-%m-%d %H:%M:%S')
+        end_date = end_date + timedelta(days=1)
+        midnight_checkout = frappe.db.sql(""" select time from `tabEmployee Checkin` where time between '{0}' and '{1}';
+        """.format(start_date, end_date), as_list=True)
+        date = []
+        for i in midnight_checkout:
+            for j in i:
+                date.append(j)
+        differences = date[1] - date[0]
+        hours = differences.seconds//3600
+        minutes = (differences.seconds//60)%60
+        minutes = minutes /100
+        doc.holiday_ot_hours_ += hours+minutes
 
 @frappe.whitelist()
 def before_insert_salary_structure_assignment(doc, method):

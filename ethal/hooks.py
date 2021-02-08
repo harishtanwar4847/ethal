@@ -106,7 +106,7 @@ doc_events = {
 		"before_submit": "ethal.utils.update_salary_structure_assignment_rate"
 	},
 	"Salary Slip": {
-		"before_insert": "ethal.ethal.employee_checkin.calculate_overtime_in_salary_slip"
+		"before_insert": "ethal.utils.calculate_overtime_in_salary_slip"
 	},
 	"Interview Configuration": {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
@@ -151,6 +151,11 @@ permission_query_conditions = {
     "Interview Round form": "ethal.ethal.doctype.interview_round.interview_round.interview_round_permissions_query_conditions"
 }
 
+scheduler_events = {
+    "hourly": [
+        "ethal.ethal.employee_checkin.process_auto_attendance_for_holidays"
+    ]
+}
 # Scheduled Tasks
 # ---------------
 
