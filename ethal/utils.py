@@ -60,6 +60,35 @@ def before_submit_all_doctypes(doc, method):
                 if admin_settings.closure_date > doc.transaction_date:
                     frappe.throw(frappe._("You are not authorized to add or update entries before {0}").format(formatdate(admin_settings.closure_date)))
 
+def shift_rotate():
+    print("rotate shift method call")
+    female_employee = frappe.db.get_all('Employee', filters = {'gender': 'Female', 'shift_rotate': 1}, fields=['name'], as_list=1)
+    if female_employee:
+        female_employee_store_in_list = [i[0] for i in female_employee]
+        female_employee_convert_tuple = tuple(female_employee_store_in_list)
+        rotate_shift = frappe.db.sql("""
+                            Update `tabEmployee` 
+                            SET default_shift = CASE 
+                            WHEN default_shift='A' THEN 'B' 
+                            WHEN default_shift='B' THEN 'A' 
+                            ELSE default_shift END where employee in {}; 
+                        """.format(female_employee_convert_tuple))
+        frappe.db.commit()
+
+    male_employee = frappe.db.get_all('Employee', filters = {'gender': 'Male','shift_rotate': 1}, fields=['name'], as_list=1)
+    if male_employee:
+        male_employee_store_in_list = [i[0] for i in male_employee]
+        male_employee_convert_tuple = tuple(male_employee_store_in_list)
+        rotate_shift = frappe.db.sql("""
+                        Update `tabEmployee`
+                        SET default_shift = CASE 
+                        WHEN default_shift='A' THEN 'B' 
+                        WHEN default_shift='B' THEN 'C' 
+                        WHEN default_shift='C' THEN 'A' 
+                        ELSE default_shift END where employee in {}; 
+                        """.format(male_employee_convert_tuple)); 
+        frappe.db.commit()
+
 @frappe.whitelist()
 def set_approver_name(doc, method):
     doc.approver_person = doc.modified_by
