@@ -89,13 +89,13 @@ app_include_js = "/assets/ethal/js/transaction.js"
 #	}
 # }
 doc_events = {
-	# "Asset Maintenance Log": {
-	# 	"after_insert": "ethal.utils.before_save_asset_maintenance_log",
-	# 	"on_submit": "ethal.utils.create_stock_entry"
-	# },
-	# "Asset Repair": {
-	# 	"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
-	# },
+	"Asset Maintenance Log": {
+		"after_insert": "ethal.utils.before_save_asset_maintenance_log",
+		"on_submit": "ethal.utils.create_stock_entry"
+	},
+	"Asset Repair": {
+		"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
+	},
 	"Leave Allocation": {
 		"on_submit": "ethal.utils.before_submit_leave_allocation"
 	},
@@ -136,7 +136,13 @@ doc_events = {
 	},
 	"Attendance": {
 		"before_submit": "ethal.utils.trigger_mail_if_absent_consecutive_5_days"
-	}
+	},
+	"Salary Slip": {
+		"before_insert": "ethal.utils.calculate_overtime_in_salary_slip"
+	},
+	"Salary Structure Assignment": {
+		"on_submit": "ethal.utils.before_insert_salary_structure_assignment"
+	},
 }
 
 doctype_list_js = {
