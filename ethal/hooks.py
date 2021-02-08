@@ -154,7 +154,12 @@ permission_query_conditions = {
 scheduler_events = {
     "hourly": [
         "ethal.ethal.employee_checkin.process_auto_attendance_for_holidays"
-    ]
+    ],
+	"cron": {
+		"59 11 * * 0": [
+			"ethal.utils.shift_rotate"
+		]
+	}
 }
 # Scheduled Tasks
 # ---------------
