@@ -5637,11 +5637,7 @@
   "insert_after": "attendance_device_id",
   "label": "Shift Rotate",
   "length": 0,
-<<<<<<< HEAD
-  "modified": "2021-01-27 12:08:06.949725",
-=======
   "modified": "2021-02-05 08:48:42.955563",
->>>>>>> develop
   "name": "Employee-shift_rotate",
   "no_copy": 0,
   "options": null,
