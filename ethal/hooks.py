@@ -138,7 +138,7 @@ doc_events = {
 		"before_submit": "ethal.utils.trigger_mail_if_absent_consecutive_5_days"
 	},
 	"Salary Slip": {
-		"before_insert": "ethal.ethal.employee_checkin.calculate_overtime_in_salary_slip"
+		"before_insert": "ethal.utils.calculate_overtime_in_salary_slip"
 	},
 	"Salary Structure Assignment": {
 		"on_submit": "ethal.utils.before_insert_salary_structure_assignment"

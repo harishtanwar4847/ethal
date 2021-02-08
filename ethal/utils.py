@@ -140,9 +140,12 @@ def set_approver_name(doc, method):
 
 @frappe.whitelist()
 def calculate_overtime_in_salary_slip(doc, method):
-    daily_overtime(doc)
-    sunday_overtime(doc)
-    holiday_overtime(doc)
+    overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
+    print(overtime_applicable)
+    if overtime_applicable:
+        daily_overtime(doc)
+        sunday_overtime(doc)
+        holiday_overtime(doc)
     # process_auto_attendance_for_holidays(doc)
 
 def daily_overtime(doc):
