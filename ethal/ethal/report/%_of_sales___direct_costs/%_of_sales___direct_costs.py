@@ -68,7 +68,7 @@ def execute(filters=None):
 	manpower_cost = aboslute_value(manpower_cost)
 	stores_and_repairs = [(a+b)/c if c!=0 else 0 for a,b,c in zip(res_data_54200, res_data_54300, res_data_41100)]
 	stores_and_repairs = aboslute_value(stores_and_repairs)
-	utilities = [(c+d)/e if e !=0 else 0 for a,b,c,d,e in zip(res_data_52000_04, res_data_53000_04,res_data_41100)]
+	utilities = [(c+d)/e if e !=0 else 0 for c,d,e in zip(res_data_52000_04, res_data_53000_04,res_data_41100)]
 	utilities = aboslute_value(utilities)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	rep= []

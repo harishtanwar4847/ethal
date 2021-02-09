@@ -58,7 +58,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "41110 - Debre Birhan - ETL"
+		filters["account"] = "41110 - Debre Birhan - E21"
 		res = get_result(filters, account_details)
 		res_data_41110_total.append(res[-2]["balance"])
 
@@ -77,7 +77,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "41100 - Aluminum Utensil Sales - ETL"
+		filters["account"] = "41100 - Aluminum Utensil Sales - E21"
 		res = get_result(filters, account_details)
 		res_data_41100_total.append(res[-2]["balance"])
 
@@ -96,7 +96,7 @@ def execute(filters=None):
 		filters['account_currency'] = 'Ethiopia Birrr'
 		filters["from_date"] = first_date
 		filters["to_date"] = last_date
-		filters["account"] = "41120 - Tulefa - ETL"
+		filters["account"] = "41120 - Tulefa - E21"
 		res = get_result(filters, account_details)
 		res_data_41120_total.append(res[-2]["balance"])
 
