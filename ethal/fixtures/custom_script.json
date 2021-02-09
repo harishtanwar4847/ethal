@@ -102,12 +102,12 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Quotation",
-  "modified": "2020-04-16 13:46:26.323147",
+  "modified": "2021-02-09 18:36:22.303089",
   "name": "Quotation-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "frappe.ui.form.on('Quotation', {\n\trefresh:function(frm) {\n\t\tfrm.set_df_property('customer_address', 'reqd', 1)\n\t}\n})"
+  "script": "frappe.ui.form.on('Quotation', {\n\trefresh:function(frm) {\n\t\tfrm.set_df_property('customer_address', 'reqd', 1)\n\t\tif (frm.doc.__islocal && frm.doc.valid_till && frm.doc.party_name) {\n\t\t    console.log('ja na e')\n\t\t    frm.set_value('valid_till', null)\n\t\t    frm.refresh()\n\t\t  //  frm.set_value('valid_till', frappe.datetime.add_months(doc.transaction_date, 1))\n\t\t}\n\t},\n\tcopy_doc: function(frm){\n\t    console.log(\"helo\", frm.doc)\n\t}\n})"
  },
  {
   "docstatus": 0,
