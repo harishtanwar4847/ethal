@@ -11,22 +11,25 @@
  "fields": [
   {
    "fieldname": "in_time",
-   "fieldtype": "Data",
+   "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "In Time"
   },
   {
    "fieldname": "out_time",
-   "fieldtype": "Data",
+   "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Out Time"
   },
   {
    "fieldname": "kg",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "KG"
   }
  ],
  "istable": 1,
- "modified": "2021-02-04 14:18:08.301433",
+ "modified": "2021-02-09 17:24:29.919324",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Annealing Items",

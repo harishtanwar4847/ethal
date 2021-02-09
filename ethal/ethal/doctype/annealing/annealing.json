@@ -1,5 +1,5 @@
 {
- "autoname": "format:QC-{YYYY}-{#####}",
+ "autoname": "Annealing-.MM.-.#####",
  "creation": "2021-02-04 14:18:42.319524",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -42,7 +42,7 @@
    "options": "Annealing Items"
   }
  ],
- "modified": "2021-02-04 14:18:42.319524",
+ "modified": "2021-02-09 17:07:38.158132",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Annealing",
