@@ -89,13 +89,13 @@ app_include_js = "/assets/ethal/js/transaction.js"
 #	}
 # }
 doc_events = {
-	# "Asset Maintenance Log": {
-	# 	"after_insert": "ethal.utils.before_save_asset_maintenance_log",
-	# 	"on_submit": "ethal.utils.create_stock_entry"
-	# },
-	# "Asset Repair": {
-	# 	"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
-	# },
+	"Asset Maintenance Log": {
+		"after_insert": "ethal.utils.before_save_asset_maintenance_log",
+		"on_submit": "ethal.utils.create_stock_entry"
+	},
+	"Asset Repair": {
+		"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
+	},
 	"Leave Allocation": {
 		"on_submit": "ethal.utils.before_submit_leave_allocation"
 	},
@@ -106,7 +106,7 @@ doc_events = {
 		"before_submit": "ethal.utils.update_salary_structure_assignment_rate"
 	},
 	"Salary Slip": {
-		"before_insert": "ethal.ethal.employee_checkin.calculate_overtime_in_salary_slip"
+		"before_insert": "ethal.utils.calculate_overtime_in_salary_slip"
 	},
 	"Interview Configuration": {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
@@ -136,7 +136,13 @@ doc_events = {
 	},
 	"Attendance": {
 		"before_submit": "ethal.utils.trigger_mail_if_absent_consecutive_5_days"
-	}
+	},
+	"Salary Slip": {
+		"before_insert": "ethal.utils.calculate_overtime_in_salary_slip"
+	},
+	"Salary Structure Assignment": {
+		"on_submit": "ethal.utils.before_insert_salary_structure_assignment"
+	},
 }
 
 doctype_list_js = {
@@ -149,6 +155,17 @@ override_doctype_dashboards = {
 
 permission_query_conditions = {
     "Interview Round form": "ethal.ethal.doctype.interview_round.interview_round.interview_round_permissions_query_conditions"
+}
+
+scheduler_events = {
+	"cron": {
+		"59 11 * * 0": [
+			"ethal.utils.shift_rotate"
+		]
+	},
+	"hourly": [
+        "ethal.ethal.employee_checkin.process_auto_attendance_for_holidays"
+    ]
 }
 
 # Scheduled Tasks
@@ -219,6 +236,16 @@ fixtures = [
 				"document_type",
 				"in",
 				["Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
+			]
+		]
+	},
+	{
+		"dt": "Role",
+		"filters": [
+			[
+				"name",
+				"in",
+				['Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller']
 			]
 		]
 	},

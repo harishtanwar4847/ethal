@@ -11,11 +11,12 @@ def get_data():
 			"type": "module",
 			"label": _("Import")
 		},
-			{
-			"module_name": "Accounts",
-			"color": "grey",
-			"icon": "octicon octicon-file-directory",
-			"type": "module",
-			"label": _("Accounting")
-		}
+		# {
+		# 	"module_name": "Accounts",
+		# 	"color": "grey",
+		# 	"icon": "octicon octicon-file-directory",
+		# 	"type": "module",
+		# 	"label": _("Accounting"),
+		# 	"force_show": False
+		# }
 	]

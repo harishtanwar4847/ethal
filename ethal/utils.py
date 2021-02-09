@@ -2,6 +2,7 @@ import frappe
 from frappe.utils import getdate, nowdate, cint, flt
 import json
 from datetime import date, timedelta, datetime
+import time
 from frappe.utils import formatdate
 import ast
 import itertools
@@ -24,6 +25,50 @@ def override_job_applicant_dashboard(data):
             # },
         ],
     }
+
+@frappe.whitelist()
+def before_save_asset_maintenance_log(doc, method):  
+    asset_maintenance_task = frappe.get_all('Asset Maintenance Task', filters={'parent': doc.asset_maintenance}, fields=['maintanence_category', 'maintenance_task'])
+    if asset_maintenance_task:
+        for row in asset_maintenance_task:
+            print(row['maintenance_task'])
+            frappe.db.set_value('Asset Maintenance Log', {'task_name': row['maintenance_task']}, 'maintanence_category', row['maintanence_category'])
+
+@frappe.whitelist()
+def create_stock_entry(doc, method):
+    get_part_used = frappe.get_all('Parts Used Item Table', filters = {'parent': doc.name}, fields=['*'])
+    print(get_part_used)
+    stock_entry = frappe.new_doc('Stock Entry')
+    stock_entry.stock_entry_type= 'Material Issue'
+    for row in get_part_used:
+        source_warehouse = frappe.db.get_all('Item Default', {'parent': row['item']}, ['default_warehouse'])
+        stock_entry.append('items', {
+            's_warehouse': source_warehouse[0].default_warehouse,
+            'item_code': row['item'],
+            'item_group': row['item_group'],
+            'qty': row['quantity'],
+            'uom': row['uom']
+        })
+        stock_entry.insert(ignore_permissions=True)
+        stock_entry.docstatus = 1
+
+@frappe.whitelist()
+def create_stock_entry_from_asset_repair(doc, method):
+    get_part_used = frappe.get_all('Parts Used Item Table', filters = {'parent': doc.name}, fields=['*'])
+    print(get_part_used)
+    stock_entry = frappe.new_doc('Stock Entry')
+    stock_entry.stock_entry_type= 'Material Issue'
+    for row in get_part_used:
+        source_warehouse = frappe.db.get_all('Item Default', {'parent': row['item']}, ['default_warehouse'])
+        stock_entry.append('items', {
+            's_warehouse': source_warehouse[0].default_warehouse,
+            'item_code': row['item'],
+            'item_group': row['item_group'],
+            'qty': row['quantity'],
+            'uom': row['uom']
+        })
+    stock_entry.insert(ignore_permissions=True)
+    stock_entry.docstatus = 1
 
 @frappe.whitelist()
 def before_submit_leave_allocation(doc, method):
@@ -59,6 +104,35 @@ def before_submit_all_doctypes(doc, method):
                 if admin_settings.closure_date > doc.transaction_date:
                     frappe.throw(frappe._("You are not authorized to add or update entries before {0}").format(formatdate(admin_settings.closure_date)))
 
+def shift_rotate():
+    print("rotate shift method call")
+    female_employee = frappe.db.get_all('Employee', filters = {'gender': 'Female', 'shift_rotate': 1}, fields=['name'], as_list=1)
+    if female_employee:
+        female_employee_store_in_list = [i[0] for i in female_employee]
+        female_employee_convert_tuple = tuple(female_employee_store_in_list)
+        rotate_shift = frappe.db.sql("""
+                            Update `tabEmployee` 
+                            SET default_shift = CASE 
+                            WHEN default_shift='A' THEN 'B' 
+                            WHEN default_shift='B' THEN 'A' 
+                            ELSE default_shift END where employee in {}; 
+                        """.format(female_employee_convert_tuple))
+        frappe.db.commit()
+
+    male_employee = frappe.db.get_all('Employee', filters = {'gender': 'Male','shift_rotate': 1}, fields=['name'], as_list=1)
+    if male_employee:
+        male_employee_store_in_list = [i[0] for i in male_employee]
+        male_employee_convert_tuple = tuple(male_employee_store_in_list)
+        rotate_shift = frappe.db.sql("""
+                        Update `tabEmployee`
+                        SET default_shift = CASE 
+                        WHEN default_shift='A' THEN 'B' 
+                        WHEN default_shift='B' THEN 'C' 
+                        WHEN default_shift='C' THEN 'A' 
+                        ELSE default_shift END where employee in {}; 
+                        """.format(male_employee_convert_tuple)); 
+        frappe.db.commit()
+
 @frappe.whitelist()
 def set_approver_name(doc, method):
     doc.approver_person = doc.modified_by
@@ -66,14 +140,28 @@ def set_approver_name(doc, method):
 
 @frappe.whitelist()
 def calculate_overtime_in_salary_slip(doc, method):
-    daily_overtime(doc)
-    process_auto_attendance_for_holidays(doc)
+    overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
+    if overtime_applicable:
+        daily_overtime(doc)
+        sunday_overtime(doc)
+        holiday_overtime(doc)
+    # process_auto_attendance_for_holidays(doc)
 
 def daily_overtime(doc):
+    holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+   
+    holiday_ = []
+    for i in holiday:
+        splitdate = i[0].strftime('%Y-%m-%d')
+        holiday_.append(splitdate)
+
     filters = [
         ['employee', '=', doc.employee],
         ['attendance_date', '<=', doc.end_date],
-        ['attendance_date', '>=', doc.start_date]
+        ['attendance_date', '>=', doc.start_date],
+        ['attendance_date', 'not in', holiday_],
+        ['docstatus', '!=', 2],
+        ['status', '=', 'Present']
     ]
     filters_checkout = [
         ['employee', '=', doc.employee],
@@ -87,6 +175,9 @@ def daily_overtime(doc):
     for i in attendances:
         for j in i:
             attendance_list.append(j)
+    print(attendance_list)
+
+
 
     shift = frappe.db.get_value('Employee', {'employee': doc.employee, 'is_overtime_applicable': 1}, ['default_shift'])
     if shift: 
@@ -96,22 +187,17 @@ def daily_overtime(doc):
         shift_end_hours = shift_end.seconds//3600
 
         shift_time = shift_end_hours - shift_start_hours
-
+        print("shift time",shift_time)
         for i in attendance_list:
-            i = int(i)
-            if i > shift_time and i < 15:
+            # i = int(i)
+            if i > shift_time:
+                print('i', i)
                 doc.normal_ot_hours = doc.normal_ot_hours + (i - shift_time)
-
-        midnight_checkout = frappe.db.get_all('Employee Checkin', filters=filters_checkout, fields=['time'], as_list=True)
-
-        for i in midnight_checkout:
-            for j in i:
-                if j.hour== 23 and j.minute == 59 and j.second == 59:
-                    doc.normal_ot_hours = doc.normal_ot_hours + 1
-
+                
 def sunday_overtime(doc):
+   
     holiday = frappe.db.get_all('Holiday', filters={'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
-
+   
     holiday_ = []
     for i in holiday:
         splitdate = i[0].strftime('%Y-%m-%d')
@@ -119,21 +205,47 @@ def sunday_overtime(doc):
   
     filters = [
         ['employee', '=', doc.employee],
-        ['attendance_date', 'in', holiday_]
+        ['attendance_date', 'in', holiday_],
+        ['docstatus', '!=', 2],
+        ['status', '=', 'Present']
     ]
-      
-    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'])
-    if attendances:
-        doc.sunday_ot_hours = attendances[0].working_hours
+   
+    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['attendance_date'], as_list=True)
+    attendance_ = []
+    if attendances: 
+        for i in attendances:
+            splitdate = i[0].strftime('%Y-%m-%d')
+            attendance_.append(splitdate +' 00:00:00')
+    for i in attendance_:
+        start_date = i
+        end_date = datetime.strptime(i, '%Y-%m-%d %H:%M:%S')
+        end_date = end_date + timedelta(days=1)
+        midnight_checkout = frappe.db.sql(""" select time from `tabEmployee Checkin` where time between '{0}' and '{1}';
+        """.format(start_date, end_date), as_list=True)
+        date = []
+        for i in midnight_checkout:
+            for j in i:
+                date.append(j)
+        differences = date[1] - date[0]
+        hours = differences.seconds//3600
+        minutes = (differences.seconds//60)%60
+        minutes = minutes /100
+
+        # frappe.throw('ja na be')
+        doc.sunday_ot_hours += hours+minutes       
+        # for i in attendances:
+        #     print(i.working_hours)
+        #     doc.sunday_ot_hours += i.working_hours
 
 def holiday_overtime(doc):
-    sunday = frappe.db.get_all('Holiday', filters={'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    sunday = frappe.db.get_all('Holiday', filters={'description': ['!=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+   
     sunday_ = []
     for i in sunday:
         splitsundaydate = i[0].strftime('%Y-%m-%d')
         sunday_.append(splitsundaydate)
     
-    holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ['not in', sunday_]},  fields=['holiday_date'], as_list=1)
+    holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ['in', sunday_]},  fields=['holiday_date'], as_list=1)
     holiday_ = []
     for i in holiday:
         splitholidaydate = i[0].strftime('%Y-%m-%d')
@@ -141,12 +253,32 @@ def holiday_overtime(doc):
     
     filters = [
         ['employee', '=', doc.employee],
-        ['attendance_date', 'in', holiday_]
+        ['attendance_date', 'in', holiday_],
+        ['docstatus', '!=', 2],
+        ['status', '=', 'Present']
     ]
-      
-    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'])
-    if attendances:
-        doc.holiday_ot_hours = attendances[0].working_hours
+    
+    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['attendance_date'], as_list=True)
+    attendance_ = []
+    if attendances: 
+        for i in attendances:
+            splitdate = i[0].strftime('%Y-%m-%d')
+            attendance_.append(splitdate +' 00:00:00')
+    for i in attendance_:
+        start_date = i
+        end_date = datetime.strptime(i, '%Y-%m-%d %H:%M:%S')
+        end_date = end_date + timedelta(days=1)
+        midnight_checkout = frappe.db.sql(""" select time from `tabEmployee Checkin` where time between '{0}' and '{1}';
+        """.format(start_date, end_date), as_list=True)
+        date = []
+        for i in midnight_checkout:
+            for j in i:
+                date.append(j)
+        differences = date[1] - date[0]
+        hours = differences.seconds//3600
+        minutes = (differences.seconds//60)%60
+        minutes = minutes /100
+        doc.holiday_ot_hours_ += hours+minutes
 
 @frappe.whitelist()
 def before_insert_salary_structure_assignment(doc, method):
@@ -288,7 +420,10 @@ def assign_salary_structure(doc, company=None, grade=None, department=None, desi
     else:
         frappe.msgprint(frappe._("No Employee Found"))
 
-
+def before_insert_salary_structure_assignment(doc, method):
+    get_employee_base_amount = frappe.db.get_value('Employee Grade', {'default_salary_structure': doc.salary_structure}, 'base_amount')
+    set_base_amount_in_salary_structure_ass = frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
+    frappe.db.commit()
 
 def assign_salary_structure_for_employees(employees, salary_structure, from_date=None, base=None, variable=None, income_tax_slab=None):
 	salary_structures_assignments = []

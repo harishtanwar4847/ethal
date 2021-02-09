@@ -1,8 +1,7 @@
-// Copyright (c) 2016, Atrina Technologies Pvt. Ltd. and contributors
-// For license information, please see license.txt
-/* eslint-disable */
+// Copyright (c) 2018, Frappe Technologies Pvt. Ltd. and Contributors
+// License: GNU General Public License v3. See license.txt
 
-frappe.query_reports["Percentage of Direct Overhead Costs - Indirect Costs"] = {
+frappe.query_reports["General Ledger Edit"] = {
 	"filters": [
 		{
 			"fieldname":"company",
@@ -172,4 +171,7 @@ frappe.query_reports["Percentage of Direct Overhead Costs - Indirect Costs"] = {
 			"default": 1,
 		}
 	]
-};
+}
+
+erpnext.utils.add_dimensions('General Ledger Edit', 15)
+
