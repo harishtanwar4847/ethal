@@ -141,7 +141,6 @@ def set_approver_name(doc, method):
 @frappe.whitelist()
 def calculate_overtime_in_salary_slip(doc, method):
     overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
-    print(overtime_applicable)
     if overtime_applicable:
         daily_overtime(doc)
         sunday_overtime(doc)
@@ -149,10 +148,18 @@ def calculate_overtime_in_salary_slip(doc, method):
     # process_auto_attendance_for_holidays(doc)
 
 def daily_overtime(doc):
+    holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+   
+    holiday_ = []
+    for i in holiday:
+        splitdate = i[0].strftime('%Y-%m-%d')
+        holiday_.append(splitdate)
+
     filters = [
         ['employee', '=', doc.employee],
         ['attendance_date', '<=', doc.end_date],
         ['attendance_date', '>=', doc.start_date],
+        ['attendance_date', 'not in', holiday_],
         ['docstatus', '!=', 2],
         ['status', '=', 'Present']
     ]
@@ -168,6 +175,9 @@ def daily_overtime(doc):
     for i in attendances:
         for j in i:
             attendance_list.append(j)
+    print(attendance_list)
+
+
 
     shift = frappe.db.get_value('Employee', {'employee': doc.employee, 'is_overtime_applicable': 1}, ['default_shift'])
     if shift: 
@@ -177,19 +187,13 @@ def daily_overtime(doc):
         shift_end_hours = shift_end.seconds//3600
 
         shift_time = shift_end_hours - shift_start_hours
-
+        print("shift time",shift_time)
         for i in attendance_list:
-            i = int(i)
-            if i > shift_time and i < 15:
+            # i = int(i)
+            if i > shift_time:
+                print('i', i)
                 doc.normal_ot_hours = doc.normal_ot_hours + (i - shift_time)
-
-        midnight_checkout = frappe.db.get_all('Employee Checkin', filters=filters_checkout, fields=['time'], as_list=True)
-
-        for i in midnight_checkout:
-            for j in i:
-                if j.hour== 23 and j.minute == 59 and j.second == 59:
-                    doc.normal_ot_hours = doc.normal_ot_hours + 1
-
+                
 def sunday_overtime(doc):
    
     holiday = frappe.db.get_all('Holiday', filters={'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
