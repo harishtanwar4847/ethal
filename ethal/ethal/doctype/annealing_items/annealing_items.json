@@ -1,0 +1,42 @@
+{
+ "creation": "2021-02-04 14:18:08.301433",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "in_time",
+  "out_time",
+  "kg"
+ ],
+ "fields": [
+  {
+   "fieldname": "in_time",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "In Time"
+  },
+  {
+   "fieldname": "out_time",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Out Time"
+  },
+  {
+   "fieldname": "kg",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "KG"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-02-09 17:24:29.919324",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Annealing Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
