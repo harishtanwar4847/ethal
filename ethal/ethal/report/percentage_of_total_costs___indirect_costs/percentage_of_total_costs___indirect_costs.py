@@ -157,17 +157,16 @@ def execute(filters=None):
 		res = get_result(filters, account_details)
 		res_data_64000_total.append(res[-2]["balance"])
 
-	
-	mpc = [b / (m-c) if m-c!= 0 and b!=0 else 0 for b,m,c in zip(res_data_61000_total, res_data_50000_total,res_data_60000_total)]
+	mpc = [b / (m+c) if m+c!= 0 and b!=0 else 0 for b,m,c in zip(res_data_61000_total, res_data_50000_total,res_data_60000_total)]
 	mpc = absolute_value(mpc)	
 
-	fc = [b / (m-c) if m-c!= 0 and b!=0 else 0 for b,m,c in zip(res_data_62000_total, res_data_50000_total,res_data_60000_total)]
+	fc = [b / (m+c) if m+c!= 0 and b!=0 else 0 for b,m,c in zip(res_data_62000_total, res_data_50000_total,res_data_60000_total)]
 	fc = absolute_value(fc)
 
-	general_and_admin_expenses = [b / (m-c) if m-c!= 0 and b!=0 else 0 for b,m,c in zip(res_data_63000_total, res_data_50000_total,res_data_60000_total)]
+	general_and_admin_expenses = [b / (m+c) if m+c!= 0 and b!=0 else 0 for b,m,c in zip(res_data_63000_total, res_data_50000_total,res_data_60000_total)]
 	general_and_admin_expenses = absolute_value(general_and_admin_expenses)
 
-	non_operational_ho = [b / (m-c) if m-c!= 0 and b!=0 else 0 for b,m,c in zip(res_data_64000_total, res_data_50000_total,res_data_60000_total)] 	
+	non_operational_ho = [b / (m+c) if m+c!= 0 and b!=0 else 0 for b,m,c in zip(res_data_64000_total, res_data_50000_total,res_data_60000_total)] 	
 	non_operational_ho = absolute_value(non_operational_ho)
 
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
