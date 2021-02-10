@@ -74,7 +74,7 @@ def execute(filters=None):
 	utilities = aboslute_value(utilities)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	rep= []
-	for (i,j,m) in zip(month,direct_material, fuel, manpower_cost, stores_and_repairs, utilities):
+	for (i,j,m,n,k,l) in zip(month,direct_material, fuel, manpower_cost, stores_and_repairs, utilities):
 		rep.append([i,j,m,n,k,l])
 	print("reports", rep)
 	return columns, rep
