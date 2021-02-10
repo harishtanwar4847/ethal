@@ -15,6 +15,11 @@ frappe.query_reports["Withholding Tax Report"] = {
 			"label": __('To Date'),
 			"fieldtype": "Date",
 			"default": frappe.defaults.get_user_default("year_end_date"),
+		},
+		{
+			"fieldname": "withholding_number",
+			"label": __("Withholding Tax Receipt Number"),
+			"fieldtype": "Data"
 		}
 	]
 };
