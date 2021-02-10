@@ -65,7 +65,6 @@ def execute(filters=None):
 	addition_of_50000_and_60000 = [a+b for a,b in zip(res_data_50000,res_data_60000)]
 	direct_material = [(a+b+c+d)/e if e !=0 else 0 for a,b,c,d,e in zip(res_data_51000_01, res_data_51000_02, res_data_52000_01, res_data_53000_01,addition_of_50000_and_60000)]
 	direct_material = aboslute_value(direct_material)
-	print(db_sales)
 	fuel = [(a/b) if b !=0 else 0 for a,b in zip(res_data_51000_03, addition_of_50000_and_60000)]
 	fuel = aboslute_value(fuel)
 	manpower_cost = [(a+b+c+d)/e if e !=0 else 0 for a,b,c,d,e in zip(res_data_51000_04, res_data_52000_02, res_data_53000_02,res_data_54100, addition_of_50000_and_60000)]

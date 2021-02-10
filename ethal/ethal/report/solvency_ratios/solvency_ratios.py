@@ -52,23 +52,17 @@ def execute(filters=None):
 
 	debt_of_assets = [(b / m)*100 if m !=0 else 0 for b,m in zip(res_data_20000, res_data_10000)]
 	debt_of_assets = aboslute_value(debt_of_assets)
-	print("dets os assets =====================")
-	print(debt_of_assets)
 	debt_to_enquiry = [(a+(b-c-d)) for a,b,c,d in zip(res_data_30000, res_data_40000, res_data_50000, res_data_60000)]
 	debt_to_enquiry_leverage = [(a/b)*100 if b !=0 else 0 for a,b in zip(res_data_20000, debt_to_enquiry)]
 	debt_to_enquiry_leverage = aboslute_value(debt_to_enquiry_leverage)
 	interest = [(a-b-c+d) for a,b,c,d in zip(res_data_40000, res_data_50000, res_data_60000, res_data_62000) ]
 	interest_coverage = [(b/a)*100 if a !=0 else 0 for a,b in zip(interest, res_data_62000)]
 	interest_coverage = aboslute_value(interest_coverage)
-	print("=======dept of enquiry=============")
-	print(debt_to_enquiry_leverage)
-	print("=========interest ================")
-	print(interest_coverage)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	rep= []
 	for (i,j,m,n) in zip(month,debt_of_assets,debt_to_enquiry_leverage,interest_coverage):
 		rep.append([i,j,m,n])
-	print("reports", rep)
+	
 	return columns, rep
 
 def aboslute_value(value):	

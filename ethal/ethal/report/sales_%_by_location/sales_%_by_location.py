@@ -99,10 +99,6 @@ def execute(filters=None):
 		filters["account"] = "41120 - Tulefa - E21"
 		res = get_result(filters, account_details)
 		res_data_41120_total.append(res[-2]["balance"])
-
-	
-
-
 	
 	du_sales = [(b / m)*100 if m != 0 and b!=0 else 0 for b,m in zip(res_data_41110_total, res_data_41100_total)]
 	du_sales = absolute_value(du_sales)
