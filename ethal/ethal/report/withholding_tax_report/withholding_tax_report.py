@@ -38,7 +38,7 @@ def get_data(filters):
 				AND pi.docstatus='1'
 				AND a.name = pi.supplier_address
 				AND pi.withholding_receipt_date between '{0}' and '{1}' 
-				AND pi.withholding_receipt_no = {2}
+				AND pi.withholding_receipt_no like '{2}%'
 		""".format(filters.from_date, filters.to_date, filters.withholding_number))
 	else:
 		return frappe.db.sql("""
