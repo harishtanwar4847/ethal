@@ -16,7 +16,6 @@ from erpnext.accounts.doctype.accounting_dimension.accounting_dimension import g
 from collections import OrderedDict
 from erpnext.accounts.report.general_ledger.general_ledger import (validate_filters, validate_party, set_account_currency, get_result, get_gl_entries, 
 get_conditions, get_data_with_opening_closing, get_accountwise_gle)
-from ethal.ethal.report.solvency_ratios.solvency_ratios import get_result_with_filters
 
 def execute(filters=None):
 
@@ -84,3 +83,27 @@ def aboslute_value(value):
 		fin_abs.append(abs_val)
 
 	return fin_abs
+
+def get_result_with_filters(account, filters, account_details):
+
+	year = int(frappe.defaults.get_user_default("fiscal_year"))
+	account_res = []
+	for i in range(1,13):
+		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
+		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
+		for i in first_date:
+			for j in i:
+				first_date = j
+		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
+		for i in last_date:
+			for j in i:
+				last_date = j
+		filters["from_date"] = first_date
+		filters["to_date"] = last_date
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
+		filters["account"] = account
+		res = get_result(filters, account_details)
+		account_res.append(res[-2]["balance"])
+
+	return	account_res
