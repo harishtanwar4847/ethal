@@ -148,13 +148,14 @@ def calculate_overtime_in_salary_slip(doc, method):
     # process_auto_attendance_for_holidays(doc)
 
 def daily_overtime(doc):
-    holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
-   
+    employee_holiday = frappe.db.get_value('Employee', doc.employee, 'holiday_list')
+    holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday,'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    print('holiday', holiday)
     holiday_ = []
     for i in holiday:
         splitdate = i[0].strftime('%Y-%m-%d')
         holiday_.append(splitdate)
-
+    print(holiday, holiday_)
     filters = [
         ['employee', '=', doc.employee],
         ['attendance_date', '<=', doc.end_date],
@@ -175,7 +176,7 @@ def daily_overtime(doc):
     for i in attendances:
         for j in i:
             attendance_list.append(j)
-    print(attendance_list)
+    # print("normal attendance",attendance_list)
 
 
 
@@ -193,10 +194,10 @@ def daily_overtime(doc):
             if i > shift_time:
                 print('i', i)
                 doc.normal_ot_hours = doc.normal_ot_hours + (i - shift_time)
-                
+    # frappe.throw('ja n')                
 def sunday_overtime(doc):
-   
-    holiday = frappe.db.get_all('Holiday', filters={'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    employee_holiday = frappe.db.get_value('Employee', doc.employee, 'holiday_list')
+    holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday,'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
    
     holiday_ = []
     for i in holiday:
@@ -238,7 +239,8 @@ def sunday_overtime(doc):
         #     doc.sunday_ot_hours += i.working_hours
 
 def holiday_overtime(doc):
-    sunday = frappe.db.get_all('Holiday', filters={'description': ['!=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    employee_holiday = frappe.db.get_value('Employee', doc.employee, 'holiday_list')
+    sunday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday,'description': ['!=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
    
     sunday_ = []
     for i in sunday:
