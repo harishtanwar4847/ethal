@@ -18,7 +18,6 @@ def before_submit_leave_allocation(doc, method):
     doj = frappe.db.get_value('Employee', doc.employee, 'date_of_joining')
     leave_date = frappe.db.get_value('Leave Allocation', doc.name, 'from_date')
     total_experience = calculate_years_of_experience(doj, leave_date)
-    print('total experiemce', total_experience)
     base_leave_count = 16
     get_total_leaves = base_leave_count+(float(total_experience)/2)
     frappe.db.set_value('Leave Allocation', doc.name, 'new_leaves_allocated', get_total_leaves)
