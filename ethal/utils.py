@@ -71,19 +71,6 @@ def create_stock_entry_from_asset_repair(doc, method):
     stock_entry.docstatus = 1
 
 @frappe.whitelist()
-def before_submit_leave_allocation(doc, method):
-    doj = frappe.db.get_value('Employee', doc.employee, 'date_of_joining')
-    today = frappe.db.get_value('Leave Allocation', doc.name, 'from_date')
-    total_experience = today.year - doj.year - ((today.month, today.day) < (doj.month, doj.day)) + 1
-    get_total_leaves = convert_year_to_leaves(total_experience)
-    frappe.db.set_value('Leave Allocation', doc.name, 'new_leaves_allocated', get_total_leaves)
-    frappe.db.set_value('Leave Allocation', doc.name, 'total_leaves_allocated', get_total_leaves)
-   
-def convert_year_to_leaves(year):
-    leaves = ((year-1)/2)+16 
-    return leaves
-
-@frappe.whitelist()
 def set_items_from_stock_entry(name):
     stock_entry_detail = frappe.get_all('Stock Entry Detail', filters={'parent': name}, fields=['*'])
     for i in stock_entry_detail:
@@ -110,12 +97,12 @@ def shift_rotate():
     if female_employee:
         female_employee_store_in_list = [i[0] for i in female_employee]
         female_employee_convert_tuple = tuple(female_employee_store_in_list)
-        rotate_shift = frappe.db.sql("""
-                            Update `tabEmployee` 
-                            SET default_shift = CASE 
-                            WHEN default_shift='A' THEN 'B' 
-                            WHEN default_shift='B' THEN 'A' 
-                            ELSE default_shift END where employee in {}; 
+        frappe.db.sql("""
+                        Update `tabEmployee` 
+                        SET default_shift = CASE 
+                        WHEN default_shift='A' THEN 'B' 
+                        WHEN default_shift='B' THEN 'A' 
+                        ELSE default_shift END where employee in {}
                         """.format(female_employee_convert_tuple))
         frappe.db.commit()
 
@@ -123,14 +110,14 @@ def shift_rotate():
     if male_employee:
         male_employee_store_in_list = [i[0] for i in male_employee]
         male_employee_convert_tuple = tuple(male_employee_store_in_list)
-        rotate_shift = frappe.db.sql("""
+        frappe.db.sql("""
                         Update `tabEmployee`
                         SET default_shift = CASE 
                         WHEN default_shift='A' THEN 'B' 
                         WHEN default_shift='B' THEN 'C' 
                         WHEN default_shift='C' THEN 'A' 
-                        ELSE default_shift END where employee in {}; 
-                        """.format(male_employee_convert_tuple)); 
+                        ELSE default_shift END where employee in {} 
+                        """.format(male_employee_convert_tuple))
         frappe.db.commit()
 
 @frappe.whitelist()
@@ -163,22 +150,13 @@ def daily_overtime(doc):
         ['docstatus', '!=', 2],
         ['status', '=', 'Present']
     ]
-    filters_checkout = [
-        ['employee', '=', doc.employee],
-        ['shift_end', '<=', doc.end_date],
-        ['shift_end', '>=', doc.start_date],
-        ['log_type','=','OUT']
-    ]
 
     attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
     attendance_list = []
     for i in attendances:
         for j in i:
             attendance_list.append(j)
-    print(attendance_list)
-
-
-
+   
     shift = frappe.db.get_value('Employee', {'employee': doc.employee, 'is_overtime_applicable': 1}, ['default_shift'])
     if shift: 
         shift_start = frappe.db.get_value('Shift Type',shift,'start_time')
