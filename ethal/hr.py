@@ -40,24 +40,25 @@ def daily_overtime(doc):
     for i in holiday:
         splitdate = i[0].strftime('%Y-%m-%d')
         holiday_.append(splitdate)
-
-    filters = [
-        ['employee', '=', doc.employee],
-        ['attendance_date', '<=', doc.end_date],
-        ['attendance_date', '>=', doc.start_date],
-        ['attendance_date', 'not in', holiday_],
-        ['docstatus', '!=', 2],
-        ['status', '=', 'Present']
-    ]
-
-    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
-    attendance_list = []
-    for i in attendances:
-        for j in i:
-            attendance_list.append(j)
-   
     shift = frappe.db.get_value('Employee', {'employee': doc.employee, 'is_overtime_applicable': 1}, ['default_shift'])
     if shift: 
+
+        filters = [
+            ['employee', '=', doc.employee],
+            ['attendance_date', '<=', doc.end_date],
+            ['attendance_date', '>=', doc.start_date],
+            ['attendance_date', 'not in', holiday_],
+            ['docstatus', '!=', 2],
+            ['status', '=', 'Present'],
+            ['shift', '=', shift]
+        ]
+
+        attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
+        attendance_list = []
+        for i in attendances:
+            for j in i:
+                attendance_list.append(j)
+    
         shift_start = frappe.db.get_value('Shift Type',shift,'start_time')
         shift_end = frappe.db.get_value('Shift Type',shift,'end_time')
         shift_start_hours = shift_start.seconds//3600
@@ -77,17 +78,21 @@ def sunday_overtime(doc):
     for i in holiday:
         splitdate = i[0].strftime('%Y-%m-%d')
         holiday_.append(splitdate)
-  
-    filters = [
-        ['employee', '=', doc.employee],
-        ['attendance_date', 'in', holiday_],
-        ['docstatus', '!=', 2],
-        ['status', '=', 'Present']
-    ]
-   
-    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
-    for i in attendances:    
-        doc.sunday_ot_hours += i[0]
+
+    shift = frappe.db.get_value('Employee', {'employee': doc.employee, 'is_overtime_applicable': 1}, ['default_shift'])
+    if shift:   
+
+        filters = [
+            ['employee', '=', doc.employee],
+            ['attendance_date', 'in', holiday_],
+            ['docstatus', '!=', 2],
+            ['status', '=', 'Present'],
+            ['shift', '=', shift]
+        ]
+    
+        attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
+        for i in attendances:    
+            doc.sunday_ot_hours += i[0]
        
 def holiday_overtime(doc):
     sunday = frappe.db.get_all('Holiday', filters={'description': ['!=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
@@ -102,14 +107,17 @@ def holiday_overtime(doc):
     for i in holiday:
         splitholidaydate = i[0].strftime('%Y-%m-%d')
         holiday_.append(splitholidaydate)
-    
-    filters = [
-        ['employee', '=', doc.employee],
-        ['attendance_date', 'in', holiday_],
-        ['docstatus', '!=', 2],
-        ['status', '=', 'Present']
-    ]
-    
-    attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
-    for i in attendances:
-        doc.holiday_ot_hours_ += i[0]
+    shift = frappe.db.get_value('Employee', {'employee': doc.employee, 'is_overtime_applicable': 1}, ['default_shift'])
+    if shift:
+
+        filters = [
+            ['employee', '=', doc.employee],
+            ['attendance_date', 'in', holiday_],
+            ['docstatus', '!=', 2],
+            ['status', '=', 'Present'],
+            ['shift', '=', shift]
+        ]
+        
+        attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
+        for i in attendances:
+            doc.holiday_ot_hours_ += i[0]
