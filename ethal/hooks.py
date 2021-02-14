@@ -103,10 +103,10 @@ doc_events = {
 		"before_submit": "ethal.utils.before_submit_all_doctypes"
 	},
 	"Payroll Entry": {
-		"before_submit": "ethal.utils.update_salary_structure_assignment_rate"
+		"before_submit": "ethal.hr.update_salary_structure_assignment_rate"
 	},
 	"Salary Slip": {
-		"before_insert": "ethal.utils.calculate_overtime_in_salary_slip"
+		"before_insert": "ethal.hr.calculate_overtime_in_salary_slip"
 	},
 	"Interview Configuration": {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
@@ -135,13 +135,13 @@ doc_events = {
 		"before_submit": "ethal.utils.set_approver_name"
 	},
 	"Attendance": {
-		"before_submit": "ethal.utils.trigger_mail_if_absent_consecutive_5_days"
+		"before_submit": "ethal.hr.trigger_mail_if_absent_consecutive_5_days"
 	},
 	"Salary Slip": {
 		"before_insert": "ethal.hr.calculate_overtime_in_salary_slip"
 	},
 	"Salary Structure Assignment": {
-		"on_submit": "ethal.utils.before_insert_salary_structure_assignment"
+		"on_submit": "ethal.hr.before_insert_salary_structure_assignment"
 	},
 }
 
@@ -160,7 +160,7 @@ permission_query_conditions = {
 scheduler_events = {
 	"cron": {
 		"59 11 * * 0": [
-			"ethal.utils.shift_rotate"
+			"ethal.hr.shift_rotate"
 		]
 	},
 	"hourly": [
