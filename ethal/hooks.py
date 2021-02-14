@@ -108,6 +108,9 @@ doc_events = {
 	"Salary Slip": {
 		"before_insert": "ethal.hr.calculate_overtime_in_salary_slip"
 	},
+	"Employee": {
+		"on_update": "ethal.hr.on_update_employee"
+	},
 	"Interview Configuration": {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
     },

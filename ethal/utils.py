@@ -102,18 +102,6 @@ def before_submit_stock_entry(doc, method):
         frappe.throw('Incoming Value not equal to Outgoing Value! Please Correct the rate.')
 
 @frappe.whitelist()
-def on_update_employee(doc, method):
-    get_salary_structure_ass = frappe.get_all('Salary Structure Assignment', filters={'employee': doc.employee, 'docstatus': 1})
-    if get_salary_structure_ass:
-        grade = frappe.db.get_value('Employee Grade', doc.grade, 'default_salary_structure')
-        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_structure', grade)
-        employee_grade = frappe.db.get_value('Employee Grade', doc.grade, 'base_amount')
-        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'base', employee_grade)
-        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_in_usd', employee_grade)
-        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'staus', 'Salary Updated')
-        frappe.db.commit()
-
-@frappe.whitelist()
 def set_conversion_rate(employee):
     employee_list = frappe.db.get_all('Payroll Employee Detail', {'employee': employee}, ['parent'], order_by='creation desc', limit=1, as_list=1)
     if employee_list:
