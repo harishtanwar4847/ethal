@@ -69,7 +69,7 @@ def daily_overtime(doc):
             # i = int(i)
             print(i)
             if i > hours:
-                doc.normal_ot_hours = doc.normal_ot_hours + (i - hours)
+                doc.normal_ot_hours += (i - hours)
                 
 def night_overtime(doc):
     holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
@@ -105,7 +105,7 @@ def night_overtime(doc):
         print('time',i)
         # i = int(i)
         if i > hours:
-            doc.night_ot_hours = doc.night_ot_hours + (i - hours)
+            doc.night_ot_hours +=  (i - hours)
     
 def sunday_overtime(doc):
    
