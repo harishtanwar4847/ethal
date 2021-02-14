@@ -153,7 +153,7 @@ doctype_list_js = {
  	}
 
 override_doctype_dashboards = {
-	"Job Applicant": "ethal.utils.override_job_applicant_dashboard"
+	"Job Applicant": "ethal.hr.override_job_applicant_dashboard"
 }
 
 permission_query_conditions = {
