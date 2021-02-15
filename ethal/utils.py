@@ -9,23 +9,6 @@ import itertools
 from erpnext.hr.doctype.employee_checkin.employee_checkin import mark_attendance_and_link_log
 from frappe.utils.background_jobs import enqueue
 
-# def override_job_applicant_dashboard(data):
-#     print(data)
-#     return {
-#         'fieldname': 'job_applicant',
-#         'transactions': [
-#             # {
-#             #     'items': ['Employee', 'Employee Onboarding']
-#             # },
-#             # {
-#             #     'items': ['Job Offer']
-#             # },
-#             # {
-#             #     'items': ['Interview']
-#             # },
-#         ],
-#     }
-
 @frappe.whitelist()
 def before_save_asset_maintenance_log(doc, method):  
     asset_maintenance_task = frappe.get_all('Asset Maintenance Task', filters={'parent': doc.asset_maintenance}, fields=['maintanence_category', 'maintenance_task'])
@@ -190,7 +173,6 @@ def make_salary_slip(source_name, target_doc = None, employee = None, as_print =
 		return frappe.get_print(doc.doctype, doc.name, doc = doc, print_format = print_format)
 	else:
 		return doc
-
 
 
 # def get_employees(doc, **kwargs):

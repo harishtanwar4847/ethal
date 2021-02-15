@@ -98,23 +98,16 @@ def daily_overtime(doc):
             ['status', '=', 'Present']
         ]
 
-        attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
-        attendance_list = []
+        attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours', 'shift'], as_list=True)
+        
         for i in attendances:
-            for j in i:
-                attendance_list.append(j)
-    
-        # shift_start = frappe.db.get_value('Shift Type',shift,'start_time')
-        # shift_end = frappe.db.get_value('Shift Type',shift,'end_time')
-        # shift_time = shift_end - shift_start
-        # hours = shift_time.seconds//3600
-        hours = 8
-        print(hours)
-        for i in attendance_list:
-            # i = int(i)
-            print(i)
-            if i > hours:
-                doc.normal_ot_hours += (i - hours)
+            shift_start = frappe.db.get_value('Shift Type',i[1],'start_time')
+            shift_end = frappe.db.get_value('Shift Type',i[1],'end_time')
+            shift_time = shift_end - shift_start
+            hours = shift_time.seconds//3600
+        
+            if i[0] > hours:
+                doc.normal_ot_hours += (i[0] - hours)
                 
 # def night_overtime(doc):
 #     holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
