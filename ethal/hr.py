@@ -150,7 +150,7 @@ def daily_overtime(doc):
         for i in attendances:
             shift_start = frappe.db.get_value('Shift Type',i[1],'start_time')
             shift_end = frappe.db.get_value('Shift Type',i[1],'end_time')
-            shift_time = shift_end - shift_start
+            shift_time = shift_end - shift_start if shift_end is not None and shift_start is not None else 0
             hours = shift_time.seconds//3600
         
             if i[0] > hours:
