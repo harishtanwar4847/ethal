@@ -347,8 +347,9 @@ def get_employees(doc, **kwargs):
 @frappe.whitelist()
 def before_insert_salary_structure_assignment(doc, method):
     get_employee_base_amount = frappe.db.get_value('Employee Grade', {'default_salary_structure': doc.salary_structure}, 'base_amount')
-    frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
-    frappe.db.commit()   
+    if get_employee_base_amount:
+        frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
+        frappe.db.commit()   
 
 @frappe.whitelist()
 def assign_salary_structure(doc, company=None, grade=None, department=None, designation=None,employee=None,
