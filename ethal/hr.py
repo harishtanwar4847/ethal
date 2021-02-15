@@ -59,12 +59,59 @@ def set_conversion_rate(employee):
 
 @frappe.whitelist()
 def calculate_overtime_in_salary_slip(doc, method):
+    absent_attendances = frappe.get_list('Attendance', [
+        ['employee', '=', doc.employee],
+        ['attendance_date', 'between', [doc.start_date, doc.end_date]],
+        ['status', 'in', ['Absent', 'Half Day']],
+        ['docstatus', '=', 1],
+        ['leave_application', 'is', 'not set']
+    ])
+
+    for i in absent_attendances:
+        process_lop_leave_for_attendance(i.name)
+
+    doc.get_leave_details()
     overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
     if overtime_applicable:
         daily_overtime(doc)
         # night_overtime(doc)
         sunday_overtime(doc)
         holiday_overtime(doc)
+
+def process_lop_leave_for_attendance(attendance_name):
+    attendance = frappe.get_doc('Attendance', attendance_name)
+
+    pending_leave_applications = frappe.get_list('Leave Application', [
+        ['employee', '=', attendance.employee],
+        ['docstatus', '=', 0],
+        ['status', '=', 'Open'],
+        ['from_date', '<=', attendance.attendance_date],
+        ['to_date', '>=', attendance.attendance_date]
+    ])
+
+    for i in pending_leave_applications:
+        leave_application = frappe.get_doc('Leave Application', i.name)
+        leave_application.docstatus = 0
+        leave_application.status = 'Rejected'
+        leave_application.workflow_state = 'Rejected'
+        leave_application.save()
+
+    leave_application = frappe.new_doc('Leave Application')
+    leave_application.employee = attendance.employee
+    leave_application.company = attendance.company
+    leave_application.from_date = attendance.attendance_date.strftime('%Y-%m-%d')
+    leave_application.to_date = attendance.attendance_date.strftime('%Y-%m-%d')
+    leave_application.half_day = 1 if attendance.status == 'Half Day' else 0
+    leave_application.leave_type = 'Leave Without Pay'
+    leave_application.insert()
+
+    leave_application.reload()
+    leave_application.docstatus = 1
+    leave_application.status = 'Approved'
+    leave_application.workflow_state = 'Approved'
+    leave_application.save()
+
+    frappe.db.commit()
     # process_auto_attendance_for_holidays(doc)
 
 @frappe.whitelist()
