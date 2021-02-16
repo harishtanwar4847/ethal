@@ -59,6 +59,7 @@ def set_conversion_rate(employee):
 
 @frappe.whitelist()
 def calculate_overtime_in_salary_slip(doc, method):
+    print('in calculation')
     absent_attendances = frappe.get_list('Attendance', [
         ['employee', '=', doc.employee],
         ['attendance_date', 'between', [doc.start_date, doc.end_date]],
@@ -152,9 +153,19 @@ def daily_overtime(doc):
             shift_end = frappe.db.get_value('Shift Type',i[1],'end_time')
             if shift_end is not None and shift_start is not None:
                 shift_time = shift_end - shift_start
-                hours = shift_time.seconds//3600 if shift_time != 0 else 0 
-                if i[0] > hours:
-                    doc.normal_ot_hours += (i[0] - hours)
+                print('shift time', shift_time)
+                # hours = shift_time.seconds//3600 if shift_time != 0 else 0 
+                # minutes = (shift_time.seconds/60)/300 if shift_time != 0 else 0 
+                # minutes = minutes /100
+                # print('minutes',minutes)
+                hours = shift_time.seconds
+                total = hours/3600
+                # total = round((shift_time).total_seconds() / 3600, 1)
+                print(total)
+                if i[0] > total:
+                    print(i[0])
+                    doc.normal_ot_hours += (i[0] - total)
+        # frappe.throw('ja na')   
                 
 # def night_overtime(doc):
 #     holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
