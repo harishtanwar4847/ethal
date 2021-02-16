@@ -2,6 +2,7 @@ import frappe
 from frappe.utils import getdate, nowdate, cint, flt
 import json
 from datetime import date, timedelta, datetime
+from frappe.utils import add_days, cint, cstr, flt, getdate, rounded, date_diff, money_in_words
 import time
 from frappe.utils import formatdate
 import ast
@@ -72,6 +73,24 @@ def calculate_overtime_in_salary_slip(doc, method):
         process_lop_leave_for_attendance(i.name)
 
     doc.get_leave_details()
+
+    # hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
+    # print(hr_settings)
+    # if hr_settings == 0:
+    #     print('ja na')
+    #     holiday = frappe.db.get_all('Holiday', filters={'description': ['=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+   
+    #     holiday_ = []
+    #     for i in holiday:
+    #         splitdate = i[0].strftime('%Y-%m-%d')
+    #         holiday_.append(splitdate)
+    #     total = date_diff(doc.end_date, doc.start_date) + 1    
+    #     print(total)  
+    #     print('holiday', holiday_)
+    #     print('holiday', len(holiday_))
+        # doc.total_working_days = total - len(holiday_)
+    # frappe.throw('ja na')
+
     overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
     if overtime_applicable:
         daily_overtime(doc)
@@ -306,9 +325,9 @@ def update_salary_structure_assignment_rate(doc, method):
     employee_list = frappe.db.get_all('Payroll Employee Detail', {'parent': doc.name}, ['employee'], as_list=1)
     if employee_list:
         for i in employee_list:
-            get_base_amount = frappe.db.get_value('Salary Structure Assignment', {'employee': i[0]}, 'base')
+            get_base_amount = frappe.db.get_value('Salary Structure Assignment', {'employee': i[0], 'docstatus': ['!=', 2]}, 'base')
             if get_base_amount:
-                frappe.db.set_value('Salary Structure Assignment', {'employee': i[0]}, 'salary_in_birr', int(get_base_amount) * int(doc.conversion_rate))
+                frappe.db.set_value('Salary Structure Assignment', {'employee': i[0], 'docstatus': ['!=', 2]}, 'salary_in_birr', int(get_base_amount) * int(doc.conversion_rate))
                 frappe.db.commit()
 
 def shift_rotate():
