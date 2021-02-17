@@ -59,8 +59,30 @@ def set_conversion_rate(employee):
             return get_conversion_rate
 
 @frappe.whitelist()
-def calculate_overtime_in_salary_slip(doc, method):
-    print('in calculation')
+def before_save_salary_slip(doc, method):
+    doc.normal_ot_hours = 0
+    doc.sunday_ot_hours = 0
+    doc.holiday_ot_hours_ = 0
+    
+    hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
+    if hr_settings == 0:
+        holiday = frappe.db.get_all('Holiday', filters={'description': ['=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+   
+        holiday_ = []
+        for i in holiday:
+            splitdate = i[0].strftime('%Y-%m-%d')
+            holiday_.append(splitdate)
+        total = date_diff(doc.end_date, doc.start_date) + 1    
+        doc.total_working_days = total - len(holiday_)
+
+    overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
+    if overtime_applicable:
+        daily_overtime(doc)
+        # night_overtime(doc)
+        sunday_overtime(doc)
+        holiday_overtime(doc)
+
+def before_insert_salary_slip(doc, method):
     absent_attendances = frappe.get_list('Attendance', [
         ['employee', '=', doc.employee],
         ['attendance_date', 'between', [doc.start_date, doc.end_date]],
@@ -74,29 +96,17 @@ def calculate_overtime_in_salary_slip(doc, method):
 
     doc.get_leave_details()
 
-    # hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
-    # print(hr_settings)
-    # if hr_settings == 0:
-    #     print('ja na')
-    #     holiday = frappe.db.get_all('Holiday', filters={'description': ['=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
+    if hr_settings == 0:
+        holiday = frappe.db.get_all('Holiday', filters={'description': ['=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
    
-    #     holiday_ = []
-    #     for i in holiday:
-    #         splitdate = i[0].strftime('%Y-%m-%d')
-    #         holiday_.append(splitdate)
-    #     total = date_diff(doc.end_date, doc.start_date) + 1    
-    #     print(total)  
-    #     print('holiday', holiday_)
-    #     print('holiday', len(holiday_))
-        # doc.total_working_days = total - len(holiday_)
-    # frappe.throw('ja na')
+        holiday_ = []
+        for i in holiday:
+            splitdate = i[0].strftime('%Y-%m-%d')
+            holiday_.append(splitdate)
+        total = date_diff(doc.end_date, doc.start_date) + 1    
+        doc.total_working_days = total - len(holiday_)
 
-    overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
-    if overtime_applicable:
-        daily_overtime(doc)
-        # night_overtime(doc)
-        sunday_overtime(doc)
-        holiday_overtime(doc)
 
 def process_lop_leave_for_attendance(attendance_name):
     attendance = frappe.get_doc('Attendance', attendance_name)
@@ -148,7 +158,7 @@ def on_update_employee(doc, method):
 
 def daily_overtime(doc):
     holiday = frappe.db.get_all('Holiday', filters={'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
-   
+    
     holiday_ = []
     for i in holiday:
         splitdate = i[0].strftime('%Y-%m-%d')
@@ -168,6 +178,7 @@ def daily_overtime(doc):
         attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours', 'shift'], as_list=True)
         
         for i in attendances:
+            print('shift', i[1])
             shift_start = frappe.db.get_value('Shift Type',i[1],'start_time')
             shift_end = frappe.db.get_value('Shift Type',i[1],'end_time')
             if shift_end is not None and shift_start is not None:
@@ -180,8 +191,10 @@ def daily_overtime(doc):
                 hours = shift_time.seconds
                 total = hours/3600
                 # total = round((shift_time).total_seconds() / 3600, 1)
-                print(total)
-                if i[0] > total:
+                if i[1] == 'Night shift' and i[0] > total:
+                    doc.sunday_ot_hours += (i[0] - total)
+                    print(total)
+                elif i[1] != 'Night shift' and i[0] > total:
                     print(i[0])
                     doc.normal_ot_hours += (i[0] - total)
         # frappe.throw('ja na')   

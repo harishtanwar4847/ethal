@@ -106,7 +106,8 @@ doc_events = {
 		"before_submit": "ethal.hr.update_salary_structure_assignment_rate"
 	},
 	"Salary Slip": {
-		"before_insert": "ethal.hr.calculate_overtime_in_salary_slip"
+		"before_insert": "ethal.hr.before_insert_salary_slip",
+		"get_emp_and_leave_details": "ethal.hr.before_save_salary_slip"
 	},
 	"Employee": {
 		"on_update": "ethal.hr.on_update_employee"
