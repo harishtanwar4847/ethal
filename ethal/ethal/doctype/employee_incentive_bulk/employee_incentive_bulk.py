@@ -18,7 +18,7 @@ class EmployeeIncentiveBulk(Document):
 				additional_salary = frappe.db.exists('Additional Salary', {
 						'employee': employee[0], 
 						'salary_component': self.salary_component,
-						'payroll_date': self.payroll_date, 
+						'payroll_date': self.incentive_date, 
 						'company': company,
 						'docstatus': 1
 					})
@@ -28,7 +28,7 @@ class EmployeeIncentiveBulk(Document):
 					additional_salary.employee = employee[0]
 					additional_salary.salary_component = self.salary_component
 					additional_salary.amount = self.incentive_amount
-					additional_salary.payroll_date = self.payroll_date
+					additional_salary.payroll_date = self.incentive_date
 					additional_salary.company = company
 					additional_salary.submit()
 					# self.db_set('additional_salary', additional_salary.name)

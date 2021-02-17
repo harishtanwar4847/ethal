@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "field_order": [
   "incentive_amount",
-  "payroll_date",
+  "incentive_date",
   "salary_component",
   "column_break_5",
   "additional_salary",
@@ -26,13 +26,6 @@
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Incentive Amount",
-   "reqd": 1
-  },
-  {
-   "fieldname": "payroll_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Payroll Date",
    "reqd": 1
   },
   {
@@ -113,10 +106,17 @@
    "fieldtype": "Table",
    "label": "Employee Details",
    "options": "Payroll Employee Detail"
+  },
+  {
+   "fieldname": "incentive_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Incentive Date",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-12-12 21:18:48.550639",
+ "modified": "2021-02-17 18:05:56.961920",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Employee Incentive Bulk",
