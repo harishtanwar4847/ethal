@@ -199,9 +199,11 @@ def daily_overtime(doc):
                 # total = round((shift_time).total_seconds() / 3600, 1)
                 # my_date = datetime.strptime(i[2], '%Y-%m-%d')
                 day = i[2].strftime('%A')
-                if i[1] == 'Night shift' and i[0] > total and day == 'Saturday':
+                if (i[1] == 'Night shift' and i[0] > total and day == 'Saturday'):
+                    print('in if')
                     doc.sunday_ot_hours += (i[0] - total)
-                elif i[1] != 'Night shift' and i[0] > total:
+                elif ((i[1] != 'Night shift') and (i[0] > total)):
+                    print('in else')
                     doc.normal_ot_hours += (i[0] - total)
         # frappe.throw('ja na')   
                 
