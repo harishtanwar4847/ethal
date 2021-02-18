@@ -141,9 +141,9 @@ doc_events = {
 	"Attendance": {
 		"before_submit": "ethal.hr.trigger_mail_if_absent_consecutive_5_days"
 	},
-	# "Salary Structure Assignment": {
-	# 	"on_submit": "ethal.hr.before_insert_salary_structure_assignment"
-	# },
+	"Salary Structure Assignment": {
+		"on_submit": "ethal.hr.before_insert_salary_structure_assignment"
+	},
 }
 
 doctype_list_js = {

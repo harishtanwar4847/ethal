@@ -158,6 +158,7 @@ def on_update_employee(doc, method):
         grade = frappe.db.get_value('Employee Grade', doc.grade, 'default_salary_structure')
         frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_structure', grade)
         employee_grade = frappe.db.get_value('Employee Grade', doc.grade, 'base_amount')
+        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'grade', doc.grade)
         frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'base', employee_grade)
         frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_in_usd', employee_grade)
         frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'staus', 'Salary Updated')
@@ -182,15 +183,13 @@ def daily_overtime(doc):
             ['status', '=', 'Present']
         ]
 
-        attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours', 'shift'], as_list=True)
+        attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours', 'shift', 'attendance_date'], as_list=True)
         
         for i in attendances:
-            print('shift', i[1])
             shift_start = frappe.db.get_value('Shift Type',i[1],'start_time')
             shift_end = frappe.db.get_value('Shift Type',i[1],'end_time')
             if shift_end is not None and shift_start is not None:
                 shift_time = shift_end - shift_start
-                print('shift time', shift_time)
                 # hours = shift_time.seconds//3600 if shift_time != 0 else 0 
                 # minutes = (shift_time.seconds/60)/300 if shift_time != 0 else 0 
                 # minutes = minutes /100
@@ -198,11 +197,11 @@ def daily_overtime(doc):
                 hours = shift_time.seconds
                 total = hours/3600
                 # total = round((shift_time).total_seconds() / 3600, 1)
-                if i[1] == 'Night shift' and i[0] > total:
+                # my_date = datetime.strptime(i[2], '%Y-%m-%d')
+                day = i[2].strftime('%A')
+                if i[1] == 'Night shift' and i[0] > total and day == 'Saturday':
                     doc.sunday_ot_hours += (i[0] - total)
-                    print(total)
                 elif i[1] != 'Night shift' and i[0] > total:
-                    print(i[0])
                     doc.normal_ot_hours += (i[0] - total)
         # frappe.throw('ja na')   
                 
@@ -396,10 +395,11 @@ def get_employees(doc, **kwargs):
 
 @frappe.whitelist()
 def before_insert_salary_structure_assignment(doc, method):
-    get_employee_base_amount = frappe.db.get_value('Employee Grade', {'default_salary_structure': doc.salary_structure}, 'base_amount')
-    if get_employee_base_amount:
-        frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
-        frappe.db.commit()   
+    # get_employee_base_amount = frappe.db.get_value('Employee Grade', {'default_salary_structure': doc.salary_structure}, 'base_amount')
+    # if get_employee_base_amount:
+    #     frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
+    #     frappe.db.commit()   
+    frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'salary_in_usd', doc.base)
 
 @frappe.whitelist()
 def assign_salary_structure(doc, company=None, grade=None, department=None, designation=None,employee=None,
