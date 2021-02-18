@@ -96,6 +96,13 @@ def before_insert_salary_slip(doc, method):
 
     doc.get_leave_details()
 
+    overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
+    if overtime_applicable:
+        daily_overtime(doc)
+        # night_overtime(doc)
+        sunday_overtime(doc)
+        holiday_overtime(doc)
+
     hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
     if hr_settings == 0:
         holiday = frappe.db.get_all('Holiday', filters={'description': ['=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
