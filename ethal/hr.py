@@ -63,7 +63,8 @@ def before_save_salary_slip(doc, method):
     doc.normal_ot_hours = 0
     doc.sunday_ot_hours = 0
     doc.holiday_ot_hours_ = 0
-    
+    doc.total_working_days = 0
+
     hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
     if hr_settings == 0:
         holiday = frappe.db.get_all('Holiday', filters={'description': ['=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
@@ -72,7 +73,7 @@ def before_save_salary_slip(doc, method):
         for i in holiday:
             splitdate = i[0].strftime('%Y-%m-%d')
             holiday_.append(splitdate)
-        total = date_diff(doc.end_date, doc.start_date) + 1    
+        total = date_diff(doc.end_date, doc.start_date) + 1  
         doc.total_working_days = total - len(holiday_)
 
     overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
@@ -86,6 +87,7 @@ def before_insert_salary_slip(doc, method):
     doc.normal_ot_hours = 0
     doc.sunday_ot_hours = 0
     doc.holiday_ot_hours_ = 0
+    doc.total_working_days = 0
 
     absent_attendances = frappe.get_list('Attendance', [
         ['employee', '=', doc.employee],
@@ -117,7 +119,6 @@ def before_insert_salary_slip(doc, method):
             holiday_.append(splitdate)
         total = date_diff(doc.end_date, doc.start_date) + 1    
         doc.total_working_days = total - len(holiday_)
-
 
 def process_lop_leave_for_attendance(attendance_name):
     attendance = frappe.get_doc('Attendance', attendance_name)
