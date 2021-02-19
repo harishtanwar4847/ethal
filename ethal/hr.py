@@ -83,6 +83,10 @@ def before_save_salary_slip(doc, method):
         holiday_overtime(doc)
 
 def before_insert_salary_slip(doc, method):
+    doc.normal_ot_hours = 0
+    doc.sunday_ot_hours = 0
+    doc.holiday_ot_hours_ = 0
+
     absent_attendances = frappe.get_list('Attendance', [
         ['employee', '=', doc.employee],
         ['attendance_date', 'between', [doc.start_date, doc.end_date]],
