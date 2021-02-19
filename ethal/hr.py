@@ -192,22 +192,19 @@ def daily_overtime(doc):
         attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours', 'shift', 'attendance_date'], as_list=True)
         
         for i in attendances:
+            print(i)
             shift_start = frappe.db.get_value('Shift Type',i[1],'start_time')
             shift_end = frappe.db.get_value('Shift Type',i[1],'end_time')
             if shift_end is not None and shift_start is not None:
                 shift_time = shift_end - shift_start
-                # hours = shift_time.seconds//3600 if shift_time != 0 else 0 
-                # minutes = (shift_time.seconds/60)/300 if shift_time != 0 else 0 
-                # minutes = minutes /100
-                # print('minutes',minutes)
                 hours = shift_time.seconds
                 total = hours/3600
-                # total = round((shift_time).total_seconds() / 3600, 1)
-                # my_date = datetime.strptime(i[2], '%Y-%m-%d')
                 day = i[2].strftime('%A')
                 if (i[1] == 'Night shift' and i[0] > total and day == 'Saturday'):
                     doc.sunday_ot_hours += (i[0] - total)
-                elif ((i[1] != 'Night shift') and (i[0] > total)):
+                elif (i[1] == 'Night shift' and i[0] > total and day != 'Saturday'):
+                    doc.normal_ot_hours += (i[0] - total)
+                elif (i[1] != 'Night shift' and i[0] > total):
                     doc.normal_ot_hours += (i[0] - total)
         # frappe.throw('ja na')   
                 
