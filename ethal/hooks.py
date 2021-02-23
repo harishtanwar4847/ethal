@@ -90,17 +90,17 @@ app_include_js = "/assets/ethal/js/transaction.js"
 # }
 doc_events = {
 	"Asset Maintenance Log": {
-		"after_insert": "ethal.utils.before_save_asset_maintenance_log",
-		"on_submit": "ethal.utils.create_stock_entry"
+		"after_insert": "ethal.assets.before_save_asset_maintenance_log",
+		"on_submit": "ethal.assets.create_stock_entry"
 	},
 	"Asset Repair": {
-		"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
+		"on_submit": "ethal.assets.create_stock_entry_from_asset_repair"
 	},
 	"Leave Allocation": {
 		"on_submit": "ethal.hr.before_submit_leave_allocation"
 	},
 	"*": {
-		"before_submit": "ethal.utils.before_submit_all_doctypes"
+		"before_submit": "ethal.accounts.before_submit_all_doctypes"
 	},
 	"Payroll Entry": {
 		"before_submit": "ethal.hr.update_salary_structure_assignment_rate"
@@ -116,24 +116,27 @@ doc_events = {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
     },
 	"Payment Entry": {
-		"validate": "ethal.utils.before_insert_payment_entry",
-		"before_submit": "ethal.utils.set_approver_name"
+		"validate": "ethal.accounts.before_insert_payment_entry",
+		"before_submit": "ethal.accounts.set_approver_name"
+	},
+	"Stock Entry": {
+		"before_submit": "ethal.accounts.before_submit_stock_entry"
 	},
 	"Sales Invoice": {
-		"validate": "ethal.utils.before_insert_sales_invoice",
-		"before_submit": "ethal.utils.set_approver_name"
+		"validate": "ethal.accounts.before_insert_sales_invoice",
+		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Sales Order": {
-		"before_submit": "ethal.utils.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Purchase Order": {
-		"before_submit": "ethal.utils.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name"
 	},	
 	"Purchase Invoice": {
-		"before_submit": "ethal.utils.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Material Request": {
-		"before_submit": "ethal.utils.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Payment Request and Authorization": {
 		"before_submit": "ethal.utils.set_approver_name"
@@ -246,7 +249,7 @@ fixtures = [
 			[
 				"name",
 				"in",
-				['Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller']
+				['Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
 			]
 		]
 	},
@@ -256,11 +259,10 @@ fixtures = [
 			[
 			"dt",
 			"in",
-			['Employee', 'Salary Structure', 'Salary Structure Assignment', 'Payment Entry', 'Job Applicant']
+			['Salary Structure', 'Salary Structure Assignment', 'Payment Entry', 'Job Applicant', 'Job Opening', 'Salary Slip', 'Purchase Invoice', 'Sales Invoice', 'Asset Maintenance Log', 'Asset Repair', 'Quotation', 'Delivery Note', 'Item']
 			]
 		]
 	},
 	"Translation",
-	"Custom Script",
 	"Shift Type",
 ]

@@ -27,7 +27,8 @@ frappe.ui.form.on('Import Cost Sheet', {
 		}
 	},
 	grn: function(frm){
-	
+		frm.clear_table("import_cost_sheet_details"); 
+		frm.refresh_field('import_cost_sheet_details');
 		frappe.call({
 			method:"ethal.ethal.doctype.import_cost_sheet.import_cost_sheet.get_value",
 			args: {
@@ -43,56 +44,10 @@ frappe.ui.form.on('Import Cost Sheet', {
 			let row = frm.add_child('import_cost_sheet_details')
 			row.parameters= success.message[i].item_code
 			row.qty = success.message[i].qty
-			// row.amount = success.message[i].amount
-			
-			// 	console.log(success.message[i])
-			// 	switch(success.message[i].item_name) {
-			// 		case "Sea Fright":
-			// 			row.sea_fright_etb = success.message[i].amount
-			// 			break;
-			// 		case "Inland Fright":
-			// 			row.inland_fright_etb = success.message[i].amount
-			// 		    break;
-			// 		case "Insurance":
-			// 			row.insurance_etb = success.message[i].amount
-			// 		  	break;
-			// 		case "Import Customs Duty":
-			// 			row.import_customs_duty_etb = success.message[i].amount
-			// 			break;
-			// 		case "Other":
-			// 			row.other_etb = success.message[i].amount
-			// 		  	break;
-			// 		case "Bank charge":
-			// 			row.bank_charge_etb = success.message[i].amount
-			// 		  	break;
-			// 		case "Storage":
-			// 			row.storage_etb = success.message[i].amount
-			// 			break;
-			// 		case "Port handling charge":
-			// 			row.port_handling_charge_etb = success.message[i].amount
-			// 		  	break;
-			// 		case "Transit and clearing":
-			// 			row.transit_and_clearing_etb = success.message[i].amount
-			// 		  	break;
-			// 		case "Loading and unloading":
-			// 			row.loading_and_unloading_etb = success.message[i].amount
-			// 			break;
-			// 		case "Inland transport":
-			// 			row.inland_transport_etb = success.message[i].amount
-			// 		  	break;
-			// 		case "Miscellaneous":
-			// 			row.miscellaneous_etb = success.message[i].amount
-			// 		  	break;
-			// 	  }
-			// row.amount = total_amount
 	    }
 		  frm.refresh_field('import_cost_sheet_details');
 		})
-	},
-	
-	// amount: function(frm, cdt, cdn){
-	// 	console.log('ja na be')
-	// }
+	}
 });
 
 frappe.ui.form.on('Import Cost Sheet Details', {
