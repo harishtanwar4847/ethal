@@ -479,7 +479,7 @@
   "doctype": "Workflow",
   "document_type": "Payment Entry",
   "is_active": 1,
-  "modified": "2020-06-03 16:15:15.929402",
+  "modified": "2021-02-23 23:13:34.841346",
   "name": "Payment Entry Approval",
   "override_status": 0,
   "parent": null,
@@ -538,6 +538,19 @@
     "state": "Cancelled",
     "update_field": "status",
     "update_value": "Cancelled"
+   },
+   {
+    "allow_edit": "Payment Entry Approver",
+    "doc_status": "2",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Payment Entry Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Void",
+    "update_field": "status",
+    "update_value": "Void"
    }
   ],
   "transitions": [
@@ -575,6 +588,17 @@
     "state": "Approved"
    },
    {
+    "action": "Void",
+    "allow_self_approval": 1,
+    "allowed": "Payment Entry Approver",
+    "condition": null,
+    "next_state": "Void",
+    "parent": "Payment Entry Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Approved"
+   },
+   {
     "action": "Approve",
     "allow_self_approval": 1,
     "allowed": "CRV Approver",
@@ -608,6 +632,17 @@
     "state": "Approved"
    },
    {
+    "action": "Void",
+    "allow_self_approval": 1,
+    "allowed": "CRV Approver",
+    "condition": null,
+    "next_state": "Void",
+    "parent": "Payment Entry Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Approved"
+   },
+   {
     "action": "Approve",
     "allow_self_approval": 1,
     "allowed": "PCPV Approver",
@@ -635,6 +670,17 @@
     "allowed": "PCPV Approver",
     "condition": null,
     "next_state": "Cancelled",
+    "parent": "Payment Entry Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Approved"
+   },
+   {
+    "action": "Void",
+    "allow_self_approval": 1,
+    "allowed": "PCPV Approver",
+    "condition": null,
+    "next_state": "Void",
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
     "parenttype": "Workflow",
