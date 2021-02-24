@@ -1,0 +1,67 @@
+{
+ "autoname": "Annealing-.MM.-.#####",
+ "creation": "2021-02-04 14:18:42.319524",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "day",
+  "column_break_3",
+  "month",
+  "section_break_5",
+  "annealing_items"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "day",
+   "fieldtype": "Data",
+   "label": "Day"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Data",
+   "label": "Month"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "annealing_items",
+   "fieldtype": "Table",
+   "options": "Annealing Items"
+  }
+ ],
+ "modified": "2021-02-24 10:15:42.946752",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Annealing",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
