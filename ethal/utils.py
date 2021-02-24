@@ -11,8 +11,16 @@ from frappe.utils.background_jobs import enqueue
 
 @frappe.whitelist()
 def set_approver_name(doc, method):
-    doc.approver_person = doc.modified_by
-    doc.approver_date = doc.modified
+	doc.approver_person = doc.modified_by
+	doc.approver_date = doc.modified
+
+	get_approver_name = frappe.db.get_value('Comment', {'reference_name':doc.name, 'content': 'Sent for Approval'}, 'owner')
+	print(get_approver_name)
+	get_approved_date = frappe.db.get_value('Comment', {'reference_name':doc.name, 'content': 'Sent for Approval'}, 'modified')
+	print(get_approved_date)
+	frappe.db.set_value(doc.doctype, {'name': doc.name}, 'checked_person', get_approver_name)
+	frappe.db.set_value(doc.doctype, {'name': doc.name}, 'checked_date', get_approved_date)
+
 
 @frappe.whitelist()
 def make_salary_slip(source_name, target_doc = None, employee = None, as_print = False, print_format = None, for_preview=0, ignore_permissions=False):

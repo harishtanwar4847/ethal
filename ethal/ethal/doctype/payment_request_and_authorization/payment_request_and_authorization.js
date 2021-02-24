@@ -9,6 +9,18 @@ frappe.ui.form.on('Payment Request and Authorization', {
 			})
 
 		}
+		if(frm.doc.workflow_state == 'Sent For Approval' && !frm.doc.checked_person){
+			frappe.call({
+				method: "ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.set_approver_name",
+				args: {
+					data: frm.doc
+				}
+			})
+			.success(success =>{
+				console.log(success)
+			})
+		} 
+
 	},
 	setup: function(frm){
 		frm.set_query("party_type", function() {
@@ -27,17 +39,7 @@ frappe.ui.form.on('Payment Request and Authorization', {
 			frappe.throw(__("Party can only be one of "+ party_types.join(", ")));
 		}
 	},
-   onload: function(frm){
-		if(frm.doc.workflow_state == 'Sent For Approval' && !frm.doc.checked_person){
-			frappe.call({
-				method: "ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.set_approver_name",
-				args: {
-					data: frm.doc
-				}
-			})
-			.success(success =>{
-				console.log(success)
-			})
-		} 
-	}
+//    onload: function(frm){
+		
+// 	}
 });
