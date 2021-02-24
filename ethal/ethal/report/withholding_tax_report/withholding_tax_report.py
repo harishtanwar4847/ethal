@@ -11,30 +11,60 @@ def execute(filters=None):
 	return columns, data
 
 def get_data(filters):
-	return frappe.db.sql("""
-		SELECT
-			pi.name,
-			pi.tax_id,
-			pi.supplier_name,
-			a.state,
-			a.county,
-			a.city,
-			a.address_line1,
-			s.withholding_category,
-			pi.net_total,
-			ptc.tax_amount,
-			pi.withholding_receipt_no,
-			pi.withholding_receipt_date
-		FROM
-			`tabPurchase Invoice` as pi,
-			`tabSupplier` as s,
-			`tabPurchase Taxes and Charges` as ptc,
-			`tabAddress` as a
-		WHERE
-			s.name = pi.supplier
-			AND ptc.parent = pi.name
-			AND ptc.account_head = '21100-03 - Withholding Tax Payable on Purchase ( Type Tax ) - E21'
-			AND pi.docstatus='1'
-			AND a.name = pi.supplier_address
-			AND pi.withholding_receipt_date between '{}' and '{}'
-	""".format(filters.from_date, filters.to_date))
+	if filters.from_no and filters.to_no:
+		return frappe.db.sql("""
+			SELECT
+				pi.name,
+				pi.tax_id,
+				pi.supplier_name,
+				a.state,
+				a.county,
+				a.city,
+				a.address_line1,
+				s.withholding_category,
+				pi.net_total,
+				ptc.tax_amount,
+				pi.withholding_receipt_no,
+				pi.withholding_receipt_date
+			FROM
+				`tabPurchase Invoice` as pi,
+				`tabSupplier` as s,
+				`tabPurchase Taxes and Charges` as ptc,
+				`tabAddress` as a
+			WHERE
+				s.name = pi.supplier
+				AND ptc.parent = pi.name
+				AND ptc.account_head = '21100-03 - Withholding Tax Payable on Purchase ( Type Tax ) - E21'
+				AND pi.docstatus='1'
+				AND a.name = pi.supplier_address
+				AND pi.withholding_receipt_date between '{0}' and '{1}'
+				AND pi.withholding_receipt_no between {2} and {3}
+		""".format(filters.from_date, filters.to_date, filters.from_no, filters.to_no))
+	else:
+		return frappe.db.sql("""
+			SELECT
+				pi.name,
+				pi.tax_id,
+				pi.supplier_name,
+				a.state,
+				a.county,
+				a.city,
+				a.address_line1,
+				s.withholding_category,
+				pi.net_total,
+				ptc.tax_amount,
+				pi.withholding_receipt_no,
+				pi.withholding_receipt_date
+			FROM
+				`tabPurchase Invoice` as pi,
+				`tabSupplier` as s,
+				`tabPurchase Taxes and Charges` as ptc,
+				`tabAddress` as a
+			WHERE
+				s.name = pi.supplier
+				AND ptc.parent = pi.name
+				AND ptc.account_head = '21100-03 - Withholding Tax Payable on Purchase ( Type Tax ) - E21'
+				AND pi.docstatus='1'
+				AND a.name = pi.supplier_address
+				AND pi.withholding_receipt_date between '{0}' and '{1}'
+		""".format(filters.from_date, filters.to_date))
