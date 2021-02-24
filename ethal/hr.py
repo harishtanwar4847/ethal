@@ -362,12 +362,14 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
 
 @frappe.whitelist()
 def update_salary_structure_assignment_rate(doc, method):
+    print('in update')
     employee_list = frappe.db.get_all('Payroll Employee Detail', {'parent': doc.name}, ['employee'], as_list=1)
     if employee_list:
         for i in employee_list:
             get_base_amount = frappe.db.get_value('Salary Structure Assignment', {'employee': i[0], 'docstatus': ['!=', 2]}, 'base')
             if get_base_amount:
-                frappe.db.set_value('Salary Structure Assignment', {'employee': i[0], 'docstatus': ['!=', 2]}, 'salary_in_birr', int(get_base_amount) * int(doc.conversion_rate))
+                print(get_base_amount*doc.conversion_rate)
+                frappe.db.set_value('Salary Structure Assignment', {'employee': i[0], 'docstatus': ['!=', 2]}, 'salary_in_birr', float(get_base_amount) * doc.conversion_rate)
                 frappe.db.commit()
 
 def shift_rotate():
