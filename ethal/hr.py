@@ -189,11 +189,12 @@ def on_update_employee(doc, method):
         # grade = frappe.db.get_value('Employee Grade', doc.grade, 'default_salary_structure')
         # frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_structure', grade)
         employee_grade = frappe.db.get_value('Employee Grade', doc.grade, 'base_amount')
-        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'grade', doc.grade)
-        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'base', employee_grade)
-        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_in_usd', employee_grade)
-        frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'staus', 'Salary Updated')
-        frappe.db.commit()
+        if employee_grade:
+            frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'grade', doc.grade)
+            frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'base', employee_grade)
+            frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'salary_in_usd', employee_grade)
+            frappe.db.set_value('Salary Structure Assignment', {'name': get_salary_structure_ass[0].name}, 'staus', 'Salary Updated')
+            frappe.db.commit()
 
 def daily_overtime(doc):
     employee_holiday = frappe.db.get_value('Employee', doc.employee, 'holiday_list')
