@@ -12,6 +12,7 @@
   "column_break_3",
   "date_of_request",
   "date_of_requirement",
+  "payment_request_for",
   "description_of_requirement_section",
   "payment_type",
   "payment_mode",
@@ -180,10 +181,16 @@
    "fieldtype": "Link",
    "label": "Party Type",
    "options": "DocType"
+  },
+  {
+   "fieldname": "payment_request_for",
+   "fieldtype": "Select",
+   "label": "Payment Request For",
+   "options": "\nPacking Material"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-02-05 17:48:08.932614",
+ "modified": "2021-02-25 13:44:01.016932",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
