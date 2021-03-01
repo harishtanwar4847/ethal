@@ -1132,7 +1132,7 @@
   {
    "fieldname": "port_of_origin",
    "fieldtype": "Data",
-   "label": "Port of Origin"
+   "label": "Port of Loading"
   },
   {
    "fieldname": "port_of_discharge",
@@ -1186,140 +1186,160 @@
    "fieldname": "applied_for_foreign_currency",
    "fieldtype": "Select",
    "label": "Applied for foreign currency ",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.applied_for_foreign_currency == 'Yes'",
    "fieldname": "foreign_currency_approved_by_bank",
    "fieldtype": "Select",
    "label": "Foreign Currency Approved by Bank",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.foreign_currency_approved_by_bank == 'Yes'",
    "fieldname": "applied_for_bank_permit",
    "fieldtype": "Select",
    "label": "Applied for Bank Permit",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.applied_for_bank_permit=='Yes'",
    "fieldname": "bank_permit_approved",
    "fieldtype": "Select",
    "label": "Bank Permit Approved",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.bank_permit_approved == 'Yes'",
    "fieldname": "supplier_loaded_goods",
    "fieldtype": "Select",
    "label": "Supplier Loaded Goods",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.supplier_loaded_goods=='Yes'",
    "fieldname": "supplier_sent_documents_for_approval",
    "fieldtype": "Select",
    "label": "Supplier sent documents for Approval",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.supplier_sent_documents_for_approval=='Yes'",
    "fieldname": "documents_approved_by_import_manager",
    "fieldtype": "Select",
    "label": "Documents Approved by Import Manager",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.documents_approved_by_import_manager=='Yes'",
    "fieldname": "set_of_documents_received_from_supplier",
    "fieldtype": "Select",
    "label": "Set of Documents Received from supplier",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.set_of_documents_received_from_supplier=='Yes'",
    "fieldname": "sea_freight_payment_done",
    "fieldtype": "Select",
    "label": "Sea Freight Payment Done",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.sea_freight_payment_done=='Yes'",
    "fieldname": "container_deposit_payment_done",
    "fieldtype": "Select",
    "label": "Container Deposit Payment Done",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.container_deposit_payment_done=='Yes'",
    "fieldname": "inland_freight_payment_done",
    "fieldtype": "Select",
    "label": "Inland Freight Payment Done",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.inland_freight_payment_done=='Yes'",
    "fieldname": "port_clearing_charges_paid",
    "fieldtype": "Select",
    "label": "Port Clearing Charges Paid",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.port_clearing_charges_paid=='Yes'",
    "fieldname": "set_of_documents_submitted_to_clearing_agent",
    "fieldtype": "Select",
    "label": "Set of Documents Submitted to Clearing Agent",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.set_of_documents_submitted_to_clearing_agent=='Yes'",
    "fieldname": "draft_custom_declaration_received",
    "fieldtype": "Select",
    "label": "Draft Custom Declaration Received",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.draft_custom_declaration_received=='Yes'",
    "fieldname": "cpo_submitted",
    "fieldtype": "Select",
    "label": "CPO Submitted",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.cpo_submitted == 'Yes'",
    "fieldname": "storage_amount_payment_done",
    "fieldtype": "Select",
    "label": "Storage Amount Payment done",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.storage_amount_payment_done=='Yes'",
    "fieldname": "cargo_dispatched_from_port",
    "fieldtype": "Select",
    "label": "Cargo Dispatched from Port",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.cargo_dispatched_from_port == 'Yes'",
    "fieldname": "goods_received_at_factory",
    "fieldtype": "Select",
    "label": "Goods Received at Factory",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.goods_received_at_factory=='Yes'",
    "fieldname": "grn_received_from_factory",
    "fieldtype": "Select",
    "label": "GRN Received from Factory",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "depends_on": "eval:doc.grn_received_from_factory=='Yes'",
    "fieldname": "documents_submitted_from_clearing_agent_for_payment",
    "fieldtype": "Select",
    "label": "Documents Submitted from Clearing Agent for Payment",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo",
+   "set_only_once": 1
   },
   {
    "fieldname": "data_160",
@@ -1339,7 +1359,7 @@
  "icon": "fa fa-file-text",
  "idx": 105,
  "is_submittable": 1,
- "modified": "2021-01-20 15:26:29.977789",
+ "modified": "2021-03-01 18:34:48.182627",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import PO",
