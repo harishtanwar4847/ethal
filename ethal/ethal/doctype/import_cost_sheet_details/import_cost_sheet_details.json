@@ -4,7 +4,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "parameters",
+  "item_code",
   "item_name",
   "qty",
   "amount",
@@ -22,18 +22,17 @@
   "inland_transport_etb",
   "miscellaneous_etb",
   "total_actual_cost",
-  "customs_valuation_difference_etb",
   "grand_total_cost_etb",
-  "unit_cost_per_kg_etb"
+  "unit_cost_per_kg_etb",
+  "column_break_21",
+  "tax_1",
+  "tax_3",
+  "tax_4",
+  "tax_5",
+  "tax_15",
+  "tax_16"
  ],
  "fields": [
-  {
-   "fieldname": "parameters",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Parameters ",
-   "options": "Item"
-  },
   {
    "fieldname": "amount",
    "fieldtype": "Float",
@@ -119,7 +118,7 @@
    "label": "Amount ( ETB )"
   },
   {
-   "fetch_from": "parameters.item_name",
+   "fetch_from": "item_code.item_name",
    "fieldname": "item_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -129,12 +128,6 @@
    "fieldname": "total_actual_cost",
    "fieldtype": "Float",
    "label": "Total Actual Cost"
-  },
-  {
-   "fieldname": "customs_valuation_difference_etb",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "Customs valuation difference (ETB) "
   },
   {
    "fieldname": "grand_total_cost_etb",
@@ -149,11 +142,53 @@
   {
    "fieldname": "qty",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Qty"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tax_1",
+   "fieldtype": "Float",
+   "label": "Tax 1"
+  },
+  {
+   "fieldname": "tax_3",
+   "fieldtype": "Float",
+   "label": "Tax 3"
+  },
+  {
+   "fieldname": "tax_4",
+   "fieldtype": "Float",
+   "label": "Tax 4"
+  },
+  {
+   "fieldname": "tax_5",
+   "fieldtype": "Float",
+   "label": "Tax 5"
+  },
+  {
+   "fieldname": "tax_15",
+   "fieldtype": "Float",
+   "label": "Tax 15"
+  },
+  {
+   "fieldname": "tax_16",
+   "fieldtype": "Float",
+   "label": "Tax 16"
   }
  ],
  "istable": 1,
- "modified": "2021-01-29 13:50:38.336684",
+ "modified": "2021-03-01 19:01:51.767717",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet Details",

@@ -10,10 +10,11 @@
   "bl",
   "purchase_invoice",
   "usd_value",
+  "customs_declaration_no",
   "column_break_4",
   "supplier_name",
   "grn",
-  "invoice_value",
+  "purchase_invoice_value",
   "exchange_rate",
   "section_break_7",
   "import_cost_sheet_details",
@@ -95,18 +96,23 @@
    "label": "USD Value"
   },
   {
-   "fetch_from": "purchase_invoice.total",
-   "fieldname": "invoice_value",
-   "fieldtype": "Currency",
-   "label": "Invoice value"
-  },
-  {
    "fieldname": "exchange_rate",
    "fieldtype": "Currency",
    "label": "Exchange Rate"
+  },
+  {
+   "fetch_from": "purchase_invoice.total",
+   "fieldname": "purchase_invoice_value",
+   "fieldtype": "Currency",
+   "label": "Purchase Invoice value"
+  },
+  {
+   "fieldname": "customs_declaration_no",
+   "fieldtype": "Data",
+   "label": "Customs Declaration No"
   }
  ],
- "modified": "2021-01-26 15:01:27.115444",
+ "modified": "2021-03-01 18:56:28.683653",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet",

@@ -64,7 +64,7 @@ frappe.ui.form.on('Import Cost Sheet', {
 			}
 			for (var i=0; i<success.message.length; i++){
 				let row = frm.add_child('import_cost_sheet_details')
-				row.parameters= success.message[i].item_code
+				row.item_code= success.message[i].item_code
 				row.qty = success.message[i].qty
 			}
 			frm.refresh_field('import_cost_sheet_details');

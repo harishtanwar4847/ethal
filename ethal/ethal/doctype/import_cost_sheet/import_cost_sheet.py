@@ -50,19 +50,19 @@ class ImportCostSheet(Document):
 				miscellaneous_etb = i.amount 
  
 		for j in self.import_cost_sheet_details:
-			j.amount__etb_ = j.amount * self.exchange_rate if j.amount else 0
-			j.sea_fright_etb = (sea_fright_etb/self.usd_value)*j.amount if j.amount else 0
-			j.inland_fright_etb = (inland_fright_etb/self.usd_value)*j.amount if j.amount else 0
-			j.insurance_etb = (insurance_etb/self.usd_value)*j.amount if j.amount else 0
-			j.import_customs_duty_etb = (import_customs_duty_etb/self.usd_value)*j.amount if j.amount else 0 
-			j.other_etb = (other_etb/self.usd_value)*j.amount if j.amount else 0
-			j.bank_charge_etb = (bank_charge_etb/self.usd_value)*j.amount if j.amount else 0 
-			j.storage_etb = (storage_etb/self.usd_value)*j.amount if j.amount else 0
-			j.port_handling_charge_etb = (port_handling_charge_etb/self.usd_value)*j.amount if j.amount else 0
-			j.transit_and_clearing_etb = (transit_and_clearing_etb/self.usd_value)*j.amount if j.amount else 0
-			j.loading_and_unloading_etb = (loading_and_unloading_etb/self.usd_value)*j.amount if j.amount else 0
-			j.inland_transport_etb = (inland_transport_etb/self.usd_value)*j.amount if j.amount else 0
-			j.miscellaneous_etb = (miscellaneous_etb/self.usd_value)*j.amount if j.amount else 0
+			j.amount__etb_ = j.amount * self.exchange_rate if j.amount and self.exchange_rate else 0
+			j.sea_fright_etb = (sea_fright_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
+			j.inland_fright_etb = (inland_fright_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
+			j.insurance_etb = (insurance_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
+			j.import_customs_duty_etb = (import_customs_duty_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0 
+			j.other_etb = (other_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
+			j.bank_charge_etb = (bank_charge_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0 
+			j.storage_etb = (storage_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
+			j.port_handling_charge_etb = (port_handling_charge_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
+			j.transit_and_clearing_etb = (transit_and_clearing_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
+			j.loading_and_unloading_etb = (loading_and_unloading_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
+			j.inland_transport_etb = (inland_transport_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
+			j.miscellaneous_etb = (miscellaneous_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
 			j.total_actual_cost =  j.amount__etb_ + j.sea_fright_etb+j.inland_fright_etb+j.insurance_etb+j.import_customs_duty_etb+j.other_etb+j.bank_charge_etb+j.storage_etb+j.port_handling_charge_etb+j.transit_and_clearing_etb+j.loading_and_unloading_etb+j.inland_transport_etb+j.miscellaneous_etb 
 			j.grand_total_cost_etb = j.total_actual_cost + j.customs_valuation_difference_etb if j.customs_valuation_difference_etb else 0
 			j.unit_cost_per_kg_etb = j.grand_total_cost_etb / j.qty
