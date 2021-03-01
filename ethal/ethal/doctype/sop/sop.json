@@ -1,0 +1,69 @@
+{
+ "autoname": "SOP-{YYYY}-{#####}",
+ "creation": "2021-03-01 19:14:09.012534",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "name1",
+  "column_break_3",
+  "process_",
+  "section_break_3",
+  "content"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name",
+   "options": "\n"
+  },
+  {
+   "fieldname": "content",
+   "fieldtype": "Text Editor",
+   "label": "Content"
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "process_",
+   "fieldtype": "Select",
+   "label": "Process",
+   "options": "\nBuying\nMaintenance\nAccounts\nManufacturing\nSelling\nInventory\nHR\nFinance\nAdministration\nCo-operate Affairs"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "modified": "2021-03-01 19:21:09.357250",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "SOP",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
