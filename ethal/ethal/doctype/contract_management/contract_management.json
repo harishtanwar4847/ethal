@@ -1,0 +1,125 @@
+{
+ "autoname": "CM-{YYYY}-{#####}",
+ "creation": "2021-03-01 19:37:01.173973",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "contract_type",
+  "contract_for",
+  "contractor_name",
+  "employee",
+  "reference_number",
+  "is_renewable",
+  "start_date",
+  "expiry_date",
+  "contract_value",
+  "details_of_contract",
+  "renewal_remider_days",
+  "payments_details",
+  "remarks",
+  "responsibility"
+ ],
+ "fields": [
+  {
+   "fieldname": "contract_type",
+   "fieldtype": "Select",
+   "label": "Contract Type",
+   "options": "\nOthers\nLease\nProfessional Service\nInsurance\nLicenses\nEmployee Permits"
+  },
+  {
+   "depends_on": "eval: doc.contract_type == 'Insurance' || doc.contract_type == 'Licenses' || doc.contract_type == 'Employee Permits'",
+   "fieldname": "contract_for",
+   "fieldtype": "Select",
+   "label": "Contract For"
+  },
+  {
+   "depends_on": "eval: doc.contract_type != 'Licenses' && doc.contract_type != 'Employee Permits'",
+   "fieldname": "contractor_name",
+   "fieldtype": "Data",
+   "label": "Contractor Name"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "reference_number",
+   "fieldtype": "Data",
+   "label": "Reference Number"
+  },
+  {
+   "fieldname": "is_renewable",
+   "fieldtype": "Select",
+   "label": "Is Renewable ",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "start date"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "expiry date"
+  },
+  {
+   "fieldname": "contract_value",
+   "fieldtype": "Currency",
+   "label": "Contract Value"
+  },
+  {
+   "fieldname": "details_of_contract",
+   "fieldtype": "Small Text",
+   "label": "Details of Contract"
+  },
+  {
+   "depends_on": "eval: doc.is_renewable == 'Yes'",
+   "fieldname": "renewal_remider_days",
+   "fieldtype": "Int",
+   "label": "Renewal Remider Days"
+  },
+  {
+   "fieldname": "payments_details",
+   "fieldtype": "Link",
+   "label": "Payments details ",
+   "options": "Payment Entry"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "responsibility",
+   "fieldtype": "Link",
+   "label": "Responsibility",
+   "options": "Employee"
+  }
+ ],
+ "modified": "2021-03-01 20:23:44.940901",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Contract Management",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
