@@ -8,17 +8,20 @@
   "contract_type",
   "contract_for",
   "contractor_name",
-  "employee",
-  "reference_number",
-  "is_renewable",
   "start_date",
-  "expiry_date",
+  "column_break_6",
+  "employee",
   "contract_value",
+  "reference_number",
+  "expiry_date",
+  "section_break_11",
   "details_of_contract",
-  "renewal_remider_days",
   "payments_details",
-  "remarks",
-  "responsibility"
+  "column_break_16",
+  "is_renewable",
+  "renewal_remider_days",
+  "responsibility",
+  "remarks"
  ],
  "fields": [
   {
@@ -40,6 +43,7 @@
    "label": "Contractor Name"
   },
   {
+   "depends_on": "eval: doc.contract_type == 'Employee Permits'",
    "fieldname": "employee",
    "fieldtype": "Link",
    "label": "Employee",
@@ -98,9 +102,21 @@
    "fieldtype": "Link",
    "label": "Responsibility",
    "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2021-03-01 20:23:44.940901",
+ "modified": "2021-03-02 17:00:53.441068",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Contract Management",
