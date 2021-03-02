@@ -17,13 +17,13 @@ def get_date(filters):
 				shift_b_in_nos, shift_b_in_kg, shift_c_in_nos, shift_c_in_kg, total_pieces, total_weight, heats
 			from `tabMelting Furnace Items`	
 			where parent = '{0}'	
-			order by idx	
+			order by parent	
 		""".format(filters.melting_furnace))
 	else:
 		return frappe.db.sql("""
 			select parent, mf, cast(rolling_ingot_weight as decimal(10,6)), cast(no_of_ingots_per_heat as int), shift_a_in_nos, shift_a_in_kg, 
 				shift_b_in_nos, shift_b_in_kg, shift_c_in_nos, shift_c_in_kg, total_pieces, total_weight, heats
 			from `tabMelting Furnace Items`	
-			order by idx	
+			order by parent	
 		""")	
 

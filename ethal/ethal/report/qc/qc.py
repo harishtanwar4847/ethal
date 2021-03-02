@@ -6,16 +6,23 @@ import frappe
 
 def execute(filters=None):
 	columns, data = [], []
-	columns = ["Item Name:Link/Item:250"]+["Rejection Ash:Float:100"]+["Rejection Blister:Float:100"]+["Rejection Rolling:Float:100"]+["Rejection Others:Float:100"]+["OK Circle Received:Float:100"]+["OK Circle Received(Pieces):Int:100"]+["Total Rejection:Float:100"]+["Melting Rejection:Float:100"]+["Total Circle Received:Float:100"]
+	columns = ["QC:Link/QC:200"]+["Item Name:Link/Item:250"]+["Rejection Ash:Float:100"]+["Rejection Blister:Float:100"]+["Rejection Rolling:Float:100"]+["Rejection Others:Float:100"]+["OK Circle Received:Float:100"]+["OK Circle Received(Pieces):Int:100"]+["Total Rejection:Float:100"]+["Melting Rejection:Float:100"]+["Total Circle Received:Float:100"]
 	data = get_data(filters)
 	return columns, data
 
 def get_data(filters):
-	return frappe.db.sql("""
-		select item_name, rejection_ash, rejection_blister, rejection_rolling, rejection_others, ok_circle_received,
-			ok_circle_receivedpieces, total_rejection, melting_rejection, total_circle_received
-		from `tabQC Items` 
-		where parent = '{0}'
-		order by idx	
-	""".format(filters.qc))
-
+	if filters.qc:
+		return frappe.db.sql("""
+			select parent, item_name, rejection_ash, rejection_blister, rejection_rolling, rejection_others, ok_circle_received,
+				ok_circle_receivedpieces, total_rejection, melting_rejection, total_circle_received
+			from `tabQC Items` 
+			where parent = '{0}'
+			order by parent	
+		""".format(filters.qc))
+	else: 
+		return frappe.db.sql("""
+			select parent, item_name, rejection_ash, rejection_blister, rejection_rolling, rejection_others, ok_circle_received,
+				ok_circle_receivedpieces, total_rejection, melting_rejection, total_circle_received
+			from `tabQC Items` 
+			order by parent	
+		""")
