@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 from datetime import datetime
+import json
 
 class QC(Document):
 	def after_insert(self):
@@ -36,3 +37,11 @@ class QC(Document):
 			i.total_rejection = i.rejection_ash+i.rejection_blister+i.rejection_rolling+i.rejection_others
 			i.melting_rejection = i.rejection_ash+i.rejection_blister
 			i.total_circle_received = i.ok_circle_received+i.total_rejection		
+
+@frappe.whitelist()
+def set_day_and_month_of_date(doc):
+	data = json.loads(doc)
+	my_date = datetime.strptime(data['date'], '%Y-%m-%d')
+	day =my_date.strftime('%A')
+	month = my_date.strftime('%B')
+	return day, month
