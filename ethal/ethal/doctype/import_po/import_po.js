@@ -43,15 +43,18 @@ frappe.ui.form.on("Import PO", {
 	},
 	refresh: function(frm) {
 		var a = [frm.doc.applied_for_foreign_currency, frm.doc.foreign_currency_approved_by_bank, frm.doc.applied_for_bank_permit, frm.doc.bank_permit_approved, frm.doc.supplier_loaded_goods, frm.doc.supplier_sent_documents_for_approval, frm.doc.documents_approved_by_import_manager, frm.doc.set_of_documents_received_from_supplier, frm.doc.sea_freight_payment_done, frm.doc.container_deposit_payment_done, frm.doc.inland_freight_payment_done, frm.doc.port_clearing_charges_paid, frm.doc.set_of_documents_submitted_to_clearing_agent, frm.doc.draft_custom_declaration_received, frm.doc.cpo_submitted, frm.doc.storage_amount_payment_done, frm.doc.cargo_dispatched_from_port, frm.doc.goods_received_at_factory, frm.doc.grn_received_from_factory, frm.doc.documents_submitted_from_clearing_agent_for_payment]
+		var z = ['applied_for_foreign_currency', 'foreign_currency_approved_by_bank', 'applied_for_bank_permit', 'bank_permit_approved', 'supplier_loaded_goods', 'supplier_sent_documents_for_approval', 'documents_approved_by_import_manager', 'set_of_documents_received_from_supplier', 'sea_freight_payment_done', 'container_deposit_payment_done', 'inland_freight_payment_done', 'port_clearing_charges_paid', 'set_of_documents_submitted_to_clearing_agent', 'draft_custom_declaration_received', 'cpo_submitted', 'storage_amount_payment_done', 'cargo_dispatched_from_port', 'goods_received_at_factory', 'grn_received_from_factory', 'documents_submitted_from_clearing_agent_for_payment']
+		var d = ['applied_for_foreign_currency_date', 'foreign_currency_approved_by_bank_date', 'applied_for_bank_permit_date', 'bank_permit_approved_date', 'supplier_loaded_goods_date', 'supplier_sent_documents_for_approval_date', 'documents_approved_by_import_manager_date', 'set_of_documents_received_from_supplier_date', 'sea_freight_payment_done_date', 'container_deposit_payment_done_date', 'inland_freight_payment_done_date', 'port_clearing_charges_paid_date', 'set_of_documents_submitted_to_clearing_agent_date', 'draft_custom_declaration_received_date', 'cpo_submitted_date', 'storage_amount_payment_done_date', 'cargo_dispatched_from_port_date', 'goods_received_at_factory_date', 'grn_received_from_factory_date', 'documents_submitted_from_clearing_agent_for_payment_date']		
 		var value = ['Applied For Foreign Currency', 'Foreign Currency Approved By Bank', 'Applied For Bank Permit', 'Bank Permit Approved', 'Supplier Loaded Goods', 'Supplier Sent Documents For Approval', 'Documents Approved By Import Manager', 'Set Of Documents Received From Supplier', 'Sea Freight Payment Done', 'Container Deposit Payment Done', 'Inland Freight Payment Done', 'Port Clearing Charges Paid', 'Set Of Documents Submitted To Clearing Agent', 'Draft Custom Declaration Received', 'CPO Submitted', 'Storage Amount Payment Done', 'Cargo Dispatched From Port', 'Goods Received At Factory', 'GRN Received From Factory', 'Documents Submitted From Clearing Agent For Payment']
 		var b = []
 		for (var i=0; i<a.length; i++){
 			if (a[i] == 'Yes'){
+				frm.set_df_property(z[i], 'read_only', 1)
+				frm.set_df_property(d[i], 'read_only', 1)
 				b.push(i)
 			}
 		}
 		let c = b.slice(-1)[0]
-		console.log(value[c])
 		if(!frm.doc.__islocal) {
 			frm.dashboard.add_progress("Current Complete Status", (b.length + 1) * 5,
 			__('Currently Status {}', [value[c]],));
