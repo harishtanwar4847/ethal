@@ -42,22 +42,21 @@ frappe.ui.form.on("Import PO", {
 		});
 	},
 	refresh: function(frm) {
-		if(!frm.doc.__islocal && frm.doc.dispatched_by_customer=="Yes" && (!frm.doc.container_received_at_inland_port || frm.doc.container_received_at_inland_port == 'No') && (!frm.doc.clearing_done || frm.doc.clearing_done == 'No') && (!frm.doc.container_receiver_at_factory || frm.doc.container_receiver_at_factory == 'No')) {
-				frm.dashboard.add_progress("Current Complete Status", "25",
-				__('Currently Status {0}', [frm.doc.dispatched_by_customer_status]));
+		var a = [frm.doc.applied_for_foreign_currency, frm.doc.foreign_currency_approved_by_bank, frm.doc.applied_for_bank_permit, frm.doc.bank_permit_approved, frm.doc.supplier_loaded_goods, frm.doc.supplier_sent_documents_for_approval, frm.doc.documents_approved_by_import_manager, frm.doc.set_of_documents_received_from_supplier, frm.doc.sea_freight_payment_done, frm.doc.container_deposit_payment_done, frm.doc.inland_freight_payment_done, frm.doc.port_clearing_charges_paid, frm.doc.set_of_documents_submitted_to_clearing_agent, frm.doc.draft_custom_declaration_received, frm.doc.cpo_submitted, frm.doc.storage_amount_payment_done, frm.doc.cargo_dispatched_from_port, frm.doc.goods_received_at_factory, frm.doc.grn_received_from_factory, frm.doc.documents_submitted_from_clearing_agent_for_payment]
+		var value = ['Applied for foreign currency', 'Foreign Currency Approved by Bank', 'Applied for Bank Permit', 'Bank Permit Approved', 'Supplier Loaded Goods', 'Supplier sent documents for Approval', 'Documents Approved by Import Manager', 'Set of Documents Received from supplier', 'Sea Freight Payment Done', 'Container Deposit Payment Done', 'Inland Freight Payment Done', 'Port Clearing Charges Paid', 'Set of Documents Submitted to Clearing Agent', 'Draft Custom Declaration Received', 'CPO Submitted', 'Storage Amount Payment done', 'Cargo Dispatched from Port', 'Goods Received at Factory', 'GRN Received from Factory', 'Documents Submitted from Clearing Agent for Payment']
+		var b = []
+		for (var i=0; i<a.length; i++){
+			if (a[i] == 'Yes'){
+				b.push(i)
+			}
 		}
-		else if(!frm.doc.__islocal && frm.doc.dispatched_by_customer=="Yes" && frm.doc.container_received_at_inland_port == 'Yes' && (!frm.doc.clearing_done || frm.doc.clearing_done == 'No') && (!frm.doc.container_receiver_at_factory || frm.doc.container_receiver_at_factory == 'No')){
-				frm.dashboard.add_progress("Current Complete Status", "50",
-				__('Currently Status {0}', [frm.doc.container_received_at_inland_port_status]));
+		let c = b.slice(-1)[0]
+		console.log(value[c])
+		if(!frm.doc.__islocal) {
+			frm.dashboard.add_progress("Current Complete Status", (b.length + 1) * 5,
+			__('Currently Status {}', [value[c]],));
 		}
-		else if(!frm.doc.__islocal && frm.doc.dispatched_by_customer=="Yes" && frm.doc.container_received_at_inland_port == 'Yes' && frm.doc.clearing_done == 'Yes' && (!frm.doc.container_receiver_at_factory || frm.doc.container_receiver_at_factory == 'No')){
-			frm.dashboard.add_progress("Current Complete Status", "75",
-			__('Currently Status {0}', [frm.doc.clearing_done_status]));
-		}
-		else if(!frm.doc.__islocal && frm.doc.dispatched_by_customer=="Yes" && frm.doc.container_received_at_inland_port == 'Yes' && frm.doc.clearing_done == 'Yes' && frm.doc.container_receiver_at_factory == 'Yes'){
-			frm.dashboard.add_progress("Current Complete Status", "100",
-			__('Currently Status {0}', [frm.doc.container_receiver_at_factory_status]));
-		}
+
 
 	}
 });
