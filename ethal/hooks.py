@@ -138,6 +138,9 @@ doc_events = {
 	"Material Request": {
 		"before_submit": "ethal.accounts.set_approver_name"
 	},
+	"Journal Entry": {
+		"before_submit": "ethal.accounts.set_approver_name"
+	},
 	"Payment Request and Authorization": {
 		"before_submit": "ethal.utils.set_approver_name"
 	},
@@ -219,7 +222,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Material Request", "Purchase Receipt"]
+				["Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Material Request", "Purchase Receipt", "Journal Entry"]
 			]
 		]
 	},
@@ -239,7 +242,7 @@ fixtures = [
 			[
 				"document_type",
 				"in",
-				["Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
+				["Journal Entry", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
 			]
 		]
 	},
@@ -249,7 +252,7 @@ fixtures = [
 			[
 				"name",
 				"in",
-				['Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
+				['Journal Entry Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
 			]
 		]
 	},
