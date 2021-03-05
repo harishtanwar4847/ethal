@@ -1,5 +1,5 @@
 {
- "autoname": "SOP-{YYYY}-{#####}",
+ "autoname": "naming_series:",
  "creation": "2021-03-01 19:14:09.012534",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -10,7 +10,8 @@
   "column_break_3",
   "process_",
   "section_break_3",
-  "content"
+  "content",
+  "naming_series"
  ],
  "fields": [
   {
@@ -42,9 +43,15 @@
   {
    "fieldname": "column_break_3",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "SOP-.YYYY.-"
   }
  ],
- "modified": "2021-03-01 19:21:09.357250",
+ "modified": "2021-03-05 20:44:50.694817",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "SOP",
