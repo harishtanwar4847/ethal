@@ -172,7 +172,10 @@ scheduler_events = {
 	},
 	"hourly": [
         "ethal.ethal.employee_checkin.process_auto_attendance_for_holidays"
-    ]
+    ],
+	"daily": [
+		"ethal.ethal.doctype.contract_management.contract_management.send_reminder_mail_to_user"
+	]
 }
 
 # Scheduled Tasks
