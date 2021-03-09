@@ -37,13 +37,15 @@
    "default": "0",
    "fieldname": "rejection_ash",
    "fieldtype": "Float",
-   "label": "Rejection Ash"
+   "label": "Rejection Ash",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "rejection_blister",
    "fieldtype": "Float",
-   "label": "Rejection Blister"
+   "label": "Rejection Blister",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_5",
@@ -53,13 +55,15 @@
    "default": "0",
    "fieldname": "rejection_rolling",
    "fieldtype": "Float",
-   "label": "Rejection Rolling"
+   "label": "Rejection Rolling",
+   "reqd": 1
   },
   {
    "default": "0",
    "fieldname": "rejection_others",
    "fieldtype": "Float",
-   "label": "Rejection Others"
+   "label": "Rejection Others",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_8",
@@ -69,7 +73,8 @@
    "default": "0",
    "fieldname": "ok_circle_received",
    "fieldtype": "Float",
-   "label": "OK Circle Received"
+   "label": "OK Circle Received",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_10",
@@ -78,8 +83,9 @@
   {
    "default": "0",
    "fieldname": "ok_circle_receivedpieces",
-   "fieldtype": "Int",
-   "label": "OK Circle Received(Pieces)"
+   "fieldtype": "Float",
+   "label": "OK Circle Received(Pieces)",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_12",
@@ -87,13 +93,13 @@
   },
   {
    "fieldname": "total_rejection",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Total Rejection"
   },
   {
    "fieldname": "melting_rejection",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Melting Rejection"
   },
@@ -103,13 +109,13 @@
   },
   {
    "fieldname": "total_circle_received",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Total Circle Received"
   }
  ],
  "istable": 1,
- "modified": "2021-02-04 13:17:36.356865",
+ "modified": "2021-03-09 15:28:56.739249",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "QC Items",

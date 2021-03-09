@@ -142,9 +142,9 @@ def set_working_days(doc):
                 holiday_.append(splitdate)
             total = date_diff(doc['end_date'], doc['start_date']) + 1    
             # doc.total_working_days = total - len(holiday_)
-            # frappe.db.set_value('Salary Slip', doc['name'], 'total_working_days', total - len(holiday_))
-            # frappe.db.commit()
-            return total - len(holiday_)
+            frappe.db.set_value('Salary Slip', doc['name'], 'total_working_days', total - len(holiday_))
+            frappe.db.commit()
+            # return total - len(holiday_)
 
 def process_lop_leave_for_attendance(attendance_name):
     attendance = frappe.get_doc('Attendance', attendance_name)
