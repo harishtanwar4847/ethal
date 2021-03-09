@@ -19,7 +19,7 @@ def get_data():
 			]
 		},
 		{
-			'label': _('Manufacturing'),
+			'label': _('Factory Reporting'),
 			'items': [
 				{
 					'type': 'doctype', 'name': 'QC', 'onboard': 1	
