@@ -27,7 +27,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item Name",
-   "options": "Item"
+   "options": "Item",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_2",
@@ -37,15 +38,13 @@
    "default": "0",
    "fieldname": "rejection_ash",
    "fieldtype": "Float",
-   "label": "Rejection Ash",
-   "reqd": 1
+   "label": "Rejection Ash"
   },
   {
    "default": "0",
    "fieldname": "rejection_blister",
    "fieldtype": "Float",
-   "label": "Rejection Blister",
-   "reqd": 1
+   "label": "Rejection Blister"
   },
   {
    "fieldname": "column_break_5",
@@ -55,15 +54,13 @@
    "default": "0",
    "fieldname": "rejection_rolling",
    "fieldtype": "Float",
-   "label": "Rejection Rolling",
-   "reqd": 1
+   "label": "Rejection Rolling"
   },
   {
    "default": "0",
    "fieldname": "rejection_others",
    "fieldtype": "Float",
-   "label": "Rejection Others",
-   "reqd": 1
+   "label": "Rejection Others"
   },
   {
    "fieldname": "section_break_8",
@@ -73,8 +70,7 @@
    "default": "0",
    "fieldname": "ok_circle_received",
    "fieldtype": "Float",
-   "label": "OK Circle Received",
-   "reqd": 1
+   "label": "OK Circle Received"
   },
   {
    "fieldname": "column_break_10",
@@ -84,8 +80,7 @@
    "default": "0",
    "fieldname": "ok_circle_receivedpieces",
    "fieldtype": "Float",
-   "label": "OK Circle Received(Pieces)",
-   "reqd": 1
+   "label": "OK Circle Received(Pieces)"
   },
   {
    "fieldname": "section_break_12",
@@ -95,13 +90,15 @@
    "fieldname": "total_rejection",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Total Rejection"
+   "label": "Total Rejection",
+   "read_only": 1
   },
   {
    "fieldname": "melting_rejection",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Melting Rejection"
+   "label": "Melting Rejection",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_15",
@@ -111,11 +108,12 @@
    "fieldname": "total_circle_received",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Total Circle Received"
+   "label": "Total Circle Received",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2021-03-09 15:28:56.739249",
+ "modified": "2021-03-09 19:17:30.505290",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "QC Items",
