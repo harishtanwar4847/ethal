@@ -1,5 +1,5 @@
 {
- "autoname": "format:Import-{YYYY}-{####}",
+ "autoname": "naming_series:",
  "creation": "2020-12-15 11:10:43.525289",
  "doctype": "DocType",
  "document_type": "Document",
@@ -21,7 +21,8 @@
   "section_break_9",
   "import_cost_sheet_items",
   "section_break_11",
-  "net_total"
+  "net_total",
+  "naming_series"
  ],
  "fields": [
   {
@@ -110,9 +111,15 @@
    "fieldname": "customs_declaration_no",
    "fieldtype": "Data",
    "label": "Customs Declaration No"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "Import-.YYYY.-"
   }
  ],
- "modified": "2021-03-01 18:56:28.683653",
+ "modified": "2021-03-10 10:56:57.116004",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet",
