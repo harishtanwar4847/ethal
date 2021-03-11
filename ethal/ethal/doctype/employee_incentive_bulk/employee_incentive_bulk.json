@@ -5,7 +5,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "incentive_amount",
+  "incentive_hours",
   "incentive_date",
   "salary_component",
   "column_break_5",
@@ -22,13 +22,6 @@
   "naming_series"
  ],
  "fields": [
-  {
-   "fieldname": "incentive_amount",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Incentive Amount",
-   "reqd": 1
-  },
   {
    "fieldname": "salary_component",
    "fieldtype": "Link",
@@ -120,10 +113,18 @@
    "fieldtype": "Select",
    "label": "Series",
    "options": "HR-EINVB-.YY.-.MM.-"
+  },
+  {
+   "fieldname": "incentive_hours",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Incentive Hours",
+   "precision": "2",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2021-03-10 10:59:28.040343",
+ "modified": "2021-03-11 20:13:05.698320",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Employee Incentive Bulk",

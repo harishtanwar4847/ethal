@@ -13,7 +13,9 @@ class EmployeeIncentiveBulk(Document):
 		print(employees)
 		if employees:
 			for employee in employees:
-				print(employee[0])
+				base_value = frappe.get_value('Salary Structure Assignment', {'employee': employee[0], 'docstatus': 1}, 'base')
+				if base_value:
+					incentive_amount = (base_value / 26 / 8) * self.incentive_hours
 				company = frappe.db.get_value('Employee', employee[0], 'company')
 				additional_salary = frappe.db.exists('Additional Salary', {
 						'employee': employee[0], 
@@ -27,23 +29,23 @@ class EmployeeIncentiveBulk(Document):
 					additional_salary = frappe.new_doc('Additional Salary')
 					additional_salary.employee = employee[0]
 					additional_salary.salary_component = self.salary_component
-					additional_salary.amount = self.incentive_amount
+					additional_salary.amount = incentive_amount
 					additional_salary.payroll_date = self.incentive_date
 					additional_salary.company = company
 					additional_salary.submit()
 					# self.db_set('additional_salary', additional_salary.name)
 
 				else:
-					incentive_added = frappe.db.get_value('Additional Salary', additional_salary, 'amount') + self.incentive_amount
+					incentive_added = frappe.db.get_value('Additional Salary', additional_salary, 'amount') + incentive_amount
 					frappe.db.set_value('Additional Salary', additional_salary, 'amount', incentive_added)
 					# self.db_set('additional_salary', additional_salary)
 
 	def on_cancel(self):
-		incentives = frappe.db.get_all('Additional Salary', {'amount': self.incentive_amount}, ['name'], as_list=1)
+		incentives = frappe.db.get_all('Additional Salary', {'payroll_date': self.incentive_date}, ['name', 'amount'], as_list=1)
 		print(incentives)
 		if incentives:
 			for i in incentives:
-				incentive_removed = frappe.db.get_value('Additional Salary', i[0], 'amount') - self.incentive_amount
+				incentive_removed = frappe.db.get_value('Additional Salary', i[0], 'amount') - i[1]
 				if incentive_removed == 0:
 					frappe.get_doc('Additional Salary', i[0]).cancel()
 					frappe.db.commit()
