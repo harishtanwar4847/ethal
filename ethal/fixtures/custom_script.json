@@ -146,11 +146,11 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Employee",
-  "modified": "2021-03-11 11:25:58.571391",
+  "modified": "2021-03-11 12:15:56.020267",
   "name": "Employee-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "frappe.ui.form.on('Employee', {\n\trefresh(frm) {\n\t    console.log('refresh')\n\t\t// your code here\n\t\tif(frm.doc.employee_prerequisite == undefined || frm.doc.employee_prerequisite == ''){\n\t\t    console.log('ja na')\n\t\t    var a = ['TIN No', 'Pension No', 'Appointment Letter', 'Medical Certificate', 'Job Description']\n\t\t    for (var i = 0; i < a.length; i++) {\n\t\t\t\tvar childTable = cur_frm.add_child(\"employee_prerequisite\");\n\t\t\t\tchildTable.document_type = a[i]\n\t\t\t}\n\t\t\tcur_frm.refresh_fields(\"employee_prerequisite\");\n\t\t}\n\t}\n})"
+  "script": "frappe.ui.form.on('Employee', {\n\trefresh(frm) {\n\t    console.log('refresh')\n\t\t// your code here\n// \t\tfrm.clear_table(\"employee_prerequisite\"); \n// \t\tfrm.refresh_field('employee_prerequisite');\n\t\tif(frm.doc.employee_prerequisite == undefined || frm.doc.employee_prerequisite == ''){\n\t\t    frappe.db.get_list('Employee Prerequisite Document', {\n                    fields: ['name'],\n                        }).then(records => {\n                            console.log(records);\n                            for (var j = 0; j < records.length; j++) {\n                                console.log(records[j].name)\n                                var childTable = cur_frm.add_child(\"employee_prerequisite\");\n                                childTable.document_type = records[j].name\n                            }\n                    cur_frm.refresh_fields(\"employee_prerequisite\");\n                    // cur_frm.save()\n                })\n\t\t}\n\t}\n})"
  }
 ]
