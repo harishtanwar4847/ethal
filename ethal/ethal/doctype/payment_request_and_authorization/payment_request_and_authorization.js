@@ -20,7 +20,7 @@ frappe.ui.form.on('Payment Request and Authorization', {
 				console.log(success)
 			})
 		} 
-		if(frm.doc.workflow_state == 'Approved'){
+		if(frm.doc.workflow_state == 'Approved' && !frm.doc.checked_person){
 			frappe.call({
 				method: "ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.set_approver_name",
 				args: {
