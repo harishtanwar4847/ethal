@@ -19,6 +19,23 @@ def get_date(filters):
 			where parent = '{0}'	
 			order by parent	
 		""".format(filters.melting_furnace))
+	elif filters.from_date and filters.to_date:
+		return frappe.db.sql("""
+			select parent, mf, cast(rolling_ingot_weight as decimal(10,6)), cast(no_of_ingots_per_heat as int), shift_a_in_nos, shift_a_in_kg, 
+				shift_b_in_nos, shift_b_in_kg, shift_c_in_nos, shift_c_in_kg, total_pieces, total_weight, heats
+			from `tabMelting Furnace Items`	
+			where creation between '{0}' and '{1}'	
+			order by parent	
+		""".format(filters.from_date, filters.to_date))
+	elif filters.melting_furnace and filters.from_date and filters.to_date:
+		return frappe.db.sql("""
+			select parent, mf, cast(rolling_ingot_weight as decimal(10,6)), cast(no_of_ingots_per_heat as int), shift_a_in_nos, shift_a_in_kg, 
+				shift_b_in_nos, shift_b_in_kg, shift_c_in_nos, shift_c_in_kg, total_pieces, total_weight, heats
+			from `tabMelting Furnace Items`	
+			where parent = '{0}'
+			and creation between '{1}' and '{2}'	
+			order by parent	
+		""".format(filters.melting_furnace, filters.from_date, filters.to_date))
 	else:
 		return frappe.db.sql("""
 			select parent, mf, cast(rolling_ingot_weight as decimal(10,6)), cast(no_of_ingots_per_heat as int), shift_a_in_nos, shift_a_in_kg, 
