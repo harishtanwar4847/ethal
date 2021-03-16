@@ -45,7 +45,7 @@ def get_data():
 			'label': _('Custom Doctypes'),
 			'items': [
 				{
-					'type': 'doctype', 'label': _('PRA'), 'name': 'Payment Request and Authorization', 'onboard': 1
+					'type': 'doctype', 'name': 'Payment Request and Authorization', 'onboard': 1
 				}
 			]
 		}
