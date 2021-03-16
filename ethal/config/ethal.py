@@ -40,5 +40,13 @@ def get_data():
 					'type': 'doctype', 'label': _('Melting Furnace Report'), 'name': 'QC', 'route': 'query-report/Melting Furnace', 'onboard': 1	
 				}
 			]
+		},
+		{
+			'label': _('Custom Doctypes'),
+			'items': [
+				{
+					'type': 'doctype', 'label': _('PRA'), 'name': 'Payment Request and Authorization', 'onboard': 1
+				}
+			]
 		}
 	]
