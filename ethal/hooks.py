@@ -150,6 +150,9 @@ doc_events = {
 	"Salary Structure Assignment": {
 		"on_submit": "ethal.hr.before_insert_salary_structure_assignment"
 	},
+	"Vehicle Log": {
+		"on_update": "ethal.hr.before_update_vehicle_log"
+	}
 }
 
 doctype_list_js = {
@@ -255,7 +258,7 @@ fixtures = [
 			[
 				"name",
 				"in",
-				['Journal Entry Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
+				['Journal Entry Approver', 'Deputy PRA Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
 			]
 		]
 	},
