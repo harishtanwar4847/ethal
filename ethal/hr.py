@@ -896,3 +896,18 @@ def save_interview_round(formdata, job_applicant):
         job_applicant.current_round = 'Round' + " " + rounds[0]['round_number']
         job_applicant.status = 'Round' + " " + rounds[0]['round_number'] + " " + 'Scheduled'    
         job_applicant.save(ignore_permissions=True)
+
+def before_update_vehicle_log(doc, method):
+    month = doc.date.split('-')	
+    existing_vehicle_log = frappe.db.sql("""
+                                select sum(todays_total_unit_consumed) from `tabVehicle Log` where month(date) = '{0}'
+                            """.format(month[1]))
+    frappe.db.set_value('Vehicle Log', {'name': doc.name}, 'monthly_units_consumed', existing_vehicle_log[0][0])
+
+    if doc.service_required == 'Yes':
+        frappe.db.set_value('Vehicle Log', {'name': doc.name}, 'total_running_hours', doc.todays_total_unit_consumed)
+    else:
+        a = frappe.db.get_all('Vehicle Log', {'name': ['!=', doc.name]}, ['total_running_hours', 'name'], order_by = 'name desc', page_length=1)
+        frappe.db.set_value('Vehicle Log', {'name': doc.name}, 'total_running_hours', doc.todays_total_unit_consumed + a[0]['total_running_hours'])
+    frappe.db.commit()
+    doc.reload()
