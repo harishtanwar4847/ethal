@@ -35,18 +35,6 @@ frappe.ui.form.on('Import Cost Sheet', {
 			cur_frm.refresh_fields("import_cost_sheet_items");
 			}
 		},
-	// setup: function(frm){
-	// 	if (frm.doc.import_cost_sheet_items == undefined) {
-	// 	var l = ['Sea Fright (ETB)', 'Inland Fright (ETB)', 'Insurance (ETB)', 'Import Customs Duty (ETB)', 'Other (ETB)', 'Bank charge (ETB)', 'Storage (ETB)', 'Port handling charge (ETB)', 'Transit and clearing (ETB)', 'Loading & unloading (ETB)', 'Inland transport (ETB)', 'Miscellaneous (ETB)']
-		
-	// 	for (var i = 0; i < l.length; i++) {
-	// 		var childTable = cur_frm.add_child("import_cost_sheet_items");
-	// 		console.log(i)
-	// 		childTable.items = l[i]
-	// 	}
-	// 	cur_frm.refresh_fields("import_cost_sheet_items");
-	// 	}
-	// },
 	grn: function(frm){
 		if (frm.doc.grn){
 			frm.clear_table("import_cost_sheet_details"); 
@@ -70,20 +58,21 @@ frappe.ui.form.on('Import Cost Sheet', {
 			frm.refresh_field('import_cost_sheet_details');
 			})
 		}
+	},
+	before_save: function(frm) {
+		var total_sales = 0;
+		$.each(frm.doc.import_cost_sheet_items || [], function(i, d) {
+			total_sales += flt(d.amount);
+		});
+		frm.set_value("net_total", total_sales);
 	}
 });
 
-frappe.ui.form.on('Import Cost Sheet Details', {
-	// import_cost_sheet_details_add: function(frm){
-	// 	console.log('hello')
-	// 	var total_sales = 0;
-	// 	$.each(frm.doc.import_cost_sheet_details || [], function(i, d) {
-	// 		console.log('hello', d)
-	// 	total_sales += flt(d.amount);
-	// 	});
-	// 	frm.set_value("net_total", total_sales);
-	// 	frm.set_df_property('net_total', 'read_only', 1)
-	// },
+frappe.ui.form.on('Import Cost Sheet Items', {
+	import_cost_sheet_items: function(frm){
+		
+		// frm.set_df_property('net_total', 'read_only', 1)
+	},
 	// amount: function(frm){
 	// 	// console.log(amount)
 	// 	console.log('ja na be')
