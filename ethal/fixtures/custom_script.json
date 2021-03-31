@@ -163,5 +163,16 @@
   "parentfield": null,
   "parenttype": null,
   "script": "frappe.ui.form.on('Employee', {\n\trefresh(frm) {\n\t    console.log('refresh')\n\t\t// your code here\n// \t\tfrm.clear_table(\"employee_prerequisite\"); \n// \t\tfrm.refresh_field('employee_prerequisite');\n\t\tif(frm.doc.employee_prerequisite == undefined || frm.doc.employee_prerequisite == ''){\n\t\t    frappe.db.get_list('Employee Prerequisite Document', {\n                    fields: ['name'],\n                        }).then(records => {\n                            console.log(records);\n                            for (var j = 0; j < records.length; j++) {\n                                console.log(records[j].name)\n                                var childTable = cur_frm.add_child(\"employee_prerequisite\");\n                                childTable.document_type = records[j].name\n                            }\n                    cur_frm.refresh_fields(\"employee_prerequisite\");\n                    // cur_frm.save()\n                })\n\t\t}\n\t}\n})"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Landed Cost Voucher",
+  "modified": "2021-03-31 11:12:15.774273",
+  "name": "Landed Cost Voucher-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Landed Cost Voucher', {\n\trefresh(frm) {\n\t\t// your code here\n\t},\n\timport_cost_sheet(frm) {\n\t    if (frm.doc.import_cost_sheet) {\n\t        console.log('hello')\n\t        frappe.db.get_value('Import Cost Sheet', frm.doc.import_cost_sheet, 'net_total')\n                .then(r => {\n                    console.log(r.message.net_total) // Open\n                     frm.doc.taxes[0].amount = r.message.net_total\n\t                 frm.refresh_field('taxes')\n                })\n\n\t       \n\t    }\n\t}\n})"
  }
 ]
