@@ -228,7 +228,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Material Request", "Purchase Receipt", "Journal Entry"]
+				["Delivery Note", "Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Material Request", "Purchase Receipt", "Journal Entry"]
 			]
 		]
 	},
@@ -238,7 +238,7 @@ fixtures = [
 			[
 				"doc_type",
 				"in",
-				["Journal Entry", "Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization", "Quotation"]
+				["Delivery Note", "Journal Entry", "Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization", "Quotation"]
 			]
 		]
 	},
@@ -248,7 +248,7 @@ fixtures = [
 			[
 				"document_type",
 				"in",
-				["Journal Entry", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
+				["Delivery Note", "Journal Entry", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
 			]
 		]
 	},
@@ -258,7 +258,7 @@ fixtures = [
 			[
 				"name",
 				"in",
-				['Journal Entry Approver', 'Deputy PRA Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
+				['Delivery Note Approver', 'Journal Entry Approver', 'Deputy PRA Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
 			]
 		]
 	},

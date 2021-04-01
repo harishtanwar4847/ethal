@@ -250,5 +250,19 @@
   "restrict_to_domain": null,
   "role_name": "Deputy PRA Approver",
   "two_factor_auth": 0
+ },
+ {
+  "desk_access": 1,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Role",
+  "modified": "2021-04-01 09:35:51.782534",
+  "name": "Delivery Note Approver",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "restrict_to_domain": null,
+  "role_name": "Delivery Note Approver",
+  "two_factor_auth": 0
  }
 ]
