@@ -21,3 +21,20 @@ def set_approver_name(data):
     frappe.db.set_value(data['doctype'], {'name': data['name']}, 'checked_person', get_approver_name)
     frappe.db.set_value(data['doctype'], {'name': data['name']}, 'checked_date', get_approved_date)
     frappe.db.commit()
+
+@frappe.whitelist()
+def create_payment_entry(doc):
+    doc = json.loads(doc)
+    print(doc)
+    a = frappe.new_doc('Payment Entry')
+    a.payment_type = 'Pay'
+    if 'payment_mode' in doc:
+        a.mode_of_payment = doc['payment_mode']
+    if 'party_type' in doc:    
+        a.party_type = doc['party_type']
+        a.party = doc['party']
+    a.paid_amount = doc['amount']
+    if 'payment_reason' in doc:
+        a.notes = doc['payment_reason']
+    a.documents_attached = doc['name']
+    return a  

@@ -112,17 +112,6 @@
  {
   "docstatus": 0,
   "doctype": "Custom Script",
-  "dt": "Payment Entry",
-  "modified": "2021-04-01 10:13:20.521703",
-  "name": "Payment Entry-Client",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "script": "\nfrappe.ui.form.on('Payment Entry', {\n    \n    setup:function(frm){\n        if(frm.doc.pra && frm.doc.docstatus != 1){\n           \n            // frm.set_value('payment_type', 'Pay');\n            // frm.set_value('paid_to', '11200-02 - Staff Debtors - ETL');\n            frappe.db.get_doc('Payment Request and Authorization', frm.doc.pra)\n                .then(doc => {\n                    console.log(doc)\n                    \n                    \n                   \n                    frappe.run_serially([\n                        ()=>{  frm.set_value('payment_type', 'Pay')},\n                        ()=>{ frm.set_value('mode_of_payment', doc.payment_mode) },\n                        ()=> {\n                             frm.set_value('party_type', doc.party_type)\n                                .then(()=> { \n                                    setTimeout(()=>{ frm.set_value('party', doc.party)}, 1000)\n                                   \n                            })\n                        },\n                       \n                        ()=>{frm.set_value('paid_amount', doc.amount)},\n                        ()=>{frm.set_value('notes', doc.payment_reason)},\n                        ()=>{frm.set_value('documents_attached', doc.name)}\n                        \n                        //  ()=>{  setTimeout( ()=>{  frm.set_value('party', doc.party)}, 600)},\n                        //   ()=>{  frm.set_value('party', doc.party)},\n                    ])\n                    // frm.set_value('mode_of_payment', doc.payment_mode);\n                   \n                    // frm.set_value('paid_amount', doc.amount);\n                })\n            frm.set_value('pra', '')\n        }\n    }\n\n})    "
- },
- {
-  "docstatus": 0,
-  "doctype": "Custom Script",
   "dt": "Salary Structure Assignment",
   "modified": "2021-02-24 12:43:53.892692",
   "name": "Salary Structure Assignment-Client",

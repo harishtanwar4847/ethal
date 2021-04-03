@@ -5,9 +5,20 @@ frappe.ui.form.on('Payment Request and Authorization', {
 	refresh: function(frm) {
 		if(frm.doc.workflow_state == 'Approved'){
 			frm.add_custom_button('Create Payment Entry', () => {
-				frappe.set_route('Form', 'Payment Entry', 'New Payment Entry 1', {'pra': frm.doc.name});
+				
+				frappe.call({
+					method: "ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.create_payment_entry",
+					args: {
+						doc: frm.doc
+					},
+				callback: function(r) {
+					console.log(r)
+					var doclist = frappe.model.sync(r.message);
+				
+					frappe.set_route("Form", doclist[0].doctype, doclist[0].name);
+					}
+				})
 			})
-
 		}
 		if(frm.doc.workflow_state == 'Sent For Approval' && !frm.doc.checked_person){
 			frappe.call({
