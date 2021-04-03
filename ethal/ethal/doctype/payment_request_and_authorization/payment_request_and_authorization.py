@@ -37,4 +37,5 @@ def create_payment_entry(doc):
     if 'payment_reason' in doc:
         a.notes = doc['payment_reason']
     a.documents_attached = doc['name']
+    a.pra = doc['name']
     return a  
