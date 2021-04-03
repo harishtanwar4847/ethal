@@ -157,7 +157,7 @@ doc_events = {
 
 doctype_list_js = {
     "Salary Structure Assignment" : "public/js/salary_structure_assignment_list.js"
- 	}
+}
 
 override_doctype_dashboards = {
 	"Job Applicant": "ethal.hr.override_job_applicant_dashboard"
@@ -228,7 +228,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Delivery Note", "Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Material Request", "Purchase Receipt", "Journal Entry"]
+				["Payroll Employee Detail", "Delivery Note", "Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Material Request", "Purchase Receipt", "Journal Entry"]
 			]
 		]
 	},
