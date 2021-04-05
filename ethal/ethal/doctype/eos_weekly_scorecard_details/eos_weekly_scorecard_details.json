@@ -1,0 +1,71 @@
+{
+ "creation": "2021-03-30 14:40:20.569825",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "division",
+  "responsibility",
+  "parameter",
+  "uom",
+  "target",
+  "actual",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "division",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Division",
+   "options": "\nCD\nUD-DB\nUD-TU\nAccounts"
+  },
+  {
+   "fieldname": "responsibility",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Responsibility",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "parameter",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Parameter"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Select",
+   "label": "UOM",
+   "options": "\nMT\n%\nMM\nLTS\nETB / KG\nETB,  Millions"
+  },
+  {
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Target"
+  },
+  {
+   "fieldname": "actual",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Actual"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor",
+   "label": "Remarks"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-03-31 13:03:03.253798",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "EOS Weekly Scorecard Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
