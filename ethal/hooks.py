@@ -119,9 +119,9 @@ doc_events = {
 		"validate": "ethal.accounts.before_insert_payment_entry",
 		"before_submit": "ethal.accounts.set_approver_name"
 	},
-	"Stock Entry": {
-		"before_submit": "ethal.accounts.before_submit_stock_entry"
-	},
+	# "Stock Entry": {
+	# 	"before_submit": "ethal.accounts.before_submit_stock_entry"
+	# },
 	"Sales Invoice": {
 		"validate": "ethal.accounts.before_insert_sales_invoice",
 		"before_submit": "ethal.accounts.set_approver_name"
