@@ -936,5 +936,7 @@ def before_update_vehicle_log(doc, method):
         a = frappe.db.get_all('Vehicle Log', {'name': ['!=', doc.name]}, ['total_running_hours', 'name'], order_by = 'name desc', page_length=1)
         if a:
             frappe.db.set_value('Vehicle Log', {'name': doc.name}, 'total_running_hours', doc.todays_total_unit_consumed + a[0]['total_running_hours'])
+        else:
+            frappe.db.set_value('Vehicle Log', {'name': doc.name}, 'total_running_hours', doc.todays_total_unit_consumed)
     frappe.db.commit()
     doc.reload()
