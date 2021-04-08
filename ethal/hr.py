@@ -76,7 +76,8 @@ def before_save_salary_slip(doc, method):
     if employee_holiday:
         hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
         if hr_settings == 0:
-            holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': ['=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+            holiday_day = frappe.db.get_value('Holiday List', {'name': employee_holiday}, 'weekly_off')
+            holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': holiday_day, 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
     
             holiday_ = []
             for i in holiday:
@@ -118,7 +119,8 @@ def before_insert_salary_slip(doc, method):
     if employee_holiday:
         hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
         if hr_settings == 0:
-            holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': ['=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+            holiday_day = frappe.db.get_value('Holiday List', {'name': employee_holiday}, 'weekly_off')
+            holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': holiday_day, 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
     
             holiday_ = []
             for i in holiday:
@@ -135,7 +137,8 @@ def before_save(doc, method):
     if employee_holiday:
         hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
         if hr_settings == 0:
-            holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': ['=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+            holiday_day = frappe.db.get_value('Holiday List', {'name': employee_holiday}, 'weekly_off')
+            holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': holiday_day, 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
     
             holiday_ = []
             for i in holiday:
@@ -294,7 +297,8 @@ def daily_overtime(doc):
     
 def sunday_overtime(doc):
     employee_holiday = frappe.db.get_value('Employee', doc.employee, 'holiday_list')
-    holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': 'Sunday', 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    holiday_day = frappe.db.get_value('Holiday List', {'name': employee_holiday}, 'weekly_off')
+    holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': holiday_day, 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
    
     holiday_ = []
     for i in holiday:
@@ -314,7 +318,8 @@ def sunday_overtime(doc):
        
 def holiday_overtime(doc):
     employee_holiday = frappe.db.get_value('Employee', doc.employee, 'holiday_list')
-    holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': ['!=','Sunday'], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    holiday_day = frappe.db.get_value('Holiday List', {'name': employee_holiday}, 'weekly_off')
+    holiday = frappe.db.get_all('Holiday', filters={'parent': employee_holiday, 'description': ['!=', holiday_day], 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
    
     holiday_ = []
     for i in holiday:
