@@ -14,6 +14,7 @@ frappe.ui.form.on('Annealing', {
 				console.log(success)
 				frm.set_value('day', success.message[0])
 				frm.set_value('month', success.message[1])
+				frm.set_value('date_month', success.message[2])
 			})
 		}	
 	}

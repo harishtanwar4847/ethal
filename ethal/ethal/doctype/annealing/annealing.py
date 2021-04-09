@@ -17,4 +17,6 @@ def set_day_and_month_of_date(doc):
 	my_date = datetime.strptime(data['date'], '%Y-%m-%d')
 	day =my_date.strftime('%A')
 	month = my_date.strftime('%B')
-	return day, month
+	day_month = data['date'].split('-')
+	
+	return day, month, day_month[1]

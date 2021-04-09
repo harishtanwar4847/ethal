@@ -9,6 +9,7 @@
   "day",
   "column_break_3",
   "month",
+  "date_month",
   "section_break_5",
   "annealing_items",
   "naming_series"
@@ -46,10 +47,16 @@
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "options": "Annealing-.MM.-"
+   "options": "Annealing-.date_month.-"
+  },
+  {
+   "fieldname": "date_month",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "date_month"
   }
  ],
- "modified": "2021-03-10 10:54:17.700750",
+ "modified": "2021-04-09 17:46:00.707387",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Annealing",
