@@ -25,19 +25,13 @@ def get_data():
 					'type': 'doctype', 'name': 'QC', 'onboard': 1	
 				},
 				{
-					'type': 'doctype', 'label': _('QC Report'), 'name': 'QC', 'route': 'query-report/QC', 'onboard': 1	
-				},
-				{
 					'type': 'doctype', 'name': 'Annealing', 'onboard': 1	
-				},
-				{
-					'type': 'doctype', 'label': _('Annealing Report'), 'name': 'QC', 'route': 'query-report/Annealing', 'onboard': 1	
 				},
 				{
 					'type': 'doctype', 'name': 'Melting Furnace', 'onboard': 1	
 				},
 				{
-					'type': 'doctype', 'label': _('Melting Furnace Report'), 'name': 'QC', 'route': 'query-report/Melting Furnace', 'onboard': 1	
+					'type': 'doctype', 'name': 'Vehicle Log', 'onboard': 1
 				}
 			]
 		},
@@ -46,6 +40,20 @@ def get_data():
 			'items': [
 				{
 					'type': 'doctype', 'name': 'Payment Request and Authorization', 'onboard': 1
+				}
+			]
+		},
+		{
+			'label': _('Custom Reports'),
+			'items': [
+				{
+					'type': 'doctype', 'label': _('QC Report'), 'name': 'QC', 'route': 'query-report/QC', 'onboard': 1	
+				},
+				{
+					'type': 'doctype', 'label': _('Annealing Report'), 'name': 'QC', 'route': 'query-report/Annealing', 'onboard': 1	
+				},
+				{
+					'type': 'doctype', 'label': _('Melting Furnace Report'), 'name': 'QC', 'route': 'query-report/Melting Furnace', 'onboard': 1	
 				}
 			]
 		}
