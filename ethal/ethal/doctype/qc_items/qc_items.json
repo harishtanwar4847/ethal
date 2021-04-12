@@ -5,6 +5,7 @@
  "engine": "InnoDB",
  "field_order": [
   "item_name",
+  "item",
   "section_break_2",
   "rejection_ash",
   "rejection_blister",
@@ -110,10 +111,17 @@
    "in_list_view": 1,
    "label": "Total Circle Received",
    "read_only": 1
+  },
+  {
+   "fetch_from": "item_name.item_name",
+   "fieldname": "item",
+   "fieldtype": "Data",
+   "label": "Item",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2021-03-09 19:17:30.505290",
+ "modified": "2021-04-12 09:59:26.116746",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "QC Items",
