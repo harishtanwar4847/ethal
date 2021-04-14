@@ -216,8 +216,8 @@ def get_data(filters, conditions):
 			jan_jun += i[3]	if i[3] != None else 0
 			jul_dec += i[7]	if i[7] != None else 0	
 		for j in data:
-			j[5] = '{:.2f}%'.format((j[3]/jan_jun)*100) if j[3] != None else 0
-			j[9] = '{:.2f}%'.format((j[7]/jul_dec)*100) if j[7] != None else 0 		
+			j[5] = '{:.2f}%'.format((j[3]/jan_jun)*100) if j[3] != 0 else 0
+			j[9] = '{:.2f}%'.format((j[7]/jul_dec)*100) if j[7] != 0 else 0 		
 	elif filters.get("period") == 'Quarterly':
 		jan_mar, apr_jun, jul_sep, oct_dec = 0, 0, 0, 0
 		qty = 0
