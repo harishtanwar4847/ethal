@@ -154,14 +154,26 @@ def get_gl_entries(filters):
 	for i in gl_entries:
 		if i['voucher_type'] == 'Sales Invoice':
 			tb = i['voucher_type'] + ' Item'
-			re = frappe.db.get_list(tb, {'parent': i['voucher_no']}, 'item_name')
+			re = frappe.db.get_list(tb, {'parent': i['voucher_no']}, ['item_name', 'qty', 'rate'])
 			lst1 = []
+			lst2 = []
+			lst3 = []
+			print(re)
 			for j in re:
+				print("j ===============>",j['item_name']+ "h \n hello")
 				lst1.append(j["item_name"])
-			listToStr = ', '.join([str(elem) for elem in lst1])
-			i['item'] = listToStr
+				lst2.append(j['qty'])
+				lst3.append(j['rate'])
+			listToStritem = ', '.join([str(elem) for elem in lst1])
+			listToStrqty = ', '.join([str(elem) for elem in lst2])
+			listToStrrate = ', '.join([str(elem) for elem in lst3])
+			i['item'] = listToStritem
+			i['qty'] = listToStrqty
+			i['rate'] = listToStrrate
 		else:
 			i['item'] = ""
+			i['qty'] = ""
+			i['rate'] = ""
 
 	if filters.get('presentation_currency'):
 		return convert_to_presentation_currency(gl_entries, currency_map)
@@ -493,6 +505,16 @@ def get_columns(filters):
 			"label": _("Item Name"),
 			"fieldname": "item",
 			"width": 300
+		},
+		{
+			"label": _("Qty"),
+			"fieldname": "qty",
+			"width": 150
+		},
+		{
+			"label": _("Rate"),
+			"fieldname": "rate",
+			"width": 150
 		}
 	])
 
