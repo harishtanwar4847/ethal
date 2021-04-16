@@ -40,6 +40,9 @@ def get_data():
 			'items': [
 				{
 					'type': 'doctype', 'name': 'Payment Request and Authorization', 'onboard': 1
+				},
+				{
+					'type': 'doctype', 'name': 'EOS Weekly Scorecard', 'onboard': 1
 				}
 			]
 		},
