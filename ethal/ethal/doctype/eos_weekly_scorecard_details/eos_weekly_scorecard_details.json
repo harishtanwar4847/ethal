@@ -6,10 +6,13 @@
  "field_order": [
   "division",
   "responsibility",
+  "responsible_name",
   "parameter",
+  "column_break_5",
   "uom",
   "target",
   "actual",
+  "section_break_9",
   "remarks"
  ],
  "fields": [
@@ -56,10 +59,24 @@
    "fieldname": "remarks",
    "fieldtype": "Text Editor",
    "label": "Remarks"
+  },
+  {
+   "fetch_from": "responsibility.employee_name",
+   "fieldname": "responsible_name",
+   "fieldtype": "Data",
+   "label": "Responsible Name"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
   }
  ],
  "istable": 1,
- "modified": "2021-04-14 19:19:12.138376",
+ "modified": "2021-04-16 19:35:38.127762",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "EOS Weekly Scorecard Details",
