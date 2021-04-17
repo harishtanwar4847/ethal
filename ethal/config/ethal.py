@@ -43,6 +43,9 @@ def get_data():
 				},
 				{
 					'type': 'doctype', 'name': 'EOS Weekly Scorecard', 'onboard': 1
+				},
+				{
+					'type': 'doctype', 'name': 'SOP', 'onboard': 1
 				}
 			]
 		},
@@ -57,6 +60,14 @@ def get_data():
 				},
 				{
 					'type': 'doctype', 'label': _('Melting Furnace Report'), 'name': 'QC', 'route': 'query-report/Melting Furnace', 'onboard': 1	
+				}
+			]
+		},
+		{
+			'label': _('Settings'),
+			'items': [
+				{
+					'type': 'doctype', 'label': _('Admin Settings'), 'name': 'Admin Settings', 'onboard': 1
 				}
 			]
 		}
