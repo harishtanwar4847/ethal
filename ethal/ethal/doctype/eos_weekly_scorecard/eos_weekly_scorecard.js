@@ -27,18 +27,30 @@ frappe.ui.form.on('EOS Weekly Scorecard', {
 				cur_frm.refresh_fields("eos_details");
 			})
 		}
-	},	
+	},
+	
 });
 
 frappe.ui.form.on('EOS Weekly Scorecard Details', {
-	target: function(frm) {
+	target: function(frm, cdt, cdn) {
 		var a = frm.doc.eos_details.length - 1
 		var b = frm.doc.eos_details[a]
 		if (b.parameter == 'Advance') {
 			var c = frm.doc.eos_details.length - 2
 			var d = (frm.doc.eos_details[c].actual / frm.doc.eos_details[c].target)
+			var grid_row = locals[cdt][cdn];
+			$("input[data-fieldname='actual']").css('pointer-events','none');
+			console.log(b)
 			b.actual = d
+			frm.set_df_property(b.actual, 'read_only', 1)
 			cur_frm.refresh_fields("eos_details");
 		}
-	}
+	},
+	form_render: function(frm){
+		var a = frm.doc.eos_details.length - 1
+		var b = frm.doc.eos_details[a]
+		if (b.parameter == 'Advance') {
+			$("input[data-fieldname='actual']").css('pointer-events','none');
+		}
+	}	
 });
