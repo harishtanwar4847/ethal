@@ -35,7 +35,7 @@ frappe.ui.form.on('EOS Weekly Scorecard Details', {
 	target: function(frm, cdt, cdn) {
 		var a = frm.doc.eos_details.length - 1
 		var b = frm.doc.eos_details[a]
-		if (b.parameter == 'Advance') {
+		if (b.parameter == 'Achieved') {
 			var c = frm.doc.eos_details.length - 2
 			var d = (frm.doc.eos_details[c].actual / frm.doc.eos_details[c].target)
 			var grid_row = locals[cdt][cdn];
@@ -49,7 +49,7 @@ frappe.ui.form.on('EOS Weekly Scorecard Details', {
 	form_render: function(frm){
 		var a = frm.doc.eos_details.length - 1
 		var b = frm.doc.eos_details[a]
-		if (b.parameter == 'Advance') {
+		if (b.parameter == 'Achieved') {
 			$("input[data-fieldname='actual']").css('pointer-events','none');
 		}
 	}	
