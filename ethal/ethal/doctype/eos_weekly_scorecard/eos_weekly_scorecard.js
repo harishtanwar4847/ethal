@@ -27,8 +27,7 @@ frappe.ui.form.on('EOS Weekly Scorecard', {
 				cur_frm.refresh_fields("eos_details");
 			})
 		}
-	},
-	
+	},	
 });
 
 frappe.ui.form.on('EOS Weekly Scorecard Details', {
