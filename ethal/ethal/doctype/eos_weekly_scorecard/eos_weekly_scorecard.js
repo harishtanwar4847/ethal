@@ -33,23 +33,23 @@ frappe.ui.form.on('EOS Weekly Scorecard', {
 
 frappe.ui.form.on('EOS Weekly Scorecard Details', {
 	target: function(frm, cdt, cdn) {
+			console.log('hlelo')
 		var a = frm.doc.eos_details.length - 1
 		var b = frm.doc.eos_details[a]
-		if (b.parameter == 'Achieved') {
-			var c = frm.doc.eos_details.length - 2
-			var d = (frm.doc.eos_details[c].actual / frm.doc.eos_details[c].target)
-			var grid_row = locals[cdt][cdn];
-			$("input[data-fieldname='actual']").css('pointer-events','none');
-			console.log(b)
-			b.actual = d
-			frm.set_df_property(b.actual, 'read_only', 1)
-			cur_frm.refresh_fields("eos_details");
+			if (b.parameter == 'Achieved' || b.parameter == 'achieved') {
+				var c = frm.doc.eos_details.length - 2
+				var d = (frm.doc.eos_details[c].actual / frm.doc.eos_details[c].target)
+				console.log(d)
+				$("input[data-fieldname='actual']").css('pointer-events','none');
+				b.actual = d
+				cur_frm.refresh_fields("eos_details");
 		}
 	},
+
 	form_render: function(frm){
 		var a = frm.doc.eos_details.length - 1
 		var b = frm.doc.eos_details[a]
-		if (b.parameter == 'Achieved') {
+		if (b.parameter == 'Achieved' || b.parameter == 'achieved') {
 			$("input[data-fieldname='actual']").css('pointer-events','none');
 		}
 	}	
