@@ -11,9 +11,10 @@ def execute(filters=None):
 	return columns, data
 
 def get_data(filters):
-	return frappe.db.sql("""
-			select parent, item_code, total_net_weight, amount, (amount/total_net_weight) 
-			from `tabSales Invoice Item`
-			where docstatus != 2 
-			group by parent, item_code desc;
-		""")
+	if filters:
+		return frappe.db.sql("""
+				select parent, item_code, total_net_weight, amount, (amount/total_net_weight) 
+				from `tabSales Invoice Item`
+				where docstatus != 2 and creation between '{0}' and '{1}'
+				group by parent, item_code desc;
+			""".format(filters['from_date'], filters['to_date']))
