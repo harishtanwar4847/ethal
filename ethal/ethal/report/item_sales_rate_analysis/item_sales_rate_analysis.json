@@ -8,7 +8,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "Ethal - Default",
- "modified": "2021-04-16 10:52:46.198241",
+ "modified": "2021-04-20 12:41:05.830361",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Item Sales Rate Analysis",
@@ -25,16 +25,10 @@
    "role": "Accounts User"
   },
   {
-   "role": "Document Deletor"
+   "role": "Sales User"
   },
   {
-   "role": "Document canceller"
-  },
-  {
-   "role": "Sales Invoice Approver"
-  },
-  {
-   "role": "Accounts Viewer"
+   "role": "Sales Manager"
   }
  ]
 }
