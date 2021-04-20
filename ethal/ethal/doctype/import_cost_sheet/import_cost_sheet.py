@@ -50,8 +50,8 @@ class ImportCostSheet(Document):
 				miscellaneous_etb = i.amount 
  
 		for j in self.import_cost_sheet_details:
-			j.amount__etb_ = j.qty * self.exchange_rate if j.qty and self.exchange_rate else 0
-			j.amount = j.amount__etb_ / self.usd_value if j.amount__etb_ and self.usd_value else 0
+			j.amount__etb_ = j.amount * self.exchange_rate if j.amount and self.exchange_rate else 0
+			# j.amount = j.amount__etb_ / self.usd_value if j.amount__etb_ and self.usd_value else 0
 			j.sea_fright_etb = (sea_fright_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
 			j.inland_fright_etb = (inland_fright_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
 			j.insurance_etb = (insurance_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
@@ -112,8 +112,8 @@ class ImportCostSheet(Document):
 				miscellaneous_etb = i.amount 
  
 		for j in self.import_cost_sheet_details:
-			j.amount__etb_ = j.qty * self.exchange_rate if j.qty and self.exchange_rate else 0
-			j.amount = j.amount__etb_ / self.usd_value if j.amount__etb_ and self.usd_value else 0
+			j.amount__etb_ = j.amount * self.exchange_rate if j.amount and self.exchange_rate else 0
+			# j.amount = j.amount__etb_ / self.usd_value if j.amount__etb_ and self.usd_value else 0
 			j.sea_fright_etb = (sea_fright_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
 			j.inland_fright_etb = (inland_fright_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
 			j.insurance_etb = (insurance_etb/self.usd_value)*j.amount if j.amount and self.usd_value else 0
