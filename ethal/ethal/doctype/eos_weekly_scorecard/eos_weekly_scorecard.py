@@ -12,7 +12,7 @@ class EOSWeeklyScorecard(Document):
 			if val.parameter == 'Achieved':
 				a= val.idx - 2
 				previous_values = self.eos_details[a].actual / self.eos_details[a].target if self.eos_details[a].actual and self.eos_details[a].target else 0
-				val.actual = previous_values
+				val.actual = previous_values * 100
 
 @frappe.whitelist()
 def get_previous_record(doc):

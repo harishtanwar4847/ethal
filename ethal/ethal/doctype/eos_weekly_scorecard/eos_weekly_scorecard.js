@@ -40,7 +40,7 @@ frappe.ui.form.on('EOS Weekly Scorecard Details', {
 				var d = (frm.doc.eos_details[c].actual / frm.doc.eos_details[c].target)
 				console.log(d)
 				$("input[data-fieldname='actual']").css('pointer-events','none');
-				b.actual = d
+				b.actual = d * 100
 				cur_frm.refresh_fields("eos_details");
 		}
 	},
