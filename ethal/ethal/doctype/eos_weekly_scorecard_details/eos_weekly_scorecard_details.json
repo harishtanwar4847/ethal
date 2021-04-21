@@ -17,6 +17,7 @@
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "division",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -24,6 +25,7 @@
    "options": "\nCD\nUD-DB\nUD-TU\nAccounts"
   },
   {
+   "columns": 2,
    "fieldname": "responsibility",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -31,18 +33,22 @@
    "options": "Employee"
   },
   {
+   "columns": 2,
    "fieldname": "parameter",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Parameter"
   },
   {
+   "columns": 1,
    "fieldname": "uom",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "UOM",
    "options": "\nMT\n%\nMM\nLTS\nETB / KG\nETB,  Millions"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "target",
    "fieldtype": "Float",
@@ -51,6 +57,7 @@
    "permlevel": 1
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "actual",
    "fieldtype": "Float",
@@ -78,7 +85,7 @@
   }
  ],
  "istable": 1,
- "modified": "2021-04-19 22:06:16.995793",
+ "modified": "2021-04-21 18:41:00.962150",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "EOS Weekly Scorecard Details",
