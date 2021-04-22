@@ -7,6 +7,7 @@
   "item_code",
   "item_name",
   "qty",
+  "rate",
   "amount",
   "amount__etb_",
   "sea_fright_etb",
@@ -121,7 +122,6 @@
    "fetch_from": "item_code.item_name",
    "fieldname": "item_name",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Item Name"
   },
   {
@@ -140,12 +140,14 @@
    "label": "Unit Cost Per KG (ETB)"
   },
   {
+   "columns": 1,
    "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Qty"
   },
   {
+   "columns": 2,
    "fieldname": "item_code",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -157,38 +159,51 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "tax_1",
    "fieldtype": "Float",
    "label": "Tax 1"
   },
   {
+   "default": "0",
    "fieldname": "tax_3",
    "fieldtype": "Float",
    "label": "Tax 3"
   },
   {
+   "default": "0",
    "fieldname": "tax_4",
    "fieldtype": "Float",
    "label": "Tax 4"
   },
   {
+   "default": "0",
    "fieldname": "tax_5",
    "fieldtype": "Float",
    "label": "Tax 5"
   },
   {
+   "default": "0",
    "fieldname": "tax_15",
    "fieldtype": "Float",
    "label": "Tax 15"
   },
   {
+   "default": "0",
    "fieldname": "tax_16",
    "fieldtype": "Float",
    "label": "Tax 16"
+  },
+  {
+   "default": "0",
+   "fieldname": "rate",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Rate"
   }
  ],
  "istable": 1,
- "modified": "2021-03-05 20:50:37.570018",
+ "modified": "2021-04-22 10:07:15.944155",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import Cost Sheet Details",

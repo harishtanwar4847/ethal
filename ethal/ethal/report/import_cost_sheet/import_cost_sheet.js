@@ -13,7 +13,7 @@ frappe.query_reports["Import Cost Sheet"] = {
 				var name = query_report.get_values().import_cost_sheet
 				console.log(name)
 				frappe.db.get_list('Import Cost Sheet', {
-					fields: ['purchase_order_no', 'supplier_name', 'invoice_value', 'bl', 'grn'],
+					fields: ['purchase_order_no', 'supplier_name', 'purchase_invoice_value', 'bl', 'grn'],
 					filters: {
 						name: name
 					}
@@ -22,7 +22,7 @@ frappe.query_reports["Import Cost Sheet"] = {
 					frappe.query_report.set_filter_value('grn', records[0].grn)
 					frappe.query_report.set_filter_value('for_purchase_order_no', records[0].purchase_order_no)
 					frappe.query_report.set_filter_value('supplier_name', records[0].supplier_name)
-					frappe.query_report.set_filter_value('invoice_value', records[0].invoice_value)
+					frappe.query_report.set_filter_value('purchase_invoice_value', records[0].purchase_invoice_value)
 					frappe.query_report.set_filter_value('bl', records[0].bl)
 				})
 			}		
@@ -40,7 +40,7 @@ frappe.query_reports["Import Cost Sheet"] = {
 			"read_only": 1
 		},
 		{
-			"fieldname":"invoice_value",
+			"fieldname":"purchase_invoice_value",
 			"label": __('Invoice Value'),
 			"fieldtype": "Currency",
 			"read_only": 1
