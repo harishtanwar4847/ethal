@@ -549,7 +549,7 @@
   "doctype": "Workflow",
   "document_type": "Payment Entry",
   "is_active": 1,
-  "modified": "2021-03-19 09:05:21.542724",
+  "modified": "2021-04-22 10:36:18.713499",
   "name": "Payment Entry Approval",
   "override_status": 0,
   "parent": null,
@@ -568,7 +568,33 @@
     "parenttype": "Workflow",
     "state": "Created",
     "update_field": "status",
-    "update_value": "Open"
+    "update_value": "Created"
+   },
+   {
+    "allow_edit": "PRA Checker",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Payment Entry Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Sent For Checking",
+    "update_field": "status",
+    "update_value": "Sent For Checking"
+   },
+   {
+    "allow_edit": "Payment Entry Approver",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Payment Entry Approval",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Sent For Approval",
+    "update_field": "status",
+    "update_value": "Sent For Approval"
    },
    {
     "allow_edit": "Payment Entry Approver",
@@ -620,11 +646,33 @@
     "parenttype": "Workflow",
     "state": "Void",
     "update_field": "status",
-    "update_value": "Void"
+    "update_value": "void"
    }
   ],
   "transitions": [
    {
+    "action": "Send For Checking",
+    "allow_self_approval": 1,
+    "allowed": "Payment Entry Approver",
+    "condition": "doc.naming_series == \"CPV-.YYYY.-\"",
+    "next_state": "Sent For Checking",
+    "parent": "Payment Entry Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Created"
+   },
+   {
+    "action": "Send For Approval",
+    "allow_self_approval": 1,
+    "allowed": "Payment Entry Approver",
+    "condition": "doc.naming_series == \"CPV-.YYYY.-\"",
+    "next_state": "Sent For Approval",
+    "parent": "Payment Entry Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Sent For Checking"
+   },
+   {
     "action": "Approve",
     "allow_self_approval": 1,
     "allowed": "Payment Entry Approver",
@@ -633,24 +681,24 @@
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
     "parenttype": "Workflow",
-    "state": "Created"
+    "state": "Sent For Approval"
    },
    {
     "action": "Reject",
     "allow_self_approval": 1,
     "allowed": "Payment Entry Approver",
-    "condition": "doc.naming_series == \"CPV-.YYYY.-\"",
+    "condition": null,
     "next_state": "Rejected",
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
     "parenttype": "Workflow",
-    "state": "Created"
+    "state": "Sent For Approval"
    },
    {
     "action": "Cancel",
     "allow_self_approval": 1,
     "allowed": "Payment Entry Approver",
-    "condition": "doc.naming_series == \"CPV-.YYYY.-\"",
+    "condition": null,
     "next_state": "Cancelled",
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
@@ -705,7 +753,7 @@
     "action": "Void",
     "allow_self_approval": 1,
     "allowed": "CRV Approver",
-    "condition": null,
+    "condition": "doc.payment_type == \"Receive\"\n",
     "next_state": "Void",
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
@@ -713,26 +761,48 @@
     "state": "Approved"
    },
    {
-    "action": "Approve",
+    "action": "Send For Checking",
     "allow_self_approval": 1,
     "allowed": "PCPV Approver",
     "condition": null,
-    "next_state": "Approved",
+    "next_state": "Sent For Checking",
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
     "parenttype": "Workflow",
     "state": "Created"
    },
    {
+    "action": "Send For Approval",
+    "allow_self_approval": 1,
+    "allowed": "PCPV Approver",
+    "condition": "doc.payment_type == \"Receive\"\n",
+    "next_state": "Sent For Approval",
+    "parent": "Payment Entry Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Sent For Checking"
+   },
+   {
+    "action": "Approve",
+    "allow_self_approval": 1,
+    "allowed": "PCPV Approver",
+    "condition": "doc.payment_type == \"Receive\"\n",
+    "next_state": "Approved",
+    "parent": "Payment Entry Approval",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Sent For Approval"
+   },
+   {
     "action": "Reject",
     "allow_self_approval": 1,
     "allowed": "PCPV Approver",
-    "condition": null,
+    "condition": "doc.payment_type == \"Receive\"\n",
     "next_state": "Rejected",
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
     "parenttype": "Workflow",
-    "state": "Created"
+    "state": "Sent For Approval"
    },
    {
     "action": "Cancel",
