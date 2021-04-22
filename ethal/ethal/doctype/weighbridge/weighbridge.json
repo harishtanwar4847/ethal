@@ -1,0 +1,118 @@
+{
+ "autoname": "field:sr_no",
+ "creation": "2021-03-16 11:18:18.408589",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "vehicle_no",
+  "sr_no",
+  "challan",
+  "customer",
+  "product",
+  "source",
+  "destination",
+  "column_break_6",
+  "transporter",
+  "date",
+  "time",
+  "gross",
+  "tare",
+  "net"
+ ],
+ "fields": [
+  {
+   "fieldname": "vehicle_no",
+   "fieldtype": "Data",
+   "label": "Vehicle No"
+  },
+  {
+   "fieldname": "challan",
+   "fieldtype": "Data",
+   "label": "Challan"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "label": "Customer"
+  },
+  {
+   "fieldname": "product",
+   "fieldtype": "Data",
+   "label": "Product"
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Data",
+   "label": "Source"
+  },
+  {
+   "fieldname": "destination",
+   "fieldtype": "Data",
+   "label": "Destination"
+  },
+  {
+   "fieldname": "transporter",
+   "fieldtype": "Data",
+   "label": "transporter"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "date"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "time"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sr_no",
+   "fieldtype": "Data",
+   "label": "Sr No",
+   "unique": 1
+  },
+  {
+   "fieldname": "gross",
+   "fieldtype": "Float",
+   "label": "Gross"
+  },
+  {
+   "fieldname": "tare",
+   "fieldtype": "Float",
+   "label": "Tare"
+  },
+  {
+   "fieldname": "net",
+   "fieldtype": "Float",
+   "label": "Net"
+  }
+ ],
+ "modified": "2021-03-29 14:12:14.609630",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Weighbridge",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
