@@ -49,6 +49,9 @@ def get_data():
 				},
 				{
 					'type': 'doctype', 'name': 'English Outgoing Letter', 'onboard': 1
+				},
+				{
+					'type': 'doctype', 'name': 'Contract Management', 'onboard': 1
 				}
 			]
 		},
