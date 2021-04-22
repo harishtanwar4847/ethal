@@ -76,5 +76,19 @@ def get_data():
 					'type': 'doctype', 'label': _('Admin Settings'), 'name': 'Admin Settings', 'onboard': 1
 				}
 			]
+		},
+		{
+			'label': _('Weighbridge'),
+			'items': [
+				{
+					'type': 'doctype', 'label': _('Weighbridge'), 'name': 'Weighbridge', 'onboard': 1
+				},
+				{
+					'type': 'doctype', 'label': _('Weighbridge Sync'), 'name': 'Weighbridge Sync', 'onboard': 1
+				},
+				{
+					'type': 'doctype', 'label': _('Weighbridge Material'), 'name': 'Weighbridge Material', 'onboard': 1
+				},
+			]
 		}
 	]
