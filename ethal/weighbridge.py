@@ -51,6 +51,34 @@ def set_values_for_weighbridge():
         for row in reader:
             lst.append(row)
 
+    for table in tables_lst:
+        if table == "Matl":
+            item_data = table.replace(' ','_') + '.csv'
+            print('Exporting ' + table)
+            with open(item_data, 'wb') as f:
+                subprocess.check_call(['mdb-export', mdb, table], stdout=f)
+                print("completed")
+
+    print("item_data ===> ",item_data)
+    print("inside weighbridge function")
+    item_lst = []
+    with open(item_data,'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            item_lst.append(row)  
+
+    for item in item_lst:
+        print(item) 
+        existing_item = frappe.db.get_value('Weighbridge Material', {'name': item[1]}, 'name')
+        print(existing_item)
+        if not existing_item:
+            weighbridge_material = frappe.get_doc({
+                'doctype': 'Weighbridge Material',
+                'weighbridge_material': item[1]
+            })                    
+            weighbridge_material.insert()
+    frappe.db.commit()        
+
     srno = []
     sr = frappe.db.get_list("Weighbridge",fields=["sr_no"])
     if not sr:
@@ -63,7 +91,7 @@ def set_values_for_weighbridge():
     for i in lst:
         if lst.index(i) >= 1:
             if i[28] not in srno:
-                # prd = frappe.db.get_value("Weighbridge Material",{"weighbridge_item_name":i[12]},"item_code")
+                # prd = frappe.db.get_value("Weighbridge Material",{"weighbridge_material":i[12]},"item_code")
                 wb = frappe.get_doc({
                     'doctype':'Weighbridge',
                     'sr_no' : i[28],
