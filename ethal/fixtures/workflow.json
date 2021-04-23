@@ -549,7 +549,7 @@
   "doctype": "Workflow",
   "document_type": "Payment Entry",
   "is_active": 1,
-  "modified": "2021-04-22 10:36:18.713499",
+  "modified": "2021-04-23 10:09:40.680102",
   "name": "Payment Entry Approval",
   "override_status": 0,
   "parent": null,
@@ -761,37 +761,15 @@
     "state": "Approved"
    },
    {
-    "action": "Send For Checking",
-    "allow_self_approval": 1,
-    "allowed": "PCPV Approver",
-    "condition": null,
-    "next_state": "Sent For Checking",
-    "parent": "Payment Entry Approval",
-    "parentfield": "transitions",
-    "parenttype": "Workflow",
-    "state": "Created"
-   },
-   {
-    "action": "Send For Approval",
-    "allow_self_approval": 1,
-    "allowed": "PCPV Approver",
-    "condition": "doc.payment_type == \"Receive\"\n",
-    "next_state": "Sent For Approval",
-    "parent": "Payment Entry Approval",
-    "parentfield": "transitions",
-    "parenttype": "Workflow",
-    "state": "Sent For Checking"
-   },
-   {
     "action": "Approve",
     "allow_self_approval": 1,
     "allowed": "PCPV Approver",
-    "condition": "doc.payment_type == \"Receive\"\n",
+    "condition": null,
     "next_state": "Approved",
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
     "parenttype": "Workflow",
-    "state": "Sent For Approval"
+    "state": "Created"
    },
    {
     "action": "Reject",
@@ -802,13 +780,13 @@
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
     "parenttype": "Workflow",
-    "state": "Sent For Approval"
+    "state": "Created"
    },
    {
     "action": "Cancel",
     "allow_self_approval": 1,
     "allowed": "PCPV Approver",
-    "condition": null,
+    "condition": "doc.payment_type == \"Receive\"\n",
     "next_state": "Cancelled",
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
@@ -819,7 +797,7 @@
     "action": "Void",
     "allow_self_approval": 1,
     "allowed": "PCPV Approver",
-    "condition": null,
+    "condition": "doc.payment_type == \"Receive\"\n",
     "next_state": "Void",
     "parent": "Payment Entry Approval",
     "parentfield": "transitions",
