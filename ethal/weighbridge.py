@@ -18,9 +18,13 @@ import os, sys, subprocess
 @frappe.whitelist(allow_guest=True)
 def set_values_for_weighbridge():
 
-    # file_path = frappe.db.get_single_value("Weighbridge Sync","mdb_file_path")
-    # file_name = frappe.db.get_single_value("Weighbridge Sync","mdb_file_name")
-    mdb = frappe.get_site_path("private","files","Main2002.mdb")
+    file_path = frappe.db.get_single_value("Weighbridge Sync","mdb_file_path")
+    file_name = frappe.db.get_single_value("Weighbridge Sync","mdb_file_name")
+    print(file_path)
+    print(file_name)
+    
+    # mdb = frappe.get_site_path("private","files","Main2002.mdb")
+    mdb = file_path+file_name
     print("mdb === ",mdb)
     
     # DATABASE = "/home/user/Desktop/Weighbridge/Main2002.mdb"
