@@ -3,12 +3,12 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Payment Entry",
-  "modified": "2021-04-23 09:56:49.023070",
+  "modified": "2021-04-24 12:47:14.936081",
   "name": "Payment Entry-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "\nfrappe.ui.form.on('Payment Entry', {\n    \n   refresh: function(frm) {\n\t\tif(frm.doc.workflow_state == 'Sent For Approval' && !frm.doc.checked_person){\n\t\t\tfrappe.call({\n\t\t\t\tmethod: \"ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.set_approver_name\",\n\t\t\t\targs: {\n\t\t\t\t\tdata: frm.doc\n\t\t\t\t}\n\t\t\t})\n\t\t\t.success(success =>{\n\t\t\t\tconsole.log(success)\n\t\t\t})\n\t\t} \n\t\tif(frm.doc.workflow_state == 'Approved' && !frm.doc.checked_person){\n\t\t\tfrappe.call({\n\t\t\t\tmethod: \"ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.set_approver_name\",\n\t\t\t\targs: {\n\t\t\t\t\tdata: frm.doc\n\t\t\t\t}\n\t\t\t})\n\t\t\t.success(success =>{\n\t\t\t\tconsole.log(success)\n\t\t\t})\n\t\t} \n\n\t},\n\n})    "
+  "script": "\nfrappe.ui.form.on('Payment Entry', {\n    \n   refresh: function(frm) {\n\t\tif(frm.doc.workflow_state == 'Sent For Approval' && !frm.doc.checked_person){\n\t\t\tfrappe.call({\n\t\t\t\tmethod: \"ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.set_approver_name\",\n\t\t\t\targs: {\n\t\t\t\t\tdata: frm.doc\n\t\t\t\t}\n\t\t\t})\n\t\t\t.success(success =>{\n\t\t\t\tconsole.log(success)\n\t\t\t})\n\t\t} \n\n\t},\n\n})    "
  },
  {
   "docstatus": 0,
