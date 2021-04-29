@@ -23,7 +23,7 @@ def get_data(filters):
 	print(total_count_of_weeks)
 	lst = []
 	for j in total_count_of_weeks:
-		a = " (select actual from `tabEOS Weekly Scorecard Details` as A where A.parent = '{0}' and A.division=B.division and A.parameter = B.parameter and A.responsible_name = B.responsible_name) as actual ".format(j['name'])
+		a = " (select actual from `tabEOS Weekly Scorecard Details` as A where A.parent = '{0}' and A.division=B.division and A.parameter = B.parameter and A.responsible_name = B.responsible_name and A.target = B.target) as actual ".format(j['name'])
 		lst.append(a)
 	separator = ", "
 	lst2 = separator.join(lst)
