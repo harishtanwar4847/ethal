@@ -28,12 +28,10 @@ def get_data(filters):
 	separator = ", "
 	lst2 = separator.join(lst)
 	if lst2:
-		query = frappe.db.sql("""
+		return frappe.db.sql("""
 				SELECT distinct B.division, B.parameter, B.responsible_name, B.target, {2}
 				from `tabEOS Weekly Scorecard Details` as B join `tabEOS Weekly Scorecard` 
 				on B.parent = `tabEOS Weekly Scorecard`.name
 				where `tabEOS Weekly Scorecard`.to_date between '{0}' and '{1}'
 				order by B.idx asc;
 						""".format(filters['from_date'], filters['to_date'], lst2))		
-	if filters:
-		return query
