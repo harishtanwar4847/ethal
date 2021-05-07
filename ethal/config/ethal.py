@@ -66,6 +66,9 @@ def get_data():
 				},
 				{
 					'type': 'doctype', 'label': _('Melting Furnace Report'), 'name': 'QC', 'route': 'query-report/Melting Furnace', 'onboard': 1	
+				},
+				{
+					'type': 'doctype', 'label': _('EOS Weekly Scorecard Report'), 'name': 'EOS Weekly Scorecard', 'route': 'query-report/EOS Weekly Scorecard', 'onboard': 1
 				}
 			]
 		},
