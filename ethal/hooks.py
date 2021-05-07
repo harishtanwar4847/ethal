@@ -169,14 +169,14 @@ permission_query_conditions = {
 }
 
 scheduler_events = {
-	# "cron": {
-	# 	"59 11 * * 0": [
-	# 		"ethal.hr.shift_rotate"
-	# 	]
-	# },
+	"cron": {
+		"59 11 * * 0": [
+			"ethal.hr.shift_rotate"
+		]
+	},
 	"hourly": [
-        "ethal.ethal.employee_checkin.process_auto_attendance_for_holidays",
-		"ethal.hr.shift_rotate"
+        "ethal.ethal.employee_checkin.process_auto_attendance_for_holidays"
+		# "ethal.hr.shift_rotate"
     ],
 	"daily": [
 		"ethal.ethal.doctype.contract_management.contract_management.send_reminder_mail_to_user"
