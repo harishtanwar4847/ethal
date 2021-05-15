@@ -11,9 +11,11 @@ def execute(filters=None):
 	d = []
 	columns = ['Division:Data:150']+['Parameter:Link/EOS Weekly Report Parameter:200']+['Responsible Person:250']
 	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name'])
+	print(total_count_of_weeks)
 	for i in range(1, len(total_count_of_weeks)+1):
 		d.append('Target Week '+str(i)+':data:100')
 		d.append('Week '+str(i)+':data:100')
+	print(d)	
 	data = get_data(filters)
 	return columns+d, data
 
@@ -79,14 +81,22 @@ def get_data(filters):
 				join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
 				where A.to_date between '{0}' and '{1}' order by B.idx asc) Week{2} 
 				""".format(from_date[0], to_date[-1], i)
-			selectlist = "Select Week1.division, Week1.parameter, Week1.responsible_name"	
+			selectlist = "Select Week1.division, Week1.parameter, Week1.responsible_name"
+	
+			query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual   
+						from    `tabEOS Weekly Scorecard` as A 
+						join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
+						where A.from_date = '{0}' and to_date = '{1}') Week{2} 
+						ON Week1.division = Week{2}.division AND Week1.parameter = Week{2}.parameter AND Week1.responsible_name = Week{2}.responsible_name
+						""".format(from_date[0], to_date[0], 'A')
+			selectlist += ",WeekA.target ,WeekA.actual".format(i)	
 									
 		else:
 			print(i)
 			query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual   
 						from    `tabEOS Weekly Scorecard` as A 
 						join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
-						where A.to_date between '{0}' and '{1}') Week{2} 
+						where A.from_date = '{0}' and to_date = '{1}') Week{2} 
 						ON Week1.division = Week{2}.division AND Week1.parameter = Week{2}.parameter AND Week1.responsible_name = Week{2}.responsible_name
 						""".format(from_date[i-1], to_date[i-1], i)
 			selectlist += ",Week{0}.target ,Week{0}.actual".format(i)			
