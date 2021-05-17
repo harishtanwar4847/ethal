@@ -50,3 +50,21 @@ def make_salary_slip(source_name, target_doc = None, employee = None, as_print =
 		return frappe.get_print(doc.doctype, doc.name, doc = doc, print_format = print_format)
 	else:
 		return doc
+
+def set_payeename(doc, method):
+	if not doc.payee_name:
+		frappe.db.set_value('Customer', {'name': doc.name}, 'payee_name', doc.customer_name)
+		frappe.db.commit()
+		doc.reload()
+
+def supplier_set_payeename(doc, method):
+	if not doc.payee_name:
+		frappe.db.set_value('Supplier', {'name': doc.name}, 'payee_name', doc.supplier_name)
+		frappe.db.commit()
+		doc.reload()
+
+def shareholder_set_payeename(doc, method):
+	if not doc.payee_name:
+		frappe.db.set_value('Shareholder', {'name': doc.name}, 'payee_name', doc.title)
+		frappe.db.commit()
+		doc.reload()			

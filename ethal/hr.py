@@ -940,3 +940,11 @@ def before_update_vehicle_log(doc, method):
             frappe.db.set_value('Vehicle Log', {'name': doc.name}, 'total_running_hours', doc.todays_total_unit_consumed)
     frappe.db.commit()
     doc.reload()
+
+def set_payeename(doc, method):
+    if not doc.payee_name:
+        print('=========================')
+        print(doc.employee_name)
+        frappe.db.set_value('Employee', {'name': doc.name}, 'payee_name', doc.employee_name) 
+        frappe.db.commit()
+        doc.reload()   

@@ -111,7 +111,8 @@ doc_events = {
 		"before_save": "ethal.hr.before_save"
 	},
 	"Employee": {
-		"on_update": "ethal.hr.on_update_employee"
+		"on_update": "ethal.hr.on_update_employee",
+		"after_insert": "ethal.hr.set_payeename"
 	},
 	"Interview Configuration": {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
@@ -153,6 +154,15 @@ doc_events = {
 	},
 	"Vehicle Log": {
 		"on_update": "ethal.hr.before_update_vehicle_log"
+	},
+	"Customer": {
+		"after_insert": "ethal.utils.set_payeename"
+	},
+	"Supplier": {
+		"after_insert": "ethal.utils.supplier_set_payeename"
+	},
+	"Shareholder": {
+		"after_insert": "ethal.utils.shareholder_set_payeename"
 	}
 }
 

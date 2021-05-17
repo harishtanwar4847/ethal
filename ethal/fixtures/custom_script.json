@@ -14,12 +14,12 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Customer",
-  "modified": "2021-04-17 12:53:26.224262",
+  "modified": "2021-05-17 15:48:56.457557",
   "name": "Customer-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "frappe.ui.form.on('Customer', {\n\trefresh:function(frm) {\n        frm.set_df_property('tax_id', 'reqd', 1)\n\t},\n\tcustomer_name: function(frm) {\n\t    frm.set_value('payee_name', frm.doc.customer_name)\n\t}\n})"
+  "script": "frappe.ui.form.on('Customer', {\n\trefresh:function(frm) {\n        frm.set_df_property('tax_id', 'reqd', 1)\n\t}\n})"
  },
  {
   "docstatus": 0,
@@ -168,12 +168,12 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Employee",
-  "modified": "2021-05-17 11:00:05.707251",
+  "modified": "2021-05-17 15:48:43.900111",
   "name": "Employee-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "frappe.ui.form.on('Employee', {\n\trefresh(frm) {\n\t    console.log('refresh')\n\t\t// your code here\n// \t\tfrm.clear_table(\"employee_prerequisite\"); \n// \t\tfrm.refresh_field('employee_prerequisite');\n\t\tif(frm.doc.employee_prerequisite == undefined || frm.doc.employee_prerequisite == ''){\n\t\t    frappe.db.get_list('Employee Prerequisite Document', {\n                    fields: ['name'],\n                        }).then(records => {\n                            console.log(records);\n                            for (var j = 0; j < records.length; j++) {\n                                console.log(records[j].name)\n                                var childTable = cur_frm.add_child(\"employee_prerequisite\");\n                                childTable.document_type = records[j].name\n                            }\n                    cur_frm.refresh_fields(\"employee_prerequisite\");\n                    // cur_frm.save()\n                })\n\t\t}\n\t},\n\tbefore_save(frm) {\n\t    if (!frm.doc.payee_name) {\n\t        frm.set_value('payee_name', frm.doc.employee_name)\n\t    }\n\t}\n})"
+  "script": "frappe.ui.form.on('Employee', {\n\trefresh(frm) {\n\t    console.log('refresh')\n\t\t// your code here\n// \t\tfrm.clear_table(\"employee_prerequisite\"); \n// \t\tfrm.refresh_field('employee_prerequisite');\n\t\tif(frm.doc.employee_prerequisite == undefined || frm.doc.employee_prerequisite == ''){\n\t\t    frappe.db.get_list('Employee Prerequisite Document', {\n                    fields: ['name'],\n                        }).then(records => {\n                            console.log(records);\n                            for (var j = 0; j < records.length; j++) {\n                                console.log(records[j].name)\n                                var childTable = cur_frm.add_child(\"employee_prerequisite\");\n                                childTable.document_type = records[j].name\n                            }\n                    cur_frm.refresh_fields(\"employee_prerequisite\");\n                    cur_frm.save()\n                })\n\t\t}\n\t}\n})"
  },
  {
   "docstatus": 0,
@@ -190,22 +190,22 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Supplier",
-  "modified": "2021-04-17 12:55:12.256106",
+  "modified": "2021-05-17 15:54:20.131112",
   "name": "Supplier-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "frappe.ui.form.on('Supplier', {\n\trefresh(frm) {\n\t\t// your code here\n\t},\n\tsupplier_name(frm) {\n\t    frm.set_value('payee_name', frm.doc.supplier_name)\n\t}\n})"
+  "script": "frappe.ui.form.on('Supplier', {\n\trefresh(frm) {\n\t\t// your code here\n\t}\n})"
  },
  {
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Shareholder",
-  "modified": "2021-04-17 13:00:12.571826",
+  "modified": "2021-05-17 16:03:28.714535",
   "name": "Shareholder-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "frappe.ui.form.on('Shareholder', {\n\trefresh(frm) {\n\t\t// your code here\n\t},\n\ttitle(frm) {\n\t    frm.set_value('payee_name', frm.doc.title)\n\t}\n})"
+  "script": "frappe.ui.form.on('Shareholder', {\n\trefresh(frm) {\n\t\t// your code here\n\t}\n})"
  }
 ]
