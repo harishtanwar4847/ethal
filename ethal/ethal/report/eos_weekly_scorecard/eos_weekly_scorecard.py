@@ -75,32 +75,36 @@ def get_data(filters):
 	query = ""
 	selectlist = ""
 	i = 1
-	for date in range(len(from_date)):
-		if query == "":
-			query = """ from (Select Distinct B.division, B.parameter, B.responsible_name, B.idx from    `tabEOS Weekly Scorecard` as A 
-				join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
-				where A.to_date between '{0}' and '{1}' order by B.idx asc) Week{2} 
-				""".format(from_date[0], to_date[-1], i)
-			selectlist = "Select Week1.division, Week1.parameter, Week1.responsible_name"
-	
-			query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual   
-						from    `tabEOS Weekly Scorecard` as A 
-						join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
-						where A.from_date = '{0}' and to_date = '{1}') Week{2} 
-						ON Week1.division = Week{2}.division AND Week1.parameter = Week{2}.parameter AND Week1.responsible_name = Week{2}.responsible_name
-						""".format(from_date[0], to_date[0], 'A')
-			selectlist += ",WeekA.target ,WeekA.actual".format(i)	
-									
-		else:
-			print(i)
-			query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual   
-						from    `tabEOS Weekly Scorecard` as A 
-						join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
-						where A.from_date = '{0}' and to_date = '{1}') Week{2} 
-						ON Week1.division = Week{2}.division AND Week1.parameter = Week{2}.parameter AND Week1.responsible_name = Week{2}.responsible_name
-						""".format(from_date[i-1], to_date[i-1], i)
-			selectlist += ",Week{0}.target ,Week{0}.actual".format(i)			
-		i+=1		
-	query = selectlist+query+"order by Week1.idx"
-	print(query)
-	return frappe.db.sql(query)
+	# for date in range(len(from_date)):
+	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name'], order_by="name asc")
+	print(total_count_of_weeks)
+	if total_count_of_weeks:
+		for j in total_count_of_weeks:	
+			if query == "":
+				query = """ from (Select Distinct B.division, B.parameter, B.responsible_name, B.idx from    `tabEOS Weekly Scorecard` as A 
+					join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
+					where A.to_date between '{0}' and '{1}' order by B.idx asc) Week{2} 
+					""".format(from_date[0], to_date[-1], i)
+				selectlist = "Select Week1.division, Week1.parameter, Week1.responsible_name"
+		
+				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual   
+							from    `tabEOS Weekly Scorecard` as A 
+							join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
+							where A.name = '{0}') Week{1} 
+							ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
+							""".format(j['name'], 'A')
+				selectlist += ",WeekA.target ,WeekA.actual".format(i)	
+										
+			else:
+				print(i)
+				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual   
+							from    `tabEOS Weekly Scorecard` as A 
+							join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
+							where  A.name = '{0}') Week{1} 
+							ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
+							""".format(j['name'], i)
+				selectlist += ",Week{0}.target ,Week{0}.actual".format(i)			
+			i+=1		
+		query = selectlist+query+"order by Week1.idx"
+		print(query)
+		return frappe.db.sql(query)
