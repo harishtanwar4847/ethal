@@ -63,7 +63,7 @@ app_include_js = "/assets/ethal/js/transaction.js"
 # ------------------
 # See frappe.core.notifications.get_notification_config
 
-# notification_config = "ethal.notifications.get_notification_config"
+notification_config = "ethal.notifications.get_notification_config"
 
 # Permissions
 # -----------
