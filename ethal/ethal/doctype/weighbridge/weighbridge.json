@@ -54,17 +54,17 @@
   {
    "fieldname": "transporter",
    "fieldtype": "Data",
-   "label": "transporter"
+   "label": "Transporter"
   },
   {
    "fieldname": "date",
    "fieldtype": "Date",
-   "label": "date"
+   "label": "Date"
   },
   {
    "fieldname": "time",
    "fieldtype": "Time",
-   "label": "time"
+   "label": "Time"
   },
   {
    "fieldname": "column_break_6",
@@ -92,7 +92,7 @@
    "label": "Net"
   }
  ],
- "modified": "2021-03-29 14:12:14.609630",
+ "modified": "2021-05-21 18:50:43.997074",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Weighbridge",

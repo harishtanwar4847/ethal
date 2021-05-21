@@ -14,14 +14,14 @@
    "fetch_from": "item_code.item_name",
    "fieldname": "item_name",
    "fieldtype": "Data",
-   "label": "Item name",
+   "label": "Item Name",
    "read_only": 1
   },
   {
    "fieldname": "weighbridge_material",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Weighbridge material",
+   "label": "Weighbridge Material",
    "reqd": 1,
    "unique": 1
   },
@@ -33,7 +33,7 @@
    "unique": 1
   }
  ],
- "modified": "2021-03-31 17:39:44.568527",
+ "modified": "2021-05-21 18:50:17.184059",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Weighbridge Material",

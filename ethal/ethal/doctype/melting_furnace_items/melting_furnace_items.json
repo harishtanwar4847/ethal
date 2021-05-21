@@ -50,7 +50,7 @@
    "fieldname": "no_of_ingots_per_heat",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "No of Ingots per heat",
+   "label": "No of Ingots Per Heat",
    "options": "\n30\n41",
    "reqd": 1
   },
@@ -147,7 +147,7 @@
   }
  ],
  "istable": 1,
- "modified": "2021-03-09 19:15:39.197296",
+ "modified": "2021-05-21 18:53:20.994631",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Melting Furnace Items",
