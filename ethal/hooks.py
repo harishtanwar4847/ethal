@@ -63,7 +63,7 @@ app_include_js = "/assets/ethal/js/transaction.js"
 # ------------------
 # See frappe.core.notifications.get_notification_config
 
-notification_config = "ethal.notifications.get_notification_config"
+# notification_config = "ethal.notifications.get_notification_config"
 
 # Permissions
 # -----------
@@ -166,7 +166,7 @@ doc_events = {
 	}
 }
 
-on_login = 'ethal.hr.successful_login'
+# on_login = 'ethal.hr.successful_login'
 
 doctype_list_js = {
     "Salary Structure Assignment" : "public/js/salary_structure_assignment_list.js"

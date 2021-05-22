@@ -948,7 +948,3 @@ def set_payeename(doc, method):
         frappe.db.set_value('Employee', {'name': doc.name}, 'payee_name', doc.employee_name) 
         frappe.db.commit()
         doc.reload()   
-
-def successful_login():
-    print('==================')
-    frappe.publish_realtime(event='msgprint',message='hello',user='karan.bhanushali@atritechnocrat.in')

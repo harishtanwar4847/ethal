@@ -9,20 +9,20 @@
   "contract_for",
   "contractor_name",
   "start_date",
+  "expiry_date",
   "column_break_6",
   "employee",
   "contract_value",
+  "payments_details",
   "reference_number",
-  "expiry_date",
   "section_break_11",
   "details_of_contract",
-  "payments_details",
+  "remarks",
   "column_break_16",
   "is_renewable",
   "renewal_remider_days",
   "responsibility",
   "responsible_user",
-  "remarks",
   "naming_series"
  ],
  "fields": [
@@ -66,12 +66,12 @@
   {
    "fieldname": "start_date",
    "fieldtype": "Date",
-   "label": "start Date"
+   "label": "Start Date"
   },
   {
    "fieldname": "expiry_date",
    "fieldtype": "Date",
-   "label": "expiry Date"
+   "label": "Expiry Date"
   },
   {
    "fieldname": "contract_value",
@@ -97,7 +97,7 @@
   },
   {
    "fieldname": "remarks",
-   "fieldtype": "Data",
+   "fieldtype": "Text Editor",
    "label": "Remarks"
   },
   {
@@ -131,7 +131,7 @@
    "options": "CM-.YYYY.-"
   }
  ],
- "modified": "2021-03-03 10:55:15.035344",
+ "modified": "2021-05-22 11:40:54.309027",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Contract Management",
