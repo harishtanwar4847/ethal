@@ -22,6 +22,7 @@
   {
    "fieldname": "day",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Day"
   },
   {
@@ -31,6 +32,7 @@
   {
    "fieldname": "month",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Month"
   },
   {
@@ -45,11 +47,12 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Series",
    "options": "Melting-Furnace-.YYYY.-"
   }
  ],
- "modified": "2021-03-10 10:52:23.027512",
+ "modified": "2021-05-22 12:53:54.719523",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Melting Furnace",

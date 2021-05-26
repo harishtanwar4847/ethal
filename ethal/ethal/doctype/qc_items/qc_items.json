@@ -24,6 +24,7 @@
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "item_name",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -36,15 +37,19 @@
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "rejection_ash",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Rejection Ash"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "rejection_blister",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Rejection Blister"
   },
   {
@@ -52,15 +57,19 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "rejection_rolling",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Rejection Rolling"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "rejection_others",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Rejection Others"
   },
   {
@@ -68,9 +77,11 @@
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "ok_circle_received",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "OK Circle Received"
   },
   {
@@ -78,9 +89,11 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "ok_circle_receivedpieces",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "OK Circle Received(Pieces)"
   },
   {
@@ -88,6 +101,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "fieldname": "total_rejection",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -95,6 +109,7 @@
    "read_only": 1
   },
   {
+   "columns": 1,
    "fieldname": "melting_rejection",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -106,6 +121,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "total_circle_received",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -113,15 +129,17 @@
    "read_only": 1
   },
   {
+   "columns": 1,
    "fetch_from": "item_name.item_name",
    "fieldname": "item",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Item",
    "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2021-04-12 09:59:26.116746",
+ "modified": "2021-05-22 14:14:34.673330",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "QC Items",

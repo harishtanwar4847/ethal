@@ -28,13 +28,16 @@
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "mf",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "MF",
    "options": "\n1\n2\n3\n4\n5\n6\n7\n8",
    "reqd": 1
   },
   {
+   "columns": 1,
    "fieldname": "rolling_ingot_weight",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -47,6 +50,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "no_of_ingots_per_heat",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -59,9 +63,11 @@
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "shift_a_in_nos",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Shift A - In Nos"
   },
   {
@@ -69,8 +75,10 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "shift_a_in_kg",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Shift A - In Kg",
    "read_only": 1
   },
@@ -79,9 +87,11 @@
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "shift_b_in_nos",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Shift B - In Nos"
   },
   {
@@ -89,8 +99,10 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "shift_b_in_kg",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Shift B - In Kg",
    "read_only": 1
   },
@@ -99,9 +111,11 @@
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "shift_c_in_nos",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Shift C - In Nos"
   },
   {
@@ -109,8 +123,10 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "shift_c_in_kg",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Shift C - In Kg",
    "read_only": 1
   },
@@ -119,6 +135,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "total_pieces",
    "fieldtype": "Int",
@@ -127,6 +144,7 @@
    "read_only": 1
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "total_weight",
    "fieldtype": "Float",
@@ -139,6 +157,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "heats",
    "fieldtype": "Int",
    "in_list_view": 1,
@@ -147,7 +166,7 @@
   }
  ],
  "istable": 1,
- "modified": "2021-05-21 18:53:20.994631",
+ "modified": "2021-05-22 12:55:57.704846",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Melting Furnace Items",
