@@ -3,12 +3,12 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Payment Entry",
-  "modified": "2021-04-24 12:47:14.936081",
+  "modified": "2021-05-26 12:18:58.942498",
   "name": "Payment Entry-Client",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "\nfrappe.ui.form.on('Payment Entry', {\n    \n   refresh: function(frm) {\n\t\tif(frm.doc.workflow_state == 'Sent For Approval' && !frm.doc.checked_person){\n\t\t\tfrappe.call({\n\t\t\t\tmethod: \"ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.set_approver_name\",\n\t\t\t\targs: {\n\t\t\t\t\tdata: frm.doc\n\t\t\t\t}\n\t\t\t})\n\t\t\t.success(success =>{\n\t\t\t\tconsole.log(success)\n\t\t\t})\n\t\t} \n\n\t},\n\n})    "
+  "script": "\nfrappe.ui.form.on('Payment Entry', {\n    \n   refresh: function(frm) {\n\t\tif(frm.doc.workflow_state == 'Sent For Approval' && !frm.doc.checked_person){\n\t\t\tfrappe.call({\n\t\t\t\tmethod: \"ethal.ethal.doctype.payment_request_and_authorization.payment_request_and_authorization.set_approver_name\",\n\t\t\t\targs: {\n\t\t\t\t\tdata: frm.doc\n\t\t\t\t}\n\t\t\t})\n\t\t\t.success(success =>{\n\t\t\t\tconsole.log(success)\n\t\t\t})\n\t\t} \n\n\t},\n\tsettlement_responsibility: function(frm) {\n\t    if (!frm.doc.settlement_responsibility) {\n\t        frm.set_value('settlement_responsible', '')\n\t    }\n\t},\n\tparty: function(frm) {\n\t    if(!frm.doc.party){\n\t        frm.set_value('payee_name', '')\n\t        frm.set_value('party_name', '')\n\t    }\n\t}\n\n})    "
  },
  {
   "docstatus": 0,

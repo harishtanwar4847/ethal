@@ -61,6 +61,11 @@ frappe.ui.form.on('Payment Request and Authorization', {
 			frappe.throw(__("Party can only be one of "+ party_types.join(", ")));
 		}
 	},
+	party: function(frm) {
+		if (!frm.doc.party) {
+			frm.set_value('payee_name', '')
+		}
+	}
 //    onload: function(frm){
 		
 // 	}
