@@ -132,7 +132,8 @@ doc_events = {
 		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Purchase Order": {
-		"before_submit": "ethal.accounts.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name",
+		"on_submit": "ethal.accounts.create_payment_entry"
 	},	
 	"Purchase Invoice": {
 		"before_submit": "ethal.accounts.set_approver_name"
@@ -242,7 +243,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Shareholder", "Payroll Employee Detail", "Delivery Note", "Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Sales Invoice Item", "Material Request", "Purchase Receipt", "Journal Entry"]
+				["Shareholder", "Payroll Employee Detail", "Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Sales Invoice Item", "Material Request", "Purchase Receipt", "Journal Entry"]
 			]
 		]
 	},
