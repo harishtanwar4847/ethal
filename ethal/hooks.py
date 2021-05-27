@@ -133,7 +133,6 @@ doc_events = {
 	},
 	"Purchase Order": {
 		"before_submit": "ethal.accounts.set_approver_name",
-		"on_submit": "ethal.accounts.create_payment_entry"
 	},	
 	"Purchase Invoice": {
 		"before_submit": "ethal.accounts.set_approver_name"
