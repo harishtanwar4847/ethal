@@ -4,8 +4,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "item_code",
   "item_name",
-  "item",
   "section_break_2",
   "rejection_ash",
   "rejection_blister",
@@ -25,12 +25,13 @@
  "fields": [
   {
    "columns": 1,
+   "fetch_from": "item_code.item_name",
    "fieldname": "item_name",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
+   "in_global_search": 1,
    "in_list_view": 1,
    "label": "Item Name",
-   "options": "Item",
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "section_break_2",
@@ -42,7 +43,7 @@
    "fieldname": "rejection_ash",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Rejection Ash"
+   "label": "R - Ash"
   },
   {
    "columns": 1,
@@ -50,7 +51,7 @@
    "fieldname": "rejection_blister",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Rejection Blister"
+   "label": "R - Blister"
   },
   {
    "fieldname": "column_break_5",
@@ -62,7 +63,7 @@
    "fieldname": "rejection_rolling",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Rejection Rolling"
+   "label": "R - Rolling"
   },
   {
    "columns": 1,
@@ -70,7 +71,7 @@
    "fieldname": "rejection_others",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Rejection Others"
+   "label": "R - Others"
   },
   {
    "fieldname": "section_break_8",
@@ -82,7 +83,7 @@
    "fieldname": "ok_circle_received",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "OK Circle Received"
+   "label": "OCR"
   },
   {
    "fieldname": "column_break_10",
@@ -94,7 +95,7 @@
    "fieldname": "ok_circle_receivedpieces",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "OK Circle Received(Pieces)"
+   "label": "OCR(Pieces)"
   },
   {
    "fieldname": "section_break_12",
@@ -105,7 +106,7 @@
    "fieldname": "total_rejection",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Total Rejection",
+   "label": "Total - R",
    "read_only": 1
   },
   {
@@ -113,7 +114,7 @@
    "fieldname": "melting_rejection",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Melting Rejection",
+   "label": "Melting - R",
    "read_only": 1
   },
   {
@@ -125,21 +126,22 @@
    "fieldname": "total_circle_received",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Total Circle Received",
+   "label": "Total CR",
    "read_only": 1
   },
   {
    "columns": 1,
-   "fetch_from": "item_name.item_name",
-   "fieldname": "item",
-   "fieldtype": "Data",
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_global_search": 1,
    "in_list_view": 1,
-   "label": "Item",
-   "read_only": 1
+   "label": "Item Code",
+   "options": "Item",
+   "reqd": 1
   }
  ],
  "istable": 1,
- "modified": "2021-05-22 14:14:34.673330",
+ "modified": "2021-05-28 16:55:11.320931",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "QC Items",

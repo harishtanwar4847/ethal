@@ -41,7 +41,7 @@
    "fieldname": "rolling_ingot_weight",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Rolling Ingot Weight",
+   "label": "R-Ingot Wgt",
    "options": "\n7\n9.5\n13",
    "reqd": 1
   },
@@ -54,7 +54,7 @@
    "fieldname": "no_of_ingots_per_heat",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "No of Ingots Per Heat",
+   "label": "Ingots Per Heat",
    "options": "\n30\n41",
    "reqd": 1
   },
@@ -68,7 +68,7 @@
    "fieldname": "shift_a_in_nos",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Shift A - In Nos"
+   "label": "S-A - Nos"
   },
   {
    "fieldname": "column_break_7",
@@ -79,7 +79,7 @@
    "fieldname": "shift_a_in_kg",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Shift A - In Kg",
+   "label": "S-A - Kg",
    "read_only": 1
   },
   {
@@ -92,7 +92,7 @@
    "fieldname": "shift_b_in_nos",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Shift B - In Nos"
+   "label": "S- B - Nos"
   },
   {
    "fieldname": "column_break_11",
@@ -103,7 +103,7 @@
    "fieldname": "shift_b_in_kg",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Shift B - In Kg",
+   "label": "S-B - Kg",
    "read_only": 1
   },
   {
@@ -116,7 +116,7 @@
    "fieldname": "shift_c_in_nos",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Shift C - In Nos"
+   "label": "S-C - Nos"
   },
   {
    "fieldname": "column_break_15",
@@ -127,7 +127,7 @@
    "fieldname": "shift_c_in_kg",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Shift C - In Kg",
+   "label": "S-C - Kg",
    "read_only": 1
   },
   {
@@ -140,7 +140,7 @@
    "fieldname": "total_pieces",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Total Pieces",
+   "label": "Tt Pieces",
    "read_only": 1
   },
   {
@@ -149,7 +149,7 @@
    "fieldname": "total_weight",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Total Weight",
+   "label": "Tt Wgt",
    "read_only": 1
   },
   {
@@ -166,7 +166,7 @@
   }
  ],
  "istable": 1,
- "modified": "2021-05-22 12:55:57.704846",
+ "modified": "2021-05-28 17:21:46.504371",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Melting Furnace Items",
