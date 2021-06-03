@@ -20,7 +20,7 @@ class EmployeeIncentiveBulk(Document):
 							'company': company,
 							'docstatus': 1
 						})
-
+					incentive_amount = 0
 					if not additional_salary:
 						print('in if condition')
 						additional_salary = frappe.new_doc('Additional Salary')
