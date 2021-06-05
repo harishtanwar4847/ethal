@@ -1,0 +1,91 @@
+{
+ "creation": "2021-06-05 11:05:26.243984",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "item_name",
+  "week1isuzu",
+  "week2isuzu",
+  "week3isuzu",
+  "week4isuzu",
+  "monthisuzu",
+  "monthmt"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "item_code.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name"
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "week1isuzu",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Week1(Isuzu)"
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "week2isuzu",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Week2(Isuzu)"
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "week3isuzu",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Week3(Isuzu)"
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "week4isuzu",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Week4(Isuzu)"
+  },
+  {
+   "columns": 1,
+   "fieldname": "monthisuzu",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Month(Isuzu)"
+  },
+  {
+   "columns": 1,
+   "fieldname": "monthmt",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Month(MT)"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-06-05 18:07:06.506675",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Sales Target Month Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
