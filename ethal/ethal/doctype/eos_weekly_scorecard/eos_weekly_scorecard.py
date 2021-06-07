@@ -25,8 +25,25 @@ class EOSWeeklyScorecard(Document):
 							on si.item_code =  i.name
 							where i.item_group = 'FINISHED GOODS' and si.parent = '{0}'
 						""".format(i['name']))
-						net_weight_total += net_weight_amount[0][0]
+						net_weight_total += net_weight_amount[0][0] if net_weight_amount[0][0] != None else 0
 				val.actual = net_weight_total /1000	
+			if val.division == 'UD-DB' and val.parameter == 'Despatch - Utensils':
+				sales_invoice = frappe.db.get_all('Sales Invoice', filters={'posting_date': [ 'between', [self.from_date, self.to_date]], 'naming_series': ['like', '%'+'DB'+'%'] }, fields=['name'])	
+				net_weight_total = 0
+				print(sales_invoice)
+				if sales_invoice:
+					for i in sales_invoice:
+						net_weight_amount = frappe.db.sql("""
+							select sum(si.total_net_weight) 
+							from `tabSales Invoice Item` as si
+							join `tabItem` as i
+							on si.item_code =  i.name
+							where i.item_group = 'FINISHED GOODS' and si.parent = '{0}'
+						""".format(i['name']))
+						print(net_weight_amount)
+						net_weight_total += net_weight_amount[0][0] if net_weight_amount[0][0] != None else 0
+				val.actual = net_weight_total /1000	
+	
 
 
 
