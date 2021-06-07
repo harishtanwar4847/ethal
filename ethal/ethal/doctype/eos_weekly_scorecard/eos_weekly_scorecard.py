@@ -26,7 +26,7 @@ class EOSWeeklyScorecard(Document):
 							where i.item_group = 'FINISHED GOODS' and si.parent = '{0}'
 						""".format(i['name']))
 						net_weight_total += net_weight_amount[0][0]
-				val.actual = net_weight_total	
+				val.actual = net_weight_total /1000	
 
 
 
