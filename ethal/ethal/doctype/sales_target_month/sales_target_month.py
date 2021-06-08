@@ -12,12 +12,10 @@ class SalesTargetMonth(Document):
 	def before_save(self):
 		for i in self.sales_target_month_details:
 			i.monthisuzu = i.week1isuzu + i.week2isuzu + i.week3isuzu + i.week4isuzu
-			sales_invoice = frappe.get_all('Sales Invoice Item', filters={'item_code': i.item_code}, fields=['total_net_weight'])
-			if sales_invoice:
-				total_net_weight = 0
-				for j in sales_invoice:
-					total_net_weight+= j['total_net_weight']
-			i.monthmt = total_net_weight	
+			if i.item_code:
+				i.items_per_isuzu = frappe.db.get_value('Item', i.item_code, 'uom_per_isuzu')
+				i.weight_per_unit = frappe.db.get_value('Item', i.item_code, 'weight_per_unit')
+			i.monthmt = (i.monthisuzu * i.items_per_isuzu * i.weight_per_unit ) / 1000	
 
 @frappe.whitelist()
 def set_day_and_month_of_date(doc):

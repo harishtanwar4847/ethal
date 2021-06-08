@@ -6,11 +6,19 @@
  "field_order": [
   "item_code",
   "item_name",
+  "column_break_3",
   "week1isuzu",
-  "week2isuzu",
   "week3isuzu",
+  "column_break_6",
+  "week2isuzu",
   "week4isuzu",
+  "section_break_9",
+  "items_per_isuzu",
+  "column_break_11",
+  "weight_per_unit",
+  "section_break_13",
   "monthisuzu",
+  "column_break_15",
   "monthmt"
  ],
  "fields": [
@@ -64,6 +72,7 @@
   },
   {
    "columns": 1,
+   "default": "0",
    "fieldname": "monthisuzu",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -71,14 +80,51 @@
   },
   {
    "columns": 1,
+   "default": "0",
    "fieldname": "monthmt",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Month(MT)"
+  },
+  {
+   "default": "0",
+   "fieldname": "items_per_isuzu",
+   "fieldtype": "Float",
+   "label": "Items Per Isuzu"
+  },
+  {
+   "default": "0",
+   "fieldname": "weight_per_unit",
+   "fieldtype": "Float",
+   "label": "Weight Per Unit"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
   }
  ],
  "istable": 1,
- "modified": "2021-06-05 18:07:06.506675",
+ "modified": "2021-06-08 20:10:55.796966",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Sales Target Month Details",
