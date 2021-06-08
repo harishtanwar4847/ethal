@@ -59,7 +59,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-06-07 11:01:48.685469",
+ "modified": "2021-06-08 11:30:27.197023",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "EOS Weekly Scorecard",
@@ -88,6 +88,33 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "EOS User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "EOS Manager",
+   "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
