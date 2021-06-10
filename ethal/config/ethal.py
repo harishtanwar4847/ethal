@@ -52,6 +52,9 @@ def get_data():
 				},
 				{
 					'type': 'doctype', 'name': 'Contract Management', 'onboard': 1
+				},
+				{
+					'type': 'doctype', 'name': 'Sales Target Month', 'onboard': 1
 				}
 			]
 		},
