@@ -1,0 +1,175 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2021-06-10 12:40:14.662405",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "date",
+  "nature",
+  "details_of_incident_section",
+  "date_and_time",
+  "employees_involved",
+  "area_supervisor",
+  "column_break_8",
+  "division",
+  "machine",
+  "witnesses",
+  "section_break_12",
+  "description",
+  "measures_for_prevention",
+  "injury_details_section",
+  "type",
+  "cause",
+  "date_of_treatment_start",
+  "column_break_19",
+  "name_of_medical_facility",
+  "name_of_doctor",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "IR-.YYYY.-"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "nature",
+   "fieldtype": "Select",
+   "label": "Nature",
+   "options": "\nLost time\nInjury\nFirst Aid\nIncident\nObservation"
+  },
+  {
+   "fieldname": "details_of_incident_section",
+   "fieldtype": "Section Break",
+   "label": "Details of incident"
+  },
+  {
+   "fieldname": "date_and_time",
+   "fieldtype": "Datetime",
+   "label": "Date and Time"
+  },
+  {
+   "fieldname": "employees_involved",
+   "fieldtype": "Table MultiSelect",
+   "label": "Employees Involved",
+   "options": "Incident Employees"
+  },
+  {
+   "fieldname": "area_supervisor",
+   "fieldtype": "Link",
+   "label": "Area Supervisor",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "division",
+   "fieldtype": "Link",
+   "label": "Division",
+   "options": "Department"
+  },
+  {
+   "fieldname": "machine",
+   "fieldtype": "Data",
+   "label": "Machine"
+  },
+  {
+   "fieldname": "witnesses",
+   "fieldtype": "Table MultiSelect",
+   "label": "Witnesses",
+   "options": "Incident Witnesses"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "measures_for_prevention",
+   "fieldtype": "Text Editor",
+   "label": "Measures for Prevention"
+  },
+  {
+   "depends_on": "eval: doc.nature == 'Injury' || doc.nature == 'Firsd Aid'",
+   "fieldname": "injury_details_section",
+   "fieldtype": "Section Break",
+   "label": "Injury Details"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "label": "Type"
+  },
+  {
+   "fieldname": "cause",
+   "fieldtype": "Data",
+   "label": "Cause"
+  },
+  {
+   "fieldname": "date_of_treatment_start",
+   "fieldtype": "Date",
+   "label": "Date of Treatment Start"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "name_of_medical_facility",
+   "fieldtype": "Data",
+   "label": "Name of Medical Facility"
+  },
+  {
+   "fieldname": "name_of_doctor",
+   "fieldtype": "Data",
+   "label": "Name of Doctor"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Incident",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2021-06-10 13:11:28.462031",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Incident",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
