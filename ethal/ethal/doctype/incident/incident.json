@@ -12,6 +12,7 @@
   "date_and_time",
   "employees_involved",
   "area_supervisor",
+  "area_supervisor_name",
   "column_break_8",
   "division",
   "machine",
@@ -147,10 +148,16 @@
    "options": "Incident",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "area_supervisor.employee_name",
+   "fieldname": "area_supervisor_name",
+   "fieldtype": "Data",
+   "label": "Area Supervisor Name"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-06-10 13:11:28.462031",
+ "modified": "2021-06-10 13:50:54.000115",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Incident",
