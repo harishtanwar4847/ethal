@@ -61,7 +61,6 @@ def execute(filters=None):
 
 	direct_material = [(a+b+c+d)/e if e !=0 else 0 for a,b,c,d,e in zip(res_data_51000_01, res_data_51000_02, res_data_52000_01, res_data_53000_01,res_data_50000)]
 	direct_material = aboslute_value(direct_material)
-	print(db_sales)
 	fuel = [(a/b) if b !=0 else 0 for a,b in zip(res_data_51000_03, res_data_50000)]
 	fuel = aboslute_value(fuel)
 	manpower_cost = [(a+b+c+d)/e if e !=0 else 0 for a,b,c,d,e in zip(res_data_51000_04, res_data_52000_02, res_data_53000_02,res_data_54100, res_data_50000)]
