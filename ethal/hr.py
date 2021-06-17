@@ -67,7 +67,6 @@ def before_save_salary_slip(doc, method):
     overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
     if overtime_applicable:
         daily_overtime(doc)
-        # night_overtime(doc)
         sunday_overtime(doc)
         holiday_overtime(doc)
 
@@ -95,7 +94,6 @@ def before_insert_salary_slip(doc, method):
     overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
     if overtime_applicable:
         daily_overtime(doc)
-        # night_overtime(doc)
         sunday_overtime(doc)
         holiday_overtime(doc)
 
