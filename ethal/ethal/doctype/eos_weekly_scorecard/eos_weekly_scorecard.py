@@ -86,8 +86,8 @@ class EOSWeeklyScorecard(Document):
 				print(self.from_date)
 				print(self.to_date)
 				year = frappe.defaults.get_user_default("fiscal_year")
-				a = calculate('11100 - Cash and Bank - E21', year, self.from_date, self.to_date)
-				val.actual = a
+				cash_balance = calculate('11100 - Cash and Bank - E21', year, self.from_date, self.to_date)
+				val.actual = cash_balance / 1000000
 
 @frappe.whitelist()
 def get_previous_record(doc):
