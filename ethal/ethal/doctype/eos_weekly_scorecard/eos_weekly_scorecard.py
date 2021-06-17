@@ -5,6 +5,19 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
+import frappe, erpnext
+from erpnext import get_company_currency, get_default_company
+from erpnext.accounts.report.utils import get_currency, convert_to_presentation_currency
+from frappe.utils import getdate, cstr, flt, fmt_money
+from frappe import _, _dict
+from erpnext.accounts.utils import get_account_currency
+from erpnext.accounts.report.financial_statements import get_cost_centers_with_children
+from six import iteritems
+from erpnext.accounts.doctype.accounting_dimension.accounting_dimension import get_accounting_dimensions, get_dimension_with_children
+from collections import OrderedDict
+from erpnext.accounts.report.general_ledger.general_ledger import (validate_filters, validate_party, set_account_currency, get_result, get_gl_entries, 
+get_conditions, get_data_with_opening_closing, get_accountwise_gle)
+from ethal.ethal.report.solvency_ratios.solvency_ratios import get_result_with_filters
 
 class EOSWeeklyScorecard(Document):
 	def validate(self):
@@ -67,9 +80,14 @@ class EOSWeeklyScorecard(Document):
 				price = 0
 				if sales_invoice_price:
 					price += sales_invoice_price[0][0] if sales_invoice_price[0][0] != None else 0
-				print(net_weight_total)	
-				print(price)
 				val.actual = price / net_weight_total if net_weight_total != 0 else 0
+
+			if val.parameter == 'Cash Balance':
+				print(self.from_date)
+				print(self.to_date)
+				year = frappe.defaults.get_user_default("fiscal_year")
+				a = calculate('11100 - Cash and Bank - E21', year, self.from_date, self.to_date)
+				val.actual = a
 
 @frappe.whitelist()
 def get_previous_record(doc):
@@ -77,13 +95,29 @@ def get_previous_record(doc):
 	if get_parent:
 		get_previous_record = frappe.db.get_all('EOS Weekly Scorecard Details', {'parent': get_parent[0]['name']}, ['*'], order_by='idx asc')
 		return get_previous_record
+ 
+def calculate(account, year, from_date, to_date):
+	account_details = {}
+	
+	for acc in frappe.db.sql("""select name, is_group from tabAccount""", as_dict=1):
+		account_details.setdefault(acc.name, acc)
 
+	filters = frappe._dict({
+			'company': 'Ethal 2021', 
+			'from_date': from_date, 
+			'to_date': to_date, 
+			'group_by': 'Group by Voucher (Consolidated)', 
+			'show_opening_entries': 1, 
+			'include_default_book_entries': 1
+			})
+		
+	validate_filters(filters, account_details)
 
+	validate_party(filters)
 
+	filters = set_account_currency(filters)
 
-
-
-
-
-
-
+	filters["account"] = account
+	res = get_result(filters, account_details)
+	
+	return res[-1]['balance']
