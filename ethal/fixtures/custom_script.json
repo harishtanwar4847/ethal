@@ -24,17 +24,6 @@
  {
   "docstatus": 0,
   "doctype": "Custom Script",
-  "dt": "Salary Slip",
-  "modified": "2021-03-09 17:34:08.580864",
-  "name": "Salary Slip-Client",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "script": "frappe.ui.form.on('Salary Slip', {\n\tsetup(frm) {\n\t    console.log('onload')\n\t    if(!frm.doc.__islocal){\n    \t        frappe.call({\n    \t\t    'method': 'ethal.hr.set_working_days',\n    \t\t    'args': {\n    \t\t        doc : frm.doc\n    \t\t    }\n    \t\t})\n    \t\t.success(success => {\n    \t\t    console.log(success.message)\n    \t})\n    \t\n\t    }\n\t}\n})"
- },
- {
-  "docstatus": 0,
-  "doctype": "Custom Script",
   "dt": "Job Opening",
   "modified": "2020-12-15 22:22:18.478604",
   "name": "Job Opening-Client",
@@ -80,7 +69,7 @@
   "docstatus": 0,
   "doctype": "Custom Script",
   "dt": "Sales Invoice",
-  "modified": "2021-04-06 09:59:02.157830",
+  "modified": "2021-06-18 10:42:06.487418",
   "name": "Sales Invoice-Client",
   "parent": null,
   "parentfield": null,
