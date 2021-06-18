@@ -18,6 +18,7 @@ from collections import OrderedDict
 from erpnext.accounts.report.general_ledger.general_ledger import (validate_filters, validate_party, set_account_currency, get_result, get_gl_entries, 
 get_conditions, get_data_with_opening_closing, get_accountwise_gle)
 from ethal.ethal.report.solvency_ratios.solvency_ratios import get_result_with_filters
+from erpnext.accounts.report.customer_ledger_summary.customer_ledger_summary import execute
 
 class EOSWeeklyScorecard(Document):
 	def validate(self):
@@ -83,11 +84,27 @@ class EOSWeeklyScorecard(Document):
 				val.actual = price / net_weight_total if net_weight_total != 0 else 0
 
 			if val.parameter == 'Cash Balance':
-				print(self.from_date)
-				print(self.to_date)
 				year = frappe.defaults.get_user_default("fiscal_year")
 				cash_balance = calculate('11100 - Cash and Bank - E21', year, self.from_date, self.to_date)
 				val.actual = cash_balance / 1000000
+
+			filters = frappe._dict({'company': 'Ethal 2021', 
+							'from_date': self.from_date, 
+							'to_date': self.to_date
+							})	
+			customer_ledger_summary = execute(filters)
+			positive_balance = 0
+			negative_balance = 0
+			if val.parameter == 'Customer Advances':
+				for i in customer_ledger_summary[1]:
+					if i['closing_balance'] < 0:
+						negative_balance += i['closing_balance']
+					val.actual = negative_balance / 1000000
+			if val.parameter == 'Debtors':
+				for i in customer_ledger_summary[1]:
+					if i['closing_balance'] > 0:
+						positive_balance += i['closing_balance']
+					val.actual = positive_balance / 1000000
 
 @frappe.whitelist()
 def get_previous_record(doc):
