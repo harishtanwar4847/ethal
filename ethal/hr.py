@@ -119,6 +119,9 @@ def before_save(doc, method):
         else:
             doc.total_working_days = total
             doc.payment_days = doc.total_working_days - doc.leave_without_pay
+        paid_leaves = frappe.db.get_all('Leave Application', filters={'leave_type': ['!=', 'Leave Without Pay'], 'docstatus': ['=', 1]}, fields=['count(name) as total'])
+        if paid_leaves:
+            doc.paid_leaves = paid_leaves[0]['total']    
         doc.calculate_component_amounts("earnings")
         doc.calculate_component_amounts("deductions")
         
