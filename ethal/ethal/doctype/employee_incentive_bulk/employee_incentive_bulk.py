@@ -9,7 +9,7 @@ from frappe import _
 
 class EmployeeIncentiveBulk(Document):
 	def on_submit(self):
-		employees = frappe.db.get_all('Payroll Employee Detail', {'parent': self.name}, ['employee', 'incentive_hours'], as_list = 1)
+		employees = frappe.db.get_all('Employee Incentive Bulk Detail', {'parent': self.name}, ['employee', 'incentive_hours'], as_list = 1)
 		if employees:
 			for employee in employees:
 					company = frappe.db.get_value('Employee', employee[0], 'company')
@@ -90,7 +90,6 @@ class EmployeeIncentiveBulk(Document):
 			frappe.throw(_("No employees for the mentioned criteria"))
 			
 		for d in employees:
-			print(d)
 			self.append('employee_details', d)
 
 		self.number_of_employees = len(employees)

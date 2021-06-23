@@ -98,7 +98,7 @@
    "fieldname": "employee_details",
    "fieldtype": "Table",
    "label": "Employee Details",
-   "options": "Payroll Employee Detail"
+   "options": "Employee Incentive Bulk Detail"
   },
   {
    "fieldname": "incentive_date",
@@ -115,7 +115,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-03-15 11:23:00.651099",
+ "modified": "2021-06-23 22:27:50.064184",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Employee Incentive Bulk",
