@@ -97,8 +97,6 @@ def before_insert_salary_slip(doc, method):
         sunday_overtime(doc)
         holiday_overtime(doc)
 
-    before_save(doc, method)
-
 def before_save(doc, method):
     company = frappe.defaults.get_user_default("company") 
     default_holiday = frappe.db.get_value('Company', company, 'default_holiday_list')
