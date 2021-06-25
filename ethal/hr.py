@@ -98,31 +98,40 @@ def before_insert_salary_slip(doc, method):
         holiday_overtime(doc)
 
 def before_save(doc, method):
-    company = frappe.defaults.get_user_default("company") 
-    default_holiday = frappe.db.get_value('Company', company, 'default_holiday_list')
-    holiday_ = []
-    if default_holiday:
-        holiday_day = frappe.db.get_value('Holiday List', {'name': default_holiday}, 'weekly_off')
-        holiday = frappe.db.get_all('Holiday', filters={'parent': default_holiday, 'description': holiday_day, 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
+    if doc.employee:
+        company = frappe.defaults.get_user_default("company") 
+        default_holiday = frappe.db.get_value('Company', company, 'default_holiday_list')
+        holiday_ = []
+        if default_holiday:
+            holiday_day = frappe.db.get_value('Holiday List', {'name': default_holiday}, 'weekly_off')
+            holiday = frappe.db.get_all('Holiday', filters={'parent': default_holiday, 'description': holiday_day, 'holiday_date': ('between',[ doc.start_date, doc.end_date])},  fields=['holiday_date'], as_list=1)
 
-        for i in holiday:
-            splitdate = i[0].strftime('%Y-%m-%d')
-            holiday_.append(splitdate)
+            for i in holiday:
+                splitdate = i[0].strftime('%Y-%m-%d')
+                holiday_.append(splitdate)
+                
+            total = date_diff(doc.end_date, doc.start_date) + 1   
+            hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
+            if hr_settings == 0: 
+                doc.total_working_days = total - len(holiday_)
+                doc.payment_days = doc.total_working_days - doc.leave_without_pay
+            else:
+                doc.total_working_days = total
+                doc.payment_days = doc.total_working_days - doc.leave_without_pay
+            paid_leaves = frappe.db.get_all('Leave Application', filters={'leave_type': ['!=', 'Leave Without Pay'], 'docstatus': ['=', 1]}, fields=['count(name) as total'])
+            if paid_leaves:
+                doc.paid_leaves = paid_leaves[0]['total']   
+            employee_incentive = frappe.db.sql("""
+                    select sum(eibd.incentive_hours) from `tabEmployee Incentive Bulk Detail` as eibd 
+                    join `tabEmployee Incentive Bulk` as eib on eibd.parent = eib.name
+                    where eib.incentive_date between '{0}' and '{1}' and eibd.employee = '{2}'
+            """.format(doc.start_date, doc.end_date, doc.employee))
+            if employee_incentive:
+                doc.total_incentives = employee_incentive[0][0]
+
+            doc.calculate_component_amounts("earnings")
+            doc.calculate_component_amounts("deductions")
             
-        total = date_diff(doc.end_date, doc.start_date) + 1   
-        hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
-        if hr_settings == 0: 
-            doc.total_working_days = total - len(holiday_)
-            doc.payment_days = doc.total_working_days - doc.leave_without_pay
-        else:
-            doc.total_working_days = total
-            doc.payment_days = doc.total_working_days - doc.leave_without_pay
-        paid_leaves = frappe.db.get_all('Leave Application', filters={'leave_type': ['!=', 'Leave Without Pay'], 'docstatus': ['=', 1]}, fields=['count(name) as total'])
-        if paid_leaves:
-            doc.paid_leaves = paid_leaves[0]['total']    
-        doc.calculate_component_amounts("earnings")
-        doc.calculate_component_amounts("deductions")
-        
 def process_lop_leave_for_attendance(attendance_name):
     attendance = frappe.get_doc('Attendance', attendance_name)
 
