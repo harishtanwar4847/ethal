@@ -392,18 +392,18 @@ def shift_rotate():
         frappe.db.commit()
 
 def get_employees(doc, **kwargs):
-		conditions, values = [], []
-		for field, value in kwargs.items():
-			if value:
-				conditions.append("{0}=%s".format(field))
-				values.append(value)
+    conditions, values = [], []
+    for field, value in kwargs.items():
+        if value:
+            conditions.append("{0}=%s".format(field))
+            values.append(value)
 
-		condition_str = " and " + " and ".join(conditions) if conditions else ""
+    condition_str = " and " + " and ".join(conditions) if conditions else ""
 
-		employees = frappe.db.sql_list("select name from tabEmployee where status='Active' {condition}"
-			.format(condition=condition_str), tuple(values))
+    employees = frappe.db.sql_list("select name from tabEmployee where status='Active' {condition}"
+        .format(condition=condition_str), tuple(values))
 
-		return employees
+    return employees
 
 @frappe.whitelist()
 def before_insert_salary_structure_assignment(doc, method):
