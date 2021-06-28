@@ -351,15 +351,18 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
 
 @frappe.whitelist()
 def update_salary_structure_assignment_rate(doc, method):
-    print('in update')
-    employee_list = frappe.db.get_all('Payroll Employee Detail', {'parent': doc.name}, ['employee'], as_list=1)
-    if employee_list:
-        for i in employee_list:
-            get_base_amount = frappe.db.get_value('Salary Structure Assignment', {'employee': i[0], 'docstatus': ['!=', 2]}, 'base')
-            if get_base_amount:
-                print(get_base_amount*doc.conversion_rate)
-                frappe.db.set_value('Salary Structure Assignment', {'employee': i[0], 'docstatus': ['!=', 2]}, 'salary_in_birr', float(get_base_amount) * doc.conversion_rate)
+    if doc.conversion_rate != 0:
+        employee_list = frappe.db.get_all('Payroll Employee Detail', {'parent': doc.name}, ['employee'], as_list=1)
+        if employee_list:
+            for i in employee_list:
+                get_base_amount = frappe.db.get_value('Salary Structure Assignment', {'employee': i[0], 'docstatus': ['!=', 2]}, 'base')
+                if get_base_amount:
+                    frappe.db.set_value('Salary Structure Assignment', {'employee': i[0], 'docstatus': ['!=', 2]}, 'salary_in_birr', float(get_base_amount) * doc.conversion_rate)
+                    frappe.db.commit() 
                 frappe.db.commit()
+                    frappe.db.commit() 
+                frappe.db.commit()
+                    frappe.db.commit() 
 
 def shift_rotate():
     print("rotate shift method call")
@@ -424,6 +427,7 @@ def assign_salary_structure(doc, company=None, grade=None, department=None, desi
                 employees=employees, salary_structure=doc,from_date=from_date,
                 base=base, variable=variable, income_tax_slab=income_tax_slab)
         else:
+            print('in else')
             assign_salary_structure_for_employees(employees, doc, from_date=from_date,
                 base=base, variable=variable, income_tax_slab=income_tax_slab)
     else:
