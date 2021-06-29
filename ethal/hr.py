@@ -126,8 +126,8 @@ def before_save(doc, method):
             paid_leaves = frappe.db.sql("""
                     select sum(total_leave_days) from `tabLeave Application` 
                     where leave_type != 'Leave Without Pay' and docstatus = 1
-                    and from_date >= '{0}' and to_date <= '{1}'
-                """.format(doc.start_date, doc.end_date))
+                    and from_date >= '{0}' and to_date <= '{1}' and employee = '{2}'
+                """.format(doc.start_date, doc.end_date, doc.employee))
             if paid_leaves:
                 doc.paid_leaves = paid_leaves[0][0]   
             employee_incentive = frappe.db.sql("""
