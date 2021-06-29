@@ -409,7 +409,8 @@ def before_insert_salary_structure_assignment(doc, method):
     # if get_employee_base_amount:
     #     frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'base', get_employee_base_amount)
     #     frappe.db.commit()   
-    frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'salary_in_usd', doc.base)
+    if doc.base:
+        frappe.db.set_value('Salary Structure Assignment', {'name': doc.name}, 'salary_in_usd', doc.base)
 
 @frappe.whitelist()
 def assign_salary_structure(doc, company=None, grade=None, department=None, designation=None,employee=None,
@@ -417,10 +418,11 @@ def assign_salary_structure(doc, company=None, grade=None, department=None, desi
     employees = get_employees(doc, company= company, grade= grade,department= department,designation= designation,name=employee)
 
     if employees:
+        print('in if')
         if len(employees) > 20:
             frappe.enqueue(assign_salary_structure_for_employees, timeout=600,
                 employees=employees, salary_structure=doc,from_date=from_date,
-                base=base, variable=variable, income_tax_slab=income_tax_slab)
+            base=base, variable=variable, income_tax_slab=income_tax_slab)
         else:
             assign_salary_structure_for_employees(employees, doc, from_date=from_date,
                 base=base, variable=variable, income_tax_slab=income_tax_slab)
@@ -428,21 +430,22 @@ def assign_salary_structure(doc, company=None, grade=None, department=None, desi
         frappe.msgprint(frappe._("No Employee Found"))
 
 def assign_salary_structure_for_employees(employees, salary_structure, from_date=None, base=None, variable=None, income_tax_slab=None):
-	salary_structures_assignments = []
-	existing_assignments_for = get_existing_assignments(employees, salary_structure, from_date)
-	count=0
-	for employee in employees:
-		if employee in existing_assignments_for:
-			continue
-		count +=1
+    print('in assign method')
+    salary_structures_assignments = []
+    existing_assignments_for = get_existing_assignments(employees, salary_structure, from_date)
+    count=0
+    for employee in employees:
+        if employee in existing_assignments_for:
+            continue
+        count +=1
 
-		salary_structures_assignment = create_salary_structures_assignment(employee,
-			salary_structure, from_date, base, variable, income_tax_slab)
-		salary_structures_assignments.append(salary_structures_assignment)
-		frappe.publish_progress(count*100/len(set(employees) - set(existing_assignments_for)), title = frappe._("Assigning Structures..."))
+        salary_structures_assignment = create_salary_structures_assignment(employee,
+            salary_structure, from_date, base, variable, income_tax_slab)
+        salary_structures_assignments.append(salary_structures_assignment)
+        frappe.publish_progress(count*100/len(set(employees) - set(existing_assignments_for)), title = frappe._("Assigning Structures..."))
 
-	if salary_structures_assignments:
-		frappe.msgprint(frappe._("Structures have been assigned successfully"))
+    if salary_structures_assignments:
+        frappe.msgprint(frappe._("Structures have been assigned successfully"))
 
 
 def create_salary_structures_assignment(employee, salary_structure, from_date, base, variable, income_tax_slab=None):
