@@ -63,6 +63,8 @@ def before_save_salary_slip(doc, method):
     doc.sunday_ot_hours = 0
     doc.holiday_ot_hours_ = 0
     doc.total_working_days = 0
+    doc.paid_leaves = 0
+    doc.total_incentives = 0
 
     overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
     if overtime_applicable:
@@ -77,6 +79,8 @@ def before_insert_salary_slip(doc, method):
     doc.sunday_ot_hours = 0
     doc.holiday_ot_hours_ = 0
     doc.total_working_days = 0
+    doc.paid_leaves = 0
+    doc.total_incentives = 0
 
     absent_attendances = frappe.get_list('Attendance', [
         ['employee', '=', doc.employee],
