@@ -111,8 +111,10 @@ doc_events = {
 		"before_save": "ethal.hr.before_save"
 	},
 	"Employee": {
-		"on_update": "ethal.hr.on_update_employee",
 		"after_insert": "ethal.hr.set_payeename"
+	},
+	"Employee Promotion": {
+		"on_submit": "ethal.hr.on_update_employee_promotion"
 	},
 	"Interview Configuration": {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
@@ -169,7 +171,8 @@ doc_events = {
 # on_login = 'ethal.hr.successful_login'
 
 doctype_list_js = {
-    "Salary Structure Assignment" : "public/js/salary_structure_assignment_list.js"
+    "Salary Structure Assignment" : "public/js/salary_structure_assignment_list.js",
+	"Employee" : "public/js/employee_list.js"
 }
 
 override_doctype_dashboards = {
