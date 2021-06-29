@@ -122,9 +122,14 @@ def before_save(doc, method):
             else:
                 doc.total_working_days = total
                 doc.payment_days = doc.total_working_days - doc.leave_without_pay
-            paid_leaves = frappe.db.get_all('Leave Application', filters={'leave_type': ['!=', 'Leave Without Pay'], 'docstatus': ['=', 1], 'from_date': ['>=', doc.start_date], 'to_date': ['<=', doc.end_date]}, fields=['count(name) as total'])
+                
+            paid_leaves = frappe.db.sql("""
+                    select sum(total_leave_days) from `tabLeave Application` 
+                    where leave_type != 'Leave Without Pay' and docstatus = 1
+                    and from_date >= '{0}' and to_date <= '{1}'
+                """.format(doc.start_date, doc.end_date))
             if paid_leaves:
-                doc.paid_leaves = paid_leaves[0]['total']   
+                doc.paid_leaves = paid_leaves[0][0]   
             employee_incentive = frappe.db.sql("""
                     select sum(eibd.incentive_hours) from `tabEmployee Incentive Bulk Detail` as eibd 
                     join `tabEmployee Incentive Bulk` as eib on eibd.parent = eib.name
@@ -171,6 +176,9 @@ def process_lop_leave_for_attendance(attendance_name):
 
     frappe.db.commit()
     # process_auto_attendance_for_holidays(doc)
+
+# def on_update_employee_promotion(doc, method):
+
 
 @frappe.whitelist()
 def on_update_employee(doc, method):
