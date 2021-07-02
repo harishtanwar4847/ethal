@@ -426,8 +426,8 @@ def assign_salary_structure(doc, company=None, grade=None, department=None, desi
     if employees:
         print('in if')
         if len(employees) > 20:
-            frappe.enqueue(assign_salary_structure_for_employees, timeout=600,
-                employees=employees, salary_structure=doc,from_date=from_date,
+            frappe.enqueue(assign_salary_structure_for_employees, timeout=None, now=True,
+                employees=employees, salary_structure=doc,from_date=from_date, is_async=True,
             base=base, variable=variable, income_tax_slab=income_tax_slab)
         else:
             assign_salary_structure_for_employees(employees, doc, from_date=from_date,
