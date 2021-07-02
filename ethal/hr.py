@@ -352,8 +352,6 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
             set_employee_warnings.warnings_status = get_employee_warnings[0]['warning_number']+1
         set_employee_warnings.save(ignore_permissions=True)
 
-        for user in recipients_list:
-            frappe.publish_realtime(event='msgprint',message=message,user=user)
         frappe.enqueue(method=frappe.sendmail, recipients=recipients_list, sender=None, now=True,
         subject=frappe.render_template(notification.subject, args), message=frappe.render_template(notification.message, args))
 
