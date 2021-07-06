@@ -1,0 +1,45 @@
+{
+ "creation": "2021-06-30 10:24:57.312445",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "foreman",
+  "foreman_name",
+  "foreman_role"
+ ],
+ "fields": [
+  {
+   "fieldname": "foreman",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Foreman",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "foreman.employee_name",
+   "fieldname": "foreman_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Foreman Name"
+  },
+  {
+   "fieldname": "foreman_role",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Foreman Role",
+   "options": "Designation"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-06-30 10:25:39.201667",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Foremen List",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

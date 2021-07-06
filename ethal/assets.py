@@ -58,3 +58,8 @@ def set_items_from_stock_entry(name):
     stock_entry_detail = frappe.get_all('Stock Entry Detail', filters={'parent': name}, fields=['*'])
     for i in stock_entry_detail:
         return i
+
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def get_team_members(doctype, txt, searchfield, start, page_len, filters):
+    return frappe.db.get_values('Foremen List', { 'parent': filters.get("maintenance_team") }, ['foreman'])

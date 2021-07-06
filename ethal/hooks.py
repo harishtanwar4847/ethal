@@ -171,8 +171,7 @@ doc_events = {
 # on_login = 'ethal.hr.successful_login'
 
 doctype_list_js = {
-    "Salary Structure Assignment" : "public/js/salary_structure_assignment_list.js",
-	"Employee" : "public/js/employee_list.js"
+    "Salary Structure Assignment" : "public/js/salary_structure_assignment_list.js"
 }
 
 override_doctype_dashboards = {
