@@ -107,8 +107,8 @@ doc_events = {
 	},
 	"Salary Slip": {
 		"before_insert": "ethal.hr.before_insert_salary_slip",
-		"get_emp_and_leave_details": "ethal.hr.before_save_salary_slip",
-		"before_save": "ethal.hr.before_save"
+		"get_emp_and_leave_details": "ethal.hr.get_emp_and_leave_details",
+		"after_insert": "ethal.hr.after_insert_salary_slip"
 	},
 	"Employee": {
 		"after_insert": "ethal.hr.set_payeename"

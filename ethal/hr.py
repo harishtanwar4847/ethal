@@ -58,30 +58,12 @@ def set_conversion_rate(employee):
             get_conversion_rate = frappe.db.get_value('Payroll Entry', employee_list[0][0], 'conversion_rate')
             return get_conversion_rate
 
-def before_save_salary_slip(doc, method):
-    doc.normal_ot_hours = 0
-    doc.sunday_ot_hours = 0
-    doc.holiday_ot_hours_ = 0
-    doc.total_working_days = 0
-    doc.paid_leaves = 0
-    doc.total_incentives = 0
-
-    overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
-    if overtime_applicable:
-        daily_overtime(doc)
-        sunday_overtime(doc)
-        holiday_overtime(doc)
-
-    before_save(doc, method)
+def get_emp_and_leave_details(doc, method):
+    create_overtime(doc)
+    update_working_days_and_payment_days(doc)
+    doc.calculate_net_pay()
 
 def before_insert_salary_slip(doc, method):
-    doc.normal_ot_hours = 0
-    doc.sunday_ot_hours = 0
-    doc.holiday_ot_hours_ = 0
-    doc.total_working_days = 0
-    doc.paid_leaves = 0
-    doc.total_incentives = 0
-
     absent_attendances = frappe.get_list('Attendance', [
         ['employee', '=', doc.employee],
         ['attendance_date', 'between', [doc.start_date, doc.end_date]],
@@ -94,14 +76,11 @@ def before_insert_salary_slip(doc, method):
         process_lop_leave_for_attendance(i.name)
 
     doc.get_leave_details()
-
-    overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
-    if overtime_applicable:
-        daily_overtime(doc)
-        sunday_overtime(doc)
-        holiday_overtime(doc)
-
-def before_save(doc, method):
+    create_overtime(doc)
+    update_working_days_and_payment_days(doc)
+  
+def update_working_days_and_payment_days(doc):
+    print('before save method')
     if doc.employee:
         company = frappe.defaults.get_user_default("company") 
         default_holiday = frappe.db.get_value('Company', company, 'default_holiday_list')
@@ -124,9 +103,10 @@ def before_save(doc, method):
                 doc.payment_days = doc.total_working_days - doc.leave_without_pay
                 
             paid_leaves = frappe.db.sql("""
-                    select sum(total_leave_days) from `tabLeave Application` 
-                    where leave_type != 'Leave Without Pay' and docstatus = 1
-                    and from_date >= '{0}' and to_date <= '{1}' and employee = '{2}'
+                    select count(a.name) from `tabLeave Application` as la
+                    join `tabAttendance` as a on la.name = a.leave_application
+                    where a.leave_type != 'Leave Without Pay' and la.docstatus = 1
+                    and a.attendance_date between '{0}' and '{1}' and la.employee = '{2}'
                 """.format(doc.start_date, doc.end_date, doc.employee))
             if paid_leaves:
                 doc.paid_leaves = paid_leaves[0][0]   
@@ -138,9 +118,28 @@ def before_save(doc, method):
             if employee_incentive:
                 doc.total_incentives = employee_incentive[0][0]
 
-            doc.calculate_component_amounts("earnings")
-            doc.calculate_component_amounts("deductions")
-            
+def after_insert_salary_slip(doc, method):
+    doc.reload()
+    doc._validate_links()
+    doc.save()
+
+def create_overtime(doc):
+    doc.normal_ot_hours = 0
+    doc.sunday_ot_hours = 0
+    doc.holiday_ot_hours_ = 0
+    doc.total_working_days = 0
+    doc.paid_leaves = 0
+    doc.total_incentives = 0
+
+    overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
+    if overtime_applicable:
+        daily_overtime(doc)
+        sunday_overtime(doc)
+        holiday_overtime(doc)    
+
+    # doc.calculate_component_amounts("earnings")
+    # doc.calculate_component_amounts("deductions")
+
 def process_lop_leave_for_attendance(attendance_name):
     attendance = frappe.get_doc('Attendance', attendance_name)
 
@@ -284,7 +283,7 @@ def sunday_overtime(doc):
     
     attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours'], as_list=True)
     for i in attendances:    
-        doc.sunday_ot_hours += i[0]
+        doc.sunday_ot_hours += i[0] 
        
 def holiday_overtime(doc):
     employee_holiday = frappe.db.get_value('Employee', doc.employee, 'holiday_list')
