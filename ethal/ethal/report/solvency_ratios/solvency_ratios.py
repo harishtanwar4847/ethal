@@ -42,33 +42,27 @@ def execute(filters=None):
 
 	columns = ["Month::180"]+["Debt to Assets::180"]+["Debt to Equity /Leverage (gearing) ratio::180"]+["Interest Coverage::180"]
 
-	res_data_20000 = get_result_with_filters('20000 - Source of Funds (Liabilities) - ETL', filters, account_details)
-	res_data_10000 = get_result_with_filters('10000 - Application of Funds (Assets) - ETL', filters, account_details)
-	res_data_30000 = get_result_with_filters('30000 - Capital - ETL', filters, account_details)
-	res_data_40000 = get_result_with_filters('40000 - Income - ETL', filters, account_details)
-	res_data_50000 = get_result_with_filters('50000 - Direct Costs - ETL', filters, account_details)
-	res_data_60000 = get_result_with_filters('60000 - Indirect Costs - ETL', filters, account_details)
-	res_data_62000 = get_result_with_filters('62000 - Financial expenses - ETL', filters, account_details)
+	res_data_20000 = get_result_with_filters('20000 - Liabilities - E21', filters, account_details)
+	res_data_10000 = get_result_with_filters('10000 - Application of Funds - E21', filters, account_details)
+	res_data_30000 = get_result_with_filters('30000 - Capital - E21', filters, account_details)
+	res_data_40000 = get_result_with_filters('40000 - Income - E21', filters, account_details)
+	res_data_50000 = get_result_with_filters('50000 - Direct Costs - E21', filters, account_details)
+	res_data_60000 = get_result_with_filters('60000 - General and Administrative Expenses - E21', filters, account_details)
+	res_data_62000 = get_result_with_filters('62000 - Tax Expense - E21', filters, account_details)
 
 	debt_of_assets = [(b / m)*100 if m !=0 else 0 for b,m in zip(res_data_20000, res_data_10000)]
 	debt_of_assets = aboslute_value(debt_of_assets)
-	print("dets os assets =====================")
-	print(debt_of_assets)
 	debt_to_enquiry = [(a+(b-c-d)) for a,b,c,d in zip(res_data_30000, res_data_40000, res_data_50000, res_data_60000)]
 	debt_to_enquiry_leverage = [(a/b)*100 if b !=0 else 0 for a,b in zip(res_data_20000, debt_to_enquiry)]
 	debt_to_enquiry_leverage = aboslute_value(debt_to_enquiry_leverage)
 	interest = [(a-b-c+d) for a,b,c,d in zip(res_data_40000, res_data_50000, res_data_60000, res_data_62000) ]
 	interest_coverage = [(b/a)*100 if a !=0 else 0 for a,b in zip(interest, res_data_62000)]
 	interest_coverage = aboslute_value(interest_coverage)
-	print("=======dept of enquiry=============")
-	print(debt_to_enquiry_leverage)
-	print("=========interest ================")
-	print(interest_coverage)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
 	rep= []
 	for (i,j,m,n) in zip(month,debt_of_assets,debt_to_enquiry_leverage,interest_coverage):
 		rep.append([i,j,m,n])
-	print("reports", rep)
+	
 	return columns, rep
 
 def aboslute_value(value):	
