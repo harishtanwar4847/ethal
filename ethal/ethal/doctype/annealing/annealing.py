@@ -4,23 +4,19 @@
 
 from __future__ import unicode_literals
 import frappe
-from datetime import datetime
 from frappe.model.document import Document
+import json
+from datetime import datetime
 
 class Annealing(Document):
-	def after_insert(self):
-		if self.date:
-			my_date = datetime.strptime(self.date, '%Y-%m-%d')
-			day =my_date.strftime('%A')
-			month = my_date.strftime('%B')
-			self.day = day
-			self.month = month
+	pass
 
-	def before_save(self):
-		if self.date:
-			print(self.date)
-			my_date = datetime.strptime(self.date, '%Y-%m-%d')
-			day =my_date.strftime('%A')
-			month = my_date.strftime('%B')
-			self.day = day
-			self.month = month	
+@frappe.whitelist()
+def set_day_and_month_of_date(doc):
+	data = json.loads(doc)
+	my_date = datetime.strptime(data['date'], '%Y-%m-%d')
+	day =my_date.strftime('%A')
+	month = my_date.strftime('%B')
+	day_month = data['date'].split('-')
+	
+	return day, month, day_month[1]

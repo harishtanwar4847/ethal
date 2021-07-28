@@ -11,7 +11,7 @@ def execute(filters=None):
 	return columns, data
 
 def get_data(filters):
-	if filters.withholding_number:
+	if filters.from_no and filters.to_no:
 		return frappe.db.sql("""
 			SELECT
 				pi.name,
@@ -37,9 +37,9 @@ def get_data(filters):
 				AND ptc.account_head = '21100-03 - Withholding Tax Payable on Purchase ( Type Tax ) - E21'
 				AND pi.docstatus='1'
 				AND a.name = pi.supplier_address
-				AND pi.withholding_receipt_date between '{0}' and '{1}' 
-				AND pi.withholding_receipt_no like '{2}%'
-		""".format(filters.from_date, filters.to_date, filters.withholding_number))
+				AND pi.withholding_receipt_date between '{0}' and '{1}'
+				AND pi.withholding_receipt_no between {2} and {3}
+		""".format(filters.from_date, filters.to_date, filters.from_no, filters.to_no))
 	else:
 		return frappe.db.sql("""
 			SELECT
@@ -66,5 +66,5 @@ def get_data(filters):
 				AND ptc.account_head = '21100-03 - Withholding Tax Payable on Purchase ( Type Tax ) - E21'
 				AND pi.docstatus='1'
 				AND a.name = pi.supplier_address
-				AND pi.withholding_receipt_date between '{0}' and '{1}' 
-		""".format(filters.from_date, filters.to_date))	
+				AND pi.withholding_receipt_date between '{0}' and '{1}'
+		""".format(filters.from_date, filters.to_date))

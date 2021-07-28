@@ -90,67 +90,92 @@ app_include_js = "/assets/ethal/js/transaction.js"
 # }
 doc_events = {
 	"Asset Maintenance Log": {
-		"after_insert": "ethal.utils.before_save_asset_maintenance_log",
-		"on_submit": "ethal.utils.create_stock_entry"
+		"after_insert": "ethal.assets.before_save_asset_maintenance_log",
+		"on_submit": "ethal.assets.create_stock_entry"
 	},
 	"Asset Repair": {
-		"on_submit": "ethal.utils.create_stock_entry_from_asset_repair"
+		"on_submit": "ethal.assets.create_stock_entry_from_asset_repair"
 	},
 	"Leave Allocation": {
-		"on_submit": "ethal.utils.before_submit_leave_allocation"
+		"on_submit": "ethal.hr.before_submit_leave_allocation"
 	},
 	"*": {
-		"before_submit": "ethal.utils.before_submit_all_doctypes"
+		"before_submit": "ethal.accounts.before_submit_all_doctypes"
 	},
 	"Payroll Entry": {
-		"before_submit": "ethal.utils.update_salary_structure_assignment_rate"
+		"before_submit": "ethal.hr.update_salary_structure_assignment_rate"
 	},
 	"Salary Slip": {
-		"before_insert": "ethal.utils.calculate_overtime_in_salary_slip"
+		"before_insert": "ethal.hr.before_insert_salary_slip",
+		"get_emp_and_leave_details": "ethal.hr.get_emp_and_leave_details",
+		"after_insert": "ethal.hr.after_insert_salary_slip"
+	},
+	"Employee": {
+		"after_insert": "ethal.hr.set_payeename"
+	},
+	"Employee Promotion": {
+		"on_submit": "ethal.hr.on_update_employee_promotion"
 	},
 	"Interview Configuration": {
         "before_save": "ethal.ethal.doctype.interview_configuration.interview_configuration.generate_round_numbers"
     },
 	"Payment Entry": {
-		"validate": "ethal.utils.before_insert_payment_entry",
-		"before_submit": "ethal.utils.set_approver_name"
+		"validate": "ethal.accounts.before_insert_payment_entry",
+		"before_submit": "ethal.accounts.set_approver_name"
 	},
+	# "Stock Entry": {
+	# 	"before_submit": "ethal.accounts.before_submit_stock_entry"
+	# },
 	"Sales Invoice": {
-		"validate": "ethal.utils.before_insert_sales_invoice",
-		"before_submit": "ethal.utils.set_approver_name"
+		"validate": "ethal.accounts.before_insert_sales_invoice",
+		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Sales Order": {
-		"before_submit": "ethal.utils.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Purchase Order": {
-		"before_submit": "ethal.utils.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name",
 	},	
 	"Purchase Invoice": {
-		"before_submit": "ethal.utils.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Material Request": {
-		"before_submit": "ethal.utils.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name"
+	},
+	"Journal Entry": {
+		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Payment Request and Authorization": {
 		"before_submit": "ethal.utils.set_approver_name"
 	},
 	"Attendance": {
-		"before_submit": "ethal.utils.trigger_mail_if_absent_consecutive_5_days"
-	},
-	"Salary Slip": {
-		"before_insert": "ethal.utils.calculate_overtime_in_salary_slip"
+		"before_submit": "ethal.hr.trigger_mail_if_absent_consecutive_5_days"
 	},
 	"Salary Structure Assignment": {
-		"on_submit": "ethal.utils.before_insert_salary_structure_assignment"
+		"on_submit": "ethal.hr.before_insert_salary_structure_assignment"
 	},
+	"Vehicle Log": {
+		"on_update": "ethal.hr.before_update_vehicle_log"
+	},
+	"Customer": {
+		"after_insert": "ethal.utils.set_payeename"
+	},
+	"Supplier": {
+		"after_insert": "ethal.utils.supplier_set_payeename"
+	},
+	"Shareholder": {
+		"after_insert": "ethal.utils.shareholder_set_payeename"
+	}
 }
+
+# on_login = 'ethal.hr.successful_login'
 
 doctype_list_js = {
     "Salary Structure Assignment" : "public/js/salary_structure_assignment_list.js"
- 	}
+}
 
 override_doctype_dashboards = {
-	"Job Applicant": "ethal.utils.override_job_applicant_dashboard"
+	"Job Applicant": "ethal.hr.override_job_applicant_dashboard"
 }
 
 permission_query_conditions = {
@@ -160,12 +185,16 @@ permission_query_conditions = {
 scheduler_events = {
 	"cron": {
 		"59 11 * * 0": [
-			"ethal.utils.shift_rotate"
+			"ethal.hr.shift_rotate"
 		]
 	},
 	"hourly": [
         "ethal.ethal.employee_checkin.process_auto_attendance_for_holidays"
-    ]
+		# "ethal.hr.shift_rotate"
+    ],
+	"daily": [
+		"ethal.ethal.doctype.contract_management.contract_management.send_reminder_mail_to_user"
+	]
 }
 
 # Scheduled Tasks
@@ -215,7 +244,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				["Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Salary Slip", "Employee Grade", "Salary Structure Assignment", "Item", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Invoice", "Purchase Order", "Sales Order", "Sales Invoice", "Material Request"]
+				['Asset Maintenance Log', 'Asset Maintenance Task', "Shareholder", "Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Employee Grade", "Salary Structure Assignment", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Order", "Sales Order", "Sales Invoice", "Sales Invoice Item", "Material Request", "Purchase Receipt", "Journal Entry"]
 			]
 		]
 	},
@@ -225,7 +254,7 @@ fixtures = [
 			[
 				"doc_type",
 				"in",
-				["Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
+				["Delivery Note", "Journal Entry", "Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization", "Quotation"]
 			]
 		]
 	},
@@ -235,7 +264,7 @@ fixtures = [
 			[
 				"document_type",
 				"in",
-				["Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
+				["Delivery Note", "Journal Entry", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
 			]
 		]
 	},
@@ -245,7 +274,7 @@ fixtures = [
 			[
 				"name",
 				"in",
-				['Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller']
+				['Delivery Note Approver', 'EOS User', 'EOS Manager', 'Journal Entry Approver', 'Deputy PRA Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
 			]
 		]
 	},
@@ -255,11 +284,20 @@ fixtures = [
 			[
 			"dt",
 			"in",
-			['Employee', 'Salary Structure', 'Salary Structure Assignment', 'Payment Entry', 'Job Applicant']
+			['Asset Maintenance', 'Payment Entry', 'Customer', 'Supplier', 'Shareholder', 'Landed Cost Voucher', 'Vehicle Log', 'Employee', 'Salary Structure', 'Salary Structure Assignment', 'Job Applicant', 'Job Opening', 'Salary Slip', 'Purchase Invoice', 'Sales Invoice', 'Asset Maintenance Log', 'Asset Repair', 'Quotation', 'Delivery Note', 'Item']
+			]
+		]
+	},
+	{
+		"dt": "Employee Prerequisite Document",
+		"filters": [
+			[
+				"name",
+				"in",
+				['TIN No', 'Pension No', 'Appointment Letter', 'Medical Certificate', 'Job Description']
 			]
 		]
 	},
 	"Translation",
-	"Custom Script",
 	"Shift Type",
 ]

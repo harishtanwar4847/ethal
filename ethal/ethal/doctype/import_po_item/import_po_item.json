@@ -216,6 +216,7 @@
    "label": "Quantity",
    "oldfieldname": "qty",
    "oldfieldtype": "Currency",
+   "precision": "4",
    "print_width": "60px",
    "reqd": 1,
    "width": "60px"
@@ -316,7 +317,8 @@
    "label": "Rate",
    "oldfieldname": "import_rate",
    "oldfieldtype": "Currency",
-   "options": "currency"
+   "options": "currency",
+   "precision": "4"
   },
   {
    "columns": 2,
@@ -737,7 +739,7 @@
  ],
  "idx": 1,
  "istable": 1,
- "modified": "2021-01-20 15:23:03.877078",
+ "modified": "2021-03-25 18:17:00.834186",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import PO Item",

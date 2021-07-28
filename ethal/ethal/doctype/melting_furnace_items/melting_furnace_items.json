@@ -28,117 +28,145 @@
  ],
  "fields": [
   {
+   "columns": 1,
    "fieldname": "mf",
-   "fieldtype": "Link",
+   "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "MF",
-   "options": "UOM"
+   "options": "\n1\n2\n3\n4\n5\n6\n7\n8",
+   "reqd": 1
   },
   {
+   "columns": 1,
    "fieldname": "rolling_ingot_weight",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Rolling Ingot Weight",
-   "options": "\n7\n9.5\n13"
+   "label": "R-Ingot Wgt",
+   "options": "\n7\n9.5\n13",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_3",
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "no_of_ingots_per_heat",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "No of Ingots per heat",
-   "options": "\n30\n41"
+   "label": "Ingots Per Heat",
+   "options": "\n30\n41",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_5",
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "shift_a_in_nos",
    "fieldtype": "Int",
-   "label": "Shift A - In Nos"
+   "in_list_view": 1,
+   "label": "S-A - Nos"
   },
   {
    "fieldname": "column_break_7",
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "shift_a_in_kg",
    "fieldtype": "Float",
-   "label": "Shift A - In Kg"
+   "in_list_view": 1,
+   "label": "S-A - Kg",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_9",
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "shift_b_in_nos",
    "fieldtype": "Int",
-   "label": "Shift B - In Nos"
+   "in_list_view": 1,
+   "label": "S- B - Nos"
   },
   {
    "fieldname": "column_break_11",
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "shift_b_in_kg",
    "fieldtype": "Float",
-   "label": "Shift B - In Kg"
+   "in_list_view": 1,
+   "label": "S-B - Kg",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_13",
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "shift_c_in_nos",
    "fieldtype": "Int",
-   "label": "Shift C - In Nos"
+   "in_list_view": 1,
+   "label": "S-C - Nos"
   },
   {
    "fieldname": "column_break_15",
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "shift_c_in_kg",
    "fieldtype": "Float",
-   "label": "Shift C - In Kg"
+   "in_list_view": 1,
+   "label": "S-C - Kg",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_17",
    "fieldtype": "Section Break"
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "total_pieces",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "TOTAL Pieces"
+   "label": "Tt Pieces",
+   "read_only": 1
   },
   {
+   "columns": 1,
    "default": "0",
    "fieldname": "total_weight",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "TOTAL Weight"
+   "label": "Tt Wgt",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_20",
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "heats",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "Heats"
+   "label": "Heats",
+   "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2021-02-04 11:22:37.921146",
+ "modified": "2021-05-28 17:21:46.504371",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Melting Furnace Items",

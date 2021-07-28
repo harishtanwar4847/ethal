@@ -1,5 +1,5 @@
 {
- "autoname": "format:Melting-Furnace-{YYYY}-{#####}",
+ "autoname": "naming_series:",
  "creation": "2021-02-04 09:36:04.748335",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -10,7 +10,8 @@
   "column_break_3",
   "month",
   "section_break_5",
-  "melting_furnace_items"
+  "melting_furnace_items",
+  "naming_series"
  ],
  "fields": [
   {
@@ -21,6 +22,7 @@
   {
    "fieldname": "day",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Day"
   },
   {
@@ -30,6 +32,7 @@
   {
    "fieldname": "month",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Month"
   },
   {
@@ -40,9 +43,16 @@
    "fieldname": "melting_furnace_items",
    "fieldtype": "Table",
    "options": "Melting Furnace Items"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "Melting-Furnace-.YYYY.-"
   }
  ],
- "modified": "2021-02-04 10:13:10.129557",
+ "modified": "2021-05-22 12:53:54.719523",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Melting Furnace",

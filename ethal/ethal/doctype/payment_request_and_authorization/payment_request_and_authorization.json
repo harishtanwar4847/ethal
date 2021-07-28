@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "naming_series:",
  "creation": "2020-12-01 14:09:43.114648",
  "doctype": "DocType",
@@ -12,6 +13,7 @@
   "column_break_3",
   "date_of_request",
   "date_of_requirement",
+  "payment_request_for",
   "description_of_requirement_section",
   "payment_type",
   "payment_mode",
@@ -46,6 +48,7 @@
    "fetch_from": "party.payee_name",
    "fieldname": "payee_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Payee Name"
   },
   {
@@ -68,6 +71,7 @@
   {
    "fieldname": "amount",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Amount",
    "reqd": 1
   },
@@ -75,7 +79,7 @@
    "fieldname": "bank",
    "fieldtype": "Select",
    "label": "Bank",
-   "options": "\nCBE\nZemen\nUnited\nCBO\nDebub\nLion\nAwash\nDashen\nEnat"
+   "options": "\nCBE\nZemen\nUnited\nCBO\nDebub\nLion\nAwash\nDashen\nEnat\nBOA"
   },
   {
    "fieldname": "references_section",
@@ -144,7 +148,6 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "in_list_view": 1,
    "label": "Series",
    "no_copy": 1,
    "options": "PRA-HO-.YYYY.-",
@@ -180,10 +183,17 @@
    "fieldtype": "Link",
    "label": "Party Type",
    "options": "DocType"
+  },
+  {
+   "fieldname": "payment_request_for",
+   "fieldtype": "Select",
+   "label": "Payment Request For",
+   "options": "\nPacking Material"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-02-05 17:48:08.932614",
+ "links": [],
+ "modified": "2021-07-28 10:36:49.061156",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
@@ -201,6 +211,18 @@
    "role": "System Manager",
    "share": 1,
    "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
    "write": 1
   }
  ],

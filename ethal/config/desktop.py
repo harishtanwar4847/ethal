@@ -9,7 +9,7 @@ def get_data():
 			"color": "grey",
 			"icon": "octicon octicon-database",
 			"type": "module",
-			"label": _("Import")
+			"label": _("Ethal")
 		},
 		# {
 		# 	"module_name": "Accounts",

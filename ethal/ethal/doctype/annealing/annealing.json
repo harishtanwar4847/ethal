@@ -1,5 +1,5 @@
 {
- "autoname": "Annealing-.MM.-.#####",
+ "autoname": "naming_series:",
  "creation": "2021-02-04 14:18:42.319524",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -9,8 +9,10 @@
   "day",
   "column_break_3",
   "month",
+  "date_month",
   "section_break_5",
-  "annealing_items"
+  "annealing_items",
+  "naming_series"
  ],
  "fields": [
   {
@@ -21,6 +23,7 @@
   {
    "fieldname": "day",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Day"
   },
   {
@@ -30,6 +33,7 @@
   {
    "fieldname": "month",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Month"
   },
   {
@@ -40,9 +44,22 @@
    "fieldname": "annealing_items",
    "fieldtype": "Table",
    "options": "Annealing Items"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "ANL-.date_month.-.YYYY.-"
+  },
+  {
+   "fieldname": "date_month",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "date_month"
   }
  ],
- "modified": "2021-02-09 17:07:38.158132",
+ "modified": "2021-05-28 17:03:40.257328",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Annealing",

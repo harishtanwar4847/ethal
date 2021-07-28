@@ -1,5 +1,5 @@
 {
- "autoname": "format:QC-{YYYY}-{#####}",
+ "autoname": "naming_series:",
  "creation": "2021-02-04 13:01:44.060121",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -10,7 +10,8 @@
   "column_break_3",
   "month",
   "section_break_5",
-  "qc_items"
+  "qc_items",
+  "naming_series"
  ],
  "fields": [
   {
@@ -21,6 +22,7 @@
   {
    "fieldname": "day",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Day"
   },
   {
@@ -30,6 +32,7 @@
   {
    "fieldname": "month",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Month"
   },
   {
@@ -40,9 +43,16 @@
    "fieldname": "qc_items",
    "fieldtype": "Table",
    "options": "QC Items"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "QC-.YYYY.-"
   }
  ],
- "modified": "2021-02-04 13:07:56.908532",
+ "modified": "2021-05-22 14:12:26.973434",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "QC",

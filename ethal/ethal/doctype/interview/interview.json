@@ -1,5 +1,5 @@
 {
- "autoname": "format:INT-{MM}-{YYYY}-{####}",
+ "autoname": "naming_series:",
  "creation": "2020-11-21 11:06:38.521108",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -13,7 +13,8 @@
   "current_round",
   "current_round_status",
   "status",
-  "round_number"
+  "round_number",
+  "naming_series"
  ],
  "fields": [
   {
@@ -71,9 +72,15 @@
    "fieldname": "round_number",
    "fieldtype": "Data",
    "label": "Round Number"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "INT-.MM.-.YYYY.-"
   }
  ],
- "modified": "2020-12-15 21:59:22.787003",
+ "modified": "2021-03-10 11:04:21.978772",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Interview",

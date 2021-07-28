@@ -1,0 +1,100 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2021-06-05 11:01:39.435931",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "date",
+  "month",
+  "year",
+  "month_year",
+  "division",
+  "section_break_7",
+  "sales_target_month_details",
+  "notes",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "STM-.month_year.-.YYYY.-"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Data",
+   "label": "Month"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Data",
+   "label": "Year"
+  },
+  {
+   "fieldname": "month_year",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "month_year"
+  },
+  {
+   "fieldname": "division",
+   "fieldtype": "Link",
+   "label": "Division",
+   "options": "Department"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text Editor",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sales Target Month",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "sales_target_month_details",
+   "fieldtype": "Table",
+   "options": "Sales Target Month Details"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2021-06-05 17:46:55.911936",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Sales Target Month",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
