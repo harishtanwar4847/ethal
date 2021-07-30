@@ -142,6 +142,9 @@ doc_events = {
 	"Material Request": {
 		"before_submit": "ethal.accounts.set_approver_name"
 	},
+	"Purchase Receipt": {
+		"before_submit": "ethal.accounts.set_approver_name"
+	},
 	"Journal Entry": {
 		"before_submit": "ethal.accounts.set_approver_name"
 	},
