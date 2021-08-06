@@ -161,15 +161,21 @@ def get_stock_ledger_entries(filters, items):
 	conditions = get_conditions(filters)
 
 	return frappe.db.sql("""
-		select
+			select
 			sle.item_code, warehouse, sle.posting_date, sle.actual_qty, sle.valuation_rate,
 			sle.company, sle.voucher_type, sle.qty_after_transaction, sle.stock_value_difference,
 			sle.item_code as name, sle.voucher_no
 		from
 			`tabStock Ledger Entry` sle force index (posting_sort_index)
+		join 
+			`tabAsset Spares ltem` asi
+		on
+			asi.item = sle.item_code
 		where sle.docstatus < 2 %s %s
+		and asi.parent = '%s'
+
 		order by sle.posting_date, sle.posting_time, sle.creation, sle.actual_qty""" % #nosec
-		(item_conditions_sql, conditions), as_dict=1)
+		(item_conditions_sql, conditions, filters.get('asset')), as_dict=1)
 
 def get_item_warehouse_map(filters, sle):
 	iwb_map = {}

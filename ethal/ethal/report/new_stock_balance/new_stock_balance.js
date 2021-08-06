@@ -87,6 +87,12 @@ frappe.query_reports["New Stock Balance"] = {
 			"label": __('Show Stock Ageing Data'),
 			"fieldtype": 'Check'
 		},
+		{
+			"fieldname": "asset",
+			"label": __('Assets'),
+			"fieldtype": 'Link',
+			"options": 'Asset'
+		}
 	],
 
 	"formatter": function (value, row, column, data, default_formatter) {
