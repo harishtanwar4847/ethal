@@ -113,7 +113,8 @@ def update_working_days_and_payment_days(doc):
             employee_incentive = frappe.db.sql("""
                     select sum(eibd.incentive_hours) from `tabEmployee Incentive Bulk Detail` as eibd 
                     join `tabEmployee Incentive Bulk` as eib on eibd.parent = eib.name
-                    where eib.incentive_date between '{0}' and '{1}' and eibd.employee = '{2}' and eib.docstatus = 1
+                    where eib.incentive_date between '{0}' and '{1}'
+                    and eibd.employee = '{2}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
             """.format(doc.start_date, doc.end_date, doc.employee))
             if employee_incentive:
                 doc.total_incentives = employee_incentive[0][0]
