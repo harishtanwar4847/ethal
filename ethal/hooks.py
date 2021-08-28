@@ -142,6 +142,9 @@ doc_events = {
 	"Material Request": {
 		"before_submit": "ethal.accounts.set_approver_name"
 	},
+	"Purchase Receipt": {
+		"before_submit": "ethal.accounts.set_approver_name"
+	},
 	"Journal Entry": {
 		"before_submit": "ethal.accounts.set_approver_name"
 	},
@@ -244,7 +247,7 @@ fixtures = [
 			[
 				"dt",
 				"in",
-				['Asset Maintenance Log', 'Asset Maintenance Task', "Shareholder", "Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Employee Grade", "Salary Structure Assignment", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Order", "Sales Order", "Sales Invoice", "Sales Invoice Item", "Material Request", "Purchase Receipt", "Journal Entry"]
+				['Material Request Item', 'Asset Maintenance Log', 'Asset Maintenance Task', "Shareholder", "Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Employee Grade", "Salary Structure Assignment", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Order", "Sales Order", "Sales Invoice", "Sales Invoice Item", "Material Request", "Purchase Receipt", "Journal Entry"]
 			]
 		]
 	},
@@ -264,7 +267,7 @@ fixtures = [
 			[
 				"document_type",
 				"in",
-				["Delivery Note", "Journal Entry", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization"]
+				["Attendance", "Employee Incentive Bulk", "Delivery Note", "Journal Entry", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization", "Purchase Receipt"]
 			]
 		]
 	},
@@ -274,7 +277,7 @@ fixtures = [
 			[
 				"name",
 				"in",
-				['Delivery Note Approver', 'EOS User', 'EOS Manager', 'Journal Entry Approver', 'Deputy PRA Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
+				['HR Admin', 'Delivery Note Approver', 'EOS User', 'EOS Manager', 'Journal Entry Approver', 'Deputy PRA Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
 			]
 		]
 	},
@@ -284,7 +287,7 @@ fixtures = [
 			[
 			"dt",
 			"in",
-			['Asset Maintenance', 'Payment Entry', 'Customer', 'Supplier', 'Shareholder', 'Landed Cost Voucher', 'Vehicle Log', 'Employee', 'Salary Structure', 'Salary Structure Assignment', 'Job Applicant', 'Job Opening', 'Salary Slip', 'Purchase Invoice', 'Sales Invoice', 'Asset Maintenance Log', 'Asset Repair', 'Quotation', 'Delivery Note', 'Item']
+			['Asset', 'Asset Maintenance', 'Payment Entry', 'Customer', 'Supplier', 'Shareholder', 'Landed Cost Voucher', 'Vehicle Log', 'Employee', 'Salary Structure', 'Salary Structure Assignment', 'Job Applicant', 'Job Opening', 'Salary Slip', 'Purchase Invoice', 'Sales Invoice', 'Asset Maintenance Log', 'Asset Repair', 'Quotation', 'Delivery Note', 'Item']
 			]
 		]
 	},

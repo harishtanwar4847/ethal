@@ -323,8 +323,7 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
 
         args={'doc': doc}
         recipients = notification.get_list_of_recipients(doc, args)
-        recipients_list = list(recipients[0])
-        message = 'Alert! {} has been on Leave for 5 consecutive days.'.format(doc.employee_name)
+        recipients_list, cc, bb = list(recipients[0])
         get_employee_warnings = frappe.get_all('Warning Letter Detail', filters={'parent': doc.employee}, fields=['warning_number'], order_by='warning_number desc', page_length=1)
         print('get employees', get_employee_warnings)
         warning_template = frappe.db.get_value('Warning Letter Template', 'Consecutive Leave', 'name')
@@ -352,7 +351,7 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
             set_employee_warnings.warnings_status = get_employee_warnings[0]['warning_number']+1
         set_employee_warnings.save(ignore_permissions=True)
 
-        frappe.enqueue(method=frappe.sendmail, recipients=recipients_list, sender=None, now=True,
+        frappe.enqueue(method=frappe.sendmail, cc=cc, sender=None, now=True,
         subject=frappe.render_template(notification.subject, args), message=frappe.render_template(notification.message, args))
 
 @frappe.whitelist()
