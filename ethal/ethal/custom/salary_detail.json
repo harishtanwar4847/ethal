@@ -24,6 +24,7 @@
    "parenttype": null,
    "property": "precision",
    "property_type": "Select",
+   "row_name": null,
    "value": "2"
   }
  ],
