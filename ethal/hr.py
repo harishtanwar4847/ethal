@@ -94,7 +94,7 @@ def update_working_days_and_payment_days(doc):
                 holiday_.append(splitdate)
                 
             total = date_diff(doc.end_date, doc.start_date) + 1   
-            hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
+            hr_settings = frappe.db.get_single_value('Payroll Settings', 'include_holidays_in_total_working_days')
             if hr_settings == 0: 
                 doc.total_working_days = total - len(holiday_)
                 doc.payment_days = doc.total_working_days - doc.leave_without_pay
@@ -219,7 +219,7 @@ def daily_overtime(doc):
         if shift_end is not None and shift_start is not None:
             shift_time = shift_end - shift_start
             hours = shift_time.seconds
-            total = hours/3600
+            total = hours//3600
             day = i[2].strftime('%A')
             if (i[1] == 'Night shift' and i[0] > total and day == 'Saturday'):
                 doc.sunday_ot_hours += (i[0] - total)
