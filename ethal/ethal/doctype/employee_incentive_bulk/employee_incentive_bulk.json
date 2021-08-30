@@ -10,7 +10,6 @@
   "salary_component",
   "column_break_5",
   "additional_salary",
-  "amended_from",
   "section_break_9",
   "branch",
   "department",
@@ -19,7 +18,8 @@
   "number_of_employees",
   "section_break_15",
   "employee_details",
-  "naming_series"
+  "naming_series",
+  "amended_from"
  ],
  "fields": [
   {
@@ -116,7 +116,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-07-02 09:04:54.470992",
+ "modified": "2021-08-24 15:21:38.133831",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Employee Incentive Bulk",

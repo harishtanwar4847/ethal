@@ -75,7 +75,10 @@ def before_insert_salary_slip(doc, method):
     for i in absent_attendances:
         process_lop_leave_for_attendance(i.name)
 
-    doc.get_leave_details()
+    from erpnext.hr.doctype.leave_application.leave_application import get_leave_details
+    get_leave_details(doc.employee, doc.end_date)
+
+    # doc.get_leave_details()
     create_overtime(doc)
     update_working_days_and_payment_days(doc)
   
@@ -94,7 +97,7 @@ def update_working_days_and_payment_days(doc):
                 holiday_.append(splitdate)
                 
             total = date_diff(doc.end_date, doc.start_date) + 1   
-            hr_settings = frappe.db.get_single_value('HR Settings', 'include_holidays_in_total_working_days')
+            hr_settings = frappe.db.get_single_value('Payroll Settings', 'include_holidays_in_total_working_days')
             if hr_settings == 0: 
                 doc.total_working_days = total - len(holiday_)
                 doc.payment_days = doc.total_working_days - doc.leave_without_pay
@@ -113,7 +116,8 @@ def update_working_days_and_payment_days(doc):
             employee_incentive = frappe.db.sql("""
                     select sum(eibd.incentive_hours) from `tabEmployee Incentive Bulk Detail` as eibd 
                     join `tabEmployee Incentive Bulk` as eib on eibd.parent = eib.name
-                    where eib.incentive_date between '{0}' and '{1}' and eibd.employee = '{2}' and eib.docstatus = 1
+                    where eib.incentive_date between '{0}' and '{1}'
+                    and eibd.employee = '{2}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
             """.format(doc.start_date, doc.end_date, doc.employee))
             if employee_incentive:
                 doc.total_incentives = employee_incentive[0][0]
@@ -212,13 +216,12 @@ def daily_overtime(doc):
     attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours', 'shift', 'attendance_date'], as_list=True)
     
     for i in attendances:
-        print(i)
         shift_start = frappe.db.get_value('Shift Type',i[1],'start_time')
         shift_end = frappe.db.get_value('Shift Type',i[1],'end_time')
         if shift_end is not None and shift_start is not None:
             shift_time = shift_end - shift_start
             hours = shift_time.seconds
-            total = hours/3600
+            total = hours//3600
             day = i[2].strftime('%A')
             if (i[1] == 'Night shift' and i[0] > total and day == 'Saturday'):
                 doc.sunday_ot_hours += (i[0] - total)
@@ -322,8 +325,7 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
 
         args={'doc': doc}
         recipients = notification.get_list_of_recipients(doc, args)
-        recipients_list = list(recipients[0])
-        message = 'Alert! {} has been on Leave for 5 consecutive days.'.format(doc.employee_name)
+        recipients_list, cc, bb = list(recipients[0])
         get_employee_warnings = frappe.get_all('Warning Letter Detail', filters={'parent': doc.employee}, fields=['warning_number'], order_by='warning_number desc', page_length=1)
         print('get employees', get_employee_warnings)
         warning_template = frappe.db.get_value('Warning Letter Template', 'Consecutive Leave', 'name')
@@ -351,7 +353,7 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
             set_employee_warnings.warnings_status = get_employee_warnings[0]['warning_number']+1
         set_employee_warnings.save(ignore_permissions=True)
 
-        frappe.enqueue(method=frappe.sendmail, recipients=recipients_list, sender=None, now=True,
+        frappe.enqueue(method=frappe.sendmail, cc=cc, sender=None, now=True,
         subject=frappe.render_template(notification.subject, args), message=frappe.render_template(notification.message, args))
 
 @frappe.whitelist()
