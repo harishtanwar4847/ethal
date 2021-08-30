@@ -75,7 +75,10 @@ def before_insert_salary_slip(doc, method):
     for i in absent_attendances:
         process_lop_leave_for_attendance(i.name)
 
-    doc.get_leave_details()
+    from erpnext.hr.doctype.leave_application.leave_application import get_leave_details
+    get_leave_details(doc.employee, doc.end_date)
+
+    # doc.get_leave_details()
     create_overtime(doc)
     update_working_days_and_payment_days(doc)
   
@@ -213,7 +216,6 @@ def daily_overtime(doc):
     attendances = frappe.db.get_all('Attendance', filters=filters, fields=['working_hours', 'shift', 'attendance_date'], as_list=True)
     
     for i in attendances:
-        print(i)
         shift_start = frappe.db.get_value('Shift Type',i[1],'start_time')
         shift_end = frappe.db.get_value('Shift Type',i[1],'end_time')
         if shift_end is not None and shift_start is not None:
