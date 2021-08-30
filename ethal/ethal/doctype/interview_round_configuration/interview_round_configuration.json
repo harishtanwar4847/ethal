@@ -1,0 +1,36 @@
+{
+ "creation": "2020-11-21 11:19:22.518269",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "round_number",
+  "round_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "round_number",
+   "fieldtype": "Data",
+   "label": "Round Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "round_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Round Name",
+   "options": "Interview Round Name"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-01-20 14:19:04.443878",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Interview Round Configuration",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

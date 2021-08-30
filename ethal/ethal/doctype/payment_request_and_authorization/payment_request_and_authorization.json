@@ -1,15 +1,19 @@
 {
+ "actions": [],
  "autoname": "naming_series:",
  "creation": "2020-12-01 14:09:43.114648",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "party_type",
+  "party",
   "payee_name",
   "payment_reason",
   "column_break_3",
   "date_of_request",
   "date_of_requirement",
+  "payment_request_for",
   "description_of_requirement_section",
   "payment_type",
   "payment_mode",
@@ -41,8 +45,10 @@
    "label": "Date of Requirement"
   },
   {
+   "fetch_from": "party.payee_name",
    "fieldname": "payee_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Payee Name"
   },
   {
@@ -58,20 +64,22 @@
   },
   {
    "fieldname": "payment_mode",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Payment Mode",
-   "options": "\nCheque\nPetty Cash\nCash\nCPO\nTransfer Form\nLetter\nOther"
+   "options": "Mode of Payment"
   },
   {
    "fieldname": "amount",
-   "fieldtype": "Data",
-   "label": "Amount"
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "reqd": 1
   },
   {
    "fieldname": "bank",
    "fieldtype": "Select",
    "label": "Bank",
-   "options": "\nCBE\nZemen\nUnited\nCBO\nDebub\nLion\nAwash\nDashen\nEnat"
+   "options": "\nCBE\nZemen\nUnited\nCBO\nDebub\nLion\nAwash\nDashen\nEnat\nBOA"
   },
   {
    "fieldname": "references_section",
@@ -80,15 +88,15 @@
   },
   {
    "fieldname": "prf_no",
-   "fieldtype": "Link",
+   "fieldtype": "Table MultiSelect",
    "label": "PRF NO",
-   "options": "Material Request"
+   "options": "PRF"
   },
   {
    "fieldname": "grn_no",
-   "fieldtype": "Link",
+   "fieldtype": "Table MultiSelect",
    "label": "GRN NO",
-   "options": "Purchase Receipt"
+   "options": "GRN"
   },
   {
    "fieldname": "supporting_documents",
@@ -108,22 +116,19 @@
    "fieldname": "approver_person",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "Approver Person",
-   "set_only_once": 1
+   "label": "Approver Person"
   },
   {
    "fieldname": "checked_person",
    "fieldtype": "Data",
    "hidden": 1,
-   "label": "Checked Person",
-   "set_only_once": 1
+   "label": "Checked Person"
   },
   {
    "fieldname": "checked_date",
    "fieldtype": "Date",
    "hidden": 1,
-   "label": "Checked Date",
-   "set_only_once": 1
+   "label": "Checked Date"
   },
   {
    "allow_on_submit": 1,
@@ -138,13 +143,11 @@
    "fieldname": "approver_date",
    "fieldtype": "Date",
    "hidden": 1,
-   "label": "Approved Date",
-   "set_only_once": 1
+   "label": "Approver Date"
   },
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "in_list_view": 1,
    "label": "Series",
    "no_copy": 1,
    "options": "PRA-HO-.YYYY.-",
@@ -168,10 +171,29 @@
    "fieldname": "description_of_requirement_section",
    "fieldtype": "Section Break",
    "label": "Description of Requirement"
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Dynamic Link",
+   "label": "Party",
+   "options": "party_type"
+  },
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Link",
+   "label": "Party Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "payment_request_for",
+   "fieldtype": "Select",
+   "label": "Payment Request For",
+   "options": "\nPacking Material"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-01-04 11:29:11.714259",
+ "links": [],
+ "modified": "2021-07-28 10:36:49.061156",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
@@ -199,7 +221,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Sales User",
+   "role": "All",
    "share": 1,
    "write": 1
   }

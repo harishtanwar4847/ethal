@@ -1,0 +1,25 @@
+{
+ "add_total_row": 1,
+ "creation": "2021-02-04 14:22:38.102747",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "Ethal - Default",
+ "modified": "2021-02-04 15:26:11.606024",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Melting Furnace",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Melting Furnace",
+ "report_name": "Melting Furnace",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}

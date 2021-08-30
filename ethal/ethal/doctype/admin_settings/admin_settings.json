@@ -5,6 +5,9 @@
  "engine": "InnoDB",
  "field_order": [
   "closure_date",
+  "column_break_2",
+  "applicable_for_role",
+  "section_break_4",
   "documents"
  ],
  "fields": [
@@ -18,10 +21,24 @@
    "fieldtype": "Table",
    "label": "Documents",
    "options": "Admin Settings Document"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "applicable_for_role",
+   "fieldtype": "Link",
+   "label": "Applicable for Role",
+   "options": "Role"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
   }
  ],
  "issingle": 1,
- "modified": "2020-12-17 14:09:38.303573",
+ "modified": "2021-01-19 14:51:57.115125",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Admin Settings",

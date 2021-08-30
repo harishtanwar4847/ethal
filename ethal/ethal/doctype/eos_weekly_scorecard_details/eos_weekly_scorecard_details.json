@@ -1,0 +1,100 @@
+{
+ "creation": "2021-03-30 14:40:20.569825",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "division",
+  "responsibility",
+  "responsible_name",
+  "parameter",
+  "column_break_5",
+  "uom",
+  "target",
+  "actual",
+  "section_break_9",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "division",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Division",
+   "options": "\nCD\nUD-DB\nUD-TU\nAccounts"
+  },
+  {
+   "columns": 2,
+   "fieldname": "responsibility",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Responsible",
+   "options": "Employee"
+  },
+  {
+   "columns": 2,
+   "fieldname": "parameter",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Parameter",
+   "options": "EOS Weekly Report Parameter"
+  },
+  {
+   "columns": 1,
+   "fieldname": "uom",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "UOM",
+   "options": "\nMT\n%\nMM\nLTS\nETB / KG\nETB,  Millions"
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Target",
+   "permlevel": 1
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "actual",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Actual"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor",
+   "label": "Remarks"
+  },
+  {
+   "fetch_from": "responsibility.employee_name",
+   "fieldname": "responsible_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Responsible Name"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-05-21 18:47:41.802955",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "EOS Weekly Scorecard Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

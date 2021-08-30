@@ -1,16 +1,15 @@
 {
- "autoname": "HR-EINVB-.YY.-.MM.-.#####",
+ "allow_import": 1,
+ "autoname": "naming_series:",
  "creation": "2020-12-12 10:08:50.331965",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "incentive_amount",
-  "payroll_date",
+  "incentive_date",
   "salary_component",
   "column_break_5",
   "additional_salary",
-  "amended_from",
   "section_break_9",
   "branch",
   "department",
@@ -18,23 +17,11 @@
   "designation",
   "number_of_employees",
   "section_break_15",
-  "employee_details"
+  "employee_details",
+  "naming_series",
+  "amended_from"
  ],
  "fields": [
-  {
-   "fieldname": "incentive_amount",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Incentive Amount",
-   "reqd": 1
-  },
-  {
-   "fieldname": "payroll_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Payroll Date",
-   "reqd": 1
-  },
   {
    "fieldname": "salary_component",
    "fieldtype": "Link",
@@ -112,11 +99,24 @@
    "fieldname": "employee_details",
    "fieldtype": "Table",
    "label": "Employee Details",
-   "options": "Payroll Employee Detail"
+   "options": "Employee Incentive Bulk Detail"
+  },
+  {
+   "fieldname": "incentive_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Incentive Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "HR-EINVB-.YY.-.MM.-"
   }
  ],
  "is_submittable": 1,
- "modified": "2020-12-12 21:18:48.550639",
+ "modified": "2021-08-24 15:21:38.133831",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Employee Incentive Bulk",

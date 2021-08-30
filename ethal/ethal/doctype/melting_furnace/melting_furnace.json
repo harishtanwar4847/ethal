@@ -1,0 +1,77 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2021-02-04 09:36:04.748335",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "day",
+  "column_break_3",
+  "month",
+  "section_break_5",
+  "melting_furnace_items",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "day",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Day"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Month"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "melting_furnace_items",
+   "fieldtype": "Table",
+   "options": "Melting Furnace Items"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "Melting-Furnace-.YYYY.-"
+  }
+ ],
+ "modified": "2021-05-22 12:53:54.719523",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Melting Furnace",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

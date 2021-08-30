@@ -2,46 +2,69 @@ import frappe
 from frappe.utils import getdate, nowdate, cint, flt
 import json
 from datetime import date, timedelta, datetime
+import time
+from frappe.utils import formatdate
 import ast
 import itertools
 from erpnext.hr.doctype.employee_checkin.employee_checkin import mark_attendance_and_link_log
 from frappe.utils.background_jobs import enqueue
 
 @frappe.whitelist()
-def before_submit_leave_allocation(doc, method):
-    doj = frappe.db.get_value('Employee', doc.employee, 'date_of_joining')
-    today = frappe.db.get_value('Leave Allocation', doc.name, 'from_date')
-    total_experience = today.year - doj.year - ((today.month, today.day) < (doj.month, doj.day)) + 1
-    get_total_leaves = convert_year_to_leaves(total_experience)
-    frappe.db.set_value('Leave Allocation', doc.name, 'new_leaves_allocated', get_total_leaves)
-    frappe.db.set_value('Leave Allocation', doc.name, 'total_leaves_allocated', get_total_leaves)
-   
-def convert_year_to_leaves(year):
-    leaves = ((year-1)/2)+16 
-    return leaves
+def set_approver_name(doc, method):
+	doc.approver_person = doc.modified_by
+	doc.approver_date = doc.modified
+
+	get_approver_name = frappe.db.get_value('Comment', {'reference_name':doc.name, 'content': 'Sent for Approval'}, 'owner')
+	print(get_approver_name)
+	get_approved_date = frappe.db.get_value('Comment', {'reference_name':doc.name, 'content': 'Sent for Approval'}, 'modified')
+	print(get_approved_date)
+	frappe.db.set_value(doc.doctype, {'name': doc.name}, 'checked_person', get_approver_name)
+	frappe.db.set_value(doc.doctype, {'name': doc.name}, 'checked_date', get_approved_date)
+
 
 @frappe.whitelist()
-def set_items_from_stock_entry(name):
-    stock_entry_detail = frappe.get_all('Stock Entry Detail', filters={'parent': name}, fields=['*'])
-    for i in stock_entry_detail:
-        return i
+def make_salary_slip(source_name, target_doc = None, employee = None, as_print = False, print_format = None, for_preview=0, ignore_permissions=False):
+	def postprocess(source, target):
+		if employee:
+			employee_details = frappe.db.get_value("Employee", employee,
+				["employee_name", "branch", "designation", "department"], as_dict=1)
+			target.employee = employee
+			target.employee_name = employee_details.employee_name
+			target.branch = employee_details.branch
+			target.designation = employee_details.designation
+			target.department = employee_details.department
+		target.run_method('process_salary_structure', for_preview=for_preview)
 
-@frappe.whitelist()
-def before_submit_all_doctypes(doc, method):
-    admin_settings = frappe.get_doc('Admin Settings')
-    admin_settings_document = frappe.get_all('Admin Settings Document', {'parent': 'Admin Settings', 'document': doc.doctype}, ['posting_date'], as_list=1)  
-    if admin_settings_document:
-        if admin_settings.closure_date > doc.posting_date:
-            frappe.throw('please contact manager')
+	doc = get_mapped_doc("Salary Structure", source_name, {
+		"Salary Structure": {
+			"doctype": "Salary Slip",
+			"field_map": {
+				"total_earning": "gross_pay",
+				"name": "salary_structure"
+			}
+		}
+	}, target_doc, postprocess, ignore_child_tables=True, ignore_permissions=ignore_permissions)
 
-@frappe.whitelist()
-def set_approver_name(data):
-    data=json.loads(data)
-    
-    get_approver_name = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'owner')
-    
-    get_approved_date = frappe.db.get_value('Comment', {'reference_name':data['name'], 'content': 'Approved'}, 'modified')
-    
-    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_person', get_approver_name)
-    frappe.db.set_value(data['doctype'], {'name': data['name']}, 'approver_date', get_approved_date)
-    frappe.db.commit()
+	if cint(as_print):
+		doc.name = 'Preview for {0}'.format(employee)
+		return frappe.get_print(doc.doctype, doc.name, doc = doc, print_format = print_format)
+	else:
+		return doc
+
+def set_payeename(doc, method):
+	if not doc.payee_name:
+		frappe.db.set_value('Customer', {'name': doc.name}, 'payee_name', doc.customer_name)
+		frappe.db.commit()
+		doc.reload()
+
+def supplier_set_payeename(doc, method):
+	if not doc.payee_name:
+		frappe.db.set_value('Supplier', {'name': doc.name}, 'payee_name', doc.supplier_name)
+		frappe.db.commit()
+		doc.reload()
+
+def shareholder_set_payeename(doc, method):
+	if not doc.payee_name:
+		frappe.db.set_value('Shareholder', {'name': doc.name}, 'payee_name', doc.title)
+		frappe.db.commit()
+		doc.reload()			

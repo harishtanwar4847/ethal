@@ -1,357 +1,165 @@
-# Copyright (c) 2013, Atrina Technologies Pvt. Ltd. and contributors
-# For license information, please see license.txt
+# Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
+# License: GNU General Public License v3. See license.txt
 
 from __future__ import unicode_literals
-import frappe
+import datetime
+import calendar
+import frappe, erpnext
+from erpnext import get_company_currency, get_default_company
+from erpnext.accounts.report.utils import get_currency, convert_to_presentation_currency
+from frappe.utils import getdate, cstr, flt, fmt_money
+from frappe import _, _dict
+from erpnext.accounts.utils import get_account_currency
+from erpnext.accounts.report.financial_statements import get_cost_centers_with_children
+from six import iteritems
+from erpnext.accounts.doctype.accounting_dimension.accounting_dimension import get_accounting_dimensions, get_dimension_with_children
+from collections import OrderedDict
+from erpnext.accounts.report.general_ledger.general_ledger import (validate_filters, validate_party, set_account_currency, get_result, get_gl_entries, 
+get_conditions, get_data_with_opening_closing, get_accountwise_gle)
 
 def execute(filters=None):
-	columns, data = [], []
-	data = get_data()
+	year = int(frappe.defaults.get_user_default("fiscal_year"))
+
+	if not filters:
+		return [], []
+
+	account_details = {}
+
+	if filters and filters.get('print_in_account_currency') and \
+		not filters.get('account'):
+		frappe.throw(_("Select an account to print in account currency"))
+
+	for acc in frappe.db.sql("""select name, is_group from tabAccount""", as_dict=1):
+		account_details.setdefault(acc.name, acc)
+
+	if filters.get('party'):
+		filters.party = frappe.parse_json(filters.get("party"))
+
+	validate_filters(filters, account_details)
+
+	validate_party(filters)
+
+	filters = set_account_currency(filters)
+
 	columns = ["Month::180"]+["Current/working Capital::180"]+["Quick(Acid)::180"]
-	return columns, data
-
-def get_data():
+	res_data_11000 = []
 	
-	def get_current_working_capital():
-		
-		lst_11000 = get_monthly_gl_debit("11")
-		print("lst_11000 ====> ", lst_11000)
-		lst_21000 = get_monthly_gl_credit_20000("21")
-		print("lst_21000 ====> ", lst_21000)
+	for i in range(1,13):
+		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
+		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
+		for i in first_date:
+			for j in i:
+				first_date = j
+		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
+		for i in last_date:
+			for j in i:
+				last_date = j
+		filters["from_date"] = first_date
+		filters["to_date"] = last_date
+		filters["account"] = "11000 - Current Assets - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
+		res = get_result(filters, account_details)
+		res_data_11000.append(res[-1]["balance"])
 
-		final = [b / m if m != 0 and b!=0 else 0 for b,m in zip(lst_11000, lst_21000)]
-		return final
+	res_data_21000 = []
 
-	def total_current_asset():
-		lst_11000 = get_monthly_gl_debit("11")
-		lst_11500 = get_monthly_gl_debit("115")
+	for i in range(1,13):
+		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
+		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
+		for i in first_date:
+			for j in i:
+				first_date = j
+		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
+		for i in last_date:
+			for j in i:
+				last_date = j
+		filters["from_date"] = first_date
+		filters["to_date"] = last_date
+		filters["account"] = "21000 - Current Liabilities - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
+		res = get_result(filters, account_details)
+		res_data_21000.append(res[-1]["balance"])
 
-		final = [b - m for b,m in zip(lst_11000, lst_11500)]
-		return final
+	res_data_11500 = []
 
-	def total_current_liability():
-		lst_21000 = get_monthly_gl_credit_20000("21")
-		lst_21500 = get_monthly_gl_credit_20000("215")
-		final = [b - m for b,m in zip(lst_21000, lst_21500)]
-		return final
+	for i in range(1,13):
+		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
+		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
+		for i in first_date:
+			for j in i:
+				first_date = j
+		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
+		for i in last_date:
+			for j in i:
+				last_date = j
+		filters["from_date"] = first_date
+		filters["to_date"] = last_date
+		filters["account"] = "11500 - Stock Assets - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
+		res = get_result(filters, account_details)
+		res_data_11500.append(res[-1]["balance"])
 
-	
-	cwc = get_current_working_capital()	
-	tca = total_current_asset()
-	tcl = total_current_liability()
-	quick = [b / m if m != 0 and b!=0 else 0 for b,m in zip(tca, tcl)]
+	res_data_11500 = []
+
+	for i in range(1,13):
+		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
+		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
+		for i in first_date:
+			for j in i:
+				first_date = j
+		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
+		for i in last_date:
+			for j in i:
+				last_date = j
+		filters["from_date"] = first_date
+		filters["to_date"] = last_date
+		filters["account"] = "11500 - Stock Assets - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
+		res = get_result(filters, account_details)
+		res_data_11500.append(res[-1]["balance"])
+
+	res_data_21500 = []
+
+	for i in range(1,13):
+		date = datetime.datetime(year,i,15).strftime("%Y-%m-%d")
+		first_date = frappe.db.sql("""select DATE_ADD(DATE_ADD(LAST_DAY('{0}'), INTERVAL 1 DAY), INTERVAL - 1 MONTH)""".format(date))
+		for i in first_date:
+			for j in i:
+				first_date = j
+		last_date = frappe.db.sql("""SELECT LAST_DAY("{0}");""".format(date))
+		for i in last_date:
+			for j in i:
+				last_date = j
+		filters["from_date"] = first_date
+		filters["to_date"] = last_date
+		filters["account"] = "21500 - Stock Liabilities - E21"
+		filters['presentation_currency'] = 'Ethiopia Birrr'
+		filters['account_currency'] = 'Ethiopia Birrr'
+		res = get_result(filters, account_details)
+		res_data_21500.append(res[-1]["balance"])
+
+	total_current_assets = [b - m  for b,m in zip(res_data_11000, res_data_11500)]
+	total_current_liability = [b - m  for b,m in zip(res_data_21000, res_data_21500)]
+	quick = [b / m if m != 0 and b!=0 else 0 for b,m in zip(total_current_assets, total_current_liability)]
+	quick = aboslute_value(quick)
+	print("11000 ==> ",res_data_11000)
+	print("21000 ==> ",res_data_21000)
+	total_working_capital = [b / m if m != 0 and b!=0 else 0 for b,m in zip(res_data_11000, res_data_21000)]
+	total_working_capital = aboslute_value(total_working_capital)
 	month = ["Jan","Feb","Mar","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
-	res = []
-	for (i,j,m) in zip(month,cwc,quick):
-		res.append([i,j,m])
-	
-	print("res ======> ",res)
+	rep= []
+	for (i,j,m) in zip(month,total_working_capital,quick):
+		rep.append([i,j,m])
+	print("reports", rep)
+	return columns, rep
 
-	return res
-
-def get_monthly_gl_credit(account):
-		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
-		from `tabGL Entry` where account like "{0}%" 
-		and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-		lst=[]
-		for i in a:
-			lst.append(i[0])
-		
-		for j in range(1,13):
-			if j not in lst:
-				a.append([j,0])
-		a.sort()
-		lst_a= []
-		for i in a:
-			lst_a.append(i[1])
-
-		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
-		from `tabGL Entry` where account like "{0}%" 
-		and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-		lst_1=[]
-		for i in b:
-			lst_1.append(i[0])
-		
-		for j in range(1,13):
-			if j not in lst_1:
-				b.append([j,0])
-		b.sort()
-		lst_b= []
-		for i in b:
-			lst_b.append(i[1])
-
-		res_a = [a-b for a,b in zip(lst_a,lst_b)]
-		# print("get_monthly_gl_credit ======> ",res_a)
-
-		def add_one_by_one(l):
-			new_l = []
-			cumsum = 0
-			for elt in l:
-				cumsum += elt
-				new_l.append(cumsum)
-			return new_l
-
-		fin = add_one_by_one(res_a)
-		# print("opening and total added is =====> ", fin)
-
-		fin_abs= []
-		for i in fin:
-			abs_val = abs(i)
-			fin_abs.append(abs_val)
-
-		return fin_abs
-
-
-def get_monthly_gl_credit_no_opening(account):
-		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
-		from `tabGL Entry` where account like "{0}%" 
-		and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-		lst=[]
-		for i in a:
-			lst.append(i[0])
-		
-		for j in range(1,13):
-			if j not in lst:
-				a.append([j,0])
-		a.sort()
-		lst_a= []
-		for i in a:
-			lst_a.append(i[1])
-
-		b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
-		from `tabGL Entry` where account like "{0}%" 
-		and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-		lst_1=[]
-		for i in b:
-			lst_1.append(i[0])
-		
-		for j in range(1,13):
-			if j not in lst_1:
-				b.append([j,0])
-		b.sort()
-		lst_b= []
-		for i in b:
-			lst_b.append(i[1])
-
-		res_a = [a-b for a,b in zip(lst_a,lst_b)]
-		# print("get_monthly_gl_credit ======> ",res_a)
-
-		fin = res_a
-		# print("opening and total added is =====> ", fin)
-
-		fin_abs= []
-		for i in fin:
-			abs_val = abs(i)
-			fin_abs.append(abs_val)
-
-		return fin_abs
-
-
-def get_monthly_gl_debit(account):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
-	from `tabGL Entry` where account like "{0}%" 
-	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	lst=[]
-	for i in a:
-		lst.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst:
-			a.append([j,0])
-	a.sort()
-	lst_a= []
-	for i in a:
-		lst_a.append(i[1])
-
-
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
-	from `tabGL Entry` where account like "{0}%" 
-	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	lst_1=[]
-	for i in b:
-		lst_1.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst_1:
-			b.append([j,0])
-	b.sort()
-	lst_b= []
-	for i in b:
-		lst_b.append(i[1])
-
-	res_a = [a-b for a,b in zip(lst_a,lst_b)]
-
-	# print("get_monthly_gl_debit ======> ",res_a)
-
-	def add_one_by_one(l):
-		new_l = []
-		cumsum = 0
-		for elt in l:
-			cumsum += elt
-			new_l.append(cumsum)
-		return new_l
-
-	fin = add_one_by_one(res_a)
-	# print("opening and total added is =====> ", fin)
-
+def aboslute_value(value):	
 	fin_abs= []
-	for i in fin:
-		abs_val = abs(i)
-		fin_abs.append(abs_val)
-
-	return fin_abs
-
-
-def get_monthly_gl_debit_no_opening(account):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
-	from `tabGL Entry` where account like "{0}%" 
-	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	lst=[]
-	for i in a:
-		lst.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst:
-			a.append([j,0])
-	a.sort()
-	lst_a= []
-	for i in a:
-		lst_a.append(i[1])
-
-
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
-	from `tabGL Entry` where account like "{0}%" 
-	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	lst_1=[]
-	for i in b:
-		lst_1.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst_1:
-			b.append([j,0])
-	b.sort()
-	lst_b= []
-	for i in b:
-		lst_b.append(i[1])
-
-	res_a = [a-b for a,b in zip(lst_a,lst_b)]
-
-	# print("get_monthly_gl_debit ======> ",res_a)
-
-	fin = res_a
-	# print("opening and total added is =====> ", fin)
-
-	fin_abs= []
-	for i in fin:
-		abs_val = abs(i)
-		fin_abs.append(abs_val)
-
-	return fin_abs
-
-
-def get_monthly_gl_credit_20000(account):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
-	from `tabGL Entry` where account like "{0}%"
-	or account = "Asset Received But Not Billed - ETL" or account = "Stock Received But Not Billed - ETL" 
-	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	lst=[]
-	for i in a:
-		lst.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst:
-			a.append([j,0])
-	a.sort()
-	lst_a= []
-	for i in a:
-		lst_a.append(i[1])
-
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit)
-	from `tabGL Entry` where account like "{0}%" or account = "Asset Received But Not Billed - ETL" 
-	or account = "Stock Received But Not Billed - ETL" 
-	and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	lst_1=[]
-	for i in b:
-		lst_1.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst_1:
-			b.append([j,0])
-	b.sort()
-	lst_b= []
-	for i in b:
-		lst_b.append(i[1])
-
-	res_a = [a-b for a,b in zip(lst_a,lst_b)]
-
-	# print("get_monthly_gl_credit_20000 ======> ",res_a)
-
-	def add_one_by_one(l):
-		new_l = []
-		cumsum = 0
-		for elt in l:
-			cumsum += elt
-			new_l.append(cumsum)
-		return new_l
-
-	fin = add_one_by_one(res_a)
-	# print("opening and total added is =====> ", fin)
-	fin_abs= []
-	for i in fin:
-		abs_val = abs(i)
-		fin_abs.append(abs_val)
-
-	return fin_abs
-
-def get_monthly_gl_debit_10000(account):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit)
-	 from `tabGL Entry` where account like "{0}%" or account = "Round off account - ETL" or account = "Temporary Opening - ETL"
-	  and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	lst=[]
-	for i in a:
-		lst.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst:
-			a.append([j,0])
-	a.sort()
-	lst_a= []
-	for i in a:
-		lst_a.append(i[1])
-
-	print('debit', lst_a)
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit)
-	 from `tabGL Entry` where account like "{0}%" or account = "Round off account - ETL" or account = "Temporary Opening - ETL" 
-	 and YEAR(posting_date) = year(curdate()) GROUP BY MONTH(posting_date) ORDER BY month;""".format(account), as_list=True)
-	lst_1=[]
-	for i in b:
-		lst_1.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst_1:
-			b.append([j,0])
-	b.sort()
-	lst_b= []
-	for i in b:
-		lst_b.append(i[1])
-	print('credit', lst_b)
-	res_a = [a-b for a,b in zip(lst_a,lst_b)]
-
-	# print("get_monthly_gl_debit ======> ",res_a)
-
-	def add_one_by_one(l):
-		new_l = []
-		cumsum = 0
-		for elt in l:
-			cumsum += elt
-			new_l.append(cumsum)
-		return new_l
-
-	fin = add_one_by_one(res_a)
-	# print("opening and total added is =====> ", fin)
-
-	fin_abs= []
-	for i in fin:
+	for i in value:
 		abs_val = abs(i)
 		fin_abs.append(abs_val)
 

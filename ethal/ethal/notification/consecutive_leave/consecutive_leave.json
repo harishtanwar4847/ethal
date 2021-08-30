@@ -1,0 +1,25 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2021-06-28 15:03:56.497224",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Attendance",
+ "enabled": 1,
+ "event": "Custom",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Alert! {{ doc.employee_name }} has been on Leave for 5 consecutive days.",
+ "modified": "2021-08-24 14:41:51.466520",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Consecutive Leave",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "cc": "ayele@ethal.net"
+  }
+ ],
+ "subject": "{{ doc.employe }} Consecutive Leave"
+}

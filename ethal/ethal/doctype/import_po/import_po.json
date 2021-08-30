@@ -12,10 +12,12 @@
   "supplier",
   "get_items_from_open_material_requests",
   "supplier_name",
+  "supplier_pi_no",
   "company",
   "column_break1",
   "transaction_date",
   "schedule_date",
+  "supplier_pi_date",
   "order_confirmation_no",
   "order_confirmation_date",
   "amended_from",
@@ -155,7 +157,6 @@
   "set_of_documents_received_from_supplier",
   "sea_freight_payment_done",
   "container_deposit_payment_done",
-  "data_160",
   "inland_freight_payment_done",
   "port_clearing_charges_paid",
   "set_of_documents_submitted_to_clearing_agent",
@@ -165,7 +166,28 @@
   "cargo_dispatched_from_port",
   "goods_received_at_factory",
   "grn_received_from_factory",
-  "documents_submitted_from_clearing_agent_for_payment"
+  "documents_submitted_from_clearing_agent_for_payment",
+  "data_160",
+  "applied_for_foreign_currency_date",
+  "foreign_currency_approved_by_bank_date",
+  "applied_for_bank_permit_date",
+  "bank_permit_approved_date",
+  "supplier_loaded_goods_date",
+  "supplier_sent_documents_for_approval_date",
+  "documents_approved_by_import_manager_date",
+  "set_of_documents_received_from_supplier_date",
+  "sea_freight_payment_done_date",
+  "container_deposit_payment_done_date",
+  "inland_freight_payment_done_date",
+  "port_clearing_charges_paid_date",
+  "set_of_documents_submitted_to_clearing_agent_date",
+  "draft_custom_declaration_received_date",
+  "cpo_submitted_date",
+  "storage_amount_payment_done_date",
+  "cargo_dispatched_from_port_date",
+  "goods_received_at_factory_date",
+  "grn_received_from_factory_date",
+  "documents_submitted_from_clearing_agent_for_payment_date"
  ],
  "fields": [
   {
@@ -1130,7 +1152,7 @@
   {
    "fieldname": "port_of_origin",
    "fieldtype": "Data",
-   "label": "Port of Origin"
+   "label": "Port of Loading"
   },
   {
    "fieldname": "port_of_discharge",
@@ -1181,153 +1203,343 @@
    "label": "Buyer Bank Details"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "applied_for_foreign_currency",
    "fieldtype": "Select",
-   "label": "Applied for foreign currency ",
-   "options": "\nYes\nNo"
+   "label": "Applied For Foreign Currency ",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.applied_for_foreign_currency == 'Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.applied_for_foreign_currency == 'Yes' || doc.applied_for_foreign_currency == 'NA'",
    "fieldname": "foreign_currency_approved_by_bank",
    "fieldtype": "Select",
-   "label": "Foreign Currency Approved by Bank",
-   "options": "\nYes\nNo"
+   "label": "Foreign Currency Approved By Bank",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.foreign_currency_approved_by_bank == 'Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.foreign_currency_approved_by_bank == 'Yes' || doc.foreign_currency_approved_by_bank == 'NA'",
    "fieldname": "applied_for_bank_permit",
    "fieldtype": "Select",
-   "label": "Applied for Bank Permit",
-   "options": "\nYes\nNo"
+   "label": "Applied For Bank Permit",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.applied_for_bank_permit=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.applied_for_bank_permit=='Yes' || doc.applied_for_bank_permit == 'NA'",
    "fieldname": "bank_permit_approved",
    "fieldtype": "Select",
    "label": "Bank Permit Approved",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.bank_permit_approved == 'Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.bank_permit_approved == 'Yes' || doc.bank_permit_approved == 'NA'",
    "fieldname": "supplier_loaded_goods",
    "fieldtype": "Select",
    "label": "Supplier Loaded Goods",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.supplier_loaded_goods=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.supplier_loaded_goods=='Yes' || doc.supplier_loaded_goods == 'NA'",
    "fieldname": "supplier_sent_documents_for_approval",
    "fieldtype": "Select",
-   "label": "Supplier sent documents for Approval",
-   "options": "\nYes\nNo"
+   "label": "Supplier Sent Documents For Approval",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.supplier_sent_documents_for_approval=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.supplier_sent_documents_for_approval=='Yes' || doc.supplier_sent_documents_for_approval == 'NA'",
    "fieldname": "documents_approved_by_import_manager",
    "fieldtype": "Select",
-   "label": "Documents Approved by Import Manager",
-   "options": "\nYes\nNo"
+   "label": "Documents Approved By Import Manager",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.documents_approved_by_import_manager=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.documents_approved_by_import_manager=='Yes' || doc.documents_approved_by_import_manager == 'NA'",
    "fieldname": "set_of_documents_received_from_supplier",
    "fieldtype": "Select",
-   "label": "Set of Documents Received from supplier",
-   "options": "\nYes\nNo"
+   "label": "Set Of Documents Received From Supplier",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.set_of_documents_received_from_supplier=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.set_of_documents_received_from_supplier=='Yes' || doc.set_of_documents_received_from_supplier == 'NA'",
    "fieldname": "sea_freight_payment_done",
    "fieldtype": "Select",
    "label": "Sea Freight Payment Done",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.sea_freight_payment_done=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.sea_freight_payment_done=='Yes' || doc.sea_freight_payment_done == 'NA'",
    "fieldname": "container_deposit_payment_done",
    "fieldtype": "Select",
    "label": "Container Deposit Payment Done",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.container_deposit_payment_done=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.container_deposit_payment_done=='Yes' || doc.container_deposit_payment_done == 'NA'",
    "fieldname": "inland_freight_payment_done",
    "fieldtype": "Select",
    "label": "Inland Freight Payment Done",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.inland_freight_payment_done=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.inland_freight_payment_done=='Yes' || doc.inland_freight_payment_done == 'NA'",
    "fieldname": "port_clearing_charges_paid",
    "fieldtype": "Select",
    "label": "Port Clearing Charges Paid",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.port_clearing_charges_paid=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.port_clearing_charges_paid=='Yes' || doc.port_clearing_charges_paid == 'NA'",
    "fieldname": "set_of_documents_submitted_to_clearing_agent",
    "fieldtype": "Select",
-   "label": "Set of Documents Submitted to Clearing Agent",
-   "options": "\nYes\nNo"
+   "label": "Set Of Documents Submitted To Clearing Agent",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.set_of_documents_submitted_to_clearing_agent=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.set_of_documents_submitted_to_clearing_agent=='Yes' || doc.set_of_documents_submitted_to_clearing_agent == 'NA'",
    "fieldname": "draft_custom_declaration_received",
    "fieldtype": "Select",
    "label": "Draft Custom Declaration Received",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.draft_custom_declaration_received=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.draft_custom_declaration_received=='Yes' || doc.draft_custom_declaration_received == 'NA'",
    "fieldname": "cpo_submitted",
    "fieldtype": "Select",
    "label": "CPO Submitted",
-   "options": "\nYes\nNo"
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.cpo_submitted == 'Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.cpo_submitted == 'Yes' || doc.cpo_submitted == 'NA'",
    "fieldname": "storage_amount_payment_done",
    "fieldtype": "Select",
-   "label": "Storage Amount Payment done",
-   "options": "\nYes\nNo"
+   "label": "Storage Amount Payment Done",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.storage_amount_payment_done=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.storage_amount_payment_done=='Yes' || doc.storage_amount_payment_done == 'NA'",
    "fieldname": "cargo_dispatched_from_port",
    "fieldtype": "Select",
-   "label": "Cargo Dispatched from Port",
-   "options": "\nYes\nNo"
+   "label": "Cargo Dispatched From Port",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.cargo_dispatched_from_port == 'Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.cargo_dispatched_from_port == 'Yes' || doc.cargo_dispatched_from_port == 'NA'",
    "fieldname": "goods_received_at_factory",
    "fieldtype": "Select",
-   "label": "Goods Received at Factory",
-   "options": "\nYes\nNo"
+   "label": "Goods Received At Factory",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.goods_received_at_factory=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.goods_received_at_factory=='Yes' || doc.goods_received_at_factory == 'NA'",
    "fieldname": "grn_received_from_factory",
    "fieldtype": "Select",
-   "label": "GRN Received from Factory",
-   "options": "\nYes\nNo"
+   "label": "GRN Received From Factory",
+   "options": "\nYes\nNo\nNA"
   },
   {
-   "depends_on": "eval:doc.grn_received_from_factory=='Yes'",
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.grn_received_from_factory=='Yes' || doc.grn_received_from_factory == 'NA'",
    "fieldname": "documents_submitted_from_clearing_agent_for_payment",
    "fieldtype": "Select",
-   "label": "Documents Submitted from Clearing Agent for Payment",
-   "options": "\nYes\nNo"
+   "label": "Documents Submitted From Clearing Agent For Payment",
+   "options": "\nYes\nNo\nNA"
   },
   {
    "fieldname": "data_160",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_pi_no",
+   "fieldtype": "Data",
+   "label": "Supplier PI No"
+  },
+  {
+   "fieldname": "supplier_pi_date",
+   "fieldtype": "Date",
+   "label": "Supplier PI Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.applied_for_foreign_currency == 'Yes' || doc.applied_for_foreign_currency == 'NA'",
+   "fieldname": "applied_for_foreign_currency_date",
+   "fieldtype": "Date",
+   "label": "Applied For Foreign Currency Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.foreign_currency_approved_by_bank == 'Yes' || doc.foreign_currency_approved_by_bank == 'NA'",
+   "fieldname": "foreign_currency_approved_by_bank_date",
+   "fieldtype": "Date",
+   "label": "Foreign Currency Approved By Bank Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.applied_for_bank_permit == 'Yes' || doc.applied_for_bank_permit == 'NA'",
+   "fieldname": "applied_for_bank_permit_date",
+   "fieldtype": "Date",
+   "label": "Applied For Bank Permit Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.bank_permit_approved == 'Yes' || doc.bank_permit_approved == 'NA'",
+   "fieldname": "bank_permit_approved_date",
+   "fieldtype": "Date",
+   "label": "Bank Permit Approved Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.supplier_loaded_goods == 'Yes' || doc.supplier_loaded_goods == 'NA'",
+   "fieldname": "supplier_loaded_goods_date",
+   "fieldtype": "Date",
+   "label": "Supplier Loaded Goods Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.supplier_sent_documents_for_approval == 'Yes' || doc.supplier_sent_documents_for_approval == 'NA'",
+   "fieldname": "supplier_sent_documents_for_approval_date",
+   "fieldtype": "Date",
+   "label": "Supplier Sent Documents For Approval Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.documents_approved_by_import_manager == 'Yes' || doc.documents_approved_by_import_manager == 'NA'",
+   "fieldname": "documents_approved_by_import_manager_date",
+   "fieldtype": "Date",
+   "label": "Documents Approved By Import Manager Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.set_of_documents_received_from_supplier == 'Yes' || doc.set_of_documents_received_from_supplier == 'NA'",
+   "fieldname": "set_of_documents_received_from_supplier_date",
+   "fieldtype": "Date",
+   "label": "Set Of Documents Received From Supplier Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.sea_freight_payment_done == 'Yes' || doc.sea_freight_payment_done == 'NA'",
+   "fieldname": "sea_freight_payment_done_date",
+   "fieldtype": "Date",
+   "label": "Sea Freight Payment Done Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.container_deposit_payment_done == 'Yes' || doc.container_deposit_payment_done == 'NA'",
+   "fieldname": "container_deposit_payment_done_date",
+   "fieldtype": "Date",
+   "label": "Container Deposit Payment Done Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.inland_freight_payment_done == 'Yes' || doc.inland_freight_payment_done == 'NA'",
+   "fieldname": "inland_freight_payment_done_date",
+   "fieldtype": "Date",
+   "label": "Inland Freight Payment Done Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.port_clearing_charges_paid == 'Yes' || doc.port_clearing_charges_paid == 'NA'",
+   "fieldname": "port_clearing_charges_paid_date",
+   "fieldtype": "Date",
+   "label": "Port Clearing Charges Paid Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.set_of_documents_submitted_to_clearing_agent == 'Yes' || doc.set_of_documents_submitted_to_clearing_agent == 'NA'",
+   "fieldname": "set_of_documents_submitted_to_clearing_agent_date",
+   "fieldtype": "Date",
+   "label": "Set Of Documents Submitted To Clearing Agent Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.draft_custom_declaration_received == 'Yes' || doc.draft_custom_declaration_received == 'NA'",
+   "fieldname": "draft_custom_declaration_received_date",
+   "fieldtype": "Date",
+   "label": "Draft Custom Declaration Received Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.cpo_submitted == 'Yes' || doc.cpo_submitted == 'NA'",
+   "fieldname": "cpo_submitted_date",
+   "fieldtype": "Date",
+   "label": "CPO Submitted Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.storage_amount_payment_done == 'Yes' || doc.storage_amount_payment_done == 'NA'",
+   "fieldname": "storage_amount_payment_done_date",
+   "fieldtype": "Date",
+   "label": "Storage Amount Payment Done Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.cargo_dispatched_from_port == 'Yes' || doc.cargo_dispatched_from_port == 'NA'",
+   "fieldname": "cargo_dispatched_from_port_date",
+   "fieldtype": "Date",
+   "label": "Cargo Dispatched From Port Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.goods_received_at_factory == 'Yes' || doc.goods_received_at_factory == 'NA'",
+   "fieldname": "goods_received_at_factory_date",
+   "fieldtype": "Date",
+   "label": "Goods Received At Factory Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.grn_received_from_factory == 'Yes' || doc.grn_received_from_factory == 'NA'",
+   "fieldname": "grn_received_from_factory_date",
+   "fieldtype": "Date",
+   "label": "GRN Received From Factory Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "depends_on": "eval: doc.documents_submitted_from_clearing_agent_for_payment == 'Yes' || doc.documents_submitted_from_clearing_agent_for_payment == 'NA'",
+   "fieldname": "documents_submitted_from_clearing_agent_for_payment_date",
+   "fieldtype": "Date",
+   "label": "Documents Submitted From Clearing Agent For Payment Date"
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 105,
  "is_submittable": 1,
- "modified": "2021-01-05 10:35:41.268587",
+ "modified": "2021-03-09 09:31:56.341068",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Import PO",

@@ -6,6 +6,7 @@
  "engine": "InnoDB",
  "field_order": [
   "employee",
+  "employee_name",
   "template",
   "warning_number",
   "description"
@@ -36,9 +37,15 @@
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
   }
  ],
- "modified": "2020-12-11 12:41:22.537261",
+ "modified": "2021-05-21 18:57:07.003280",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Warning Letter",

@@ -9,13 +9,14 @@ def get_data():
 			"color": "grey",
 			"icon": "octicon octicon-database",
 			"type": "module",
-			"label": _("Import")
+			"label": _("Ethal")
 		},
-			{
-			"module_name": "Accounts",
-			"color": "grey",
-			"icon": "octicon octicon-file-directory",
-			"type": "module",
-			"label": _("Accounting")
-		}
+		# {
+		# 	"module_name": "Accounts",
+		# 	"color": "grey",
+		# 	"icon": "octicon octicon-file-directory",
+		# 	"type": "module",
+		# 	"label": _("Accounting"),
+		# 	"force_show": False
+		# }
 	]

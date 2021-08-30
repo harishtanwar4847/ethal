@@ -8,5 +8,11 @@ def get_data():
 			'items': [
 				{ 'type': 'doctype', 'name': 'Payment Request and Authorization', 'onboard': 1 }
 			]
+		},
+		{
+			'label': _('Custom Reports'),
+			'items': [
+				{ 'type': 'report', 'name': 'Product Revenue Analysis Report', 'route': 'query-report/Product Revenue Analysis Report' }
+			]
 		}
 	]

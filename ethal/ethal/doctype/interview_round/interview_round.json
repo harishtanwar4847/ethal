@@ -1,0 +1,147 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-11-21 11:33:52.922992",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "interview",
+  "job_applicant",
+  "job_applicant_name",
+  "job_opening",
+  "interviewers",
+  "attached_resume",
+  "column_break_5",
+  "date",
+  "designation",
+  "round",
+  "round_number",
+  "overall_recommendation",
+  "section_break_10",
+  "feedback",
+  "section_break_12",
+  "status",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "interview",
+   "fieldtype": "Link",
+   "label": "Interview",
+   "options": "Interview"
+  },
+  {
+   "fieldname": "job_applicant",
+   "fieldtype": "Link",
+   "label": "Job Applicant",
+   "options": "Job Applicant"
+  },
+  {
+   "fetch_from": "job_applicant.applicant_name",
+   "fieldname": "job_applicant_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Job Applicant Name"
+  },
+  {
+   "fieldname": "job_opening",
+   "fieldtype": "Link",
+   "label": "Job Opening",
+   "options": "Job Opening"
+  },
+  {
+   "fieldname": "interviewers",
+   "fieldtype": "Table MultiSelect",
+   "label": "Interviewers",
+   "options": "Interviewer"
+  },
+  {
+   "fieldname": "attached_resume",
+   "fieldtype": "Attach",
+   "label": "Attached Resume"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "round",
+   "fieldtype": "Link",
+   "label": "Round",
+   "options": "Interview Round Name"
+  },
+  {
+   "fieldname": "round_number",
+   "fieldtype": "Int",
+   "label": "Round Number"
+  },
+  {
+   "fieldname": "overall_recommendation",
+   "fieldtype": "Select",
+   "label": "Overall Recommendation",
+   "options": "\nGood Hire\nStrong Hire\nRejected"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "feedback",
+   "fieldtype": "Table",
+   "label": "Feedback",
+   "options": "Interview Round Feedback"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Scheduled\nSelected\nRejected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "INT-.RND.-.MM.-.YYYY.-"
+  }
+ ],
+ "modified": "2021-03-10 11:01:24.519067",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Interview Round",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

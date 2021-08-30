@@ -1,0 +1,172 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2021-03-01 19:37:01.173973",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "contract_type",
+  "contract_for",
+  "contractor_name",
+  "start_date",
+  "expiry_date",
+  "column_break_6",
+  "employee",
+  "employee_name",
+  "contract_value",
+  "payments_details",
+  "reference_number",
+  "section_break_11",
+  "details_of_contract",
+  "remarks",
+  "column_break_16",
+  "is_renewable",
+  "renewal_remider_days",
+  "responsibility",
+  "responsible_user",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fieldname": "contract_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Contract Type",
+   "options": "\nOthers\nLease\nProfessional Service\nInsurance\nLicenses\nEmployee Permits"
+  },
+  {
+   "depends_on": "eval: doc.contract_type == 'Insurance' || doc.contract_type == 'Licenses' || doc.contract_type == 'Employee Permits'",
+   "fieldname": "contract_for",
+   "fieldtype": "Select",
+   "label": "Contract For"
+  },
+  {
+   "depends_on": "eval: doc.contract_type != 'Licenses' && doc.contract_type != 'Employee Permits'",
+   "fieldname": "contractor_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Contractor Name",
+   "options": "Supplier"
+  },
+  {
+   "depends_on": "eval: doc.contract_type == 'Employee Permits'",
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "reference_number",
+   "fieldtype": "Data",
+   "label": "Reference Number"
+  },
+  {
+   "fieldname": "is_renewable",
+   "fieldtype": "Select",
+   "label": "Is Renewable ",
+   "options": "\nYes\nNo",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Expiry Date"
+  },
+  {
+   "fieldname": "contract_value",
+   "fieldtype": "Currency",
+   "label": "Contract Value"
+  },
+  {
+   "fieldname": "details_of_contract",
+   "fieldtype": "Small Text",
+   "label": "Details Of Contract"
+  },
+  {
+   "depends_on": "eval: doc.is_renewable == 'Yes'",
+   "fieldname": "renewal_remider_days",
+   "fieldtype": "Int",
+   "label": "Renewal Remider Days"
+  },
+  {
+   "fieldname": "payments_details",
+   "fieldtype": "Link",
+   "label": "Payments Details ",
+   "options": "Payment Entry"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "responsibility",
+   "fieldtype": "Link",
+   "label": "Responsibility",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "responsibility.user_id",
+   "fieldname": "responsible_user",
+   "fieldtype": "Data",
+   "label": "Responsible User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "CM-.YYYY.-"
+  },
+  {
+   "depends_on": "eval: doc.contract_type == 'Employee Permits'",
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  }
+ ],
+ "modified": "2021-06-24 16:23:30.923945",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Contract Management",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
