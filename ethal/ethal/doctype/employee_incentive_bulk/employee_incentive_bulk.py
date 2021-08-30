@@ -27,34 +27,27 @@ class EmployeeIncentiveBulk(Document):
 				""".format(employee[0], self.salary_component, company, first_day, last_day))
 				
 				base_value = frappe.get_value('Salary Structure Assignment', {'employee': employee[0], 'docstatus': 1}, 'base')
+				
 				incentive_amount = 0
 				if base_value:
 					incentive_amount = (base_value / 26 / 8) * employee[1]
-				if not additional_salary:
-					additional_salary = frappe.new_doc('Additional Salary')
-					additional_salary.employee = employee[0]
-					additional_salary.salary_component = self.salary_component
-					additional_salary.amount = incentive_amount	
-					additional_salary.incentive_amount = incentive_amount
-					additional_salary.payroll_date = self.incentive_date
-					additional_salary.company = company
-					additional_salary.overwrite_salary_structure_amount = 0
-					additional_salary.submit()
-				else:
+
+				incentive_added = 0
+				if additional_salary:
 					incentive_added = frappe.db.get_value('Additional Salary', additional_salary[0][0], 'amount')
 					
 					cancel_additional_salary = frappe.get_doc('Additional Salary', additional_salary[0][0])
 					cancel_additional_salary.cancel()
 
-					additional_salary = frappe.new_doc('Additional Salary')
-					additional_salary.employee = employee[0]
-					additional_salary.salary_component = self.salary_component
-					additional_salary.amount = incentive_amount	+ incentive_added
-					additional_salary.incentive_amount = incentive_amount
-					additional_salary.payroll_date = self.incentive_date
-					additional_salary.company = company
-					additional_salary.overwrite_salary_structure_amount = 0
-					additional_salary.submit()
+				additional_salary = frappe.new_doc('Additional Salary')
+				additional_salary.employee = employee[0]
+				additional_salary.salary_component = self.salary_component
+				additional_salary.amount = incentive_amount	+ incentive_added
+				additional_salary.incentive_amount = incentive_amount
+				additional_salary.payroll_date = self.incentive_date
+				additional_salary.company = company
+				additional_salary.overwrite_salary_structure_amount = 0
+				additional_salary.submit()
 
 	def get_emp_list(self):
 		"""
