@@ -168,6 +168,15 @@ doc_events = {
 	},
 	"Shareholder": {
 		"after_insert": "ethal.utils.shareholder_set_payeename"
+	},
+	"Delivery Note": {
+		"on_submit" : "ethal.utils.send_api_message"
+	},
+	"Purchase Receipt": {
+		"on_submit": "ethal.utils.send_api_message"
+	},
+	"Material Request": {
+		"on_submit": "ethal.utils.send_api_message"
 	}
 }
 

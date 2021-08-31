@@ -5,6 +5,7 @@ from datetime import date, timedelta, datetime
 import time
 from frappe.utils import formatdate
 import ast
+from frappe.utils import get_url_to_form, strip_html
 import itertools
 from erpnext.hr.doctype.employee_checkin.employee_checkin import mark_attendance_and_link_log
 from frappe.utils.background_jobs import enqueue
@@ -67,4 +68,18 @@ def shareholder_set_payeename(doc, method):
 	if not doc.payee_name:
 		frappe.db.set_value('Shareholder', {'name': doc.name}, 'payee_name', doc.title)
 		frappe.db.commit()
-		doc.reload()			
+		doc.reload()	
+
+def send_api_message(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+
+	message = 'Test - {} {} has been submitted. Please check it out. {}'.format(doc.doctype, doc.name, doc_link)
+
+	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	
+	if doc.doctype == 'Delivery Note':
+		telegram_bot_settings.send_telegram_message(message, 'Sales')
+	elif doc.doctype == 'Purchase Receipt':
+		telegram_bot_settings.send_telegram_message(message, 'Stock')	
+	elif doc.doctype == 'Material Request':
+		telegram_bot_settings.send_telegram_message(message, 'Purchase')		
