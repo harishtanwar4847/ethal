@@ -2,16 +2,18 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Weighbridge Sync', {
-	// refresh: function(frm) {
-	weighbridge_sync: function(frm) {
-		return frappe.call({				
-			method: 'ethal.weighbridge.set_values_for_weighbridge',
-			freeze: true,
-			freeze_message: "Syncing weighbridge data",
-			callback: function(r) {
-				frm.refresh();					
-			}
-		});
+	refresh: function(frm) {
+		if(frm.doc.file_name && frm.doc.file_path) {
+		frm.add_custom_button(__('Sync weighbridge Data'), function(){
+			return frappe.call({				
+				method: 'ethal.weighbridge.set_values_for_weighbridge',
+				freeze: true,
+				freeze_message: "Syncing weighbridge data",
+					callback: function(r) {
+						frm.refresh();					
+					}
+				});
+		  	});
+		}  
 	}
-	// }
 });

@@ -1,44 +1,29 @@
 {
+ "actions": [],
  "creation": "2021-03-18 10:28:06.771500",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "mdb_file_path",
-  "mdb_file_name",
-  "ip_address",
-  "weighbridge_sync",
-  "mdb_file"
+  "file_path",
+  "file_name"
  ],
  "fields": [
   {
-   "fieldname": "weighbridge_sync",
-   "fieldtype": "Button",
-   "label": "Sync weighbridge Data"
-  },
-  {
-   "fieldname": "mdb_file_path",
+   "fieldname": "file_path",
    "fieldtype": "Data",
-   "label": "MDB File Path"
+   "label": "File Path"
   },
   {
-   "fieldname": "ip_address",
+   "fieldname": "file_name",
    "fieldtype": "Data",
-   "label": "IP Address"
-  },
-  {
-   "fieldname": "mdb_file_name",
-   "fieldtype": "Data",
-   "label": "MDB File Name"
-  },
-  {
-   "fieldname": "mdb_file",
-   "fieldtype": "Attach",
-   "label": "MDB file"
+   "label": "File Name"
   }
  ],
+ "index_web_pages_for_search": 1,
  "issingle": 1,
- "modified": "2021-05-21 18:50:56.745351",
+ "links": [],
+ "modified": "2021-08-31 11:20:29.308061",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Weighbridge Sync",
