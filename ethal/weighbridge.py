@@ -3,53 +3,56 @@ import csv
 from datetime import datetime
 import os, sys, subprocess
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def set_values_for_weighbridge():
 
     file_path = frappe.db.get_single_value("Weighbridge Sync","file_path")
     file_name = frappe.db.get_single_value("Weighbridge Sync","file_name")
 
-    mdb = file_path+file_name
-
+    filepath = os.path.join(file_path, file_name)
     # importing csv module
     import csv
-
+    
     # csv file name
-    filename = mdb
-
+    filename = filepath
+    
     # initializing the titles and rows list
-    fields = []
-    rows = []
     try:
     # reading csv file
-        with open(filename, 'r') as csvfile:
-            # creating a csv reader object
-            csvreader = csv.reader(csvfile)
-            
-            # extracting field names through first row
-            fields = next(csvreader)
+        people_list = []
+        headers_list = []
 
-            # extracting each data row one by one
-            for row in csvreader:
-                rows.append(row)
+        index = 0
 
-        for row in rows:
-            weighbridge = frappe.db.exists('Weighbridge', row[10])
+        with open(filename, 'r') as data:
+            for line in csv.reader(data):
+                index += 1
+                if index > 1:
+                    people_dict = {}
+                    for i, elem in enumerate(headers_list):
+                        people_dict[elem] = line[i]
+                    people_list.append(people_dict)
+                else:
+                    headers_list = list(line)    
+
+        for row in people_list:
+            weighbridge = frappe.db.exists('Weighbridge', row['Name'])
             if not weighbridge:
                 wb = frappe.new_doc('Weighbridge')
-                wb.unique_id = row[10]
-                wb.vehicle_no = row[0]
-                wb.time_in = row[1]
-                wb.wb1 = row[2]
-                wb.cabin1 = row[3]
-                wb.carriage1 = row[4]
-                wb.net_wt = row[8]
-                wb.time_out = row[9]
-                wb.wb2 = row[5]
-                wb.cabin2 = row[6]
-                wb.carriage2 = row[7]
+                wb.unique_id = row['Name']
+                wb.vehicle_no = row['VH Num']
+                wb.time_in = row['Time In']
+                wb.wb1 = row['WB 1']
+                wb.cabin1 = row['Cabin 1']
+                wb.carriage1 = row['Carriage 1']
+                wb.net_wt = row['Net Wt']
+                wb.time_out = row['Time Out']
+                wb.wb2 = row['WB 2']
+                wb.cabin2 = row['Cabin 2']
+                wb.carriage2 = row['Carriage 2']
                 wb.save()
                
         frappe.db.commit()    
-    except:
-        return            
+    except Exception:
+        frappe.log_error(title='Weighbridge sync error')
+           
