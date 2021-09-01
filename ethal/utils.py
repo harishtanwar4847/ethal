@@ -5,7 +5,7 @@ from datetime import date, timedelta, datetime
 import time
 from frappe.utils import formatdate
 import ast
-from frappe.utils import get_url_to_form, strip_html
+from frappe.utils import get_url_to_form
 import itertools
 from erpnext.hr.doctype.employee_checkin.employee_checkin import mark_attendance_and_link_log
 from frappe.utils.background_jobs import enqueue
