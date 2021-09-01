@@ -7,13 +7,23 @@ from frappe.model.document import Document
 
 class TelegramBotSettings(Document):
 	def send_telegram_message(self, message, group):
-		if self.bot_api_token:
-			if group == 'Sales' and self.sales_group_id:
-				get_request(self.bot_api_token, self.sales_group_id, message)
-			if group == 'Purchase':
-				get_request(self.bot_api_token, self.purchase_group_id, message)	
-			if group == 'Stock':
-				get_request(self.bot_api_token, self.stock_group_id, message)		
+		try:
+			if not self.bot_api_token:
+				return
+			else:
+				group_id = None
+				if group == 'Sales':
+					group_id = self.sales_group_id
+				elif group == 'Purchase':
+					group_id = self.purchase_group_id
+				elif group == 'Stock':
+					group_id = self.stock_group_id
 
-def get_request(token, group_id, message):
-	response = requests.get('https://api.telegram.org/{}/sendMessage?chat_id={}&text={}'.format(token, group_id, message))			
+				hit_telegram_send_message_api(self.bot_api_token, message)	
+
+		except requests.exceptions.RequestException:
+    		frappe.log_error(title='Telegram Bot API Hit error')
+					
+
+	def hit_telegram_send_message_api(self, token, group_id, message):
+		response = requests.get('https://api.telegram.org/{}/sendMessage?chat_id={}&text={}'.format(token, group_id, message))			
