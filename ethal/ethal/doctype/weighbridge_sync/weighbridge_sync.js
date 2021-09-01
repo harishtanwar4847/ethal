@@ -3,7 +3,7 @@
 
 frappe.ui.form.on('Weighbridge Sync', {
 	refresh: function(frm) {
-		if ((frm.doc.file_path && (frm.doc.file_path.trim()).length>0) && (frm.doc.file_name && (frm.doc.file_name.trim()).length>0)) {
+		if (frm.doc.file_path.trim() && frm.doc.file_name.trim()) {
 			frm.add_custom_button(__('Sync weighbridge Data'), function(){
 				return frappe.call({				
 				method: 'ethal.weighbridge.set_values_for_weighbridge',
