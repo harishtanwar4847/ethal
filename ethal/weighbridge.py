@@ -13,9 +13,6 @@ def set_values_for_weighbridge():
     # importing csv module
     import csv
     
-    # csv file name
-    filename = filepath
-    
     # initializing the titles and rows list
     try:
     # reading csv file
@@ -24,7 +21,7 @@ def set_values_for_weighbridge():
 
         index = 0
 
-        with open(filename, 'r') as data:
+        with open(filepath, 'r') as data:
             for line in csv.reader(data):
                 index += 1
                 if index > 1:
