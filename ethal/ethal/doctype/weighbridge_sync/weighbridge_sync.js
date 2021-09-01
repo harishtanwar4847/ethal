@@ -3,9 +3,9 @@
 
 frappe.ui.form.on('Weighbridge Sync', {
 	refresh: function(frm) {
-		if(frm.doc.file_name && frm.doc.file_path) {
-		frm.add_custom_button(__('Sync weighbridge Data'), function(){
-			return frappe.call({				
+		if ((frm.doc.file_path && frm.doc.file_path.trim()) && (frm.doc.file_name && frm.doc.file_name.trim())) {
+			frm.add_custom_button(__('Sync weighbridge Data'), function(){
+				return frappe.call({				
 				method: 'ethal.weighbridge.set_values_for_weighbridge',
 				freeze: true,
 				freeze_message: "Syncing weighbridge data",
