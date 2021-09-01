@@ -5,6 +5,7 @@ from datetime import date, timedelta, datetime
 import time
 from frappe.utils import formatdate
 import ast
+import urllib
 from frappe.utils import get_url_to_form
 import itertools
 from erpnext.hr.doctype.employee_checkin.employee_checkin import mark_attendance_and_link_log
@@ -70,16 +71,32 @@ def shareholder_set_payeename(doc, method):
 		frappe.db.commit()
 		doc.reload()	
 
-def send_api_message(doc, method):
+def send_sales_api_message(doc, method):
 	doc_link = get_url_to_form(doc.doctype, doc.name)
 
 	message = 'Test - {} {} has been submitted. Please check it out. {}'.format(doc.doctype, doc.name, doc_link)
+	encode_message = urllib.parse.quote(message)
 
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
-	if doc.doctype == 'Delivery Note':
-		telegram_bot_settings.send_telegram_message(message, 'Sales')
-	elif doc.doctype == 'Purchase Receipt':
-		telegram_bot_settings.send_telegram_message(message, 'Stock')	
-	elif doc.doctype == 'Material Request':
-		telegram_bot_settings.send_telegram_message(message, 'Purchase')		
+	telegram_bot_settings.send_telegram_message(encode_message, 'Sales')
+	
+def send_stock_api_message(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+
+	message = 'Test - {} {} has been submitted. Please check it out. {}'.format(doc.doctype, doc.name, doc_link)
+	encode_message = urllib.parse.quote(message)
+
+	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	
+	telegram_bot_settings.send_telegram_message(encode_message, 'Stock')	
+	
+def send_purchase_api_message(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+
+	message = 'Test - {} {} has been submitted. Please check it out. {}'.format(doc.doctype, doc.name, doc_link)
+	encode_message = urllib.parse.quote(message)
+	print(encode_message)
+	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	
+	telegram_bot_settings.send_telegram_message(encode_message, 'Purchase')		
