@@ -113,18 +113,18 @@
   },
   {
    "fieldname": "cabin2",
-   "fieldtype": "Float",
+   "fieldtype": "Data",
    "label": "Cabin2"
   },
   {
    "fieldname": "carriage2",
-   "fieldtype": "Float",
+   "fieldtype": "Data",
    "label": "Carriage2"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-08-31 14:02:17.330087",
+ "modified": "2021-09-01 10:33:04.307249",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Weighbridge",
