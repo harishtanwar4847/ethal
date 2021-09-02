@@ -3,116 +3,53 @@ import csv
 from datetime import datetime
 import os, sys, subprocess
 
-# DATABASE = "/home/user/Desktop/Weighbridge/Main2002.mdb"
-# table_names = subprocess.Popen(['mdb-tables', '-1', DATABASE], stdout=subprocess.PIPE).communicate()[0]
-# tables = table_names.split('\n')
-# for table in tables:
-#     if table == "tare":
-#         filename = table.replace(' ','_') + '.csv'
-#         filename = "/home/user/ERPNEXT/ethal-bench/sites/ethal/private/files/"+filename
-#         print('Exporting ' + table)
-#         with open(filename, 'wb') as f:
-#             subprocess.check_call(['mdb-export', DATABASE, table], stdout=f)
-
-
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def set_values_for_weighbridge():
 
-    file_path = frappe.db.get_single_value("Weighbridge Sync","mdb_file_path")
-    file_name = frappe.db.get_single_value("Weighbridge Sync","mdb_file_name")
-    print(file_path)
-    print(file_name)
+    file_path = frappe.db.get_single_value("Weighbridge Sync","file_path")
+    file_name = frappe.db.get_single_value("Weighbridge Sync","file_name")
+
+    filepath = os.path.join(file_path, file_name)
+    # importing csv module
+    import csv
     
-    # mdb = frappe.get_site_path("private","files","Main2002.mdb")
-    mdb = file_path+file_name
-    print("mdb === ",mdb)
-    
-    # DATABASE = "/home/user/Desktop/Weighbridge/Main2002.mdb"
-    table_names = subprocess.Popen(['mdb-tables', '-1', mdb], stdout=subprocess.PIPE).communicate()[0]
-    print("table_names ===> ",table_names)
-    print("table_names type =====> ",type(table_names))
-    tables = table_names.split(b'\n')
-    tables_lst = []
-    for i in tables:
-        valu = i.decode("utf-8")
-        tables_lst.append(valu)
-    print("tables_lst ========> ",tables_lst)
-    print("tables type ========> ",type(tables_lst))
-    # frappe.throw("ruk ja bhai")
-    for table in tables_lst:
-        if table == "Truck":
-            filename = table.replace(' ','_') + '.csv'
-            print('Exporting ' + table)
-            with open(filename, 'wb') as f:
-                subprocess.check_call(['mdb-export', mdb, table], stdout=f)
-                print("completed")
+    # initializing the titles and rows list
+    try:
+    # reading csv file
+        people_list = []
+        headers_list = []
 
-    print("filename ===> ",filename)
-    print("inside weighbridge function")
-    lst = []
-    with open(filename,'r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            lst.append(row)
+        index = 0
 
-    for table in tables_lst:
-        if table == "Matl":
-            item_data = table.replace(' ','_') + '.csv'
-            print('Exporting ' + table)
-            with open(item_data, 'wb') as f:
-                subprocess.check_call(['mdb-export', mdb, table], stdout=f)
-                print("completed")
+        with open(filepath, 'r') as data:
+            for line in csv.reader(data):
+                index += 1
+                if index > 1:
+                    people_dict = {}
+                    for i, elem in enumerate(headers_list):
+                        people_dict[elem] = line[i]
+                    people_list.append(people_dict)
+                else:
+                    headers_list = list(line)    
 
-    print("item_data ===> ",item_data)
-    print("inside weighbridge function")
-    item_lst = []
-    with open(item_data,'r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            item_lst.append(row)  
-
-    for item in item_lst:
-        print(item) 
-        existing_item = frappe.db.get_value('Weighbridge Material', {'name': item[1]}, 'name')
-        print(existing_item)
-        if not existing_item:
-            weighbridge_material = frappe.get_doc({
-                'doctype': 'Weighbridge Material',
-                'weighbridge_material': item[1]
-            })                    
-            weighbridge_material.insert()
-    frappe.db.commit()        
-
-    srno = []
-    sr = frappe.db.get_list("Weighbridge",fields=["sr_no"])
-    if not sr:
-        pass
-    else:
-        for i in sr:
-            srno.append(i["sr_no"])
-    # print("sr ===== ",sr)
-    # srno.append(j)
-    for i in lst:
-        if lst.index(i) >= 1:
-            if i[28] not in srno:
-                # prd = frappe.db.get_value("Weighbridge Material",{"weighbridge_material":i[12]},"item_code")
-                wb = frappe.get_doc({
-                    'doctype':'Weighbridge',
-                    'sr_no' : i[28],
-                    'vehicle_no':i[0],
-                    'challan':i[9],
-                    'customer':i[11],
-                    'product':i[12],
-                    # 'product': prd,
-                    'source':i[13],
-                    'destination':i[14],
-                    'transporter':i[17],
-                    'gross':i[2],
-                    'tare':i[3],
-                    'net':i[4],
-                    'date':datetime.strptime(i[26][:8], '%m/%d/%y'),
-                    'time':datetime.strptime(i[27][9:],'%H:%M:%S').time()
-                })
-                wb.insert()
-    frappe.db.commit()
-
+        for row in people_list:
+            weighbridge = frappe.db.exists('Weighbridge', row['Name'])
+            if not weighbridge:
+                wb = frappe.new_doc('Weighbridge')
+                wb.unique_id = row['Name']
+                wb.vehicle_no = row['VH Num']
+                wb.time_in = row['Time In']
+                wb.wb1 = row['WB 1']
+                wb.cabin1 = row['Cabin 1']
+                wb.carriage1 = row['Carriage 1']
+                wb.net_wt = row['Net Wt']
+                wb.time_out = row['Time Out']
+                wb.wb2 = row['WB 2']
+                wb.cabin2 = row['Cabin 2']
+                wb.carriage2 = row['Carriage 2']
+                wb.save()
+               
+        frappe.db.commit()    
+    except Exception:
+        frappe.log_error(title='Weighbridge sync error')
+           
