@@ -1,24 +1,30 @@
 {
- "autoname": "field:sr_no",
+ "actions": [],
+ "autoname": "field:unique_id",
  "creation": "2021-03-16 11:18:18.408589",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "vehicle_no",
-  "sr_no",
-  "challan",
+  "unique_id",
+  "section_break_2",
   "customer",
   "product",
+  "column_break_6",
   "source",
   "destination",
-  "column_break_6",
-  "transporter",
-  "date",
-  "time",
-  "gross",
-  "tare",
-  "net"
+  "section_break_8",
+  "vehicle_no",
+  "time_in",
+  "wb1",
+  "cabin1",
+  "carriage1",
+  "column_break_14",
+  "net_wt",
+  "time_out",
+  "wb2",
+  "cabin2",
+  "carriage2"
  ],
  "fields": [
   {
@@ -27,19 +33,15 @@
    "label": "Vehicle No"
   },
   {
-   "fieldname": "challan",
-   "fieldtype": "Data",
-   "label": "Challan"
-  },
-  {
    "fieldname": "customer",
    "fieldtype": "Data",
    "label": "Customer"
   },
   {
    "fieldname": "product",
-   "fieldtype": "Data",
-   "label": "Product"
+   "fieldtype": "Link",
+   "label": "Product",
+   "options": "Item"
   },
   {
    "fieldname": "source",
@@ -52,47 +54,77 @@
    "label": "Destination"
   },
   {
-   "fieldname": "transporter",
-   "fieldtype": "Data",
-   "label": "Transporter"
-  },
-  {
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "label": "Date"
-  },
-  {
-   "fieldname": "time",
-   "fieldtype": "Time",
-   "label": "Time"
-  },
-  {
    "fieldname": "column_break_6",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "sr_no",
+   "fieldname": "unique_id",
    "fieldtype": "Data",
-   "label": "Sr No",
+   "label": "Unique Id",
    "unique": 1
   },
   {
-   "fieldname": "gross",
-   "fieldtype": "Float",
-   "label": "Gross"
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
   },
   {
-   "fieldname": "tare",
-   "fieldtype": "Float",
-   "label": "Tare"
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
   },
   {
-   "fieldname": "net",
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "time_out",
+   "fieldtype": "Time",
+   "label": "Time Out"
+  },
+  {
+   "fieldname": "time_in",
+   "fieldtype": "Time",
+   "label": "Time In"
+  },
+  {
+   "fieldname": "wb1",
+   "fieldtype": "Data",
+   "label": "WB1"
+  },
+  {
+   "fieldname": "cabin1",
+   "fieldtype": "Data",
+   "label": "Cabin1",
+   "unique": 1
+  },
+  {
+   "fieldname": "carriage1",
+   "fieldtype": "Data",
+   "label": "Carriage1"
+  },
+  {
+   "fieldname": "net_wt",
+   "fieldtype": "Data",
+   "label": "Net Wt"
+  },
+  {
+   "fieldname": "wb2",
    "fieldtype": "Float",
-   "label": "Net"
+   "label": "WB2"
+  },
+  {
+   "fieldname": "cabin2",
+   "fieldtype": "Data",
+   "label": "Cabin2"
+  },
+  {
+   "fieldname": "carriage2",
+   "fieldtype": "Data",
+   "label": "Carriage2"
   }
  ],
- "modified": "2021-05-21 18:50:43.997074",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-01 10:33:04.307249",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Weighbridge",

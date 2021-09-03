@@ -3,8 +3,12 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-# import frappe
+import frappe
 from frappe.model.document import Document
 
 class WeighbridgeSync(Document):
-	pass
+	def validate(self):
+		if self.file_path.endswith('/'):
+			frappe.throw('There should be no / at the end of file path')
+		if '/' in self.file_name:
+			frappe.throw('there should be no / in file name')
