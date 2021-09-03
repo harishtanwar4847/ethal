@@ -1,45 +1,55 @@
 {
- "autoname": "field:sr_no",
+ "actions": [],
+ "autoname": "field:unique_id",
  "creation": "2021-03-16 11:18:18.408589",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "vehicle_no",
-  "sr_no",
-  "challan",
+  "unique_id",
+  "section_break_2",
+  "movement_type",
   "customer",
-  "product",
+  "supplier",
+  "column_break_6",
   "source",
   "destination",
-  "column_break_6",
-  "transporter",
-  "date",
-  "time",
-  "gross",
-  "tare",
-  "net"
+  "section_break_7",
+  "product",
+  "section_break_8",
+  "vehicle_no",
+  "time_in",
+  "wb1",
+  "cabin1",
+  "carriage1",
+  "column_break_14",
+  "net_wt",
+  "time_out",
+  "wb2",
+  "cabin2",
+  "carriage2",
+  "section_break_23",
+  "remarks"
  ],
  "fields": [
   {
    "fieldname": "vehicle_no",
    "fieldtype": "Data",
-   "label": "Vehicle No"
+   "label": "Vehicle No",
+   "read_only": 1
   },
   {
-   "fieldname": "challan",
-   "fieldtype": "Data",
-   "label": "Challan"
-  },
-  {
+   "depends_on": "eval:doc.movement_type == 'Outward'",
    "fieldname": "customer",
-   "fieldtype": "Data",
-   "label": "Customer"
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
   },
   {
    "fieldname": "product",
-   "fieldtype": "Data",
-   "label": "Product"
+   "fieldtype": "Table",
+   "label": "Product",
+   "options": "Weighbridge Item"
   },
   {
    "fieldname": "source",
@@ -52,47 +62,111 @@
    "label": "Destination"
   },
   {
-   "fieldname": "transporter",
-   "fieldtype": "Data",
-   "label": "Transporter"
-  },
-  {
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "label": "Date"
-  },
-  {
-   "fieldname": "time",
-   "fieldtype": "Time",
-   "label": "Time"
-  },
-  {
    "fieldname": "column_break_6",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "sr_no",
+   "fieldname": "unique_id",
    "fieldtype": "Data",
-   "label": "Sr No",
+   "label": "Unique Id",
    "unique": 1
   },
   {
-   "fieldname": "gross",
-   "fieldtype": "Float",
-   "label": "Gross"
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
   },
   {
-   "fieldname": "tare",
-   "fieldtype": "Float",
-   "label": "Tare"
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
   },
   {
-   "fieldname": "net",
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "time_out",
+   "fieldtype": "Time",
+   "label": "Time Out",
+   "read_only": 1
+  },
+  {
+   "fieldname": "time_in",
+   "fieldtype": "Time",
+   "label": "Time In",
+   "read_only": 1
+  },
+  {
+   "fieldname": "wb1",
+   "fieldtype": "Data",
+   "label": "WB1",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cabin1",
+   "fieldtype": "Data",
+   "label": "Cabin1",
+   "read_only": 1
+  },
+  {
+   "fieldname": "carriage1",
+   "fieldtype": "Data",
+   "label": "Carriage1",
+   "read_only": 1
+  },
+  {
+   "fieldname": "net_wt",
+   "fieldtype": "Data",
+   "label": "Net Wt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "wb2",
    "fieldtype": "Float",
-   "label": "Net"
+   "label": "WB2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cabin2",
+   "fieldtype": "Data",
+   "label": "Cabin2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "carriage2",
+   "fieldtype": "Data",
+   "label": "Carriage2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.movement_type == 'Inward'",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "movement_type",
+   "fieldtype": "Select",
+   "label": "Movement Type",
+   "options": "Inward\nOutward"
+  },
+  {
+   "fieldname": "section_break_23",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor",
+   "label": "Remarks"
   }
  ],
- "modified": "2021-05-21 18:50:43.997074",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-03 15:56:49.089796",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Weighbridge",
