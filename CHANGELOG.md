@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [v1.1.0] - 2021-09-03
+
 ### Added
 
 -[Weighbridge](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/187)
