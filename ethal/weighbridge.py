@@ -10,6 +10,7 @@ def set_values_for_weighbridge():
     file_name = frappe.db.get_single_value("Weighbridge Sync","file_name")
 
     filepath = os.path.join(file_path, file_name)
+    print(filepath)
     # importing csv module
     import csv
     
@@ -37,7 +38,7 @@ def set_values_for_weighbridge():
             if not weighbridge:
                 wb = frappe.new_doc('Weighbridge')
                 wb.unique_id = row['Name']
-                wb.vehicle_no = row['VH Num']
+                wb.vehicle_no = str(row['VH Num'])
                 wb.time_in = row['Time In']
                 wb.wb1 = row['WB 1']
                 wb.cabin1 = row['Cabin 1']
