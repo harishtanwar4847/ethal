@@ -73,8 +73,16 @@ def shareholder_set_payeename(doc, method):
 
 def send_sales_api_message(doc, method):
 	doc_link = get_url_to_form(doc.doctype, doc.name)
-
-	message = 'Test - {} {} has been submitted. Please check it out. {}'.format(doc.doctype, doc.name, doc_link)
+	item_details = frappe.db.get_all('Delivery Note Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	if item_details:
+		details='Item Details:'
+		items = ''
+		for i in item_details:
+			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+			items = items + item
+		items_details = details+items	
+	
+	message = 'Test - {} {} has been submitted. \nCustomer: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.customer, items_details, doc.grand_total, doc_link)
 	encode_message = urllib.parse.quote(message)
 
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
@@ -83,8 +91,16 @@ def send_sales_api_message(doc, method):
 	
 def send_stock_api_message(doc, method):
 	doc_link = get_url_to_form(doc.doctype, doc.name)
-
-	message = 'Test - {} {} has been submitted. Please check it out. {}'.format(doc.doctype, doc.name, doc_link)
+	item_details = frappe.db.get_all('Purchase Receipt Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	if item_details:
+		details='Item Details:'
+		items = ''
+		for i in item_details:
+			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+			items = items + item
+		items_details = details+items
+	
+	message = 'Test - {} {} has been submitted. \nSupplier: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.supplier, items_details, doc.grand_total, doc_link)
 	encode_message = urllib.parse.quote(message)
 
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
@@ -93,10 +109,17 @@ def send_stock_api_message(doc, method):
 	
 def send_purchase_api_message(doc, method):
 	doc_link = get_url_to_form(doc.doctype, doc.name)
-
-	message = 'Test - {} {} has been submitted. Please check it out. {}'.format(doc.doctype, doc.name, doc_link)
+	item_details = frappe.db.get_all('Material Request Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	if item_details:
+		details='Item Details:'
+		items = ''
+		for i in item_details:
+			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+			items = items + item
+		items_details = details+items
+	
+	message = 'Test - {} {} has been submitted. \n{} \nPlease check it out. {}'.format(doc.doctype, doc.name, items_details, doc_link)
 	encode_message = urllib.parse.quote(message)
-	print(encode_message)
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
 	telegram_bot_settings.send_telegram_message(encode_message, 'Purchase')		
