@@ -4,6 +4,7 @@
 import frappe
 import requests
 from frappe.model.document import Document
+import urllib
 
 class TelegramBotSettings(Document):
 	def send_telegram_message(self, message, group):
