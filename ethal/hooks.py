@@ -250,7 +250,8 @@ scheduler_events = {
 # }
 
 doctype_js = {
-	'Sales Invoice': 'public/js/sales_invoice.js'
+	'Sales Invoice': 'public/js/sales_invoice.js',
+	'Payment Entry': 'public/js/payment_entry.js'
 }
 
 fixtures = [
@@ -290,7 +291,7 @@ fixtures = [
 			[
 			"dt",
 			"in",
-			['Asset', 'Asset Maintenance', 'Payment Entry', 'Customer', 'Supplier', 'Shareholder', 'Landed Cost Voucher', 'Vehicle Log', 'Employee', 'Salary Structure', 'Salary Structure Assignment', 'Job Applicant', 'Job Opening', 'Salary Slip', 'Purchase Invoice', 'Asset Maintenance Log', 'Asset Repair', 'Quotation', 'Delivery Note', 'Item']
+			['Asset', 'Asset Maintenance', 'Customer', 'Supplier', 'Shareholder', 'Landed Cost Voucher', 'Vehicle Log', 'Employee', 'Salary Structure', 'Salary Structure Assignment', 'Job Applicant', 'Job Opening', 'Salary Slip', 'Purchase Invoice', 'Asset Maintenance Log', 'Asset Repair', 'Quotation', 'Delivery Note', 'Item']
 			]
 		]
 	},
