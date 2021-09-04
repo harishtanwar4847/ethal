@@ -249,6 +249,10 @@ scheduler_events = {
 # 	"Task": "ethal.task.get_dashboard_data"
 # }
 
+doctype_js = {
+	'Sales Invoice': 'public/js/sales_invoice.js'
+}
+
 fixtures = [
 	{
 		"dt": "Custom Field",
@@ -271,16 +275,6 @@ fixtures = [
 		]
 	},
 	{
-		"dt": "Workflow",
-		"filters": [
-			[
-				"document_type",
-				"in",
-				["Attendance", "Employee Incentive Bulk", "Delivery Note", "Journal Entry", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization", "Purchase Receipt"]
-			]
-		]
-	},
-	{
 		"dt": "Role",
 		"filters": [
 			[
@@ -296,7 +290,7 @@ fixtures = [
 			[
 			"dt",
 			"in",
-			['Asset', 'Asset Maintenance', 'Payment Entry', 'Customer', 'Supplier', 'Shareholder', 'Landed Cost Voucher', 'Vehicle Log', 'Employee', 'Salary Structure', 'Salary Structure Assignment', 'Job Applicant', 'Job Opening', 'Salary Slip', 'Purchase Invoice', 'Sales Invoice', 'Asset Maintenance Log', 'Asset Repair', 'Quotation', 'Delivery Note', 'Item']
+			['Asset', 'Asset Maintenance', 'Payment Entry', 'Customer', 'Supplier', 'Shareholder', 'Landed Cost Voucher', 'Vehicle Log', 'Employee', 'Salary Structure', 'Salary Structure Assignment', 'Job Applicant', 'Job Opening', 'Salary Slip', 'Purchase Invoice', 'Asset Maintenance Log', 'Asset Repair', 'Quotation', 'Delivery Note', 'Item']
 			]
 		]
 	},
