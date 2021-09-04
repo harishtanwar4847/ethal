@@ -255,7 +255,8 @@ doctype_js = {
 	'Customer': 'public/js/customer.js',
 	'Employee': 'public/js/employee.js',
 	'Vehicle Log': 'public/js/vehicle_log.js',
-	'Asset Maintenance Log': 'public/js/asset_maintenance_log.js'
+	'Asset Maintenance Log': 'public/js/asset_maintenance_log.js',
+	'Asset Repair': 'public/js/asset_repair.js'
 }
 
 fixtures = [
