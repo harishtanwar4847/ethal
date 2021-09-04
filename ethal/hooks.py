@@ -253,7 +253,8 @@ doctype_js = {
 	'Sales Invoice': 'public/js/sales_invoice.js',
 	'Payment Entry': 'public/js/payment_entry.js',
 	'Customer': 'public/js/customer.js',
-	'Employee': 'public/js/employee.js'
+	'Employee': 'public/js/employee.js',
+	'Vehicle Log': 'public/js/vehicle_log.js'
 }
 
 fixtures = [
