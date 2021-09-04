@@ -4,6 +4,12 @@
 
 ### Added
 
+-[telegram integration with erp](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/186)
+
+## [v1.1.0] - 2021-09-03
+
+### Added
+
 -[Weighbridge](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/187)
 -[Weighbridge pending line items](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/189)
 

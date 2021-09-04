@@ -5,6 +5,8 @@ from datetime import date, timedelta, datetime
 import time
 from frappe.utils import formatdate
 import ast
+import urllib
+from frappe.utils import get_url_to_form
 import itertools
 from erpnext.hr.doctype.employee_checkin.employee_checkin import mark_attendance_and_link_log
 from frappe.utils.background_jobs import enqueue
@@ -67,4 +69,55 @@ def shareholder_set_payeename(doc, method):
 	if not doc.payee_name:
 		frappe.db.set_value('Shareholder', {'name': doc.name}, 'payee_name', doc.title)
 		frappe.db.commit()
-		doc.reload()			
+		doc.reload()	
+
+def send_sales_api_message(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+	item_details = frappe.db.get_all('Delivery Note Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	if item_details:
+		details='Item Details:'
+		items = ''
+		for i in item_details:
+			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+			items = items + item
+		items_details = details+items	
+	
+	message = 'Test - {} {} has been submitted. \nCustomer: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.customer, items_details, doc.grand_total, doc_link)
+	
+	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	
+	telegram_bot_settings.send_telegram_message(message, 'Sales')
+	
+def send_stock_api_message(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+	item_details = frappe.db.get_all('Purchase Receipt Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	if item_details:
+		details='Item Details:'
+		items = ''
+		for i in item_details:
+			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+			items = items + item
+		items_details = details+items
+	
+	message = 'Test - {} {} has been submitted. \nSupplier: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.supplier, items_details, doc.grand_total, doc_link)
+	
+	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	
+	telegram_bot_settings.send_telegram_message(message, 'Stock')	
+	
+def send_purchase_api_message(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+	item_details = frappe.db.get_all('Material Request Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	if item_details:
+		details='Item Details:'
+		items = ''
+		for i in item_details:
+			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+			items = items + item
+		items_details = details+items
+	
+	message = 'Test - {} {} has been submitted. \n{} \nPlease check it out. {}'.format(doc.doctype, doc.name, items_details, doc_link)
+	
+	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	
+	telegram_bot_settings.send_telegram_message(message, 'Purchase')		
