@@ -258,7 +258,10 @@ doctype_js = {
 	'Asset Maintenance Log': 'public/js/asset_maintenance_log.js',
 	'Asset Repair': 'public/js/asset_repair.js',
 	'Purchase Invoice': 'public/js/purchase_invoice.js',
-	'Job Applicant': 'public/js/job_applicant.js'
+	'Job Applicant': 'public/js/job_applicant.js',
+	'Quotation': 'public/js/quotation.js',
+	'Job Opening': 'public/js/job_opening.js',
+	'Delivery Note': 'public/js/delivery_note.js'
 }
 
 fixtures = [
