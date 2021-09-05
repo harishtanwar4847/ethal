@@ -261,7 +261,8 @@ doctype_js = {
 	'Job Applicant': 'public/js/job_applicant.js',
 	'Quotation': 'public/js/quotation.js',
 	'Job Opening': 'public/js/job_opening.js',
-	'Delivery Note': 'public/js/delivery_note.js'
+	'Delivery Note': 'public/js/delivery_note.js',
+	'Item': 'public/js/item.js'
 }
 
 fixtures = [
