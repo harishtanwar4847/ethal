@@ -25,7 +25,9 @@
   "security",
   "section_break_18",
   "material",
-  "amended_from"
+  "amended_from",
+  "approver_date",
+  "approver_person"
  ],
  "fields": [
   {
@@ -134,12 +136,26 @@
    "options": "Gate Pass",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "approver_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Approver Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "approver_person",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Approver Person"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-09-13 17:29:23.243544",
+ "modified": "2021-09-13 18:09:28.065658",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Gate Pass",

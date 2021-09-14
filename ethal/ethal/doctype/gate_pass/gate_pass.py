@@ -5,4 +5,6 @@
 from frappe.model.document import Document
 
 class GatePass(Document):
-	pass
+	def before_submit(self):
+		self.approver_person = self.modified_by
+		self.approver_date = self.modified
