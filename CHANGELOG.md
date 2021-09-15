@@ -4,18 +4,20 @@
 
 ### Added
 
--[telegram integration with erp](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/186)
+- [telegram integration with erp](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/186)
+- [create gate pass and handover documnet doctype and add in ethal workspace](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/193)
+- [create source and destination field and add display depend on in Weighbridge DocType | Update Weighbridge Document if Draft when syncing Weighbridge data](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/194)
 
 ## [v1.1.0] - 2021-09-03
 
 ### Added
 
--[Weighbridge](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/187)
--[Weighbridge pending line items](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/189)
+- [Weighbridge](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/187)
+- [Weighbridge pending line items](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/189)
 
 ### Fixes
 
--[Attendace workflow](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/188)
+- [Attendace workflow](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/188)
 
 ## [v1.0.0] - 2021-08-30
 
