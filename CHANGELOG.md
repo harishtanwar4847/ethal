@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [v1.2.1] - 2021-09-15
+
 ### Added
 
 - [telegram integration with erp](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/186)
