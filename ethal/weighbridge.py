@@ -10,7 +10,6 @@ def set_values_for_weighbridge():
     file_name = frappe.db.get_single_value("Weighbridge Sync","file_name")
 
     filepath = os.path.join(file_path, file_name)
-    print(filepath)
     # importing csv module
     import csv
     
@@ -34,22 +33,27 @@ def set_values_for_weighbridge():
                     headers_list = list(line)    
 
         for row in people_list:
-            weighbridge = frappe.db.exists('Weighbridge', row['Name'])
-            if not weighbridge:
-                wb = frappe.new_doc('Weighbridge')
-                wb.unique_id = row['Name']
-                wb.vehicle_no = str(row['VH Num'])
-                wb.time_in = row['Time In']
-                wb.wb1 = row['WB 1']
-                wb.cabin1 = row['Cabin 1']
-                wb.carriage1 = row['Carriage 1']
-                wb.net_wt = row['Net Wt']
-                wb.time_out = row['Time Out']
-                wb.wb2 = row['WB 2']
-                wb.cabin2 = row['Cabin 2']
-                wb.carriage2 = row['Carriage 2']
-                wb.save()
-               
+            weighbridge = frappe.db.get_all('Weighbridge', filters={'name': row['Name'], 'docstatus':0}, fields=['name'])
+            if weighbridge:
+                wb = frappe.get_doc('Weighbridge', weighbridge[0]['name'])
+            else:   
+                submitted_wb = frappe.db.exists('Weighbridge', {'name': row['Name'], 'docstatus':1})
+                if not submitted_wb:
+                    wb = frappe.new_doc('Weighbridge')
+                    wb.unique_id = row['Name']
+
+            wb.vehicle_no = str(row['VH Num'])
+            wb.time_in = row['Time In']
+            wb.wb1 = row['WB 1']
+            wb.cabin1 = row['Cabin 1']
+            wb.carriage1 = row['Carriage 1']
+            wb.net_wt = row['Net Wt']
+            wb.time_out = row['Time Out']
+            wb.wb2 = row['WB 2']
+            wb.cabin2 = row['Cabin 2']
+            wb.carriage2 = row['Carriage 2']
+            wb.save()
+
         frappe.db.commit()    
     except Exception:
         frappe.log_error(title='Weighbridge sync error')
