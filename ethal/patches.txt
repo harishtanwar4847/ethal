@@ -1,1 +1,2 @@
 ethal.patches.create_stock_viewer_role
+ethal.patches.import_workflow

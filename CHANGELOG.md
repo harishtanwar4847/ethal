@@ -5,6 +5,7 @@
 ### Added
 
 -[telegram integration with erp](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/186)
+-[create gate pass and handover documnet doctype and add in ethal workspace](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/193)
 
 ## [v1.1.0] - 2021-09-03
 
