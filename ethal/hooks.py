@@ -281,16 +281,6 @@ fixtures = [
 		]
 	},
 	{
-		"dt": "Role",
-		"filters": [
-			[
-				"name",
-				"in",
-				['HR Admin', 'Delivery Note Approver', 'EOS User', 'EOS Manager', 'Journal Entry Approver', 'Deputy PRA Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
-			]
-		]
-	},
-	{
 		"dt": "Custom Script",
 		"filters": [
 			[
