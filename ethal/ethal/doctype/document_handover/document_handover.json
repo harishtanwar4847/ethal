@@ -1,0 +1,145 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "naming_series:",
+ "creation": "2021-07-10 12:38:07.904684",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "handover_to",
+  "handed_over_to",
+  "column_break_4",
+  "posting_date",
+  "section_break_6",
+  "document_details",
+  "section_break_8",
+  "final_receiving_responsibility",
+  "final_receiving_responsible",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "bold": 1,
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "options": "DH-HO-.YYYY.-\nDH-DB-.YYYY.-",
+   "print_hide": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "handover_to",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Handover To",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "handover_to.employee_name",
+   "fieldname": "handed_over_to",
+   "fieldtype": "Data",
+   "label": "Handed Over To"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "document_details",
+   "fieldtype": "Table",
+   "label": "Document Details",
+   "options": "Document Handover Reference"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "final_receiving_responsibility",
+   "fieldtype": "Link",
+   "label": "Final Receiving Responsibility",
+   "options": "Employee",
+   "print_hide": 1
+  },
+  {
+   "fetch_from": "final_receiving_responsibility.employee_name",
+   "fieldname": "final_receiving_responsible",
+   "fieldtype": "Data",
+   "label": "Final Receiving Responsible"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text Editor",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Document Handover",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2021-09-14 14:33:07.025882",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Document Handover",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
