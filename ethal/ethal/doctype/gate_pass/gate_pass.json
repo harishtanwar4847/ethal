@@ -90,33 +90,43 @@
    "label": "Filled by Security"
   },
   {
+   "default": ".",
    "fieldname": "date_out",
    "fieldtype": "Data",
-   "label": "Date Out"
+   "label": "Date Out",
+   "read_only": 1
   },
   {
+   "default": ".",
    "fieldname": "date_in",
    "fieldtype": "Data",
-   "label": "Date In"
+   "label": "Date In",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_14",
    "fieldtype": "Column Break"
   },
   {
+   "default": ".",
    "fieldname": "time_out",
-   "fieldtype": "Time",
-   "label": "Time Out"
+   "fieldtype": "Data",
+   "label": "Time Out",
+   "read_only": 1
   },
   {
+   "default": ".",
    "fieldname": "time_in",
-   "fieldtype": "Time",
-   "label": "Time In"
+   "fieldtype": "Data",
+   "label": "Time In",
+   "read_only": 1
   },
   {
+   "default": ".",
    "fieldname": "security",
    "fieldtype": "Data",
-   "label": "Security"
+   "label": "Security",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_18",
@@ -155,7 +165,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-09-13 18:09:28.065658",
+ "modified": "2021-09-15 10:16:42.703156",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Gate Pass",
