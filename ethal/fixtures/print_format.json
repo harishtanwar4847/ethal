@@ -1,5 +1,33 @@
 [
  {
+  "absolute_value": 0,
+  "align_labels_right": 1,
+  "css": null,
+  "custom_format": 0,
+  "default_print_language": "en-US",
+  "disabled": 1,
+  "doc_type": "Sales Invoice",
+  "docstatus": 0,
+  "doctype": "Print Format",
+  "font": "Default",
+  "format_data": null,
+  "html": "",
+  "line_breaks": 1,
+  "modified": "2020-10-23 19:54:40.634936",
+  "module": "Accounts",
+  "name": "GST E-Invoice",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "print_format_builder": 0,
+  "print_format_type": "Jinja",
+  "raw_commands": null,
+  "raw_printing": 0,
+  "show_section_headings": 1,
+  "standard": "Yes"
+ },
+ {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -26,6 +54,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -52,6 +81,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -78,6 +108,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -104,6 +135,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -130,6 +162,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -156,6 +189,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -182,6 +216,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -208,6 +243,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -234,6 +270,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -260,6 +297,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -286,6 +324,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -312,6 +351,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -338,6 +378,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -364,6 +405,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -390,6 +432,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -416,6 +459,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -442,6 +486,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -468,6 +513,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -494,6 +540,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -520,6 +567,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -546,6 +594,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -572,6 +621,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -598,6 +648,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -624,6 +675,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -650,6 +702,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 1,
   "css": null,
   "custom_format": 0,
@@ -676,6 +729,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -702,6 +756,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -728,6 +783,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -754,6 +810,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -780,6 +837,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -806,6 +864,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -832,6 +891,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -858,6 +918,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -884,6 +945,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -910,6 +972,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -936,6 +999,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -962,6 +1026,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -988,6 +1053,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1014,6 +1080,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1040,6 +1107,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1066,6 +1134,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1092,6 +1161,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1118,6 +1188,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1144,6 +1215,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1170,6 +1242,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1196,6 +1269,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1222,6 +1296,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1248,6 +1323,7 @@
   "standard": "No"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 1,
@@ -1274,6 +1350,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1300,6 +1377,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1326,6 +1404,7 @@
   "standard": "Yes"
  },
  {
+  "absolute_value": 0,
   "align_labels_right": 0,
   "css": null,
   "custom_format": 0,
@@ -1341,6 +1420,60 @@
   "modified": "2021-06-17 11:12:23.042382",
   "module": "Stock",
   "name": "Delivery Note",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "print_format_builder": 1,
+  "print_format_type": "Jinja",
+  "raw_commands": null,
+  "raw_printing": 0,
+  "show_section_headings": 0,
+  "standard": "No"
+ },
+ {
+  "absolute_value": 0,
+  "align_labels_right": 0,
+  "css": null,
+  "custom_format": 0,
+  "default_print_language": null,
+  "disabled": 0,
+  "doc_type": "Gate Pass",
+  "docstatus": 0,
+  "doctype": "Print Format",
+  "font": "Default",
+  "format_data": "[{\"fieldname\": \"print_heading_template\", \"fieldtype\": \"Custom HTML\", \"options\": \"<div class=\\\"print-heading\\\">\\t\\t\\t\\t<h2><div>Gate Pass</div><br><small class=\\\"sub-heading\\\">{{ doc.name }}</small>\\t\\t\\t\\t</h2></div>\\n<h5 style='float:right'><b>Stores copy</b></h5>\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"workflow_state\", \"print_hide\": 0, \"label\": \"Workflow State\"}, {\"fieldname\": \"naming_series\", \"print_hide\": 0, \"label\": \"Series\"}, {\"fieldname\": \"gate_pass_type\", \"print_hide\": 0, \"label\": \"Gate Pass Type\"}, {\"fieldname\": \"vat_invoice_no\", \"print_hide\": 0, \"label\": \"VAT Invoice No\"}, {\"fieldname\": \"vat_invoice_date\", \"print_hide\": 0, \"label\": \"VAT Invoice Date\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"posting_date\", \"print_hide\": 0, \"label\": \"Posting Date\"}, {\"fieldname\": \"material_sent_to\", \"print_hide\": 0, \"label\": \"Material Sent To\"}, {\"fieldname\": \"vehicle_plate_no\", \"print_hide\": 0, \"label\": \"Vehicle Plate No\"}, {\"fieldname\": \"delivery_memo_no\", \"print_hide\": 0, \"label\": \"Delivery Memo No\"}, {\"fieldname\": \"delivery_memo_date\", \"print_hide\": 0, \"label\": \"Delivery Memo Date\"}, {\"fieldtype\": \"Section Break\", \"label\": \"Filled by Security\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"date_out\", \"print_hide\": 0, \"label\": \"Date Out\"}, {\"fieldname\": \"date_in\", \"print_hide\": 0, \"label\": \"Date In\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"time_out\", \"print_hide\": 0, \"label\": \"Time Out\"}, {\"fieldname\": \"time_in\", \"print_hide\": 0, \"label\": \"Time In\"}, {\"fieldname\": \"security\", \"print_hide\": 0, \"label\": \"Security\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"material\", \"print_hide\": 0, \"label\": \"Material\", \"visible_columns\": [{\"fieldname\": \"item\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"item_name\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"uom\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"qty\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"remarks\", \"print_width\": \"\", \"print_hide\": 0}]}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"_custom_html\", \"print_hide\": 0, \"label\": \"Custom HTML\", \"fieldtype\": \"HTML\", \"options\": \"<br><table style=\\\"width: 100%;\\\">\\r\\n  <tbody>\\r\\n<tr>\\r\\n    <th class=\\\"text-center\\\">Posted by</th>\\r\\n    <th class=\\\"text-center\\\">Approved by</th>\\r\\n   </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\"><br><br>--------------------</td>\\r\\n    <td class=\\\"text-center\\\"><br><br>--------------------</td>\\r\\n  </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.owner)}}</td>\\r\\n    \\r\\n    {% if doc.workflow_state == \\\"Approved\\\" -%}\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.approver_person)}}</td>\\r\\n    \\r\\n    {% elif doc.status == \\\"Submitted\\\" -%}\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.approver_person)}}</td>\\r\\n    \\r\\n    {% else -%}\\r\\n    <td class=\\\"text-center\\\">Approval Pending</td>\\r\\n    \\r\\n    {%- endif %}\\r\\n    \\r\\n    \\r\\n  </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\">{{frappe.utils.global_date_format(doc.creation)}}</td>\\r\\n     <td class=\\\"text-center\\\">{{frappe.utils.global_date_format(doc.approver_date)}}</td>\\r\\n    </tr>\\r\\n</tbody>\\r\\n</table>\\r\\n\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"_custom_html\", \"print_hide\": 0, \"label\": \"Custom HTML\", \"fieldtype\": \"HTML\", \"options\": \"<div class=\\\"page-break\\\"></div> \\n<img src=' /files/Ethal_letter_head.png'>\\n<h5 style='float:right'><b>Gate copy</b></h5>\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"workflow_state\", \"print_hide\": 0, \"label\": \"Workflow State\"}, {\"fieldname\": \"naming_series\", \"print_hide\": 0, \"label\": \"Series\"}, {\"fieldname\": \"gate_pass_type\", \"print_hide\": 0, \"label\": \"Gate Pass Type\"}, {\"fieldname\": \"vat_invoice_date\", \"print_hide\": 0, \"label\": \"VAT Invoice Date\"}, {\"fieldname\": \"vat_invoice_no\", \"print_hide\": 0, \"label\": \"VAT Invoice No\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"posting_date\", \"print_hide\": 0, \"label\": \"Posting Date\"}, {\"fieldname\": \"material_sent_to\", \"print_hide\": 0, \"label\": \"Material Sent To\"}, {\"fieldname\": \"vehicle_plate_no\", \"print_hide\": 0, \"label\": \"Vehicle Plate No\"}, {\"fieldname\": \"delivery_memo_no\", \"print_hide\": 0, \"label\": \"Delivery Memo No\"}, {\"fieldname\": \"delivery_memo_date\", \"print_hide\": 0, \"label\": \"Delivery Memo Date\"}, {\"fieldtype\": \"Section Break\", \"label\": \"Filled by Security\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"date_out\", \"print_hide\": 0, \"label\": \"Date Out\"}, {\"fieldname\": \"date_in\", \"print_hide\": 0, \"label\": \"Date In\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"time_out\", \"print_hide\": 0, \"label\": \"Time Out\"}, {\"fieldname\": \"time_in\", \"print_hide\": 0, \"label\": \"Time In\"}, {\"fieldname\": \"security\", \"print_hide\": 0, \"label\": \"Security\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"material\", \"print_hide\": 0, \"label\": \"Material\", \"visible_columns\": [{\"fieldname\": \"item\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"item_name\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"uom\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"qty\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"remarks\", \"print_width\": \"\", \"print_hide\": 0}]}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"_custom_html\", \"print_hide\": 0, \"label\": \"Custom HTML\", \"fieldtype\": \"HTML\", \"options\": \"<br><table style=\\\"width: 100%;\\\">\\r\\n  <tbody>\\r\\n<tr>\\r\\n    <th class=\\\"text-center\\\">Posted by</th>\\r\\n    <th class=\\\"text-center\\\">Approved by</th>\\r\\n   </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\"><br><br>--------------------</td>\\r\\n    <td class=\\\"text-center\\\"><br><br>--------------------</td>\\r\\n  </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.owner)}}</td>\\r\\n    \\r\\n    {% if doc.workflow_state == \\\"Approved\\\" -%}\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.approver_person)}}</td>\\r\\n    \\r\\n    {% elif doc.status == \\\"Submitted\\\" -%}\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.approver_person)}}</td>\\r\\n    \\r\\n    {% else -%}\\r\\n    <td class=\\\"text-center\\\">Approval Pending</td>\\r\\n    \\r\\n    {%- endif %}\\r\\n    \\r\\n    \\r\\n  </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\">{{frappe.utils.global_date_format(doc.creation)}}</td>\\r\\n     <td class=\\\"text-center\\\">{{frappe.utils.global_date_format(doc.approver_date)}}</td>\\r\\n    </tr>\\r\\n</tbody>\\r\\n</table>\\r\\n\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"_custom_html\", \"print_hide\": 0, \"label\": \"Custom HTML\", \"fieldtype\": \"HTML\", \"options\": \"<div class=\\\"page-break\\\"></div> \\n<img src=' /files/Ethal_letter_head.png'>\\n<h5 style='float:right'><b>Customer Copy</b></h5>\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"workflow_state\", \"print_hide\": 0, \"label\": \"Workflow State\"}, {\"fieldname\": \"naming_series\", \"print_hide\": 0, \"label\": \"Series\"}, {\"fieldname\": \"gate_pass_type\", \"print_hide\": 0, \"label\": \"Gate Pass Type\"}, {\"fieldname\": \"vat_invoice_date\", \"print_hide\": 0, \"label\": \"VAT Invoice Date\"}, {\"fieldname\": \"vat_invoice_no\", \"print_hide\": 0, \"label\": \"VAT Invoice No\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"posting_date\", \"print_hide\": 0, \"label\": \"Posting Date\"}, {\"fieldname\": \"material_sent_to\", \"print_hide\": 0, \"label\": \"Material Sent To\"}, {\"fieldname\": \"vehicle_plate_no\", \"print_hide\": 0, \"label\": \"Vehicle Plate No\"}, {\"fieldname\": \"delivery_memo_no\", \"print_hide\": 0, \"label\": \"Delivery Memo No\"}, {\"fieldname\": \"delivery_memo_date\", \"print_hide\": 0, \"label\": \"Delivery Memo Date\"}, {\"fieldtype\": \"Section Break\", \"label\": \"Filled by Security\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"date_out\", \"print_hide\": 0, \"label\": \"Date Out\"}, {\"fieldname\": \"date_in\", \"print_hide\": 0, \"label\": \"Date In\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"time_out\", \"print_hide\": 0, \"label\": \"Time Out\"}, {\"fieldname\": \"time_in\", \"print_hide\": 0, \"label\": \"Time In\"}, {\"fieldname\": \"security\", \"print_hide\": 0, \"label\": \"Security\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"material\", \"print_hide\": 0, \"label\": \"Material\", \"visible_columns\": [{\"fieldname\": \"item\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"item_name\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"uom\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"qty\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"remarks\", \"print_width\": \"\", \"print_hide\": 0}]}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"_custom_html\", \"print_hide\": 0, \"label\": \"Custom HTML\", \"fieldtype\": \"HTML\", \"options\": \"<br><table style=\\\"width: 100%;\\\">\\r\\n  <tbody>\\r\\n<tr>\\r\\n    <th class=\\\"text-center\\\">Posted by</th>\\r\\n    <th class=\\\"text-center\\\">Approved by</th>\\r\\n   </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\"><br><br>--------------------</td>\\r\\n    <td class=\\\"text-center\\\"><br><br>--------------------</td>\\r\\n  </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.owner)}}</td>\\r\\n    \\r\\n    {% if doc.workflow_state == \\\"Approved\\\" -%}\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.approver_person)}}</td>\\r\\n    \\r\\n    {% elif doc.status == \\\"Submitted\\\" -%}\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.approver_person)}}</td>\\r\\n    \\r\\n    {% else -%}\\r\\n    <td class=\\\"text-center\\\">Approval Pending</td>\\r\\n    \\r\\n    {%- endif %}\\r\\n    \\r\\n    \\r\\n  </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\">{{frappe.utils.global_date_format(doc.creation)}}</td>\\r\\n     <td class=\\\"text-center\\\">{{frappe.utils.global_date_format(doc.approver_date)}}</td>\\r\\n    </tr>\\r\\n</tbody>\\r\\n</table>\\r\\n\"}]",
+  "html": null,
+  "line_breaks": 0,
+  "modified": "2021-09-15 10:19:16.315184",
+  "module": "Ethal",
+  "name": "Gate Pass Multiple Copies",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "print_format_builder": 1,
+  "print_format_type": "Jinja",
+  "raw_commands": null,
+  "raw_printing": 0,
+  "show_section_headings": 0,
+  "standard": "No"
+ },
+ {
+  "absolute_value": 0,
+  "align_labels_right": 0,
+  "css": null,
+  "custom_format": 0,
+  "default_print_language": null,
+  "disabled": 0,
+  "doc_type": "Gate Pass",
+  "docstatus": 0,
+  "doctype": "Print Format",
+  "font": "Default",
+  "format_data": "[{\"fieldname\": \"print_heading_template\", \"fieldtype\": \"Custom HTML\", \"options\": \"<div class=\\\"print-heading\\\">\\t\\t\\t\\t<h2><div>Gate Pass</div><br><small class=\\\"sub-heading\\\">{{ doc.name }}</small>\\t\\t\\t\\t</h2></div>\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"workflow_state\", \"print_hide\": 0, \"label\": \"Workflow State\"}, {\"fieldname\": \"naming_series\", \"print_hide\": 0, \"label\": \"Series\"}, {\"fieldname\": \"gate_pass_type\", \"print_hide\": 0, \"label\": \"Gate Pass Type\"}, {\"fieldname\": \"vat_invoice_no\", \"print_hide\": 0, \"label\": \"VAT Invoice No\"}, {\"fieldname\": \"vat_invoice_date\", \"print_hide\": 0, \"label\": \"VAT Invoice Date\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"posting_date\", \"print_hide\": 0, \"label\": \"Posting Date\"}, {\"fieldname\": \"material_sent_to\", \"print_hide\": 0, \"label\": \"Material Sent To\"}, {\"fieldname\": \"vehicle_plate_no\", \"print_hide\": 0, \"label\": \"Vehicle Plate No\"}, {\"fieldname\": \"delivery_memo_no\", \"print_hide\": 0, \"label\": \"Delivery Memo No\"}, {\"fieldname\": \"delivery_memo_date\", \"print_hide\": 0, \"label\": \"Delivery Memo Date\"}, {\"fieldtype\": \"Section Break\", \"label\": \"Filled by Security\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"date_out\", \"print_hide\": 0, \"label\": \"Date Out\"}, {\"fieldname\": \"date_in\", \"print_hide\": 0, \"label\": \"Date In\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"time_out\", \"print_hide\": 0, \"label\": \"Time Out\"}, {\"fieldname\": \"time_in\", \"print_hide\": 0, \"label\": \"Time In\"}, {\"fieldname\": \"security\", \"print_hide\": 0, \"label\": \"Security\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"material\", \"print_hide\": 0, \"label\": \"Material\", \"visible_columns\": [{\"fieldname\": \"item\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"item_name\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"uom\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"qty\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"remarks\", \"print_width\": \"\", \"print_hide\": 0}]}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"_custom_html\", \"print_hide\": 0, \"label\": \"Custom HTML\", \"fieldtype\": \"HTML\", \"options\": \"<br><table style=\\\"width: 100%;\\\">\\r\\n  <tbody>\\r\\n<tr>\\r\\n    <th class=\\\"text-center\\\">Posted by</th>\\r\\n    <th class=\\\"text-center\\\">Approved by</th>\\r\\n   </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\"><br><br>--------------------</td>\\r\\n    <td class=\\\"text-center\\\"><br><br>--------------------</td>\\r\\n  </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.owner)}}</td>\\r\\n    \\r\\n    {% if doc.workflow_state == \\\"Approved\\\" -%}\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.approver_person)}}</td>\\r\\n    \\r\\n    {% elif doc.status == \\\"Submitted\\\" -%}\\r\\n    <td class=\\\"text-center\\\">{{frappe.get_fullname(doc.approver_person)}}</td>\\r\\n    \\r\\n    {% else -%}\\r\\n    <td class=\\\"text-center\\\">Approval Pending</td>\\r\\n    \\r\\n    {%- endif %}\\r\\n    \\r\\n    \\r\\n  </tr>\\r\\n  <tr>\\r\\n    <td class=\\\"text-center\\\">{{frappe.utils.global_date_format(doc.creation)}}</td>\\r\\n     <td class=\\\"text-center\\\">{{frappe.utils.global_date_format(doc.approver_date)}}</td>\\r\\n    </tr>\\r\\n</tbody>\\r\\n</table>\\r\\n\"}]",
+  "html": null,
+  "line_breaks": 0,
+  "modified": "2021-09-15 10:17:32.640310",
+  "module": "Ethal",
+  "name": "Gate Pass",
   "parent": null,
   "parentfield": null,
   "parenttype": null,

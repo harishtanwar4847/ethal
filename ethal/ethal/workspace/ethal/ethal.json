@@ -70,15 +70,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Document Handover",
-   "link_to": "Document Handover",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "Incident",
    "link_to": "Incident",
    "link_type": "DocType",
@@ -88,8 +79,26 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Document Handover",
+   "link_to": "Document Handover",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Monthly Sales Target",
    "link_to": "Sales Target Month",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gate Pass",
+   "link_to": "Gate Pass",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -191,8 +200,8 @@
    "type": "Link"
   }
  ],
- "modified": "2021-07-22 14:55:13.295134",
- "modified_by": "karan.bhanushali@atritechnocrat.in",
+ "modified": "2021-09-14 14:40:15.373991",
+ "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Ethal",
  "owner": "karan.bhanushali@atritechnocrat.in",

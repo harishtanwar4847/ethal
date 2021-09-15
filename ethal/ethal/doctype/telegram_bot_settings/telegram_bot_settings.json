@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "creation": "2021-08-31 16:19:23.543458",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "bot_api_token",
+  "sales_group_id",
+  "stock_group_id",
+  "purchase_group_id"
+ ],
+ "fields": [
+  {
+   "fieldname": "bot_api_token",
+   "fieldtype": "Data",
+   "label": "BOT API Token"
+  },
+  {
+   "fieldname": "sales_group_id",
+   "fieldtype": "Data",
+   "label": "Sales Group Id"
+  },
+  {
+   "fieldname": "stock_group_id",
+   "fieldtype": "Data",
+   "label": "Stock Group Id"
+  },
+  {
+   "fieldname": "purchase_group_id",
+   "fieldtype": "Data",
+   "label": "Purchase Group Id"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2021-08-31 16:19:23.543458",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Telegram Bot Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

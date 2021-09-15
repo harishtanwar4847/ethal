@@ -29,7 +29,8 @@
   "cabin2",
   "carriage2",
   "section_break_23",
-  "remarks"
+  "remarks",
+  "amended_from"
  ],
  "fields": [
   {
@@ -50,16 +51,6 @@
    "fieldtype": "Table",
    "label": "Product",
    "options": "Weighbridge Item"
-  },
-  {
-   "fieldname": "source",
-   "fieldtype": "Data",
-   "label": "Source"
-  },
-  {
-   "fieldname": "destination",
-   "fieldtype": "Data",
-   "label": "Destination"
   },
   {
    "fieldname": "column_break_6",
@@ -162,11 +153,31 @@
    "fieldname": "remarks",
    "fieldtype": "Text Editor",
    "label": "Remarks"
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Data",
+   "label": "Source"
+  },
+  {
+   "fieldname": "destination",
+   "fieldtype": "Data",
+   "label": "Destination"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Weighbridge",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2021-09-03 15:56:49.089796",
+ "modified": "2021-09-15 10:44:22.110040",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Weighbridge",
