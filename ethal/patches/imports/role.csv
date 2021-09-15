@@ -1,0 +1,96 @@
+"Role Name","Home Page","Restrict To Domain","Disabled","Desk Access","Two Factor Authentication","Search Bar","Notifications","Chat","Sidebar","Bulk Actions","View Switcher","form_sidebar","Timeline","Dashboard","Is Custom"
+"HR Admin","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"EOS Manager","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"EOS User","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Delivery Note Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Deputy PRA Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Journal Entry Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"CFO","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Sales Order Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Purchase Order Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Material Request Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Sales Invoice Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"CRV Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"PCPV Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Payment Entry Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Purchase Invoice Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Chart of Accounts Manager","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Document canceller","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Document Deletor","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"PRA Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"PRA Checker","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Accounts Viewer","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Petty Cash Manager","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Gate Pass Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Gate Pass User","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Deputy Gate Pass Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Inbox User","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Prepared Report User","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Employee Self Service","","",0,1,0,1,1,1,1,1,1,1,1,1,1
+"Loan Manager","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Dashboard Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Stock Viewer","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Maintenance Engineer","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Factory Report Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Dashboard Viewer","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Analytics","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Non Profit Portal User","","Non Profit",1,0,0,0,0,0,0,0,0,0,0,0,0
+"Customer","","",0,0,0,0,0,0,0,0,0,0,0,0,0
+"Supplier","","",0,0,0,0,0,0,0,0,0,0,0,0,0
+"Patient","","Healthcare",1,0,0,0,0,0,0,0,0,0,0,0,0
+"Hotel Reservation User","","Hospitality",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Hotel Manager","","Hospitality",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Non Profit Member","","Non Profit",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Non Profit Manager","","Non Profit",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Restaurant Manager","","Hospitality",1,1,0,1,1,1,1,1,1,1,1,1,0
+"LabTest Approver","","Healthcare",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Nursing User","","Healthcare",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Laboratory User","","Healthcare",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Healthcare Administrator","","Healthcare",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Physician","","Healthcare",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Student","","Education",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Instructor","","Education",1,1,0,1,1,1,1,1,1,1,1,1,0
+"LMS User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Education Manager","","Education",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Agriculture User","","Agriculture",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Agriculture Manager","","Agriculture",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Support Team","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Fulfillment User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Quality Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Leave Approver","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Expense Approver","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Fleet Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Academics User","","Education",1,1,0,1,1,1,1,1,1,1,1,1,0
+"Item Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Projects Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"HR User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Manufacturing User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Projects User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Stock Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Manufacturing Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"HR Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Auditor","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Employee","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Stock User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Translator","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Sales Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Purchase Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Maintenance User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Purchase Master Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Maintenance Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Sales Master Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Accounts Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Accounts User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Purchase User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Sales User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Newsletter Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Knowledge Base Contributor","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Knowledge Base Editor","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Blogger","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Report Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Script Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Website Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"System Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Guest","","",0,0,0,0,0,0,0,0,0,0,0,0,0
+"Administrator","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"All","","",0,1,0,1,1,1,1,1,1,1,1,1,0
