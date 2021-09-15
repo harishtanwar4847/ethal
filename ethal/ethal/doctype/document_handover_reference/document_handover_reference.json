@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "creation": "2021-07-10 12:50:45.574192",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "document_type",
+  "reference_document_type",
+  "reference_no",
+  "party_name",
+  "amount",
+  "document_receiver_sign"
+ ],
+ "fields": [
+  {
+   "fieldname": "document_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Document Type",
+   "options": "Cheque\nAgreement\nDeposit Slip\nInvoices"
+  },
+  {
+   "depends_on": "doc.docstatus==0",
+   "fieldname": "reference_document_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Reference Document Type",
+   "options": "DocType",
+   "print_hide": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "reference_no",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Reference No",
+   "options": "reference_document_type"
+  },
+  {
+   "fetch_from": "reference_no.title",
+   "fieldname": "party_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Party Name"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Amount",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "document_receiver_sign",
+   "fieldtype": "Signature",
+   "label": "Document Receiver Sign"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-09-14 14:33:31.019490",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Document Handover Reference",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

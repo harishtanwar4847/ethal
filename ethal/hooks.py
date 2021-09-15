@@ -266,7 +266,7 @@ fixtures = [
 			[
 				"doc_type",
 				"in",
-				["Delivery Note", "Journal Entry", "Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization", "Quotation"]
+				["Gate Pass", "Delivery Note", "Journal Entry", "Purchase Receipt", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization", "Quotation"]
 			]
 		]
 	},
@@ -277,16 +277,6 @@ fixtures = [
 				"document_type",
 				"in",
 				["Attendance", "Employee Incentive Bulk", "Delivery Note", "Journal Entry", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization", "Purchase Receipt"]
-			]
-		]
-	},
-	{
-		"dt": "Role",
-		"filters": [
-			[
-				"name",
-				"in",
-				['HR Admin', 'Delivery Note Approver', 'EOS User', 'EOS Manager', 'Journal Entry Approver', 'Deputy PRA Approver', 'Accounts Viewer', 'Purchase Order Approver', 'PRA Approver', 'PRA Checker', 'CFO', 'Material Request Approver', 'Sales Invoice Approver', 'Sales Order Approver', 'Payment Entry Approver', 'Purchase Invoice Approver', 'CRV Approver', 'PCPV Approver', 'Chart of Accounts Manager', 'Document Deletor', 'Document canceller', 'Petty Cash Manager']
 			]
 		]
 	},
