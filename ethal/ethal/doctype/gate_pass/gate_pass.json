@@ -50,9 +50,11 @@
   },
   {
    "depends_on": "eval: doc.gate_pass_type == 'Sale'",
+   "fetch_from": "vat_invoice_date.",
    "fieldname": "vat_invoice_date",
    "fieldtype": "Date",
-   "label": "VAT Invoice Date"
+   "label": "VAT Invoice Date",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_4",
@@ -66,21 +68,25 @@
    "reqd": 1
   },
   {
+   "fetch_from": "delivery_memo_no.customer",
    "fieldname": "material_sent_to",
    "fieldtype": "Data",
    "label": "Material Sent To"
   },
   {
+   "fetch_from": "delivery_memo_no.vehicle_no",
    "fieldname": "vehicle_plate_no",
    "fieldtype": "Data",
    "label": "Vehicle Plate No"
   },
   {
    "fieldname": "delivery_memo_no",
-   "fieldtype": "Data",
-   "label": "Delivery Memo No"
+   "fieldtype": "Link",
+   "label": "Delivery Memo No",
+   "options": "Delivery Note"
   },
   {
+   "fetch_from": "delivery_memo_no.posting_date",
    "fieldname": "delivery_memo_date",
    "fieldtype": "Date",
    "label": "Delivery Memo Date"
@@ -167,7 +173,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-09-15 11:20:11.707631",
+ "modified": "2021-09-15 20:34:51.712607",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Gate Pass",
