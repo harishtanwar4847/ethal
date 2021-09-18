@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- [Implement Average Price Logic in Purchase Order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/203)
+
 ## [v1.2.1] - 2021-09-15
 
 ### Added
