@@ -8,6 +8,10 @@
 - [Implement Average Price Logic in Purchase Order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/203)
 - [add source warehouse and destination warehouse](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/199)
 
+### Fixes
+
+- [remove logic of creation additional salary on submit employee incentive bulk](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/204)
+
 ## [v1.2.1] - 2021-09-15
 
 ### Added
