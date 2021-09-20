@@ -81,7 +81,7 @@ def send_sales_api_message(doc, method):
 			items = items + item
 		items_details = details+items	
 	
-	message = 'Test - {} {} has been submitted. \nCustomer: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.customer, items_details, doc.grand_total, doc_link)
+	message = 'Test - {} {} has been submitted. \nTransaction Date: {} \nCustomer: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.posting_date, doc.customer, items_details, doc.grand_total, doc_link)
 	
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
@@ -98,7 +98,7 @@ def send_stock_api_message(doc, method):
 			items = items + item
 		items_details = details+items
 	
-	message = 'Test - {} {} has been submitted. \nSupplier: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.supplier, items_details, doc.grand_total, doc_link)
+	message = 'Test - {} {} has been submitted. \nTransaction Date: {} \nSupplier: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.posting_date, doc.supplier, items_details, doc.grand_total, doc_link)
 	
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
@@ -115,7 +115,7 @@ def send_purchase_api_message(doc, method):
 			items = items + item
 		items_details = details+items
 	
-	message = 'Test - {} {} has been submitted. \n{} \nPlease check it out. {}'.format(doc.doctype, doc.name, items_details, doc_link)
+	message = 'Test - {} {} has been submitted. \nTransaction Date: {} \n{} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.transaction_date, items_details, doc_link)
 	
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
