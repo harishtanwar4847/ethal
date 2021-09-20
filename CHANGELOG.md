@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-### Added 
+### Added
 
 - [Gate Pass doctype changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/201)
 - [Implement Average Price Logic in Purchase Order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/203)
