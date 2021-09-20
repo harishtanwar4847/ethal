@@ -10,6 +10,10 @@
 - [Add expiry_date and status field in warning letter and run job for set status expired](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/202)
 - [Checkins sync](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/200)
 
+### Fixes
+
+- [remove logic of creation additional salary on submit employee incentive bulk](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/204)
+
 ## [v1.2.1] - 2021-09-15
 
 ### Added
