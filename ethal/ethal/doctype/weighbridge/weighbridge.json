@@ -12,8 +12,8 @@
   "customer",
   "supplier",
   "column_break_6",
-  "source",
-  "destination",
+  "source_warehouse",
+  "destination_warehouse",
   "section_break_7",
   "product",
   "section_break_8",
@@ -143,7 +143,7 @@
    "fieldname": "movement_type",
    "fieldtype": "Select",
    "label": "Movement Type",
-   "options": "Inward\nOutward"
+   "options": "Inward\nOutward\nInternal Transfer"
   },
   {
    "fieldname": "section_break_23",
@@ -155,16 +155,6 @@
    "label": "Remarks"
   },
   {
-   "fieldname": "source",
-   "fieldtype": "Data",
-   "label": "Source"
-  },
-  {
-   "fieldname": "destination",
-   "fieldtype": "Data",
-   "label": "Destination"
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -172,12 +162,26 @@
    "options": "Weighbridge",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.movement_type == 'Internal Transfer'",
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "depends_on": "eval:doc.movement_type == 'Internal Transfer'",
+   "fieldname": "destination_warehouse",
+   "fieldtype": "Link",
+   "label": "Destination Warehouse",
+   "options": "Warehouse"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-09-15 10:44:22.110040",
+ "modified": "2021-09-15 14:28:50.143081",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Weighbridge",
