@@ -7,6 +7,7 @@
 - [Gate Pass doctype changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/201)
 - [Implement Average Price Logic in Purchase Order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/203)
 - [add source warehouse and destination warehouse](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/199)
+- [Add expiry_date and status field in warning letter and run job for set status expired](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/202)
 
 ### Fixes
 
