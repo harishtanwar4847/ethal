@@ -4,6 +4,12 @@
 
 ### Added
 
+- [Implement Average Price Logic in Purchase Order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/203)
+
+## [v1.2.1] - 2021-09-15
+
+### Added
+
 - [telegram integration with erp](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/186)
 - [create gate pass and handover documnet doctype and add in ethal workspace](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/193)
 - [create source and destination field and add display depend on in Weighbridge DocType | Update Weighbridge Document if Draft when syncing Weighbridge data](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/194)
