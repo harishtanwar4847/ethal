@@ -135,6 +135,9 @@ doc_events = {
 	},
 	"Purchase Order": {
 		"before_submit": "ethal.accounts.set_approver_name",
+	},
+	"Purchase Order": {
+		"on_submit": "ethal.accounts.set_average_price"
 	},	
 	"Purchase Invoice": {
 		"before_submit": "ethal.accounts.set_approver_name"
