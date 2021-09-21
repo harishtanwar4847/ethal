@@ -56,7 +56,7 @@ def set_average_price(doc, method):
                 from `tabPurchase Order Item` poi
                 join `tabPurchase Order` po
                 on po.name = poi.parent
-                where po.docstatus = 1
+                where po.docstatus < 2
                 and poi.item_code = '{}'
                 and year(po.transaction_date) = year(po.transaction_date)
         """.format(items['item_code']), debug=1)
