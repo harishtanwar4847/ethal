@@ -9,10 +9,12 @@
 - [add source warehouse and destination warehouse](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/199)
 - [Add expiry_date and status field in warning letter and run job for set status expired](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/202)
 - [Checkins sync](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/200)
+- [add transaction date details in message](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/206)
 
 ### Fixes
 
 - [remove logic of creation additional salary on submit employee incentive bulk](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/204)
+- [change hook event of setting average price](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/205)
 
 ## [v1.2.1] - 2021-09-15
 

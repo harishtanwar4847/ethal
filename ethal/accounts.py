@@ -61,4 +61,5 @@ def set_average_price(doc, method):
                 and year(po.transaction_date) = year(po.transaction_date)
         """.format(items['item_code']), debug=1)
         frappe.db.set_value('Purchase Order Item', {'parent': doc.name, 'item_code': items['item_code']}, 'average_price', average_price)
+        doc.reload()    
     frappe.db.commit()  
