@@ -9,7 +9,8 @@
   "employee",
   "employee_name",
   "template",
-  "warning_number",
+  "frequency_of_offence",
+  "type_of_warning",
   "column_break_4",
   "issue_date",
   "expiry_date",
@@ -34,11 +35,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "warning_number",
-   "fieldtype": "Int",
-   "label": "Warning Number"
-  },
-  {
    "fetch_from": "template.description",
    "fieldname": "description",
    "fieldtype": "Text Editor",
@@ -51,6 +47,7 @@
    "label": "Employee Name"
   },
   {
+   "default": "now",
    "fieldname": "issue_date",
    "fieldtype": "Date",
    "label": "Issue Date"
@@ -62,7 +59,8 @@
   {
    "fieldname": "expiry_date",
    "fieldtype": "Date",
-   "label": "Expiry Date"
+   "label": "Expiry Date",
+   "read_only": 1
   },
   {
    "fieldname": "status",
@@ -73,11 +71,25 @@
   {
    "fieldname": "section_break_9",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "frequency_of_offence",
+   "fieldtype": "Link",
+   "label": "Frequency of Offence",
+   "options": "Offence List",
+   "read_only": 1
+  },
+  {
+   "fieldname": "type_of_warning",
+   "fieldtype": "Link",
+   "label": "Type of Warning",
+   "options": "Warning Type",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-18 17:19:37.327398",
+ "modified": "2021-09-21 13:45:47.999342",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Warning Letter",
