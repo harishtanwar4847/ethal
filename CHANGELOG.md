@@ -14,6 +14,7 @@
 ### Fixes
 
 - [remove logic of creation additional salary on submit employee incentive bulk](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/204)
+- [change hook event of setting average price](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/205)
 
 ## [v1.2.1] - 2021-09-15
 
