@@ -264,7 +264,8 @@ doctype_js = {
 	'Delivery Note': 'public/js/delivery_note.js',
 	'Item': 'public/js/item.js',
 	'Landed Cost Voucher': 'public/js/landed_cost_voucher.js',
-	'Salary Structure': 'public/js/salary_structure.js'
+	'Salary Structure': 'public/js/salary_structure.js',
+	'Salary Structure Assignment': 'public/js/salary_structure_assignment.js'
 }
 
 fixtures = [
