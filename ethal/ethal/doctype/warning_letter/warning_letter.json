@@ -16,7 +16,8 @@
   "expiry_date",
   "status",
   "section_break_9",
-  "description"
+  "description",
+  "amended_from"
  ],
  "fields": [
   {
@@ -85,11 +86,21 @@
    "label": "Type of Warning",
    "options": "Warning Type",
    "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Warning Letter",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2021-09-21 13:45:47.999342",
+ "modified": "2021-09-21 19:27:16.193382",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Warning Letter",

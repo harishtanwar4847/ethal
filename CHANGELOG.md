@@ -11,6 +11,7 @@
 - [Checkins sync](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/200)
 - [add transaction date details in message](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/206)
 - [Warning letter changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/207)
+- [Add draft mode document](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/208)
 
 ### Fixes
 
