@@ -278,6 +278,5 @@ fixtures = [
 				['Material Request Item', 'Asset Maintenance Log', 'Asset Maintenance Task', "Shareholder", "Landed Cost Voucher", "Vehicle Log", "Supplier", "Customer", "Payroll Entry", "Employee", "Job Opening", "Employee Grade", "Salary Structure Assignment", "Employee Tax Exemption Proof Submission", "Payment Entry", "Print Settings", "Purchase Order", "Sales Order", "Sales Invoice", "Sales Invoice Item", "Material Request", "Purchase Receipt", "Journal Entry"]
 			]
 		]
-	},
-	"Translation",
+	}
 ]
