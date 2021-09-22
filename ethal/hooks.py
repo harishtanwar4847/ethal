@@ -263,7 +263,8 @@ doctype_js = {
 	'Job Opening': 'public/js/job_opening.js',
 	'Delivery Note': 'public/js/delivery_note.js',
 	'Item': 'public/js/item.js',
-	'Landed Cost Voucher': 'public/js/landed_cost_voucher.js'
+	'Landed Cost Voucher': 'public/js/landed_cost_voucher.js',
+	'Salary Structure': 'public/js/salary_structure.js'
 }
 
 fixtures = [
