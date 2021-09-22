@@ -26,7 +26,7 @@ frappe.ui.form.on('Gate Pass', {
 					childTable.uom=op['uom']
 					childTable.qty=op['qty']
 					cur_frm.refresh_fields("material");
-					frm.set_value('vat_invoice_no', op['against_sales_order'])
+					frm.set_value('vat_invoice_no', op['against_sales_invoice'])
 				}
 			})
 		}
