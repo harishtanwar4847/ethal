@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "creation": "2020-11-20 13:56:35.067664",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -6,12 +7,17 @@
  "field_order": [
   "warning_letter",
   "warning_template",
-  "warning_number",
+  "frequency_of_offence",
+  "column_break_4",
+  "type_of_warning",
+  "expiry_date",
+  "status",
   "section_break_4",
   "description"
  ],
  "fields": [
   {
+   "columns": 2,
    "fieldname": "warning_letter",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -19,19 +25,13 @@
    "options": "Warning Letter"
   },
   {
+   "columns": 2,
    "fetch_from": "warning_letter.template",
    "fieldname": "warning_template",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Warning Template",
    "options": "Warning Letter Template"
-  },
-  {
-   "fetch_from": "warning_letter.warning_number",
-   "fieldname": "warning_number",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "Warning Number"
   },
   {
    "fieldname": "section_break_4",
@@ -42,10 +42,49 @@
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "warning_letter.expiry_date",
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Expiry Date"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "warning_letter.status",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nExpired"
+  },
+  {
+   "fetch_from": "warning_letter.type_of_warning",
+   "fieldname": "type_of_warning",
+   "fieldtype": "Link",
+   "label": "Type of Warning",
+   "options": "Warning Type"
+  },
+  {
+   "columns": 2,
+   "fetch_from": "warning_letter.frequency_of_offence",
+   "fieldname": "frequency_of_offence",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Frequency of Offence",
+   "options": "Offence List"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
   }
  ],
+ "index_web_pages_for_search": 1,
  "istable": 1,
- "modified": "2021-01-30 11:53:01.375879",
+ "links": [],
+ "modified": "2021-09-21 13:44:52.894362",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Warning Letter Detail",

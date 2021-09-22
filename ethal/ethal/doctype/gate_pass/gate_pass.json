@@ -1,0 +1,237 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2021-09-06 17:36:55.343605",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "gate_pass_type",
+  "vat_invoice_no",
+  "vat_invoice_date",
+  "column_break_4",
+  "posting_date",
+  "material_sent_to",
+  "vehicle_plate_no",
+  "delivery_memo_no",
+  "delivery_memo_date",
+  "section_break_11",
+  "date_out",
+  "date_in",
+  "column_break_14",
+  "time_out",
+  "time_in",
+  "security",
+  "section_break_18",
+  "material",
+  "amended_from",
+  "approver_date",
+  "approver_person"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "GP-DB-.YYYY.-"
+  },
+  {
+   "fieldname": "gate_pass_type",
+   "fieldtype": "Select",
+   "label": "Gate Pass Type",
+   "options": "Sale\nReturnable\nNon-Returnable"
+  },
+  {
+   "depends_on": "eval: doc.gate_pass_type == 'Sale'",
+   "fieldname": "vat_invoice_no",
+   "fieldtype": "Link",
+   "label": "VAT Invoice No",
+   "options": "Sales Invoice"
+  },
+  {
+   "depends_on": "eval: doc.gate_pass_type == 'Sale'",
+   "fieldname": "vat_invoice_date",
+   "fieldtype": "Date",
+   "label": "VAT Invoice Date"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "material_sent_to",
+   "fieldtype": "Link",
+   "label": "Material Sent To",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "vehicle_plate_no",
+   "fieldtype": "Data",
+   "label": "Vehicle Plate No"
+  },
+  {
+   "fieldname": "delivery_memo_no",
+   "fieldtype": "Link",
+   "label": "Delivery Memo No",
+   "options": "Delivery Note"
+  },
+  {
+   "fieldname": "delivery_memo_date",
+   "fieldtype": "Date",
+   "label": "Delivery Memo Date"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Filled by Security"
+  },
+  {
+   "default": ".",
+   "fieldname": "date_out",
+   "fieldtype": "Data",
+   "label": "Date Out",
+   "read_only": 1
+  },
+  {
+   "default": ".",
+   "fieldname": "date_in",
+   "fieldtype": "Data",
+   "label": "Date In",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": ".",
+   "fieldname": "time_out",
+   "fieldtype": "Data",
+   "label": "Time Out",
+   "read_only": 1
+  },
+  {
+   "default": ".",
+   "fieldname": "time_in",
+   "fieldtype": "Data",
+   "label": "Time In",
+   "read_only": 1
+  },
+  {
+   "default": ".",
+   "fieldname": "security",
+   "fieldtype": "Data",
+   "label": "Security",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "material",
+   "fieldtype": "Table",
+   "label": "Material",
+   "options": "Gate Pass Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Gate Pass",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "approver_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Approver Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "approver_person",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Approver Person"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2021-09-18 09:46:27.688760",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Gate Pass",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate Pass User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Gate Pass Approver",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Deputy Gate Pass Approver",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

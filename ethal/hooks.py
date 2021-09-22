@@ -135,6 +135,9 @@ doc_events = {
 	},
 	"Purchase Order": {
 		"before_submit": "ethal.accounts.set_approver_name",
+	},
+	"Purchase Order": {
+		"validate": "ethal.accounts.set_average_price"
 	},	
 	"Purchase Invoice": {
 		"before_submit": "ethal.accounts.set_approver_name"
@@ -205,7 +208,8 @@ scheduler_events = {
 		# "ethal.hr.shift_rotate"
     ],
 	"daily": [
-		"ethal.ethal.doctype.contract_management.contract_management.send_reminder_mail_to_user"
+		"ethal.ethal.doctype.contract_management.contract_management.send_reminder_mail_to_user",
+		"ethal.hr.set_warning_letter_document_expired"
 	]
 }
 
