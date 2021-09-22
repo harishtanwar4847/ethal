@@ -289,15 +289,5 @@ fixtures = [
 			]
 		]
 	},
-	{
-		"dt": "Employee Prerequisite Document",
-		"filters": [
-			[
-				"name",
-				"in",
-				['TIN No', 'Pension No', 'Appointment Letter', 'Medical Certificate', 'Job Description']
-			]
-		]
-	},
 	"Translation",
 ]
