@@ -1,0 +1,5 @@
+ID,Start Time,End Time,Holiday List,Enable Auto Attendance,Determine Check-in and Check-out,Working Hours Calculation Based On,Begin check-in before shift start time (in minutes),Allow check-out after shift end time (in minutes),Working Hours Threshold for Half Day,Working Hours Threshold for Absent,Process Attendance After,Last Sync of Checkin,Enable Entry Grace Period,Late Entry Grace Period,Enable Exit Grace Period,Early Exit Grace Period
+G,8:00:00,17:00:00,Demo,1,Strictly based on Log Type in Employee Checkin,First Check-in and Last Check-out,60,300,0,0,2020-11-01,2020-11-02 12:36:29,0,0,0,0
+C,22:00:00,6:00:00,Demo,1,Strictly based on Log Type in Employee Checkin,First Check-in and Last Check-out,60,300,0,0,2020-11-01,2020-11-02 12:36:29,0,0,0,0
+B,14:00:00,22:00:00,Demo,1,Strictly based on Log Type in Employee Checkin,First Check-in and Last Check-out,60,300,0,0,2020-12-01,2020-12-12 12:36:29,0,0,0,0
+A,6:00:00,14:01:00,Demo,1,Strictly based on Log Type in Employee Checkin,First Check-in and Last Check-out,60,300,0,0,2020-11-01,2020-11-02 12:34:04,0,0,0,0
