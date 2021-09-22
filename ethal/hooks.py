@@ -300,16 +300,6 @@ fixtures = [
 		]
 	},
 	{
-		"dt": "Custom Script",
-		"filters": [
-			[
-			"dt",
-			"in",
-			['Asset', 'Asset Maintenance', 'Supplier', 'Landed Cost Voucher', 'Vehicle Log', 'Salary Structure', 'Salary Structure Assignment', 'Job Applicant', 'Job Opening', 'Salary Slip', 'Purchase Invoice', 'Asset Repair', 'Quotation', 'Delivery Note', 'Item']
-			]
-		]
-	},
-	{
 		"dt": "Employee Prerequisite Document",
 		"filters": [
 			[
