@@ -300,5 +300,4 @@ fixtures = [
 		]
 	},
 	"Translation",
-	"Shift Type",
 ]
