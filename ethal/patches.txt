@@ -4,3 +4,4 @@ ethal.patches.import_workflow_action_master
 ethal.patches.import_workflow
 ethal.patches.import_holiday_list
 ethal.patches.import_shift_type
+ethal.patches.employee_prerequisite_document
