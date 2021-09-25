@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "field:title",
  "creation": "2020-12-01 14:23:44.326809",
  "doctype": "DocType",
@@ -6,6 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
+  "section_break_2",
+  "template_details",
   "description"
  ],
  "fields": [
@@ -19,9 +22,21 @@
    "fieldname": "description",
    "fieldtype": "Text Editor",
    "label": "Description"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "template_details",
+   "fieldtype": "Table",
+   "label": "template details",
+   "options": "Warning Letter Template Details"
   }
  ],
- "modified": "2020-12-11 12:40:51.754119",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-20 21:47:52.326343",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Warning Letter Template",

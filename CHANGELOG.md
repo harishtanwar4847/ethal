@@ -9,6 +9,10 @@
 - [add source warehouse and destination warehouse](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/199)
 - [Add expiry_date and status field in warning letter and run job for set status expired](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/202)
 - [Checkins sync](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/200)
+- [add transaction date details in message](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/206)
+- [Warning letter changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/207)
+- [Add draft mode document](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/208)
+- [add driver details in message](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/211)
 
 ### Fixes
 
