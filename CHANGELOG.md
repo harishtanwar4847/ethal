@@ -4,6 +4,25 @@
 
 ### Added
 
+- [Gate Pass doctype changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/201)
+- [Implement Average Price Logic in Purchase Order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/203)
+- [add source warehouse and destination warehouse](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/199)
+- [Add expiry_date and status field in warning letter and run job for set status expired](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/202)
+- [Checkins sync](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/200)
+- [add transaction date details in message](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/206)
+- [Warning letter changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/207)
+- [Add draft mode document](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/208)
+- [add driver details in message](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/211)
+
+### Fixes
+
+- [remove logic of creation additional salary on submit employee incentive bulk](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/204)
+- [change hook event of setting average price](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/205)
+
+## [v1.2.1] - 2021-09-15
+
+### Added
+
 - [telegram integration with erp](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/186)
 - [create gate pass and handover documnet doctype and add in ethal workspace](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/193)
 - [create source and destination field and add display depend on in Weighbridge DocType | Update Weighbridge Document if Draft when syncing Weighbridge data](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/194)
