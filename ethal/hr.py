@@ -333,7 +333,7 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
         warning_letter = frappe.new_doc('Warning Letter')
         warning_letter.employee = doc.employee
         warning_letter.template = warning_template
-
+        warning_letter.status = 'Active'
         if not get_employee_warnings:
             # frappe.throw('ja na be')
             warning_letter.warning_number = 1
@@ -913,8 +913,14 @@ def before_update_vehicle_log(doc, method):
 
 def set_payeename(doc, method):
     if not doc.payee_name:
-        print('=========================')
-        print(doc.employee_name)
         frappe.db.set_value('Employee', {'name': doc.name}, 'payee_name', doc.employee_name) 
         frappe.db.commit()
         doc.reload()   
+
+def set_warning_letter_document_expired():
+    for warning_letter in frappe.db.get_all('Warning Letter', fields=['*']):
+        if warning_letter['expiry_date']:
+            if warning_letter['expiry_date'] < datetime.strptime(frappe.utils.nowdate(), '%Y-%m-%d').date():
+                frappe.set_value('Warning Letter', {'name': warning_letter['name']}, 'status', 'Expired')
+                employees = frappe.db.set_value('Warning Letter Detail', {'warning_letter': warning_letter['name']}, 'status', 'Expired')
+                frappe.db.commit()
