@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixes
+
+- [fix purchase order submission issue](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/214)
+
 ## [v1.3.0] - 2021-09-25
 
 ### Added
