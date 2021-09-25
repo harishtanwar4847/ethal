@@ -56,10 +56,9 @@ def set_average_price(doc, method):
                 from `tabPurchase Order Item` poi
                 join `tabPurchase Order` po
                 on po.name = poi.parent
-                where po.docstatus = 1
+                where po.docstatus < 2
                 and poi.item_code = '{}'
                 and year(po.transaction_date) = year(po.transaction_date)
-        """.format(items['item_code']), debug=1)
-        frappe.db.set_value('Purchase Order Item', {'parent': doc.name, 'item_code': items['item_code']}, 'average_price', average_price)
-        doc.reload()    
+        """.format(items['item_code']))
+        frappe.db.set_value('Purchase Order Item', {'parent': doc.name, 'item_code': items['item_code']}, 'average_price', average_price) 
     frappe.db.commit()  
