@@ -120,3 +120,10 @@ def send_purchase_api_message(doc, method):
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
 	telegram_bot_settings.send_telegram_message(message, 'Purchase')		
+
+@frappe.whitelist()
+def update_maitenance_log(name):
+	doc = frappe.get_doc('Asset Maintenance Log', name)
+	doc.maintenance_status = 'Completed'
+	doc.completion_date = frappe.utils.nowdate()
+	doc.submit()

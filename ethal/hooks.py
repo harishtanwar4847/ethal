@@ -213,6 +213,10 @@ scheduler_events = {
 	]
 }
 
+doctype_js = {
+	'Asset': 'public/js/asset.js'
+}
+
 # Scheduled Tasks
 # ---------------
 
