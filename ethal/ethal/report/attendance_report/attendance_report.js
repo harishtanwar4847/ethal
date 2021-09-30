@@ -20,7 +20,7 @@ frappe.query_reports["Attendance Report"] = {
 			'label': __('Status'),
 			'fieldname': 'status',
 			'fieldtype': 'Select',
-			'options': [__('Present'), __('Absent'), __('On Leave'), __('Half Day')],
+			'options': ["", __('Present'), __('Absent'), __('On Leave'), __('Half Day')],
 			'default': 'Present'
 		},
 		{
