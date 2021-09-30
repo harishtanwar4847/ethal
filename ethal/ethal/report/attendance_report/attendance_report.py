@@ -5,14 +5,14 @@ import frappe
 
 def execute(filters=None):
 	columns, data = [], []
-	columns = ['Employee:Link/Employee:200']+['Employee Name:Data:250']+['Status:Data:200']+['Department:Link/Department:200']+['Shift:Link/Shift Type:150']+['Working Hours:Float:150']+['OT:Float:150']+['Incentive:Float:150']
+	columns = ['Employee:Link/Employee:200']+['Employee Name:Data:250']+['Attendance Date:Date:150']+['Status:Data:200']+['Department:Link/Department:200']+['Shift:Link/Shift Type:150']+['Working Hours:Float:150']+['OT:Float:150']+['Incentive:Float:150']
 	data = get_data(filters)
 	return columns, data
 
 def get_data(filters):
 	if 'department' in filters and not 'shift' in filters:
 		query = frappe.db.sql("""
-		select employee, employee_name, status, department, shift, working_hours 
+		select employee, employee_name, attendance_date, status, department, shift, working_hours 
 		from `tabAttendance`
 		where status = '{}'
 		and attendance_date between '{}' and '{}'
@@ -33,14 +33,14 @@ def get_data(filters):
 				employee_incentive = frappe.db.sql("""
 						select coalesce(sum(eibd.incentive_hours), 0) from `tabEmployee Incentive Bulk Detail` as eibd 
 						join `tabEmployee Incentive Bulk` as eib on eibd.parent = eib.name
-						where eib.incentive_date between '{0}' and '{1}'
-						and eibd.employee = '{2}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
-				""".format(filters['from_date'], filters['to_date'], i['employee']))
+						where eib.incentive_date = '{0}'
+						and eibd.employee = '{1}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
+				""".format(i['attendance_date'], i['employee']))
 				i['incentive'] = employee_incentive[0][0]		
 			return query
 	elif 'department' in filters and 'shift' in filters:
 		query = frappe.db.sql("""
-		select employee, employee_name, status, department, shift, working_hours 
+		select employee, employee_name, attendance_date, status, department, shift, working_hours 
 		from `tabAttendance`
 		where status = '{}'
 		and attendance_date between '{}' and '{}'
@@ -61,14 +61,14 @@ def get_data(filters):
 				employee_incentive = frappe.db.sql("""
 						select coalesce(sum(eibd.incentive_hours), 0) from `tabEmployee Incentive Bulk Detail` as eibd 
 						join `tabEmployee Incentive Bulk` as eib on eibd.parent = eib.name
-						where eib.incentive_date between '{0}' and '{1}'
-						and eibd.employee = '{2}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
-				""".format(filters['from_date'], filters['to_date'], i['employee']))
+						where eib.incentive_date = '{0}'
+						and eibd.employee = '{1}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
+				""".format(i['attendance_date'], i['employee']))
 				i['incentive'] = employee_incentive[0][0]		
 			return query
 	elif 'department' not in filters and 'shift' in filters:
 		query = frappe.db.sql("""
-		select employee, employee_name, status, department, shift, working_hours 
+		select employee, employee_name, attendance_date, status, department, shift, working_hours 
 		from `tabAttendance`
 		where status = '{}'
 		and attendance_date between '{}' and '{}'
@@ -89,14 +89,15 @@ def get_data(filters):
 				employee_incentive = frappe.db.sql("""
 						select coalesce(sum(eibd.incentive_hours), 0) from `tabEmployee Incentive Bulk Detail` as eibd 
 						join `tabEmployee Incentive Bulk` as eib on eibd.parent = eib.name
-						where eib.incentive_date between '{0}' and '{1}'
-						and eibd.employee = '{2}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
-				""".format(filters['from_date'], filters['to_date'], i['employee']))
+						where eib.incentive_date = '{0}'
+						and eibd.employee = '{1}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
+				""".format(i['attendance_date'], i['employee']))
 				i['incentive'] = employee_incentive[0][0]		
-			return query				
-	else:	
+			return query
+	else:			
+		print('in else')	
 		query = frappe.db.sql("""
-		select employee, employee_name, status, department, shift, working_hours 
+		select employee, employee_name, attendance_date, status, department, shift, working_hours
 		from `tabAttendance`
 		where status = '{}'
 		and attendance_date between '{}' and '{}'
@@ -116,8 +117,8 @@ def get_data(filters):
 				employee_incentive = frappe.db.sql("""
 						select coalesce(sum(eibd.incentive_hours), 0) from `tabEmployee Incentive Bulk Detail` as eibd 
 						join `tabEmployee Incentive Bulk` as eib on eibd.parent = eib.name
-						where eib.incentive_date between '{0}' and '{1}'
-						and eibd.employee = '{2}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
-				""".format(filters['from_date'], filters['to_date'], i['employee']))
+						where eib.incentive_date = '{0}'
+						and eibd.employee = '{1}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
+				""".format(i['attendance_date'], i['employee']))
 				i['incentive'] = employee_incentive[0][0]			
 			return query
