@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- [Create Attendace report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/218)
+- [Create multiselect dialog ui for updating asset maintenance log status](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/217)
+
 ## [v1.3.1] - 2021-09-25
 
 ### Fixes
