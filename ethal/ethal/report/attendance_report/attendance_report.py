@@ -18,11 +18,12 @@ def get_data(filters):
 	if 'shift' in filters:
 		where_clauses.append("att.shift = '{}'".format(filters['shift']))
 
+	if 'department' in filters:
+		where_clauses.append("att.department = '{}'".format(filters['department']))
+
 	if 'working_area' in filters:
 		where_clauses.append("emp.working_area = '{}'".format(filters['working_area']))
 
-	if 'status' in filters:
-		where_clauses.append("att.status = '{}'".format(filters['status']))
 
 	query = frappe.db.sql("""
 		select att.employee, att.employee_name, att.attendance_date, att.status, att.department, att.shift, att.working_hours 
