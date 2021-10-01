@@ -10,8 +10,9 @@ def execute(filters=None):
 	return columns, data
 
 def get_data(filters):
-	where_clauses = ["att.docstatus = 1 and att.attendance_date BETWEEN '{}' AND '{}' ".format(filters['from_date'], filters['to_date'])]
-
+	where_clauses = ["att.attendance_date BETWEEN '{}' AND '{}' ".format(filters['from_date'], filters['to_date'])]
+	where_clauses.append("att.docstatus = 1")
+	
 	if 'status' in filters:
 		where_clauses.append("att.status = '{}'".format(filters['status']))
 
