@@ -10,7 +10,7 @@ def execute(filters=None):
 	return columns, data
 
 def get_data(filters):
-	where_clauses = ["where att.attendance_date BETWEEN '{}' AND '{}' ".format(filters['from_date'], filters['to_date'])]
+	where_clauses = [" att.attendance_date BETWEEN '{}' AND '{}' ".format(filters['from_date'], filters['to_date'])]
 
 	if 'status' in filters:
 		where_clauses.append("att.status = '{}'".format(filters['status']))
@@ -30,7 +30,7 @@ def get_data(filters):
 		from `tabAttendance` att
 		join `tabEmployee` emp
 		on att.employee = emp.name
-		{}
+		where att.docstatus = 1 {}
 		""".format(' AND '.join(where_clauses)), as_dict=1)
 	if query:
 		for i in query:
