@@ -330,9 +330,11 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
        
         warning_letter = frappe.new_doc('Warning Letter')
         warning_letter.employee = doc.employee
+        warning_letter.issue_date = frappe.utils.nowdate
         warning_letter.template = warning_template
         warning_letter.status = 'Active'
-        warning_letter.save(ignore_permissions=True)
+        warning_letter.save()
+        warning_letter.submit()
 
         set_employee_warnings = frappe.get_doc('Employee', doc.employee)
         set_employee_warnings.append('warnings', {
