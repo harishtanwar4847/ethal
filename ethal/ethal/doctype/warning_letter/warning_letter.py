@@ -22,7 +22,7 @@ class WarningLetter(Document):
 				self.frequency_of_offence = warning_template['frequency_of_offence']
 				self.type_of_warning = warning_template['type_of_warning']
 				
-				current_date_temp = datetime.datetime.strptime(self.issue_date, "%d-%m-%Y")
+				current_date_temp = datetime.datetime.strptime(self.issue_date, "%Y-%m-%d")
 				newdate = current_date_temp + datetime.timedelta(days=warning_template['valid_for_days'])
 				self.expiry_date = newdate
 		
@@ -30,7 +30,7 @@ class WarningLetter(Document):
 			for warning_template in frappe.db.get_all('Warning Letter Template Details', filters={'parent': self.template}, fields=['*'], order_by='idx', limit=1):
 				self.frequency_of_offence = warning_template['frequency_of_offence']
 				self.type_of_warning = warning_template['type_of_warning']
-				current_date_temp = datetime.datetime.strptime(self.issue_date, "%d-%m-%Y")
+				current_date_temp = datetime.datetime.strptime(self.issue_date, "%Y-%m-%d")
 				newdate = current_date_temp + datetime.timedelta(days=warning_template['valid_for_days'])
 				self.expiry_date = newdate	
 
