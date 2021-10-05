@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v1.4.1] - 2021-10-05
+
+### Fixes
+
+- [Series fixes | Attendance Fixes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/233)
+
 ## [v1.4.0] - 2021-10-01
 
 ### Added

@@ -10,17 +10,18 @@ import datetime
 class WarningLetter(Document):
 	
 	def validate(self):
+		self.issue_date = frappe.utils.nowdate() if not self.issue_date else self.issue_date
 		existing_warning_letter = frappe.db.get_all('Warning Letter', filters={'employee': self.employee, 'template': self.template, 'name': ['!=', self.name], 'docstatus': ['<', 2]}, fields=['*'], order_by='name desc')	
 		if existing_warning_letter:
 			freuquency = []
 			for i in existing_warning_letter:
 				freuquency.append(i['frequency_of_offence'])
-			
+
 			for warning_template in frappe.db.get_all('Warning Letter Template Details', filters={'parent': self.template, 'frequency_of_offence': ('not in', freuquency)}, fields=['*'], order_by = 'idx asc', limit=1):
 				
 				self.frequency_of_offence = warning_template['frequency_of_offence']
 				self.type_of_warning = warning_template['type_of_warning']
-
+				
 				current_date_temp = datetime.datetime.strptime(self.issue_date, "%Y-%m-%d")
 				newdate = current_date_temp + datetime.timedelta(days=warning_template['valid_for_days'])
 				self.expiry_date = newdate
@@ -29,7 +30,6 @@ class WarningLetter(Document):
 			for warning_template in frappe.db.get_all('Warning Letter Template Details', filters={'parent': self.template}, fields=['*'], order_by='idx', limit=1):
 				self.frequency_of_offence = warning_template['frequency_of_offence']
 				self.type_of_warning = warning_template['type_of_warning']
-
 				current_date_temp = datetime.datetime.strptime(self.issue_date, "%Y-%m-%d")
 				newdate = current_date_temp + datetime.timedelta(days=warning_template['valid_for_days'])
 				self.expiry_date = newdate	

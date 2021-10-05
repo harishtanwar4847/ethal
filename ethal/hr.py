@@ -319,29 +319,22 @@ def trigger_mail_if_absent_consecutive_5_days(doc, method):
     and status in ('Absent', 'On Leave') and docstatus = 1 and employee='{}' order by attendance_date;
 
     """.format(doc.employee), as_dict = 1)
-    print(attendance)
     if attendance[0]['count'] == 4:
         notification = frappe.get_doc('Notification', 'Consecutive Leave')
 
         args={'doc': doc}
-        recipients = notification.get_list_of_recipients(doc, args)
-        recipients_list, cc, bb = list(recipients[0])
+        recipients, cc, bb = notification.get_list_of_recipients(doc, args)
         get_employee_warnings = frappe.get_all('Warning Letter Detail', filters={'parent': doc.employee}, fields=['warning_number'], order_by='warning_number desc', page_length=1)
-        print('get employees', get_employee_warnings)
+
         warning_template = frappe.db.get_value('Warning Letter Template', 'Consecutive Leave', 'name')
-        print(warning_template)
+       
         warning_letter = frappe.new_doc('Warning Letter')
         warning_letter.employee = doc.employee
+        warning_letter.issue_date = frappe.utils.nowdate()
         warning_letter.template = warning_template
         warning_letter.status = 'Active'
-        if not get_employee_warnings:
-            # frappe.throw('ja na be')
-            warning_letter.warning_number = 1
-           
-        else:
-            warning_letter.warning_number = get_employee_warnings[0]['warning_number'] + 1
-           
         warning_letter.save(ignore_permissions=True)
+        # warning_letter.submit()
 
         set_employee_warnings = frappe.get_doc('Employee', doc.employee)
         set_employee_warnings.append('warnings', {
