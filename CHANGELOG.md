@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Fixes
+
+- [fix average price query](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/242)
+
+## [v1.4.2] - 2021-10-06
+
 ### Added
 
 - [Gate pass print format](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/236)
