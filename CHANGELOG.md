@@ -5,6 +5,7 @@
 ### Added
 
 - [Gate pass print format](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/236)
+- [export purchase order customization](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/239)
 
 ### Fixes
 
