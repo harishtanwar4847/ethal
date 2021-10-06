@@ -52,7 +52,7 @@ def before_insert_sales_invoice(doc, method):
 def set_average_price(doc, method):
     for items in frappe.get_all('Purchase Order Item', filters={'parent': doc.name}, fields=['*']):
         average_price = frappe.db.sql("""
-                select (sum(poi.amount)/sum(qty)) as average 
+                select coalesce(sum(poi.amount)/sum(qty), 0) as average 
                 from `tabPurchase Order Item` poi
                 join `tabPurchase Order` po
                 on po.name = poi.parent
