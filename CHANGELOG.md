@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- [Gate pass multiple copies in one page](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/246)
+
 ## [v1.4.3] - 2021-10-06
 
 ### Fixes
