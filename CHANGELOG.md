@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- [Export Purchase Order item customizations | Export Stock Entry item customizations](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/245)
+- [Gate pass multiple copies in one page](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/246)
+
+## [v1.4.3] - 2021-10-06
+
 ### Fixes
 
 - [fix average price query](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/242)
