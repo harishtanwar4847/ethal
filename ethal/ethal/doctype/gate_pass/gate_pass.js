@@ -2,9 +2,15 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Gate Pass', {
-	// refresh: function(frm) {
-
-	// }
+	refresh: function(frm) {
+		frm.set_query('delivery_memo_no', () => {
+			return {
+				filters: {
+					docstatus: 1
+				}
+			}
+		})
+	},
 	delivery_memo_no: function(frm){
 		if (frm.doc.delivery_memo_no && frm.doc.gate_pass_type == 'Sale'){
 			frappe.model.get_value('Delivery Note', {'name': frm.doc.delivery_memo_no}, ['posting_date', 'customer'],
