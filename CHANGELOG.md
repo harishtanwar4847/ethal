@@ -5,7 +5,7 @@
 ### Added
 
 - [Workflow update](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/250)
-- [create workflow update petch](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/251)
+- [create workflow update patch](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/251)
 
 ## [v1.5.0] - 2021-10-08
 
