@@ -3,3 +3,4 @@ ethal.patches.import_roles
 ethal.patches.import_workflow_state
 ethal.patches.import_workflow_action_master
 ethal.patches.import_workflow #2021-10-08
+ethal.patches.update_workflow
