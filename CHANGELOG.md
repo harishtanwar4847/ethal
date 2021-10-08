@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [v1.5.0] - 2021-10-08
+
+### Added
+
+- [Export Purchase Order item customizations | Export Stock Entry item customizations](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/245)
+- [Gate pass multiple copies in one page](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/246)
+
+### Fixes
+
+- [Change letter head url - Gate Pass print format](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/247)
+
 ## [v1.4.3] - 2021-10-06
 
 ### Fixes
