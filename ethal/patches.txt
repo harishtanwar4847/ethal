@@ -2,4 +2,4 @@ ethal.patches.create_stock_viewer_role
 ethal.patches.import_roles
 ethal.patches.import_workflow_state
 ethal.patches.import_workflow_action_master
-ethal.patches.import_workflow
+ethal.patches.import_workflow #2021-10-08
