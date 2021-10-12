@@ -4,6 +4,14 @@
 
 ### Added
 
+- [Workflow update](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/250)
+- [create workflow update patch](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/251)
+- [update workflow name of purchase order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/252)
+
+## [v1.5.0] - 2021-10-08
+
+### Added
+
 - [Export Purchase Order item customizations | Export Stock Entry item customizations](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/245)
 - [Gate pass multiple copies in one page](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/246)
 
