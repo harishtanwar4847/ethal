@@ -5,7 +5,7 @@ import frappe
 
 def execute(filters=None):
 	columns, data = [], []
-	columns = ['Employee:Link/Employee:200']+['Employee Name:Data:250']+['Attendance Date:Date:150']+['Status:Data:200']+['Department:Link/Department:200']+['Shift:Link/Shift Type:150']+['Working Hours:Float:150']+['OT:Float:150']+['Incentive:Float:150']+['Cash Incentive:Float:150']
+	columns = ['Employee:Link/Employee:200']+['Employee Name:Data:250']+['Attendance Date:Date:150']+['Status:Data:200']+['Department:Link/Department:200']+['Shift:Link/Shift Type:150']+['Working Hours:Float:150']+['OT:Float:150']+['Production Incentive:Float:150']+['Fixed Incentive:Float:150']+['Cash Incentive:Float:150']
 	data = get_data(filters)
 	return columns, data
 
@@ -51,7 +51,14 @@ def get_data(filters):
 					where eib.incentive_date = '{0}'
 					and eibd.employee = '{1}' and eib.salary_component = 'Production Incentive' and eib.docstatus = 1
 			""".format(i['attendance_date'], i['employee']))
-			i['incentive'] = employee_incentive[0][0]
+			i['production_incentive'] = employee_incentive[0][0]
+			employee_taxable_incentive = frappe.db.sql("""
+					select coalesce(sum(eibd.incentive_hours), 0) from `tabEmployee Incentive Bulk Detail` as eibd 
+					join `tabEmployee Incentive Bulk` as eib on eibd.parent = eib.name
+					where eib.incentive_date = '{0}'
+					and eibd.employee = '{1}' and eib.salary_component = 'Taxable Incentive' and eib.docstatus = 1
+			""".format(i['attendance_date'], i['employee']))
+			i['fixed_incentive'] = employee_taxable_incentive[0][0]
 			employee_cash_incentive = frappe.db.sql("""
 					select coalesce(sum(eibd.incentive_amount), 0) from `tabEmployee Cash Incentive Detail` as eibd 
 					join `tabEmployee Cash Incentive Bulk` as eib on eibd.parent = eib.name
