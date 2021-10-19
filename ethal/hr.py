@@ -128,7 +128,15 @@ def update_working_days_and_payment_days(doc):
                     and eibd.employee = '{2}' and eib.salary_component = 'Fixed Incentive' and eib.docstatus = 1
             """.format(doc.start_date, doc.end_date, doc.employee))
             if employee_fixed_incentive:
-                doc.fixed_incentive = employee_fixed_incentive[0][0]    
+                doc.fixed_incentive = employee_fixed_incentive[0][0]   
+            employee_cash_incentive = frappe.db.sql("""
+                    select sum(eibd.incentive_amount) from `tabEmployee Cash Incentive Detail` as eibd 
+                    join `tabEmployee Cash Incentive Bulk` as eib on eibd.parent = eib.name
+                    where eib.incentive_date between '{0}' and '{1}'
+                    and eibd.employee = '{2}' and eib.salary_component = 'Cash Incentive' and eib.docstatus = 1
+            """.format(doc.start_date, doc.end_date, doc.employee))
+            if employee_cash_incentive:
+                doc.cash_incentive = employee_cash_incentive[0][0]        
 
 def after_insert_salary_slip(doc, method):
     doc.reload()
