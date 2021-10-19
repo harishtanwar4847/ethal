@@ -9,6 +9,7 @@
 - [update workflow name of purchase order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/252)
 - [create fixed incentive custom field and set incentive hours in it](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/255)
 - [create asset task management](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/253)
+- [Implement Employee cash incentive feature in salary slip](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/256)
 
 ## [v1.5.0] - 2021-10-08
 
