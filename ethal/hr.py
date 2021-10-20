@@ -150,6 +150,8 @@ def create_overtime(doc):
     doc.total_working_days = 0
     doc.paid_leaves = 0
     doc.total_incentives = 0
+    doc.cash_incentive = 0
+    doc.fixed_incentive = 0
 
     overtime_applicable = frappe.db.get_value('Employee', doc.employee, 'is_overtime_applicable')
     if overtime_applicable:
