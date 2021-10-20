@@ -1,4 +1,9 @@
 "Role Name","Home Page","Restrict To Domain","Disabled","Desk Access","Two Factor Authentication","Search Bar","Notifications","Chat","Sidebar","Bulk Actions","View Switcher","form_sidebar","Timeline","Dashboard","Is Custom"
+"Test Role for event producer","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Purchase Order Checker","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Factory Report Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Maintenance Engineer","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Dashboard Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
 "HR Admin","","",0,1,0,0,0,0,0,0,0,0,0,0,0
 "EOS Manager","","",0,1,0,0,0,0,0,0,0,0,0,0,0
 "EOS User","","",0,1,0,0,0,0,0,0,0,0,0,0,0
@@ -24,14 +29,11 @@
 "Gate Pass Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
 "Gate Pass User","","",0,1,0,0,0,0,0,0,0,0,0,0,0
 "Deputy Gate Pass Approver","","",0,1,0,0,0,0,0,0,0,0,0,0,0
-"Inbox User","","",0,1,0,0,0,0,0,0,0,0,0,0,0
-"Prepared Report User","","",0,1,0,0,0,0,0,0,0,0,0,0,0
+"Stock Viewer","","",0,1,0,1,1,1,1,1,1,1,1,1,0
 "Employee Self Service","","",0,1,0,1,1,1,1,1,1,1,1,1,1
 "Loan Manager","","",0,1,0,0,0,0,0,0,0,0,0,0,0
-"Dashboard Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
-"Stock Viewer","","",0,1,0,1,1,1,1,1,1,1,1,1,0
-"Maintenance Engineer","","",0,1,0,1,1,1,1,1,1,1,1,1,0
-"Factory Report Manager","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Inbox User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
+"Prepared Report User","","",0,1,0,1,1,1,1,1,1,1,1,1,0
 "Dashboard Viewer","","",0,1,0,1,1,1,1,1,1,1,1,1,0
 "Analytics","","",0,1,0,1,1,1,1,1,1,1,1,1,0
 "Non Profit Portal User","","Non Profit",1,0,0,0,0,0,0,0,0,0,0,0,0

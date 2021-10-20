@@ -64,3 +64,66 @@ def set_items_from_stock_entry(name):
 @frappe.validate_and_sanitize_search_inputs
 def get_team_members(doctype, txt, searchfield, start, page_len, filters):
     return frappe.db.get_values('Foremen List', { 'parent': filters.get("maintenance_team") }, ['foreman'])
+
+def update_asset_task(doc, method):
+    print('in custom method')
+    sync_maintenance_tasks(doc)
+
+def sync_maintenance_tasks(doc):
+    asset = frappe.db.get_value('Asset', doc.name, 'asset_name')
+    print(asset)
+    tasks_names = []
+    for task in doc.get('asset_maintenance_tasks'):
+        print(task)
+        tasks_names.append(task.name)
+        update_asset_tasks(asset = asset, task = task, asset_maintenance = doc.name)
+    asset_maintenance_logs = frappe.get_all("Asset Maintenance Log", fields=["name"], filters = {"asset_maintenance": doc.name,
+        "task": ("not in", tasks_names)})
+    if asset_maintenance_logs:
+        for asset_maintenance_log in asset_maintenance_logs:
+            maintenance_log = frappe.get_doc('Asset Maintenance Log', asset_maintenance_log.name)
+            maintenance_log.db_set('maintenance_status', 'Cancelled')
+
+def update_asset_tasks(asset, task, asset_maintenance):
+    asset_task = frappe.get_value("Asset Task", {"asset": asset, 'asset_maintenance': asset_maintenance,
+        "task": task.name, "status": ('in',['Planned','Overdue'])})
+
+    if not asset_task:
+        asset_task = frappe.get_doc({
+            "doctype": "Asset Task",
+            "asset_maintenance": asset_maintenance,
+            "asset": asset,
+            "task": task.name,
+            "task_name": task.maintenance_task,
+            "assign_to": task.assign_to,
+            "assign_to_name": task.assign_to_name,
+            "status": task.maintenance_status,
+            "due_date": task.next_due_date
+            # "periodicity": str(task.periodicity),
+            # "maintenance_type": task.maintenance_type,
+            # "due_date": task.next_due_date
+        })
+        asset_task.insert()
+    else:
+        update_task = frappe.get_doc('Asset Task', asset_task)
+        update_task.task = task.name
+        update_task.asset_maintenance = asset_maintenance
+        update_task.task_name = task.maintenance_task
+        update_task.assign_to = task.assign_to
+        update_task.assign_to_name = task.assign_to_name
+        update_task.status = task.maintenance_status
+        update_task.due_date = task.next_due_date
+        # update_task.periodicity = str(task.periodicity)
+        # update_task.maintenance_type = task.maintenance_type
+        # update_task.due_date = task.next_due_date
+        update_task.save()
+
+def asset_task_permission_query_conditions(user):
+    print('=========================')
+    user_roles = frappe.get_roles(user)
+    print(user_roles)
+    # supplier = frappe.get_all('Supplier', filters={'email_id': user}, fields=['name'], as_list = 1)
+    # print(supplier)
+    if 'System Manager' not in user_roles:
+        return """(`tabAsset Task`.`assign_to`= '{0}' )""".format(frappe.session.user)
+
