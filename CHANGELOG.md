@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [v1.6.0] - 2021-10-20
+
 ### Added
 
 - [Workflow update](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/250)
