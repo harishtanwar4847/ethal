@@ -11,6 +11,9 @@
 - [create asset task management](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/253)
 - [Implement Employee cash incentive feature in salary slip](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/256)
 
+### Fixes
+- [change salary component name](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/257)
+
 ## [v1.5.0] - 2021-10-08
 
 ### Added
