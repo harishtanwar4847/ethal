@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [v1.6.0] - 2021-10-20
+
+### Added
+
+- [Workflow update](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/250)
+- [create workflow update patch](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/251)
+- [update workflow name of purchase order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/252)
+- [create fixed incentive custom field and set incentive hours in it](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/255)
+- [create asset task management](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/253)
+- [Implement Employee cash incentive feature in salary slip](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/256)
+- [set Cash incentive and Taxable Incentive field readonly](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/258)
+
+### Fixes
+- [change salary component name](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/257)
+
 ## [v1.5.0] - 2021-10-08
 
 ### Added

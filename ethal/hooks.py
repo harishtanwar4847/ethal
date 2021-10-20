@@ -88,6 +88,7 @@ app_include_js = "/assets/ethal/js/transaction.js"
 # 		"on_trash": "method"
 #	}
 # }
+
 doc_events = {
 	"Asset Maintenance Log": {
 		"after_insert": "ethal.assets.before_save_asset_maintenance_log",
@@ -180,6 +181,9 @@ doc_events = {
 	},
 	"Material Request": {
 		"on_submit": "ethal.utils.send_purchase_api_message"
+	},
+	"Asset Maintenance": {
+		"on_update": "ethal.assets.update_asset_task"
 	}
 }
 
@@ -194,7 +198,8 @@ override_doctype_dashboards = {
 }
 
 permission_query_conditions = {
-    "Interview Round form": "ethal.ethal.doctype.interview_round.interview_round.interview_round_permissions_query_conditions"
+    "Interview Round form": "ethal.ethal.doctype.interview_round.interview_round.interview_round_permissions_query_conditions",
+	"Asset Task": "ethal.assets.asset_task_permission_query_conditions",
 }
 
 scheduler_events = {
