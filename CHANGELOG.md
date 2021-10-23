@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- [export attendance customization](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/261)
+
 ## [v1.6.0] - 2021-10-20
 
 ### Added
