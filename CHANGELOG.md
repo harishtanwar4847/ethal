@@ -5,6 +5,7 @@
 ### Added
 
 - [Create Shift Assignment bulk doctype](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/262)
+- [create weekly off day field in holiday list and set that day as holiday](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/263)
 
 ## [v1.6.1] - 2021-10-23
 
