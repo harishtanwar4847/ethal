@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- [Create Shift Assignment bulk doctype](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/262)
+
 ## [v1.6.1] - 2021-10-23
 
 ### Added
