@@ -33,7 +33,7 @@
    "in_preview": 0,
    "in_standard_filter": 0,
    "insert_after": "normal_ot_hours",
-   "label": "Sunday OT Hours",
+   "label": "Weekly Off OT Hours",
    "length": 0,
    "mandatory_depends_on": null,
    "modified": "2020-11-13 09:53:30.584600",
