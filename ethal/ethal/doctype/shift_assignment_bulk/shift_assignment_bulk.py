@@ -9,7 +9,7 @@ from dateutil.relativedelta import relativedelta
 
 class ShiftAssignmentBulk(Document):
 	def on_submit(self):
-		employees = frappe.db.get_all('Shift Assignment Bulk Detail', filters={'parent': self.name}, fields=['employee', 'department'])
+		employees = frappe.db.get_all('Shift Assignment Bulk Detail', filters={'parent': self.name}, fields=['employee', 'department', 'shift'])
 		if employees:
 			a = 'Employees already have Active Shift '
 			shift_assignments = ''
@@ -25,7 +25,7 @@ class ShiftAssignmentBulk(Document):
 					create_shift_assignment.start_date = self.date
 					# create_shift_assignment.end_date = self.date
 					create_shift_assignment.shift_bulk_assignment = self.name
-					create_shift_assignment.shift_type = self.shift
+					create_shift_assignment.shift_type = employee['shift']
 					create_shift_assignment.department = employee['department']
 					create_shift_assignment.submit()	
 			if len(shift_assignments) > 0:
