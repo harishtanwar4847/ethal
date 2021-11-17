@@ -8,6 +8,7 @@
 - [create weekly off day field in holiday list and set that day as holiday](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/263)
 - [Set Individuals shift for every employees](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/264)
 - [set end date on previous shift assignment | fix attendance sheet report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/265)
+- [create daily attendance summary report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/266)
 
 ## [v1.6.1] - 2021-10-23
 
