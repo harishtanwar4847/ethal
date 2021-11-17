@@ -1,54 +1,31 @@
 {
  "actions": [],
  "allow_import": 1,
- "autoname": "naming_series:",
- "creation": "2021-10-19 09:14:40.114001",
+ "autoname": "HR-SHA-BULK-.YY.-.MM.-.#####",
+ "creation": "2021-10-26 16:37:57.809736",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "incentive_date",
-  "salary_component",
-  "column_break_5",
-  "additional_salary",
+  "date",
   "section_break_9",
   "branch",
   "department",
+  "working_area",
   "column_break_12",
   "designation",
   "number_of_employees",
   "section_break_15",
   "employee_details",
-  "naming_series",
   "amended_from"
  ],
  "fields": [
   {
-   "fieldname": "incentive_date",
+   "fieldname": "date",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Incentive Date",
+   "label": "Date",
    "reqd": 1
-  },
-  {
-   "fieldname": "salary_component",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Salary Component",
-   "options": "Salary Component",
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_5",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "additional_salary",
-   "fieldtype": "Link",
-   "label": "Additional Salary",
-   "no_copy": 1,
-   "options": "Additional Salary",
-   "read_only": 1
   },
   {
    "fieldname": "section_break_9",
@@ -89,20 +66,14 @@
    "fieldname": "employee_details",
    "fieldtype": "Table",
    "label": "Employee Details",
-   "options": "Employee Cash Incentive Detail"
-  },
-  {
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "label": "Series",
-   "options": "HR-E-C-INVB-.YY.-.MM.-"
+   "options": "Shift Assignment Bulk Detail"
   },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Employee Cash Incentive Bulk",
+   "options": "Shift Assignment Bulk",
    "print_hide": 1,
    "read_only": 1
   },
@@ -111,17 +82,23 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Employee Cash Incentive Bulk",
+   "options": "Shift Assignment Bulk",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "working_area",
+   "fieldtype": "Link",
+   "label": "Working Area",
+   "options": "Working Area"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-10-26 16:35:42.988893",
+ "modified": "2021-11-17 11:03:13.174368",
  "modified_by": "Administrator",
  "module": "Ethal",
- "name": "Employee Cash Incentive Bulk",
+ "name": "Shift Assignment Bulk",
  "owner": "Administrator",
  "permissions": [
   {
