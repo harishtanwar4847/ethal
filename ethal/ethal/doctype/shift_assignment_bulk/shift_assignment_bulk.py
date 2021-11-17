@@ -4,33 +4,30 @@
 import frappe
 from frappe.model.document import Document
 from frappe import _
-import datetime
+from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
 class ShiftAssignmentBulk(Document):
 	def on_submit(self):
 		employees = frappe.db.get_all('Shift Assignment Bulk Detail', filters={'parent': self.name}, fields=['employee', 'department', 'shift'])
 		if employees:
-			a = 'Employees already have Active Shift '
-			shift_assignments = ''
-			print(len(shift_assignments))	
 			for employee in employees:
-				shift_assignment = frappe.db.get_value('Shift Assignment', {'employee': employee['employee'], 'start_date': ['=', self.date], 'docstatus': 1}, ['name'])
-				print(shift_assignment)
+				shift_assignment = frappe.db.get_all('Shift Assignment', {'employee': employee['employee'], 'docstatus': 1}, ['name'], order_by='name desc', limit=1)
 				if shift_assignment:
-					shift_assignments += frappe.bold(shift_assignment)+ ' '
-				else:
-					create_shift_assignment = frappe.new_doc('Shift Assignment')
-					create_shift_assignment.employee = employee['employee']
-					create_shift_assignment.start_date = self.date
-					# create_shift_assignment.end_date = self.date
-					create_shift_assignment.shift_bulk_assignment = self.name
-					create_shift_assignment.shift_type = employee['shift']
-					create_shift_assignment.department = employee['department']
-					create_shift_assignment.submit()	
-			if len(shift_assignments) > 0:
-				frappe.msgprint(a+shift_assignments)	
+					existing_shift_assignment = frappe.get_doc('Shift Assignment', shift_assignment[0]['name'])
+					shift_date = datetime.strptime(self.date, '%Y-%m-%d')
+					subtract_day = timedelta(days=1)
+					existing_shift_assignment.end_date = shift_date - subtract_day
+					existing_shift_assignment.save()
 
+				create_shift_assignment = frappe.new_doc('Shift Assignment')
+				create_shift_assignment.employee = employee['employee']
+				create_shift_assignment.start_date = self.date
+				create_shift_assignment.shift_bulk_assignment = self.name
+				create_shift_assignment.shift_type = employee['shift']
+				create_shift_assignment.department = employee['department']
+				create_shift_assignment.submit()	
+			
 	def on_cancel(self):
 		frappe.delete_doc("Shift Assignment", frappe.db.sql_list("""select name from `tabShift Assignment`
 			where shift_bulk_assignment=%s """, (self.name)))
