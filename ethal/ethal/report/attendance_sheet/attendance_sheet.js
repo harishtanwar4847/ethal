@@ -12,6 +12,12 @@ frappe.query_reports["Attendance Sheet"] = {
 			"reqd": 1
 		},
 		{
+			"label": __("Working Area"),
+			"fieldname": "working_area",
+			"fieldtype": "Link",
+			"options": "Working Area"
+		},
+		{
 			"label": __("Date"),
 			"fieldname": "date",
 			"fieldtype": "Date",
