@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [v1.6.2] - 2021-11-17
+
+### Added
+
+- [factory changes in sales target month and working area doctype](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/267)
+
+## [v1.6.1] - 2021-10-23
+
+### Added
+
+- [export attendance customization](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/261)
+
 ## [v1.6.0] - 2021-10-20
 
 ### Added
