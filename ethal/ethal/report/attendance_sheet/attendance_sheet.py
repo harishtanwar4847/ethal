@@ -12,7 +12,7 @@ def execute(filters=None):
 
 def get_data(filters):
 	return frappe.db.sql("""
-	select employee_name, department from `tabEmployee` 
+	select employee_name, department, Null, Null, Null, Null, Null, Null, Null from `tabEmployee` 
 	where status = 'Active'
 	and department = '{}'
 	""".format(filters['department']))
