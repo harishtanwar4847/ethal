@@ -11,6 +11,7 @@
   "section_break_9",
   "branch",
   "department",
+  "working_area",
   "column_break_12",
   "designation",
   "number_of_employees",
@@ -84,11 +85,17 @@
    "options": "Shift Assignment Bulk",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "working_area",
+   "fieldtype": "Link",
+   "label": "Working Area",
+   "options": "Working Area"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-11-01 11:47:26.210287",
+ "modified": "2021-11-17 11:03:13.174368",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Shift Assignment Bulk",
