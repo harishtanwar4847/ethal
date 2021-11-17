@@ -10,7 +10,9 @@
   "column_break_3",
   "department",
   "shift",
-  "designation"
+  "previous_shift",
+  "designation",
+  "working_area"
  ],
  "fields": [
   {
@@ -56,12 +58,25 @@
    "label": "Shift",
    "options": "Shift Type",
    "reqd": 1
+  },
+  {
+   "fieldname": "previous_shift",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Previous Shift",
+   "options": "Shift Type"
+  },
+  {
+   "fieldname": "working_area",
+   "fieldtype": "Link",
+   "label": "Working Area",
+   "options": "Working Area"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-11-01 11:48:01.432553",
+ "modified": "2021-11-17 11:28:13.549448",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Shift Assignment Bulk Detail",

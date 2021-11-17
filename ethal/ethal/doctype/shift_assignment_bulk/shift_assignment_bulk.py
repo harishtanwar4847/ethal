@@ -43,20 +43,23 @@ class ShiftAssignmentBulk(Document):
 		if cond:
 			emp_list = frappe.db.sql("""
 				select
-					distinct t1.name as employee, t1.employee_name, t1.department, t1.designation
+					distinct t1.name as employee, t1.employee_name, t1.department, t1.designation, t1.working_area
 				from
 					`tabEmployee` t1
 				where t1.status = 'Active' %s
 			""" % cond,  as_dict=True)
-			print(emp_list)
+			
 		else:
 			emp_list = frappe.db.sql("""
 				select
-					distinct t1.name as employee, t1.employee_name, t1.department, t1.designation
+					distinct t1.name as employee, t1.employee_name, t1.department, t1.designation, t1.working_area
 				from
 					`tabEmployee` t1
 			""",  as_dict=True)
-			print(emp_list)	
+		for i in emp_list:
+			previous_shift = frappe.db.get_all('Shift Assignment', {'employee': i['employee']}, ['shift_type'], order_by='name desc', limit=1)
+			i['previous_shift'] = previous_shift[0]['shift_type'] if previous_shift else None
+		
 		return emp_list
 
 	@frappe.whitelist()
@@ -67,7 +70,7 @@ class ShiftAssignmentBulk(Document):
 		if not employees:
 			frappe.throw(_("No employees for the mentioned criteria"))
 			
-		for d in employees:
+		for d in employees:        
 			self.append('employee_details', d)
 
 		self.number_of_employees = len(employees)
@@ -78,7 +81,7 @@ class ShiftAssignmentBulk(Document):
 		# self.check_mandatory()
 
 		cond = ''
-		for f in ['company', 'branch', 'department', 'designation']:
+		for f in ['company', 'branch', 'department', 'designation', 'working_area']:
 			if self.get(f):
 				cond += "and t1." + f + " = '" + self.get(f).replace("'", "\'") + "'"
 		return cond
