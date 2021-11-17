@@ -12,6 +12,12 @@
 - [add working area filter and show previous shift in employee table](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/269)
 - [add working area filter](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/270)
 
+## [v1.6.2] - 2021-11-17
+
+### Added
+
+- [factory changes in sales target month and working area doctype](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/267)
+
 ## [v1.6.1] - 2021-10-23
 
 ### Added
