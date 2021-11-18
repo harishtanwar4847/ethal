@@ -11,6 +11,7 @@
 - [create daily attendance summary report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/266)
 - [add working area filter and show previous shift in employee table](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/269)
 - [add working area filter](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/270)
+- [make department as non mandetory](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/274)
 
 ## [v1.6.2] - 2021-11-17
 
