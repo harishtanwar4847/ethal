@@ -8,6 +8,22 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
 class ShiftAssignmentBulk(Document):
+	def before_insert(self):
+		shift_assignment = frappe.db.sql("""
+		select sabd.employee_name from `tabShift Assignment Bulk Detail` as sabd
+		join `tabShift Assignment Bulk` sab
+		on sabd.parent = sab.name
+		where sab.date = '{}'
+		""".format(self.date))
+
+		content = "Shift Assignment already exist for this date of these employees"
+		shift_assignments = ""
+		if shift_assignment:
+			for i in shift_assignment:
+				shift_assignments += " " + frappe.bold(i[0])+ ", "  
+		if len(shift_assignments) > 0:		
+			frappe.throw(content+shift_assignments)
+
 	def on_submit(self):
 		employees = frappe.db.get_all('Shift Assignment Bulk Detail', filters={'parent': self.name}, fields=['employee', 'department', 'shift'])
 		if employees:
