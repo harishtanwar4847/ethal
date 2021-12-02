@@ -1,3 +1,4 @@
+ethal.patches.import_holiday_list #2021-12-02
 ethal.patches.create_stock_viewer_role
 ethal.patches.import_roles #2021-10-08
 ethal.patches.import_workflow_state
