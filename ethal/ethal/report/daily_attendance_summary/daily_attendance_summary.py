@@ -24,30 +24,38 @@ def execute(filters=None):
 	incentives_count = 0
 	for k in attendance:
 		for j in working_area_list:
-			if k in ('Present', 'Absent'):
+			if k == 'Present':
 				query = frappe.db.sql("""
 				select count(a.name) from `tabAttendance` a
 				join `tabEmployee` emp 
 				on a.employee = emp.name
 				where a.status = '{0}'
 				and a.attendance_date = '{1}'
-				and a.working_area = '{2}'
+				and emp.working_area = '{2}'
 				and a.docstatus = 1
 				""".format(k, filters['date'], j['name']))
-				if query and k == 'Present': 
-					present_count += query[0][0]
-					present.append(query[0][0])
-				elif query and k in ('Absent', 'On Leave'):
-					absent.append(query[0][0])	
-					absent_count += query[0][0]
+				present_count += query[0][0]
+				present.append(query[0][0])
+			elif k == 'Absent':
+				query = frappe.db.sql("""
+				select count(a.name) from `tabAttendance` a
+				join `tabEmployee` emp 
+				on a.employee = emp.name
+				where a.status in ('Absent', 'On Leave')
+				and a.attendance_date = '{0}'
+				and emp.working_area = '{1}'
+				and a.docstatus = 1
+				""".format(filters['date'], j['name']))
+				absent.append(query[0][0])	
+				absent_count += query[0][0]		
 			elif k == 'OT':
 				query = frappe.db.sql("""
 				select a.working_hours from `tabAttendance` a
 				join `tabEmployee` emp
 				on a.employee = emp.name
-				where a.status = '{0}'
+				where a.status = 'Present'
 				and a.attendance_date = '{1}'
-				and a.working_area = '{2}'
+				and emp.working_area = '{2}'
 				and a.working_hours > 8
 				and a.docstatus = 1
 				""".format(k, filters['date'], j['name']), as_list=1)
@@ -63,10 +71,9 @@ def execute(filters=None):
 			elif k == 'Incentive':
 				query = frappe.db.sql("""
 				select name from `tabEmployee Incentive Bulk` 
-				where incentive_date = '{}' and salary_component = 'Production Incentive'
+				where incentive_date = '{}'
 				and docstatus = 1
 				""".format(filters['date']))
-		
 				if query:	
 					a = []
 					for i in query:

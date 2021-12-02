@@ -17,9 +17,10 @@
   "description_of_requirement_section",
   "payment_type",
   "payment_mode",
+  "bank",
   "column_break_9",
   "amount",
-  "bank",
+  "amount_in_words",
   "references_section",
   "prf_no",
   "grn_no",
@@ -189,11 +190,16 @@
    "fieldtype": "Select",
    "label": "Payment Request For",
    "options": "\nPacking Material"
+  },
+  {
+   "fieldname": "amount_in_words",
+   "fieldtype": "Data",
+   "label": "Amount in Words"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-07-28 10:36:49.061156",
+ "modified": "2021-11-26 10:19:56.317434",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Payment Request and Authorization",
