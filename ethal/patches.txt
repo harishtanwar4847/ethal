@@ -4,3 +4,4 @@ ethal.patches.import_workflow_state
 ethal.patches.import_workflow_action_master
 ethal.patches.import_workflow #2021-10-08
 ethal.patches.update_workflow #2021-10-08
+ethal.patches.import_shift_type #2021-11-24
