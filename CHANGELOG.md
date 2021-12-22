@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- [set amount in words using frappe.utils.money_in_words](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/281)
+
 ## [v1.8.0] - 2021-12-02
 
 ### Added
