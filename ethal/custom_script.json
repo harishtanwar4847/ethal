@@ -1,0 +1,24 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Asset Maintenance",
+  "modified": "2021-07-06 19:22:44.937348",
+  "name": "Asset Maintenance-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Asset Maintenance', {\n\tsetup: (frm) => {\n\t\tfrm.set_query(\"foreman_list\", \"asset_maintenance_tasks\", function(doc) {\n\t\t\treturn {\n\t\t\t\tquery: \"ethal.assets.get_team_members\",\n\t\t\t\tfilters: {\n\t\t\t\t\tmaintenance_team: doc.maintenance_team\n\t\t\t\t}\n\t\t\t};\n        });\n    }    \n});\nfrappe.ui.form.on('Asset Maintenance Task', {\n     form_render: function(frm) {\n        var df=frappe.meta.get_docfield('Asset Maintenance Task', 'description', frm.doc.name)\n        df.hidden = 1\n        frm.refresh_fields()\n    }\n    \n})"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Asset Maintenance Log",
+  "modified": "2021-07-13 12:15:07.449321",
+  "name": "Asset Maintenance Log-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Asset Maintenance Log', {\n\trefresh(frm) {\n\t    console.log('refresh hua')\n\tif (frm.doc.docstatus===0) {\n\t\t\tfrm.add_custom_button(__('Stock Entry'), function() {\n\t\t\t   new frappe.ui.form.MultiSelectDialog({\n                    doctype: \"Stock Entry\",\n                    target: frm,\n                    setters: {},\n                    date_field: \"posting_date\",\n                    get_query() {\n                        return {\n                            filters: { docstatus: ['!=', 2] }\n                        }\n                    },\n                    action(selections) {\n                        console.log(selections);\n                       console.log(typeof(selections))\n                       for (var i in selections){\n                           console.log(selections[i])\n                           frappe.call({\n                               method: \"ethal.assets.set_items_from_stock_entry\",\n                               args: {\n                                   name: selections[i]\n                               },\n                               callback: function(r){\n                                   console.log(r.message)\n                                  let op = r.message\n                                //   me.frm.add_child(\"part_used\").item = op['item_code'];\n                                //   me.frm.refresh_field(\"part_used\");\n                                var childTable = cur_frm.add_child(\"part_used\");\n                                childTable.item=op['item_code']\n                                childTable.item_name=op['item_name']\n                                childTable.stock_entry = op['parent']\n                                childTable.item_group=op['item_group']\n                                childTable.dscription=op['description']\n                                childTable.uom=op['uom']\n                                childTable.quantity=op['qty']\n                                cur_frm.refresh_fields(\"part_used\");\n                                $('.modal').hide();\n                               }\n                           })\n                        }\n                    }\n                });\n\t\t\t}, __(\"Get items from\"));\n\t    }\n\t    frm.set_df_property('description', 'hidden', 1)\n    },\n   \n})\n"
+ }
+]
