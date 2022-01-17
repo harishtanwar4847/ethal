@@ -9,7 +9,9 @@ import json
 from frappe.utils import money_in_words
 
 class PaymentRequestandAuthorization(Document):
-    pass
+    def before_insert(self):
+        self.checked_person = ''
+        self.checked_date = ''
 
 @frappe.whitelist()
 def set_amount_in_words(doc):
