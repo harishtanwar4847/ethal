@@ -16,7 +16,8 @@ class PaymentRequestandAuthorization(Document):
 @frappe.whitelist()
 def set_amount_in_words(doc):
         doc = json.loads(doc)
-        company_currency = erpnext.get_company_currency('Ethal 2021')
+        company = frappe.defaults.get_user_default("Company")
+        company_currency = erpnext.get_company_currency(company)
         return money_in_words(doc['amount'], company_currency)
 
 @frappe.whitelist()
