@@ -43,7 +43,8 @@ def before_insert_payment_entry(doc, method):
 
 def before_insert_sales_invoice(doc, method):
     naming_series = doc.naming_series.split('.')
-    sales_invoice, posting_date = frappe.db.get_value('Sales Invoice', {'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['name', 'posting_date'])
+    sales_invoice = frappe.db.get_value('Sales Invoice', {'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['name'])
+    posting_date = frappe.db.get_value('Sales Invoice', {'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['posting_date'])
     if sales_invoice == None:
         return
     else:
