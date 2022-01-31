@@ -4,6 +4,22 @@
 
 ### Added
 
+- [set amount in words using frappe.utils.money_in_words | set checked details none on duplicate case](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/281)
+
+## [v1.8.0] - 2021-12-02
+
+### Added
+
+- [make department as non mandetory](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/274)
+- [validate existing shift assignment of employees of same date](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/275)
+- [Absent contain both entries of attendance in which status is Absent, On leave and Incentive contains total of all the entries in Employee incentive bulk for that day](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/276)
+- [add serial number in attendance sheet report | remove shift type from fixtures, import shift type using patches | export item customizations | implement amount in words feature in PRA](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/277)
+- [import holiday using patches](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/278)
+
+## [v1.7.0] - 2021-11-17
+
+### Added
+
 - [Create Shift Assignment bulk doctype](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/262)
 - [create weekly off day field in holiday list and set that day as holiday](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/263)
 - [Set Individuals shift for every employees](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/264)
@@ -11,11 +27,6 @@
 - [create daily attendance summary report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/266)
 - [add working area filter and show previous shift in employee table](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/269)
 - [add working area filter](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/270)
-- [make department as non mandetory](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/274)
-- [validate existing shift assignment of employees of same date](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/275)
-- [Absent contain both entries of attendance in which status is Absent, On leave and Incentive contains total of all the entries in Employee incentive bulk for that day](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/276)
-- [add serial number in attendance sheet report | remove shift type from fixtures, import shift type using patches | export item customizations | implement amount in words feature in PRA](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/277)
-- [import holiday using patches](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/278)
 
 ## [v1.6.2] - 2021-11-17
 
