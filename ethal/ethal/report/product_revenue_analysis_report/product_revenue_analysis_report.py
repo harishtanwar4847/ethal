@@ -14,8 +14,8 @@ def execute(filters=None):
 	if not filters: filters ={}
 	data = []
 	conditions = get_columns(filters, "Sales Invoice")
-	data = get_data(filters, conditions)
 
+	data = get_data(filters, conditions)
 	return conditions["columns"], data
 
 def get_columns(filters, trans):
@@ -122,7 +122,7 @@ def get_data(filters, conditions):
 							conditions["trans"], conditions["addl_tables"], "%s", posting_date, "%s","%s", sel_col,
 							"%s", conditions["group_by"], "%s", conditions.get("addl_tables_relational_cond"), cond),
 						(filters.get("company"), year_start_date, year_end_date, row[i][0],
-							data1[d][0]), as_list=1)
+							data1[d][0]), as_list=1, debug=1)
 
 				des[ind] = row[i][0]
 
@@ -138,7 +138,9 @@ def get_data(filters, conditions):
 				""" %
 				(query_details, conditions["trans"], conditions["trans"], conditions["addl_tables"],
 					"%s", posting_date, "%s", "%s", cond, conditions.get("addl_tables_relational_cond", ""), conditions["group_by"]),
-				(filters.get("company"), year_start_date, year_end_date), as_list=1)
+				(filters.get("company"), year_start_date, year_end_date), as_list=1, debug=1)
+	print(data)
+	data1 = []
 	str = 'Total'
 	total = 	"\033[1m" + str + "\033[0m"
 	list_total = ['Total', '']		
@@ -147,30 +149,33 @@ def get_data(filters, conditions):
 		qty = 0
 		
 		for k in data:
-			qty += k[2] if k[2] != None else 0
-			k[4] = k[3]/k[2] if k[2] != 0 else 0
+			qty += k[3] if k[3] != None else 0
+			k[4] = k[4]/k[3] if k[3] != 0 else 0
 		list_total.append(qty)
 		amt = 0
 		for k in data:
-			amt += k[3] if k[3] != None else 0
+			amt += k[4] if k[4] != None else 0
 		list_total.append(amt)
 		rate = 0
 		for j in data:
-			rate += j[4] if j[4] != None else 0
+			rate += j[5] if j[5] != None else 0
 		list_total.append(rate)	
 		list_total.append('100')
 		total_qty = 0
 		for k in data:
-			total_qty += k[6] if k[6] != None else 0
+			total_qty += k[7] if k[7] != None else 0
 		list_total.append(total_qty)
 		total_amt = 0
 		for k in data:
-			total_amt += k[7] if k[7] != None else 0
+			total_amt += k[8] if k[8] != None else 0
 		list_total.append(total_amt)
 		for i in data:
-			year += i[3]	
+			year += i[4]	
 		for j in data:
-			j[5] = '{:.2f}%'.format((j[3]/year)*100)
+			j[6] = '{:.2f}%'.format((j[4]/year)*100) if j[4] != 0 else 0
+		for l in data:
+			l = l[:-2]
+			data.append(l)
 	elif filters.get("period") == 'Half-Yearly':
 		jan_jun, jul_dec = 0, 0
 		qty = 0
@@ -527,6 +532,8 @@ def get_data(filters, conditions):
 			j[45] = '{:.2f}%'.format((j[43]/nov)*100) if j[43] != 0 else 0
 			j[49] = '{:.2f}%'.format((j[47]/dec)*100) if j[47] != 0 else 0
 	data.append(list_total)
+	print('==============')
+	print(data1) 
 	return data
 
 def get_mon(dt):
@@ -549,28 +556,33 @@ def period_wise_columns_query(filters, trans):
 			get_period_wise_columns(dt, filters.get("period"), pwc)
 			query_details = get_period_wise_query(dt, trans_date, query_details)
 	else:
-		pwc = [_(filters.get("fiscal_year")) + " ("+_("Qty in KG") + "):Float:120",
+		pwc = [
+			_(filters.get("fiscal_year")) + " ("+ _("Qty in KG") + "):Currency:120",
 			_(filters.get("fiscal_year")) + " ("+ _("Amt") + "):Currency:120",
 			_(filters.get("fiscal_year")) + " ("+_("Rate per KG") + "):Float:120",
 			_(filters.get("fiscal_year")) + " ("+ _("Percentage") + "):Percent:120",]
 		query_details = " SUM(t2.total_net_weight), SUM(t2.amount), NULL, NULL,"
-
+		print(query_details)
 	query_details += 'SUM(t2.total_net_weight), SUM(t2.amount), NULL, NULL'
+	print(query_details)
 	return pwc, query_details
 
 def get_period_wise_columns(bet_dates, period, pwc):
 	if period == 'Monthly':
-		pwc += [_(get_mon(bet_dates[0])) + " (" + _("Qty in KG") + "):Float:120",
+		pwc += [
+			_(get_mon(bet_dates[0])) + " (" + _("Qty in KG") + "):Float:120",
 			_(get_mon(bet_dates[0])) + " (" + _("Amt") + "):Currency:120",
 			_(get_mon(bet_dates[0])) + " (" + _("Rate per KG") + "):Float:120",
 			_(get_mon(bet_dates[0])) + " (" + _("Percentage") + "):Percent:120"]
 	else:
-		pwc += [_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Qty in KG") + "):Float:120",
+		pwc += [
+			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Qty in KG") + "):Float:120",
 			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Amt") + "):Currency:120",
 			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Rate per KG") + "):Float:120",
 			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Percentage") + "):Percent:120"]
 
 def get_period_wise_query(bet_dates, trans_date, query_details):
+	print('in ======')
 	query_details += """SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.total_net_weight, NULL)),
 					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.amount, NULL)),
 					NULL,
@@ -623,8 +635,8 @@ def based_wise_columns_query(based_on, trans):
 
 	# based_on_cols, based_on_select, based_on_group_by, addl_tables
 	if based_on == "Item":
-		based_on_details["based_on_cols"] = ["Item:Link/Item:120", "Item Name:Data:120"]
-		based_on_details["based_on_select"] = "t2.item_code, t2.item_name,"
+		based_on_details["based_on_cols"] = ["Item:Link/Item:120", "Item Name:Data:120", "Qty:Float:80"]
+		based_on_details["based_on_select"] = "t2.item_code, t2.item_name, t2.qty,	"
 		based_on_details["based_on_group_by"] = 't2.item_code'
 		based_on_details["addl_tables"] = ''
 
