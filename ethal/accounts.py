@@ -47,7 +47,7 @@ def before_insert_sales_invoice(doc, method):
     naming_series = doc.naming_series.split('.')
     fs_number = frappe.db.get_all('FS Number Period', {'series': doc.naming_series, 'company': doc.company, 'status': 'Active', 'docstatus': 1}, ['start_date', 'end_date', 'name'], limit=1, order_by='name desc')
     if fs_number:
-        if fs_number[0]['end_date'] == None
+        if fs_number[0]['end_date'] == None:
             if datetime.strptime(doc.posting_date, '%Y-%m-%d').date() >= fs_number[0]['start_date']:
                 sales_invoice = frappe.db.get_value('Sales Invoice', {'posting_date': ['>=', fs_number[0]['start_date']], 'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['name'])
                 posting_date = frappe.db.get_value('Sales Invoice', {'posting_date': ['>=', fs_number[0]['start_date']], 'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['posting_date'])
