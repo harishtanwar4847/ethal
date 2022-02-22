@@ -7,7 +7,7 @@
 - [set amount in words using frappe.utils.money_in_words | set checked details none on duplicate case](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/281)
 - [get last one year data to set average price | set average price readonly](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/283)
 - [create one doctype for validate fs number uniqueness](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/284)
-- [Show employee name in warning letter listview | add party, party type and party name field in gate pass](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/287)
+- [Show employee name in warning letter listview | add party, party type and party name field in gate pass | import warning letter print format using patches](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/287)
 
 ## [v1.8.0] - 2021-12-02
 
