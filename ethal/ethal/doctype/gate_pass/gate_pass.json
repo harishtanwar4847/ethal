@@ -10,6 +10,9 @@
   "gate_pass_type",
   "vat_invoice_no",
   "vat_invoice_date",
+  "party_type",
+  "party",
+  "party_name",
   "column_break_4",
   "posting_date",
   "material_sent_to",
@@ -68,9 +71,9 @@
   },
   {
    "fieldname": "material_sent_to",
-   "fieldtype": "Link",
+   "fieldtype": "Select",
    "label": "Material Sent To",
-   "options": "Customer"
+   "options": "\nHead Office\nUtensils Division"
   },
   {
    "fieldname": "vehicle_plate_no",
@@ -165,12 +168,29 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Approver Person"
+  },
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Link",
+   "label": "Party Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Dynamic Link",
+   "label": "Party",
+   "options": "party_type"
+  },
+  {
+   "fieldname": "party_name",
+   "fieldtype": "Data",
+   "label": "Party Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-09-18 09:46:27.688760",
+ "modified": "2022-02-22 11:04:52.581615",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Gate Pass",
