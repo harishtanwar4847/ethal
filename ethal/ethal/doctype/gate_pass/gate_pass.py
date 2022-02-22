@@ -10,6 +10,11 @@ class GatePass(Document):
 		self.approver_date = self.modified
 
 @frappe.whitelist()
+def get_party_details(party, party_type):
+	_party_name = "title" if party_type in ("Student", "Shareholder") else party_type.lower() + "_name"
+	return frappe.db.get_value(party_type, party, _party_name)
+
+@frappe.whitelist()
 def get_delivery_note_items(name):
 	delivery_note_item = frappe.get_all('Delivery Note Item', filters={'parent': name}, fields=['*'])
 	for i in delivery_note_item:
