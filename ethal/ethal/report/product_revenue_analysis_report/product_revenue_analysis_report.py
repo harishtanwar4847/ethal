@@ -139,12 +139,12 @@ def get_data(filters, conditions):
 				(query_details, conditions["trans"], conditions["trans"], conditions["addl_tables"],
 					"%s", posting_date, "%s", "%s", cond, conditions.get("addl_tables_relational_cond", ""), conditions["group_by"]),
 				(filters.get("company"), year_start_date, year_end_date), as_list=1, debug=1)
-	print(data)
 	data1 = []
 	str = 'Total'
 	total = 	"\033[1m" + str + "\033[0m"
 	list_total = ['Total', '']		
 	if filters.get("period") == 'Yearly':
+		print('in yearly')
 		year = 0
 		qty = 0
 		
@@ -531,9 +531,11 @@ def get_data(filters, conditions):
 			j[41] = '{:.2f}%'.format((j[39]/oct)*100) if j[39] != 0 else 0
 			j[45] = '{:.2f}%'.format((j[43]/nov)*100) if j[43] != 0 else 0
 			j[49] = '{:.2f}%'.format((j[47]/dec)*100) if j[47] != 0 else 0
+	print('===============')
 	data.append(list_total)
 	print('==============')
 	print(data1) 
+	print(data)
 	return data
 
 def get_mon(dt):
