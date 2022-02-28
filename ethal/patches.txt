@@ -7,3 +7,4 @@ ethal.patches.import_workflow #2021-10-08
 ethal.patches.update_workflow #2022-02-17 @
 ethal.patches.import_shift_type #2021-11-24
 ethal.patches.import_warning_letter_print_format
+ethal.patches.update_warning_letter_print_format
