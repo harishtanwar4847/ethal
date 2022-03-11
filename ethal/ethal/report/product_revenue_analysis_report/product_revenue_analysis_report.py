@@ -1,20 +1,15 @@
-# Copyright (c) 2013, Atrina Technologies Pvt. Ltd. and contributors
-# For license information, please see license.txt
+# Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
+# License: GNU General Public License v3. See license.txt
 
 from __future__ import unicode_literals
 import frappe
-from frappe.utils import getdate
 from frappe import _
-
-class Percent(int):
-    def __str__(self):
-        return '{:.2%}'.format(self)
+from frappe.utils import getdate
 
 def execute(filters=None):
 	if not filters: filters ={}
 	data = []
 	conditions = get_columns(filters, "Sales Invoice")
-
 	data = get_data(filters, conditions)
 	return conditions["columns"], data
 
@@ -54,7 +49,6 @@ def get_data(filters, conditions):
 	data = []
 	inc, cond= '',''
 	query_details =  conditions["based_on_select"] + conditions["period_wise_select"]
-
 	posting_date = 't1.transaction_date'
 	if conditions.get('trans') in ['Sales Invoice', 'Purchase Invoice', 'Purchase Receipt', 'Delivery Note']:
 		posting_date = 't1.posting_date'
@@ -139,18 +133,19 @@ def get_data(filters, conditions):
 				(query_details, conditions["trans"], conditions["trans"], conditions["addl_tables"],
 					"%s", posting_date, "%s", "%s", cond, conditions.get("addl_tables_relational_cond", ""), conditions["group_by"]),
 				(filters.get("company"), year_start_date, year_end_date), as_list=1, debug=1)
-	data1 = []
+
 	str = 'Total'
 	total = 	"\033[1m" + str + "\033[0m"
 	list_total = ['Total', '']		
 	if filters.get("period") == 'Yearly':
-		print('in yearly')
 		year = 0
 		qty = 0
-		
+		qty_kg = 0
+		for k in data:
+			qty_kg += k[2] if k[2] != None else 0
+		list_total.append(qty_kg)
 		for k in data:
 			qty += k[3] if k[3] != None else 0
-			k[4] = k[4]/k[3] if k[3] != 0 else 0
 		list_total.append(qty)
 		amt = 0
 		for k in data:
@@ -172,370 +167,387 @@ def get_data(filters, conditions):
 		for i in data:
 			year += i[4]	
 		for j in data:
-			j[6] = '{:.2f}%'.format((j[4]/year)*100) if j[4] != 0 else 0
-		for l in data:
-			l = l[:-2]
-			data.append(l)
+			j[6] = '{:.2f}%'.format((j[4]/year)*100)
 	elif filters.get("period") == 'Half-Yearly':
 		jan_jun, jul_dec = 0, 0
-		qty = 0
+		jan_jun_qty = 0
 		for k in data:	
-			k[3] = k[3] if k[3] != None else 0
-			k[2] = k[2] if k[2] != None else 0
-			k[4] = k[3]/k[2] if k[2] != 0 else 0
-			qty += k[2] if k[2] != None else 0
-		list_total.append(qty)
+			jan_jun_qty += k[2] if k[2] != None else 0
+		list_total.append(jan_jun_qty)
+		jan_jun_qty_kg = 0
+		for k in data:	
+			jan_jun_qty_kg += k[3] if k[3] != None else 0
+		list_total.append(jan_jun_qty_kg)
 		amt = 0
 		for k in data:
-			k[7] = k[7] if k[7] != None else 0
-			k[6] = k[6] if k[6] != None else 0
-			k[8] = k[7]/k[6] if k[6] != 0 else 0
-			amt += k[3] if k[3] != None else 0
+			amt += k[4] if k[4] != None else 0
 		list_total.append(amt)
 		rate = 0
 		for k in data:
-			rate += k[4] if k[4] != None else 0
+			rate += k[5] if k[5] != None else 0
 		list_total.append(rate)
 		list_total.append('100')
-		total_qty = 0
+		jul_dec_qty = 0
 		for k in data:
-			total_qty += k[6] if k[6] != None else 0
-		list_total.append(total_qty)
+			jul_dec_qty += k[7] if k[7] != None else 0
+		list_total.append(jul_dec_qty)
+		jul_dec_kg = 0
+		for k in data:
+			jul_dec_kg += k[8] if k[8] != None else 0
+		list_total.append(jul_dec_kg)
 		total_amt = 0
 		for k in data:
-			total_amt += k[7] if k[7] != None else 0
+			total_amt += k[9] if k[9] != None else 0
 		list_total.append(total_amt)
 		total_rate = 0
 		for k in data:
-			total_rate += k[8] if k[8] != None else 0
+			total_rate += k[10] if k[10] != None else 0
 		list_total.append(total_rate)
 		list_total.append('100')
+		total_qty = 0
 		for k in data:
-			qty += k[9] if k[9] != None else 0
-		list_total.append(qty)
+			total_qty += k[12] if k[12] != None else 0
+		list_total.append(total_qty)
 		amt = 0
 		for k in data:
-			amt += k[10] if k[10] != None else 0
+			amt += k[13] if k[13] != None else 0
 		list_total.append(amt)
 		for i in data:
-			jan_jun += i[3]	if i[3] != None else 0
-			jul_dec += i[7]	if i[7] != None else 0	
+			jan_jun += i[4]	if i[4] != None else 0
+			jul_dec += i[9]	if i[9] != None else 0	
 		for j in data:
-			j[5] = '{:.2f}%'.format((j[3]/jan_jun)*100) if j[3] != 0 else 0
-			j[9] = '{:.2f}%'.format((j[7]/jul_dec)*100) if j[7] != 0 else 0 		
+			j[6] = '{:.2f}%'.format((j[4]/jan_jun)*100) if j[4] != 0 else 0
+			j[11] = '{:.2f}%'.format((j[9]/jul_dec)*100) if j[9] != None else 0 		
 	elif filters.get("period") == 'Quarterly':
 		jan_mar, apr_jun, jul_sep, oct_dec = 0, 0, 0, 0
-		qty = 0
+		jan_mar_qty = 0
 		for k in data:	
-			k[3] = k[3] if k[3] != None else 0
-			k[2] = k[2] if k[2] != None else 0
-			k[4] = k[3]/k[2] if k[2] != 0 else 0
-			qty += k[2] if k[2] != None else 0
-		list_total.append(qty)
+			jan_mar_qty += k[2] if k[2] != None else 0
+		list_total.append(jan_mar_qty)
+		jan_mar_qty_kg = 0
+		for k in data:	
+			jan_mar_qty_kg += k[3] if k[3] != None else 0
+		list_total.append(jan_mar_qty_kg)
 		amt = 0
 		for k in data:
-			amt += k[3] if k[3] != None else 0
-			k[7] = k[7] if k[7] != None else 0
-			k[6] = k[6] if k[6] != None else 0
-			k[8] = k[7]/k[6] if k[6] != 0 else 0
+			amt += k[4] if k[4] != None else 0
 		list_total.append(amt)
 		total_rate = 0
 		for k in data:
-			k[10] = k[10] if k[10] != None else 0
-			k[11] = k[11] if k[11] != None else 0
-			k[12] = k[11]/k[10] if k[10] != 0 else 0
-			total_rate += k[4] if k[4] != None else 0
+			total_rate += k[5] if k[5] != None else 0
 		list_total.append(total_rate)
 		list_total.append('100')
-		total_qty = 0
+		apr_jun_qty = 0
 		for k in data:
-			total_qty += k[6] if k[6] != None else 0
-		list_total.append(total_qty)
+			apr_jun_qty += k[7] if k[7] != None else 0
+		list_total.append(apr_jun_qty)
+		apr_jun_qty_kg = 0
+		for k in data:
+			apr_jun_qty_kg += k[8] if k[8] != None else 0
+		list_total.append(apr_jun_qty_kg)
 		total_amt = 0
 		for k in data:
-			total_amt += k[7] if k[7] != None else 0
+			total_amt += k[9] if k[9] != None else 0
 		list_total.append(total_amt)
 		total_amt = 0
 		for k in data:
-			total_amt += k[8] if k[8] != None else 0
+			total_amt += k[10] if k[10] != None else 0
 		list_total.append(total_amt)
 		list_total.append('100')
+		jul_sep_qty = 0
 		for k in data:
-			k[15] = k[15] if k[15] != None else 0
-			k[14] = k[14] if k[14] != None else 0
-			k[16] = k[15]/k[14] if k[14] != 0 else 0
-			qty += k[10] if k[10] != None else 0
-		list_total.append(qty)
-		qty = 0
+			jul_sep_qty += k[12] if k[12] != None else 0
+		list_total.append(jul_sep_qty)
+		jul_sep_qty_kg = 0
 		for k in data:	
-			qty += k[11] if k[11] != None else 0
-		list_total.append(qty)
-		total_amt = 0
-		for k in data:
-			total_amt += k[12] if k[12] != None else 0
-		list_total.append(total_amt)
-		list_total.append('100')
-		amt = 0
-		for k in data:
-			amt += k[14] if k[14] != None else 0
-		list_total.append(amt)
-		total_qty = 0
-		for k in data:
-			total_qty += k[15] if k[15] != None else 0
-		list_total.append(total_qty)
-		total_amt = 0
-		for k in data:
-			total_amt += k[16] if k[16] != None else 0
-		list_total.append(total_amt)
-		list_total.append('100')
+			jul_sep_qty_kg += k[13] if k[13] != None else 0
+		list_total.append(jul_sep_qty_kg)
+		qty_kg = 0
+		for k in data:	
+			qty_kg += k[14] if k[14] != None else 0
+		list_total.append(qty_kg)
 		total_amt = 0
 		for k in data:
 			total_amt += k[15] if k[15] != None else 0
 		list_total.append(total_amt)
-		for k in data:
-			qty += k[16] if k[16] != None else 0
-		list_total.append(qty)
 		list_total.append('100')
+		oct_dec_qty = 0
+		for k in data:
+			oct_dec_qty += k[17] if k[17] != None else 0
+		list_total.append(oct_dec_qty)
+		oct_dec_qty_kg = 0
+		for k in data:
+			oct_dec_qty_kg += k[18] if k[18] != None else 0
+		list_total.append(oct_dec_qty_kg)
+		amt = 0
+		for k in data:
+			amt += k[19] if k[19] != None else 0
+		list_total.append(amt)
+		rate = 0
+		for k in data:
+			rate += k[20] if k[20] != None else 0
+		list_total.append(rate)
+		list_total.append('100')
+		total_qty = 0
+		for k in data:
+			total_qty += k[22] if k[22] != None else 0
+		list_total.append(total_qty)
+		total_amt = 0
+		for k in data:
+			total_amt += k[23] if k[23] != None else 0
+		list_total.append(total_amt)
 		for i in data:
-			jan_mar += i[3] if i[3] != None else 0
-			apr_jun += i[7] if i[7] != None else 0
-			jul_sep += i[11] if i[11] != None else 0 		
-			oct_dec += i[15] if i[15] != None else 0
+			jan_mar += i[4] if i[4] != None else 0
+			apr_jun += i[9] if i[9] != None else 0
+			jul_sep += i[14] if i[14] != None else 0 		
+			oct_dec += i[19] if i[19] != None else 0
 		for j in data:
-			j[5] =  '{:.2f}%'.format((j[3]/jan_mar)*100) if j[3] != 0 else 0
-			j[9] =  '{:.2f}%'.format((j[7]/apr_jun)*100)  if j[7] != 0 else 0
-			j[13] =  '{:.2f}%'.format((j[11]/jul_sep)*100) if j[11] != 0 else 0
-			j[17] =  '{:.2f}%'.format((j[15]/oct_dec)*100) if j[15] != 0 else 0	
+			j[6] =  '{:.2f}%'.format((j[4]/jan_mar)*100) if j[4] != None else 0
+			j[11] =  '{:.2f}%'.format((j[9]/apr_jun)*100)  if j[9] != None else 0
+			j[16] =  '{:.2f}%'.format((j[14]/jul_sep)*100) if j[14] != None else 0
+			j[21] =  '{:.2f}%'.format((j[19]/oct_dec)*100) if j[19] != None else 0	
 	elif filters.get("period") == 'Monthly':		
-		jan , feb , mar, apr, may, jun, july, aug, sep, oct, nov, dec = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0
-		qty = 0
+		jan , feb , mar, apr, may, jun, july, aug, sep, oct, nov, dec = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		jan_qty = 0
 		for k in data:	
-			qty += k[2] if k[2] != None else 0
-			k[3] = k[3] if k[3] != None else 0
-			k[2] = k[2] if k[2] != None else 0
-			k[4] = k[3]/k[2] if k[2] != 0 else 0
-		list_total.append(qty)
+			jan_qty += k[2] if k[2] != None else 0
+		list_total.append(jan_qty)
+		jan_qty_kg = 0
+		for k in data:	
+			jan_qty_kg += k[3] if k[3] != None else 0
+		list_total.append(jan_qty_kg)
 		amt = 0
 		for k in data:
-			amt += k[3] if k[3] != None else 0
-			k[10] = k[10] if k[10] != None else 0
-			k[11] = k[11] if k[11] != None else 0
-			k[12] = k[11]/k[10] if k[10] != 0 else 0
+			amt += k[4] if k[4] != None else 0
 		list_total.append(amt)
-		total_rate = 0
+		rate = 0
 		for k in data:
-			k[6] = k[6] if k[6] != None else 0
-			k[7] = k[7] if k[7] != None else 0
-			k[8] = k[7]/k[6] if k[6] != 0 else 0
-			total_rate += k[4] if k[4] != None else 0
-		list_total.append(total_rate)
+			rate += k[5] if k[5] != None else 0
+		list_total.append(rate)
 		list_total.append('100')
-		total_qty = 0
+		feb_qty = 0
 		for k in data:
-			total_qty += k[6] if k[6] != None else 0
-		list_total.append(total_qty)
-		total_amt = 0
+			feb_qty += k[7] if k[7] != None else 0
+		list_total.append(feb_qty)
+		feb_qty_kg = 0
 		for k in data:
-			total_amt += k[7] if k[7] != None else 0
-		list_total.append(total_amt)
-		total_amt = 0
-		for k in data:
-			total_amt += k[8] if k[8] != None else 0
-		list_total.append(total_amt)
-		list_total.append('100')
-		for k in data:
-			qty += k[10] if k[10] != None else 0
-		list_total.append(qty)
-		qty = 0
-		for k in data:	
-			qty += k[11] if k[11] != None else 0
-			k[14] = k[14] if k[14] != None else 0
-			k[15] = k[15] if k[15] != None else 0
-			k[16] = k[15]/k[14] if k[14] != 0 else 0
-		list_total.append(qty)
-		total_amt = 0
-		for k in data:
-			total_amt += k[12] if k[12] != None else 0
-		list_total.append(total_amt)
-		list_total.append('100')
+			feb_qty_kg += k[8] if k[8] != None else 0
+		list_total.append(feb_qty_kg)
 		amt = 0
 		for k in data:
+			amt += k[9] if k[9] != None else 0
+		list_total.append(amt)
+		rate = 0
+		for k in data:
+			rate += k[10] if k[10] != None else 0
+		list_total.append(rate)
+		list_total.append('100')
+		mar_qty = 0
+		for k in data:
+			mar_qty += k[12] if k[12] != None else 0
+		list_total.append(mar_qty)
+		mar_qty_kg = 0
+		for k in data:
+			mar_qty_kg += k[13] if k[13] != None else 0
+		list_total.append(mar_qty_kg)
+		amt = 0
+		for k in data:	
 			amt += k[14] if k[14] != None else 0
-			k[18] = k[18] if k[18] != None else 0
-			k[19] = k[19] if k[19] != None else 0
-			k[20] = k[19]/k[18] if k[18] != 0 else 0
 		list_total.append(amt)
-		total_qty = 0
+		rate = 0
 		for k in data:
-			total_qty += k[15] if k[15] != None else 0
-		list_total.append(total_qty)
-		total_amt = 0
-		for k in data:
-			total_amt += k[16] if k[16] != None else 0
-		list_total.append(total_amt)
+			rate += k[15] if k[15] != None else 0
+		list_total.append(rate)
 		list_total.append('100')
-		total_amt = 0
+		apr_qty = 0
 		for k in data:
-			total_amt += k[18] if k[18] != None else 0
-			k[22] = k[22] if k[22] != None else 0
-			k[23] = k[23] if k[23] != None else 0
-			k[24] = k[23]/k[22] if k[22] != 0 else 0
-		list_total.append(total_amt)
+			apr_qty += k[17] if k[17] != None else 0
+		list_total.append(apr_qty)
+		apr_qty_kg = 0
 		for k in data:
-			qty += k[19] if k[19] != None else 0
-		list_total.append(qty)
-		total_amt = 0
-		for k in data:
-			total_amt += k[20] if k[20] != None else 0
-		list_total.append(total_amt)
-		list_total.append('100')
-		qty = 0
-		for k in data:	
-			qty += k[22] if k[22] != None else 0
-		list_total.append(qty)
+			apr_qty_kg += k[18] if k[18] != None else 0
+		list_total.append(apr_qty_kg)
 		amt = 0
 		for k in data:
-			amt += k[23] if k[23] != None else 0
-			k[26] = k[26] if k[26] != None else 0
-			k[27] = k[27] if k[27] != None else 0
-			k[28] = k[27]/k[26] if k[26] != 0 else 0
+			amt += k[19] if k[19] != None else 0
 		list_total.append(amt)
-		total_amt = 0
+		rate = 0
 		for k in data:
-			total_amt += k[24] if k[24] != None else 0
-		list_total.append(total_amt)
+			rate += k[20] if k[20] != None else 0
+		list_total.append(rate)
 		list_total.append('100')
-		total_qty = 0
+		may_qty = 0
 		for k in data:
-			total_qty += k[26] if k[26] != None else 0
-		list_total.append(total_qty)
-		total_amt = 0
+			may_qty += k[22] if k[22] != None else 0
+		list_total.append(may_qty)
+		may_qty_kg = 0
 		for k in data:
-			total_amt += k[27] if k[27] != None else 0
-			k[30] = k[30] if k[30] != None else 0
-			k[31] = k[31] if k[31] != None else 0
-			k[32] = k[31]/k[30] if k[30] != 0 else 0
-		list_total.append(total_amt)
-		total_amt = 0
+			may_qty_kg += k[23] if k[23] != None else 0
+		list_total.append(may_qty_kg)
+		amt = 0
 		for k in data:
-			total_amt += k[28] if k[28] != None else 0
-		list_total.append(total_amt)
+			amt += k[24] if k[24] != None else 0
+		list_total.append(amt)
+		rate = 0
+		for k in data:
+			rate += k[25] if k[25] != None else 0
+		list_total.append(rate)
 		list_total.append('100')
+		jun_qty = 0
 		for k in data:
-			qty += k[30] if k[30] != None else 0
-			k[34] = k[34] if k[34] != None else 0
-			k[35] = k[35] if k[35] != None else 0
-			k[36] = k[35]/k[34] if k[34] != 0 else 0
-		list_total.append(qty)
-		qty = 0
-		for k in data:	
-			qty += k[31] if k[31] != None else 0
-		list_total.append(qty)
-		total_amt = 0
+			jun_qty += k[27] if k[27] != None else 0
+		list_total.append(jun_qty)
+		jun_qty_kg = 0
 		for k in data:
-			total_amt += k[32] if k[32] != None else 0
-		list_total.append(total_amt)
+			jun_qty_kg += k[28] if k[28] != None else 0
+		list_total.append(jun_qty_kg)
+		amt = 0
+		for k in data:
+			amt += k[29] if k[29] != None else 0
+		list_total.append(amt)
+		rate = 0
+		for k in data:
+			rate += k[30] if k[30] != None else 0
+		list_total.append(rate)
 		list_total.append('100')
+		jul_qty = 0
+		for k in data:
+			jul_qty += k[32] if k[32] != None else 0
+		list_total.append(jul_qty)
+		jul_qty_kg = 0
+		for k in data:
+			jul_qty_kg += k[33] if k[33] != None else 0
+		list_total.append(jul_qty_kg)
 		amt = 0
 		for k in data:
 			amt += k[34] if k[34] != None else 0
 		list_total.append(amt)
-		total_qty = 0
+		rate = 0
 		for k in data:
-			total_qty += k[35] if k[35] != None else 0
-		list_total.append(total_qty)
-		total_amt = 0
-		for k in data:
-			total_amt += k[36] if k[36] != None else 0
-			k[38] = k[38] if k[38] != None else 0
-			k[39] = k[39] if k[39] != None else 0
-			k[40] = k[39]/k[38] if k[38] != 0 else 0
-		list_total.append(total_amt)
+			rate += k[35] if k[35] != None else 0
+		list_total.append(rate)
 		list_total.append('100')
-		total_amt = 0
+		aug_qty = 0
 		for k in data:
-			total_amt += k[38] if k[38] != None else 0
-		list_total.append(total_amt)
-		qty = 0
+			aug_qty += k[37] if k[37] != None else 0
+		list_total.append(aug_qty)
+		aug_qty_kg = 0
 		for k in data:
-			qty += k[39] if k[39] != None else 0
-			k[42] = k[42] if k[42] != None else 0
-			k[43] = k[43] if k[43] != None else 0
-			k[44] = k[43]/k[42] if k[42] != 0 else 0
-		list_total.append(qty)
-		total_amt = 0
-		for k in data:
-			total_amt += k[40] if k[40] != None else 0
-		list_total.append(total_amt)
-		list_total.append('100')
-		for k in data:
-			total_amt += k[42] if k[42] != None else 0
-		list_total.append(total_amt)
-		for k in data:
-			qty += k[43] if k[43] != None else 0
-			k[46] = k[46] if k[46] != None else 0
-			k[47] = k[47] if k[47] != None else 0
-			k[48] = k[47]/k[46] if k[46] != 0 else 0
-		list_total.append(qty)
-		total_amt = 0
-		for k in data:
-			total_amt += k[44] if k[44] != None else 0
-		list_total.append(total_amt)
-		list_total.append('100')
-		qty = 0
-		for k in data:	
-			qty += k[46] if k[46] != None else 0
-		list_total.append(qty)
+			aug_qty_kg += k[38] if k[38] != None else 0
+		list_total.append(aug_qty_kg)
 		amt = 0
 		for k in data:
-			amt += k[47] if k[47] != None else 0
+			amt += k[39] if k[39] != None else 0
 		list_total.append(amt)
-		total_amt = 0
+		rate = 0
 		for k in data:
-			total_amt += k[48] if k[48] != None else 0
-		list_total.append(total_amt)
+			rate += k[40] if k[40] != None else 0
+		list_total.append(rate)	
+		list_total.append('100')
+		sep_qty = 0
+		for k in data:
+			sep_qty += k[42] if k[42] != None else 0
+		list_total.append(sep_qty)
+		sep_qty_kg = 0
+		for k in data:
+			sep_qty_kg += k[43] if k[43] != None else 0
+		list_total.append(sep_qty_kg)
+		amt = 0
+		for k in data:
+			amt += k[44] if k[44] != None else 0
+		list_total.append(amt)
+		rate = 0
+		for k in data:
+			rate += k[45] if k[45] != None else 0
+		list_total.append(rate)	
+		list_total.append('100')
+		oct_qty = 0
+		for k in data:
+			oct_qty += k[47] if k[47] != None else 0
+		list_total.append(oct_qty)
+		oct_qty_kg = 0
+		for k in data:
+			oct_qty_kg += k[48] if k[48] != None else 0
+		list_total.append(oct_qty_kg)
+		amt = 0
+		for k in data:
+			amt += k[49] if k[49] != None else 0
+		list_total.append(amt)
+		rate = 0
+		for k in data:
+			rate += k[50] if k[50] != None else 0
+		list_total.append(rate)	
+		list_total.append('100')
+		nov_qty = 0
+		for k in data:
+			nov_qty += k[52] if k[52] != None else 0
+		list_total.append(nov_qty)
+		nov_qty_kg = 0
+		for k in data:
+			nov_qty_kg += k[53] if k[53] != None else 0
+		list_total.append(nov_qty_kg)
+		amt = 0
+		for k in data:
+			amt += k[54] if k[54] != None else 0
+		list_total.append(amt)
+		rate = 0
+		for k in data:
+			rate += k[55] if k[55] != None else 0
+		list_total.append(rate)	
+		list_total.append('100')
+		dec_qty = 0
+		for k in data:
+			dec_qty += k[57] if k[57] != None else 0
+		list_total.append(dec_qty)
+		dec_qty_kg = 0
+		for k in data:
+			dec_qty_kg += k[58] if k[58] != None else 0
+		list_total.append(dec_qty_kg)
+		amt = 0
+		for k in data:
+			amt += k[59] if k[59] != None else 0
+		list_total.append(amt)
+		rate = 0
+		for k in data:
+			rate += k[60] if k[60] != None else 0
+		list_total.append(rate)	
 		list_total.append('100')
 		total_qty = 0
 		for k in data:
-			total_qty += k[50] if k[50] != None else 0
+			total_qty += k[62] if k[62] != None else 0
 		list_total.append(total_qty)
 		total_amt = 0
 		for k in data:
-			total_amt += k[51] if k[51] != None else 0
+			total_amt += k[63] if k[63] != None else 0
 		list_total.append(total_amt)
 		for i in data:
-			jan += i[3] if i[3] != None else 0
-			feb += i[7] if i[7] != None else 0
-			mar += i[11] if i[11] != None else 0
-			apr += i[15] if i[15] != None else 0
-			may += i[19] if i[19] != None else 0
-			jun += i[23] if i[23] != None else 0
-			july += i[27] if i[27] != None else 0
-			aug += i[31] if i[31] != None else 0
-			sep += i[35] if i[35] != None else 0
-			oct += i[39] if i[39] != None else 0
-			nov += i[43] if i[43] != None else 0
-			dec += i[47] if i[47] != None else 0
+			jan += i[4] if i[4] != None else 0
+			feb += i[9] if i[9] != None else 0
+			mar += i[14] if i[14] != None else 0
+			apr += i[19] if i[19] != None else 0
+			may += i[24] if i[24] != None else 0
+			jun += i[29] if i[29] != None else 0
+			july += i[34] if i[34] != None else 0
+			aug += i[39] if i[39] != None else 0
+			sep += i[44] if i[44] != None else 0
+			oct += i[49] if i[49] != None else 0
+			nov += i[54] if i[54] != None else 0
+			dec += i[59] if i[59] != None else 0
 		for j in data:
-			print(j[3])
-			print(jan)
-			j[5] = '{:.2f}%'.format((j[3]/jan)*100) if j[3] != 0 else 0
-			j[9] = '{:.2f}%'.format((j[7]/feb)*100) if j[7] != 0 else 0
-			j[13] = '{:.2f}%'.format((j[11]/mar)*100) if j[11] != 0 else 0
-			j[17] = '{:.2f}%'.format((j[15]/apr)*100) if j[15] != 0 else 0
-			j[21] = '{:.2f}%'.format((j[19]/may)*100) if j[19] != 0 else 0
-			j[25] = '{:.2f}%'.format((j[23]/jun)*100) if j[23] != 0 else 0
-			j[29] = '{:.2f}%'.format((j[27]/july)*100) if j[27] != 0 else 0
-			j[33] = '{:.2f}%'.format((j[31]/aug)*100) if j[31] != 0 else 0
-			j[37] = '{:.2f}%'.format((j[35]/sep)*100) if j[35] != 0 else 0
-			j[41] = '{:.2f}%'.format((j[39]/oct)*100) if j[39] != 0 else 0
-			j[45] = '{:.2f}%'.format((j[43]/nov)*100) if j[43] != 0 else 0
-			j[49] = '{:.2f}%'.format((j[47]/dec)*100) if j[47] != 0 else 0
-	print('===============')
+			j[6] = '{:.2f}%'.format((j[4]/jan)*100) if j[4] != None else 0
+			j[11] = '{:.2f}%'.format((j[9]/feb)*100) if j[9] != None else 0
+			j[16] = '{:.2f}%'.format((j[14]/mar)*100) if j[14] != None else 0
+			j[21] = '{:.2f}%'.format((j[19]/apr)*100) if j[19] != None else 0
+			j[26] = '{:.2f}%'.format((j[24]/may)*100) if j[24] != None else 0
+			j[31] = '{:.2f}%'.format((j[29]/jun)*100) if j[29] != None else 0
+			j[36] = '{:.2f}%'.format((j[34]/july)*100) if j[34] != None else 0
+			j[41] = '{:.2f}%'.format((j[39]/aug)*100) if j[39] != None else 0
+			j[46] = '{:.2f}%'.format((j[44]/sep)*100) if j[44] != None else 0
+			j[51] = '{:.2f}%'.format((j[49]/oct)*100) if j[49] != None else 0
+			j[56] = '{:.2f}%'.format((j[54]/nov)*100) if j[54] != None else 0
+			j[61] = '{:.2f}%'.format((j[59]/dec)*100) if j[59] != None else 0
+
 	data.append(list_total)
-	print('==============')
-	print(data1) 
-	print(data)
 	return data
 
 def get_mon(dt):
@@ -558,37 +570,37 @@ def period_wise_columns_query(filters, trans):
 			get_period_wise_columns(dt, filters.get("period"), pwc)
 			query_details = get_period_wise_query(dt, trans_date, query_details)
 	else:
-		pwc = [
-			_(filters.get("fiscal_year")) + " ("+ _("Qty in KG") + "):Currency:120",
+		pwc = [_(filters.get("fiscal_year")) + " ("+_("Qty") + "):Float:120",
+			_(filters.get("fiscal_year")) + " ("+_("Qty in KG") + "):Float:150",
 			_(filters.get("fiscal_year")) + " ("+ _("Amt") + "):Currency:120",
-			_(filters.get("fiscal_year")) + " ("+_("Rate per KG") + "):Float:120",
-			_(filters.get("fiscal_year")) + " ("+ _("Percentage") + "):Percent:120",]
-		query_details = " SUM(t2.total_net_weight), SUM(t2.amount), NULL, NULL,"
-		print(query_details)
-	query_details += 'SUM(t2.total_net_weight), SUM(t2.amount), NULL, NULL'
-	print(query_details)
+			_(filters.get("fiscal_year")) + " ("+ _("Rate per KG") + "):Float:180",
+			_(filters.get("fiscal_year")) + " ("+ _("Percentage") + "):Percent:180",]
+		query_details = " SUM(t2.stock_qty), SUM(t2.total_net_weight), SUM(t2.base_net_amount), SUM(t2.base_net_amount) / SUM(t2.stock_qty), Null,"
+		
+	query_details += 'SUM(t2.stock_qty), SUM(t2.base_net_amount)'
+	
 	return pwc, query_details
 
 def get_period_wise_columns(bet_dates, period, pwc):
 	if period == 'Monthly':
-		pwc += [
-			_(get_mon(bet_dates[0])) + " (" + _("Qty in KG") + "):Float:120",
+		pwc += [_(get_mon(bet_dates[0])) + " (" + _("Qty") + "):Float:120",
+			_(get_mon(bet_dates[0])) + " (" + _("Qty in KG") + "):Float:150",
 			_(get_mon(bet_dates[0])) + " (" + _("Amt") + "):Currency:120",
-			_(get_mon(bet_dates[0])) + " (" + _("Rate per KG") + "):Float:120",
-			_(get_mon(bet_dates[0])) + " (" + _("Percentage") + "):Percent:120"]
+			_(get_mon(bet_dates[0])) + " (" + _("Rate per KG") + "):Float:180",
+			_(get_mon(bet_dates[0])) + " (" + _("Percentage") + "):Percent:180"]
 	else:
-		pwc += [
-			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Qty in KG") + "):Float:120",
+		pwc += [_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Qty") + "):Float:120",
+			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Qty in KG") + "):Float:150",
 			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Amt") + "):Currency:120",
-			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Rate per KG") + "):Float:120",
-			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Percentage") + "):Percent:120"]
+			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Rate per KG") + "):Float:180",
+			_(get_mon(bet_dates[0])) + "-" + _(get_mon(bet_dates[1])) + " (" + _("Percentage") + "):Percent:180"]
 
 def get_period_wise_query(bet_dates, trans_date, query_details):
-	print('in ======')
-	query_details += """SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.total_net_weight, NULL)),
-					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.amount, NULL)),
-					NULL,
-					NULL,
+	query_details += """SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.stock_qty, NULL)),
+					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.total_net_weight, NULL)),
+					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.base_net_amount, NULL)),
+					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.base_net_amount/t2.stock_qty, NULL)), 
+					Null,
 				""" % {"trans_date": trans_date, "sd": bet_dates[0],"ed": bet_dates[1]}
 	return query_details
 
@@ -637,8 +649,8 @@ def based_wise_columns_query(based_on, trans):
 
 	# based_on_cols, based_on_select, based_on_group_by, addl_tables
 	if based_on == "Item":
-		based_on_details["based_on_cols"] = ["Item:Link/Item:120", "Item Name:Data:120", "Qty:Float:80"]
-		based_on_details["based_on_select"] = "t2.item_code, t2.item_name, t2.qty,	"
+		based_on_details["based_on_cols"] = ["Item:Link/Item:120", "Item Name:Data:120"]
+		based_on_details["based_on_select"] = "t2.item_code, t2.item_name,"
 		based_on_details["based_on_group_by"] = 't2.item_code'
 		based_on_details["addl_tables"] = ''
 
