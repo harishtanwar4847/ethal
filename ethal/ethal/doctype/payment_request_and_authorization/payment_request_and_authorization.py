@@ -3,12 +3,22 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-import frappe
+import frappe, erpnext
 from frappe.model.document import Document
 import json
+from frappe.utils import money_in_words
 
 class PaymentRequestandAuthorization(Document):
-	pass
+    def before_insert(self):
+        self.checked_person = ''
+        self.checked_date = ''
+
+@frappe.whitelist()
+def set_amount_in_words(doc):
+        doc = json.loads(doc)
+        company = frappe.defaults.get_user_default("Company")
+        company_currency = erpnext.get_company_currency(company)
+        return money_in_words(doc['amount'], company_currency)
 
 @frappe.whitelist()
 def set_approver_name(data):

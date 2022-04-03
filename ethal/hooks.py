@@ -284,16 +284,6 @@ fixtures = [
 		]
 	},
 	{
-		"dt": "Workflow",
-		"filters": [
-			[
-				"document_type",
-				"in",
-				["Attendance", "Employee Incentive Bulk", "Delivery Note", "Journal Entry", "Sales Order", "Sales Invoice", "Payment Entry", "Purchase Order", "Purchase Invoice", "Material Request", "Payment Request and Authorization", "Purchase Receipt"]
-			]
-		]
-	},
-	{
 		"dt": "Custom Script",
 		"filters": [
 			[

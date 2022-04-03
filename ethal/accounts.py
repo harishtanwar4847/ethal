@@ -42,13 +42,30 @@ def before_insert_payment_entry(doc, method):
             frappe.throw('Cheque/Reference no must be unique')   
 
 def before_insert_sales_invoice(doc, method):
+    if len(doc.fs_number) > 8 or len(doc.fs_number) < 8:
+        frappe.throw('FS Number should be 8 digits')
     naming_series = doc.naming_series.split('.')
-    sales_invoice = frappe.db.get_value('Sales Invoice', {'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['name'])
-    if sales_invoice == None:
-        return
-    elif sales_invoice != doc.name:    
-        frappe.throw('FS Numer must be unique')   
-
+    fs_number = frappe.db.get_all('FS Number Period', {'series': doc.naming_series, 'company': doc.company, 'status': 'Active', 'docstatus': 1}, ['start_date', 'end_date', 'name'], limit=1, order_by='name desc')
+    if fs_number:
+        if fs_number[0]['end_date'] == None:
+            if datetime.strptime(doc.posting_date, '%Y-%m-%d').date() >= fs_number[0]['start_date']:
+                sales_invoice = frappe.db.get_value('Sales Invoice', {'posting_date': ['>=', fs_number[0]['start_date']], 'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['name'])
+                posting_date = frappe.db.get_value('Sales Invoice', {'posting_date': ['>=', fs_number[0]['start_date']], 'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['posting_date'])
+                if sales_invoice == None:
+                    return
+                else:
+                    if sales_invoice != doc.name:    
+                        frappe.throw('FS Numer must be unique')
+        else:
+            if datetime.strptime(doc.posting_date, '%Y-%m-%d').date() <= fs_number[0]['end_date'] and datetime.strptime(doc.posting_date, '%Y-%m-%d').date() >= fs_number[0]['start_date']:
+                sales_invoice = frappe.db.get_value('Sales Invoice', {'posting_date': ['<=', fs_number[0]['end_date']], 'posting_date': ['>=', fs_number[0]['start_date']], 'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['name'])
+                posting_date = frappe.db.get_value('Sales Invoice', {'posting_date': ['<=', fs_number[0]['end_date']], 'posting_date': ['>=', fs_number[0]['start_date']], 'fs_number': doc.fs_number, 'naming_series': ['like', '%'+naming_series[0]+'%'], 'docstatus': ['!=', '2']}, ['posting_date'])
+                if sales_invoice == None:
+                    return
+                else:
+                    if sales_invoice != doc.name:    
+                        frappe.throw('FS Numer must be unique')
+    
 def set_average_price(doc, method):
     year = datetime.strptime(doc.transaction_date, '%Y-%m-%d').year
     for items in frappe.get_all('Purchase Order Item', filters={'parent': doc.name}, fields=['*']):
@@ -59,8 +76,8 @@ def set_average_price(doc, method):
                 on po.name = poi.parent
                 where po.docstatus = 1
                 and poi.item_code = '{}'
-                and year(po.transaction_date) = {}
+                and year(po.transaction_date) = year(DATE_SUB(CURDATE(), INTERVAL 1 YEAR)) 
                 and po.name != '{}'
-        """.format(items['item_code'], year, doc.name), debug=1)
+        """.format(items['item_code'], doc.name), debug=1)
         frappe.db.set_value('Purchase Order Item', {'parent': doc.name, 'item_code': items['item_code']}, 'average_price', average_price[0][0]) 
         frappe.db.commit()  

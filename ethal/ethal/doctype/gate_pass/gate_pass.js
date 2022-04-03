@@ -16,7 +16,7 @@ frappe.ui.form.on('Gate Pass', {
 			frappe.model.get_value('Delivery Note', {'name': frm.doc.delivery_memo_no}, ['posting_date', 'customer'],
 			function(d) {
 				frm.set_value('delivery_memo_date', d.posting_date)
-				frm.set_value('material_sent_to', d.customer)
+				// frm.set_value('material_sent_to', d.customer)
 			})
 			cur_frm.clear_table("material");
 			frappe.call({
@@ -43,6 +43,22 @@ frappe.ui.form.on('Gate Pass', {
 			function(d) {
 				console.log(d)
 				frm.set_value('vat_invoice_date', d.posting_date)
+			})
+		}
+	},
+	party: function(frm) {
+		if (frm.doc.party) {
+			return frappe.call({
+				method: "ethal.ethal.doctype.gate_pass.gate_pass.get_party_details",
+				args: {
+					party_type: frm.doc.party_type,
+					party: frm.doc.party,
+				},
+				callback: function(r, rt) {
+					if(r.message) {
+						frm.set_value("party_name", r.message)
+					}
+				}
 			})
 		}
 	}
