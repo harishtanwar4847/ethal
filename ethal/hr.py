@@ -72,8 +72,8 @@ def before_insert_salary_slip(doc, method):
         ['leave_application', 'is', 'not set']
     ])
 
-    for i in absent_attendances:
-        process_lop_leave_for_attendance(i.name)
+    # for i in absent_attendances:
+    #     process_lop_leave_for_attendance(i.name)
 
     from erpnext.hr.doctype.leave_application.leave_application import get_leave_details
     get_leave_details(doc.employee, doc.end_date)
