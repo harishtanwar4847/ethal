@@ -10,6 +10,9 @@ frappe.ui.form.on('Gate Pass', {
 				}
 			}
 		})
+		if (frm.doc.workflow_state =="Approved" && frm.doc.material_received== "Yes"){
+			frm.set_df_property("material_received","read_only",1)
+		}
 	},
 	delivery_memo_no: function(frm){
 		if (frm.doc.delivery_memo_no && frm.doc.gate_pass_type == 'Sale'){
@@ -45,6 +48,7 @@ frappe.ui.form.on('Gate Pass', {
 				frm.set_value('vat_invoice_date', d.posting_date)
 			})
 		}
+
 	},
 	party: function(frm) {
 		if (frm.doc.party) {

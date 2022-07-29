@@ -197,14 +197,13 @@
    "in_filter": 1,
    "label": "Material Received",
    "options": "Yes\nNo",
-   "read_only_depends_on": "eval:doc.material_received == \"Yes\";",
    "translatable": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-28 12:39:14.419947",
+ "modified": "2022-07-29 11:42:57.217133",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Gate Pass",
