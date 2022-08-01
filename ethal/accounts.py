@@ -67,7 +67,7 @@ def before_insert_sales_invoice(doc, method):
                         frappe.throw('FS Numer must be unique')
     
 def set_average_price(doc, method):
-    month = datetime.strptime(doc.transaction_date, '%Y-%m-%d').month
+    year = datetime.strptime(doc.transaction_date, '%Y-%m-%d').year
     for items in frappe.get_all('Purchase Order Item', filters={'parent': doc.name}, fields=['*']):
         average_price = frappe.db.sql("""
                 select coalesce(sum(poi.amount)/sum(poi.qty), 0) as average 
@@ -76,10 +76,8 @@ def set_average_price(doc, method):
                 on po.name = poi.parent
                 where po.docstatus = 1
                 and poi.item_code = '{}'
-                and month(po.transaction_date) = month(DATE_SUB(CURDATE(), INTERVAL 6 MONTH)) 
+                and year(po.transaction_date) = year(DATE_SUB(CURDATE(), INTERVAL 1 YEAR)) 
                 and po.name = '{}'
         """.format(items['item_code'], doc.name), debug=1)
-        print(month)
         frappe.db.set_value('Purchase Order Item', {'parent': doc.name, 'item_code': items['item_code']}, 'average_price', average_price[0][0]) 
-        print(average_price)
         frappe.db.commit()
