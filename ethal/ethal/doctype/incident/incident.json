@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "naming_series:",
  "creation": "2021-06-10 12:40:14.662405",
  "doctype": "DocType",
@@ -6,25 +7,29 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "date",
+  "posting_date",
   "nature",
   "details_of_incident_section",
   "date_and_time",
-  "employees_involved",
   "area_supervisor",
-  "area_supervisor_name",
+  "machine",
   "column_break_8",
   "division",
-  "machine",
+  "area_supervisor_name",
+  "section_break_11",
+  "employees_involved",
+  "column_break_13",
   "witnesses",
   "section_break_12",
   "description",
   "measures_for_prevention",
   "injury_details_section",
+  "caused_by_unsafe_act",
   "type",
-  "cause",
   "date_of_treatment_start",
   "column_break_19",
+  "caused_by_unsafe_condition",
+  "cause",
   "name_of_medical_facility",
   "name_of_doctor",
   "amended_from"
@@ -36,11 +41,6 @@
    "hidden": 1,
    "label": "Series",
    "options": "IR-.YYYY.-"
-  },
-  {
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "label": "Date"
   },
   {
    "fieldname": "nature",
@@ -60,7 +60,7 @@
   },
   {
    "fieldname": "employees_involved",
-   "fieldtype": "Table MultiSelect",
+   "fieldtype": "Table",
    "label": "Employees Involved",
    "options": "Incident Employees"
   },
@@ -87,9 +87,9 @@
   },
   {
    "fieldname": "witnesses",
-   "fieldtype": "Table MultiSelect",
+   "fieldtype": "Table",
    "label": "Witnesses",
-   "options": "Incident Witnesses"
+   "options": "Incident Employees"
   },
   {
    "fieldname": "section_break_12",
@@ -98,7 +98,7 @@
   {
    "fieldname": "description",
    "fieldtype": "Text Editor",
-   "label": "Description"
+   "label": "Description Of Event"
   },
   {
    "fieldname": "measures_for_prevention",
@@ -106,7 +106,7 @@
    "label": "Measures for Prevention"
   },
   {
-   "depends_on": "eval: doc.nature == 'Injury' || doc.nature == 'Firsd Aid'",
+   "depends_on": "eval: doc.nature == 'Injury' || doc.nature == 'First Aid'",
    "fieldname": "injury_details_section",
    "fieldtype": "Section Break",
    "label": "Injury Details"
@@ -154,10 +154,37 @@
    "fieldname": "area_supervisor_name",
    "fieldtype": "Data",
    "label": "Area Supervisor Name"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "caused_by_unsafe_act",
+   "fieldtype": "Select",
+   "label": "Caused By Unsafe Act?",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "caused_by_unsafe_condition",
+   "fieldtype": "Select",
+   "label": "Caused By Unsafe Condition?",
+   "options": "Yes\nNo"
   }
  ],
+ "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "modified": "2021-06-10 13:50:54.000115",
+ "links": [],
+ "modified": "2022-04-04 13:04:29.532162",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Incident",
