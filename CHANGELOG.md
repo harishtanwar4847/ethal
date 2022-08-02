@@ -1,4 +1,6 @@
 # Changelog
+[v1.9.0-dev] - 2022-08-02
+- [gate pass CR ](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/294)
 
 ## [Unreleased]
 

@@ -8,6 +8,7 @@
  "field_order": [
   "naming_series",
   "gate_pass_type",
+  "material_received",
   "vat_invoice_no",
   "vat_invoice_date",
   "party_type",
@@ -186,12 +187,23 @@
    "fieldtype": "Data",
    "label": "Party Name",
    "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "No",
+   "depends_on": "eval: doc.gate_pass_type == 'Returnable' & doc.workflow_state == 'Approved';",
+   "fieldname": "material_received",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "label": "Material Received",
+   "options": "Yes\nNo",
+   "translatable": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-02-24 09:49:48.187050",
+ "modified": "2022-07-29 11:42:57.217133",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Gate Pass",
