@@ -74,7 +74,7 @@
    "fieldname": "material_sent_to",
    "fieldtype": "Select",
    "label": "Material Sent To",
-   "options": "\nHead Office\nUtensils Division"
+   "options": "\nHead Office\nUtensils Division\nTulefa\nEthal Aluminum Manufacturing PLC, Tulefa"
   },
   {
    "fieldname": "vehicle_plate_no",

@@ -144,7 +144,8 @@ doc_events = {
 		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Material Request": {
-		"before_submit": "ethal.accounts.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name",
+		"on_submit": "ethal.utils.send_purchase_api_message"
 	},
 	"Purchase Receipt": {
 		"before_submit": "ethal.accounts.set_approver_name"
@@ -178,9 +179,6 @@ doc_events = {
 	},
 	"Purchase Receipt": {
 		"on_submit": "ethal.utils.send_stock_api_message"
-	},
-	"Material Request": {
-		"on_submit": "ethal.utils.send_purchase_api_message"
 	},
 	"Asset Maintenance": {
 		"on_update": "ethal.assets.update_asset_task"
