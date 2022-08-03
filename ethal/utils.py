@@ -119,7 +119,28 @@ def send_purchase_api_message(doc, method):
 	
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
-	telegram_bot_settings.send_telegram_message(message, 'Purchase')		
+	telegram_bot_settings.send_telegram_message(message, 'Purchase')
+
+def send_purchase_api_message(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+	item_details = frappe.db.get_all('Purchase Order Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	print(doc.name)
+	if "DB" in doc.name:
+		if item_details:
+			details='Item Details:'
+			items = ''
+			for i in item_details:
+				item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+				items = items + item
+			items_details = details+items
+		
+		print(items_details)
+		
+		message = '{} {} has been submitted. \nTransaction Date: {} \nSupplier: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.transaction_date, doc.supplier, items_details, doc.grand_total, doc_link)
+		
+		telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+		
+		telegram_bot_settings.send_telegram_message(message, 'Purchase')		
 
 @frappe.whitelist()
 def update_maitenance_log(name):
