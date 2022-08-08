@@ -10,6 +10,12 @@
 - [Show employee name in warning letter listview | add party, party type and party name field in gate pass | import warning letter print format using patches](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/287)
 - [Add warning letter default print format](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/288)
 
+## [v1.9.0] - 2022-08-08
+
+### Added
+
+- [telegram notifications CR | Purchase Order average price CR | Material Request Query report CR](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/298)
+
 ## [v1.8.0] - 2021-12-02
 
 ### Added
