@@ -1,0 +1,45 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2022-08-08 09:19:26.135280",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "modified": "2022-08-08 09:52:59.113181",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Imp PRF",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "select\nm.workflow_state as \"Workflow State::100\",\nm.name as \"ID::200\",\nm.title as \"Title::300\",\nm.material_request_type as \"Purpose::100\",\nm.purchase_from as \"Purchase From::100\",\nm.purchase_for as \"Purchase For::100\",\nm.status as \"Status::100\",\nm.schedule_date as \"Required By::100\",\nm.company as \"Company::100\",\nm.per_ordered as \"Percent Ordered::100\",\nm.per_received as \"Percent Received::100\",\nm.set_warehouse as \"Set Targer Warehouse::200\",\nm.transfer_status as \"Transfer Status::100\",\npoi.parent as \"Purchase Order Number::200\",\npoi.qty as \"Quantity::100\",\npo.workflow_state as \"PO Status\",\nrqi.parent as \"Request For Quotation Number\",\nrq.status as \"RFQ Status::200\"\nfrom `tabMaterial Request` m \nleft join `tabPurchase Order Item` poi \non poi.material_request = m.name\nleft join `tabRequest for Quotation Item` rqi\non rqi.material_request = m.name\nleft join `tabRequest for Quotation` rq\non rqi.parent = rq.name\nleft join `tabPurchase Order` po\non poi.parent = po.name\nwhere m.docstatus = 1 and m.per_received != 100.000 \nand m.status != \"Stopped\" and m.transaction_date >= %(from_date)s and m.transaction_date <= %(to_date)s\nand m.purchase_from = %(purchase_from)s and m.company = %(company)s;",
+ "ref_doctype": "Material Request",
+ "report_name": "Imp PRF",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "Stock User"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "Purchase User"
+  },
+  {
+   "role": "Stock Manager"
+  },
+  {
+   "role": "Document Deletor"
+  },
+  {
+   "role": "Document canceller"
+  },
+  {
+   "role": "Material Request Approver"
+  }
+ ]
+}

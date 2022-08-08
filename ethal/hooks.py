@@ -129,17 +129,20 @@ doc_events = {
 	# },
 	"Sales Invoice": {
 		"validate": "ethal.accounts.before_insert_sales_invoice",
-		"before_submit": "ethal.accounts.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name",
+		"on_submit" : "ethal.utils.send_sales_api_message_sales_invoice"
+
 	},
 	"Sales Order": {
-		"before_submit": "ethal.accounts.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name",
+		"on_submit" : "ethal.utils.send_sales_api_message_sales_order"
 	},
 	"Purchase Order": {
 		"before_submit": "ethal.accounts.set_approver_name"
 	},
 	"Purchase Order": {
 		"after_insert": "ethal.accounts.set_average_price",
-		"on_submit": "ethal.utils.send_purchase_api_message"
+		"on_submit": "ethal.utils.send_purchase_api_message_Purchase_Order"
 	},	
 	"Purchase Invoice": {
 		"before_submit": "ethal.accounts.set_approver_name"
@@ -149,7 +152,8 @@ doc_events = {
 		"on_submit": "ethal.utils.send_purchase_api_message"
 	},
 	"Purchase Receipt": {
-		"before_submit": "ethal.accounts.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name",
+		"on_submit": "ethal.utils.send_purchase_api_message_Purchase_Receipt"
 	},
 	"Journal Entry": {
 		"before_submit": "ethal.accounts.set_approver_name"
@@ -177,9 +181,6 @@ doc_events = {
 	},
 	"Delivery Note": {
 		"on_submit" : "ethal.utils.send_sales_api_message"
-	},
-	"Purchase Receipt": {
-		"on_submit": "ethal.utils.send_stock_api_message"
 	},
 	"Asset Maintenance": {
 		"on_update": "ethal.assets.update_asset_task"
