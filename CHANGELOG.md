@@ -1,7 +1,10 @@
 # Changelog
 
 ## [Unreleased]
-## [v2.0.0] - 2022-08-03
+
+## [v2.0.0] - 2022-08-08
+
+### Added
 
 - [telegram notifications CR | Purchase Order average price CR | Material Request Query report CR](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/297)
 

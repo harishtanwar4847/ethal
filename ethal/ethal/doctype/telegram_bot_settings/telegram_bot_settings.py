@@ -26,8 +26,6 @@ class TelegramBotSettings(Document):
 	def hit_telegram_send_message_api(self, group_id, message):
 		try:
 			encode_message = urllib.parse.quote(message)
-			response = requests.get('https://api.telegram.org/{}/sendMessage?chat_id={}&text={}'.format(self.bot_api_token, group_id, encode_message))
-			print(response.json())
-			print(group_id)			
+			response = requests.get('https://api.telegram.org/{}/sendMessage?chat_id={}&text={}'.format(self.bot_api_token, group_id, encode_message))		
 		except requests.exceptions.RequestException:
 			frappe.log_error(title='Telegram Bot API Hit error')	

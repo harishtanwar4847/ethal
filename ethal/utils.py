@@ -86,7 +86,6 @@ def send_sales_api_message(doc, method):
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
 	telegram_bot_settings.send_telegram_message(message, 'Sales')
-	print("##############################")
 
 # Sales Invoice
 
@@ -105,13 +104,9 @@ def send_sales_api_message_sales_invoice(doc, method):
 	
 	message = '{} {} has been submitted. \nTransaction Date: {} \nCustomer: {} \nFS Number: {} \n{} \nGrand Total: {}\nPlease check it out. {}'.format(doc.doctype, doc.name, doc.posting_date, doc.customer, doc.fs_number, S_items_details, doc.grand_total, doc_link)
 
-	print(message)
-	
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
-	
 	telegram_bot_settings.send_telegram_message(message, 'Sales')
-	print("###############################")
 	
 	
 def send_purchase_api_message(doc, method):
@@ -143,8 +138,6 @@ def send_purchase_api_message_Purchase_Order(doc, method):
 			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
 			items = items + item
 		items_details = details+items
-	
-	print(items_details)
 	
 	message = '{} {} has been submitted. \nSupplier: {} \nPurchase For: {} \nOverhead Type: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.supplier, doc.purchase_for, doc.overhead_type, items_details, doc.grand_total, doc_link)
 	
