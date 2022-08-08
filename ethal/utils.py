@@ -86,27 +86,51 @@ def send_sales_api_message(doc, method):
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
 	telegram_bot_settings.send_telegram_message(message, 'Sales')
-	
-def send_stock_api_message(doc, method):
+
+# Sales Invoice
+
+def send_sales_api_message_sales_invoice(doc, method):
 	doc_link = get_url_to_form(doc.doctype, doc.name)
-	item_details = frappe.db.get_all('Purchase Receipt Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
-	if item_details:
+	S_item_details = frappe.db.get_all('Sales Invoice Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	print(doc.name)
+	if S_item_details:
 		details='Item Details:'
 		items = ''
-		for i in item_details:
+		for i in S_item_details:
 			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
 			items = items + item
-		items_details = details+items
+		S_items_details = details+items
 	
-	message = '{} {} has been submitted. \nTransaction Date: {} \nSupplier: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.posting_date, doc.supplier, items_details, doc.grand_total, doc_link)
 	
+	message = '{} {} has been submitted. \nTransaction Date: {} \nCustomer: {} \nFS Number: {} \n{} \nGrand Total: {}\nPlease check it out. {}'.format(doc.doctype, doc.name, doc.posting_date, doc.customer, doc.fs_number, S_items_details, doc.grand_total, doc_link)
+
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
-	telegram_bot_settings.send_telegram_message(message, 'Stock')	
+	telegram_bot_settings.send_telegram_message(message, 'Sales')
+	
 	
 def send_purchase_api_message(doc, method):
 	doc_link = get_url_to_form(doc.doctype, doc.name)
-	item_details = frappe.db.get_all('Material Request Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	M_item_details = frappe.db.get_all('Material Request Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	if M_item_details:
+		details='M_Item Details:'
+		items = ''
+		for i in M_item_details:
+			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+			items = items + item
+		M_items_details = details+items
+	
+	message = '{} {} has been submitted. \nTransaction Date: {} \nRequired By: {} \nPurchase From: {} \nPurchase For: {} \nOverhead Type: {} \n{} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.transaction_date, doc.schedule_date, doc.purchase_from, doc.purchase_for, doc.overhead_type,  M_items_details, doc_link)
+	
+	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	
+	telegram_bot_settings.send_telegram_message(message, 'Purchase')
+
+# Purchase Order
+
+def send_purchase_api_message_Purchase_Order(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+	item_details = frappe.db.get_all('Purchase Order Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
 	if item_details:
 		details='Item Details:'
 		items = ''
@@ -115,7 +139,27 @@ def send_purchase_api_message(doc, method):
 			items = items + item
 		items_details = details+items
 	
-	message = '{} {} has been submitted. \nTransaction Date: {} \n{} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.transaction_date, items_details, doc_link)
+	message = '{} {} has been submitted. \nSupplier: {} \nPurchase For: {} \nOverhead Type: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.supplier, doc.purchase_for, doc.overhead_type, items_details, doc.grand_total, doc_link)
+	
+	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	
+	telegram_bot_settings.send_telegram_message(message, 'Purchase')
+
+# Purchase Receipt
+
+def send_purchase_api_message_Purchase_Receipt(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+	P_item_details = frappe.db.get_all('Purchase Receipt Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	if P_item_details:
+		details='Item Details:'
+		items = ''
+		for i in P_item_details:
+			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+			items = items + item
+		P_items_details = details+items
+	
+	
+	message = '{} {} has been submitted. \nSupplier: {} \nPurchase For: {} \nOverhead Type: {} \n{} \nVehicle Plate Number: {} \nTransporter Name: {} \nVehicle Date: {} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.supplier,doc.purchase_for,doc.overhead_type,P_items_details,doc.lr_no,doc.transporter_name,doc.lr_date,doc.grand_total, doc_link)
 	
 	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	

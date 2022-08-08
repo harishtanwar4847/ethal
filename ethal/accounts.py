@@ -76,7 +76,7 @@ def set_average_price(doc, method):
                 on po.name = poi.parent
                 where po.docstatus = 1
                 and poi.item_code = '{}'
-                and year(po.transaction_date) = year(DATE_SUB(CURDATE(), INTERVAL 1 YEAR)) 
+                and po.transaction_date Between DATE_SUB(CURDATE(), INTERVAL 6  MONTH) and CURDATE() 
                 and po.name != '{}'
         """.format(items['item_code'], doc.name), debug=1)
         frappe.db.set_value('Purchase Order Item', {'parent': doc.name, 'item_code': items['item_code']}, 'average_price', average_price[0][0]) 
