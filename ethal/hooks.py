@@ -135,7 +135,6 @@ doc_events = {
 	},
 	"Sales Order": {
 		"before_submit": "ethal.accounts.set_approver_name",
-		"on_submit" : "ethal.utils.send_sales_api_message_sales_order"
 	},
 	"Purchase Order": {
 		"before_submit": "ethal.accounts.set_approver_name"
