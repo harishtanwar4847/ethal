@@ -8,7 +8,8 @@
   "bot_api_token",
   "sales_group_id",
   "stock_group_id",
-  "purchase_group_id"
+  "purchase_group_id",
+  "accounts_group_id"
  ],
  "fields": [
   {
@@ -30,12 +31,17 @@
    "fieldname": "purchase_group_id",
    "fieldtype": "Data",
    "label": "Purchase Group Id"
+  },
+  {
+   "fieldname": "accounts_group_id",
+   "fieldtype": "Data",
+   "label": "Accounts Group id"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-08-31 16:19:23.543458",
+ "modified": "2022-08-11 08:48:37.071416",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Telegram Bot Settings",
