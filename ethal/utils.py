@@ -143,6 +143,18 @@ def send_sales_api_message_sales_order(doc, method):
 	
 	telegram_bot_settings.send_telegram_message(message, 'Sales')
 
+# Accounts 
+
+def send_accounts_api_message(doc, method):
+	doc_link = get_url_to_form(doc.doctype, doc.name)
+		
+	message = '{} {} has been submitted. \nPosting Date: {} \nParty Name: {} \nMode of Payment: {} \nPaid from: {} \nPaid to: {} \nPaid Amount: {} \nReference Number: {} \nReference Date: {} \nRemarks: {} \nNotes:{} \nDocuments Attached:{} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.posting_date, doc.party_name, doc.mode_of_payment, doc.paid_from, doc.paid_to, doc.paid_amount, doc.reference_no, doc.reference_date, doc.remarks, doc.notes, doc.documents_attached, doc_link)
+	
+	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	
+	
+	telegram_bot_settings.send_telegram_message(message, 'Accounts')
+
 		
 
 @frappe.whitelist()

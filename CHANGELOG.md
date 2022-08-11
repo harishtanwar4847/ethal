@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v2.0.0-ho] - 2022-08-11
+
+### Added
+
+- [Telegram Accounts group notification | New fields added in Imp PRF Report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/299)
+
+
 ## [v1.9.0-ho] - 2022-08-08
 
 ### Added
