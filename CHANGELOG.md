@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.1.0] - 2022-08-12
+
+### Added
+
+- [Imp PRF custom report changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/300)
+
 ## [v2.0.0] - 2022-08-08
 
 ### Added
