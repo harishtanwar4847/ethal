@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v2.1.0-ho] - 2022-09-01
+
+### Added
+
+- [custom field added | Purchase invoice type_of_purchase customization](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/301)
+
+
 ## [v2.0.0-ho] - 2022-08-11
 
 ### Added
