@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v2.2.0-ho] - 2022-09-15
+
+### Added
+
+- [E-tax js changes and custom field added | Amount in words field deleted Payment entry](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/303)
+
+
 ## [v2.1.0-ho] - 2022-09-08
 
 ### Added
