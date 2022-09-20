@@ -24,8 +24,13 @@ def before_submit_all_doctypes(doc, method):
 
 @frappe.whitelist()
 def set_approver_name(doc, method):
+    print("*********************set_approver_name******************")
+    print("document:", doc)
     doc.approver_person = doc.modified_by
     doc.approver_date = doc.modified
+    print(doc.modified_by,"modified_by")
+    print(doc.approver_person,"approver_person")
+    print(doc.approver_date,"approver_date")
 
 @frappe.whitelist()
 def before_submit_stock_entry(doc, method):
