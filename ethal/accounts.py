@@ -28,6 +28,8 @@ def set_approver_name(doc, method):
     print("document:", doc)
     doc.approver_person = doc.modified_by
     doc.approver_date = doc.modified
+    if doc.status ==1:
+        doc.reload()
     print(doc.modified_by,"modified_by")
     print(doc.approver_person,"approver_person")
     print(doc.approver_date,"approver_date")
