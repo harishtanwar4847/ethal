@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.1.2-ho] - 2022-09-21
+
+### Added
+
+- [Telegram bot setting Py file changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/304)
+
 ## [v2.1.1-ho] - 2022-09-15
 
 ### Added
