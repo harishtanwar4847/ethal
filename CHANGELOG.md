@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v2.2.0] - 2022-09-30
+
+### Added
+
+- [FG Stock query report and Installed Qty field added in asset spares item table](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/305)
+
+
 ## [v2.1.0] - 2022-08-12
 
 ### Added
