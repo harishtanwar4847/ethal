@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.0-ho] - 2022-10-07
+
+### Added
+
+- [Field added in fg_standard_vs_actual_weight report and Naming series added Delivery note,Sales invoice,Sales order](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/307)
+
 ## [v2.1.2-ho] - 2022-09-21
 
 ### Added
