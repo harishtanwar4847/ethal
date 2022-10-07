@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.1] - 2022-10-07
+
+### Added
+
+- [Feat: Spare parts installed qty report and  delivery note naming series added and fg_Stock report changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/306)
+
 ## [v2.2.0] - 2022-09-30
 
 ### Added
