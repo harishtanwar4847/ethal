@@ -27,6 +27,14 @@ def set_approver_name(doc, method):
     doc.approver_person = doc.modified_by
     doc.approver_date = doc.modified
 
+def sent_email(doc,method):
+    print("####################################################")
+    for i in doc.items:
+        print("#########################################################")
+        if i.total_net_weight < i.total_weight:
+            print("##########################################")
+            frappe.sendmail(recipients=["shubhamyesare98@gmail.com","patilankit480@gmail.com"], sender="ankit.patil@atriina.com", subject="sent mail", message="Alert")
+
 @frappe.whitelist()
 def before_submit_stock_entry(doc, method):
     if doc.value_difference > 1:
