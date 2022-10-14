@@ -6,7 +6,7 @@
 
 ### Added
 
-- [Feat: Month end summery report and Sent mail on submit Sales invoice](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/308)
+- [Feat: Month end summary report and Sent mail on submit Sales invoice](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/308)
 
 ## [v2.1.3-ho] - 2022-10-07
 
