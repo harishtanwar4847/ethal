@@ -130,7 +130,7 @@ doc_events = {
 	# },
 	"Sales Invoice": {
 		"validate": "ethal.accounts.before_insert_sales_invoice",
-		"before_submit": "ethal.accounts.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name_and_sent_mail",
 	},
 	"Sales Order": {
 		"before_submit": "ethal.accounts.set_approver_name",

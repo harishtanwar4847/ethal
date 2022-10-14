@@ -6,6 +6,7 @@ import time
 from frappe.utils import formatdate
 import ast
 import itertools
+from frappe.utils import get_url_to_form
 
 @frappe.whitelist()
 def before_submit_all_doctypes(doc, method):
@@ -21,11 +22,40 @@ def before_submit_all_doctypes(doc, method):
             elif admin_settings_document[0][0] == 'transaction_date':
                 if admin_settings.closure_date > doc.transaction_date:
                     frappe.throw(frappe._("You are not authorized to add or update entries before {0}").format(formatdate(admin_settings.closure_date)))
-
 @frappe.whitelist()
 def set_approver_name(doc, method):
     doc.approver_person = doc.modified_by
     doc.approver_date = doc.modified
+
+@frappe.whitelist()
+def set_approver_name_and_sent_mail(doc, method):
+    doc.approver_person = doc.modified_by
+    doc.approver_date = doc.modified
+    if doc.workflow_state == "Approved":
+        owner = doc.owner
+        approver = doc.approver_person
+        doc_name = get_url_to_form(doc.doctype,doc.name)
+        owner_na = frappe.get_doc("User",doc.owner)
+        owner_name = owner_na.full_name
+        approver_na = frappe.get_doc("User",doc.approver_person)
+        approver_name = approver_na.full_name
+        msg1= """ Hi {} and {},<br><br>
+        Booked Sales invoice ID(Link) : {} ,<br><br>""".format(owner_name,approver_name,doc_name)
+        msg2 = """Below are the item which are overweight than its marked weight.<br><br>
+        <table border="1" cellspacing="0" cellpadding="5" align="center">
+        <tr><th>Item Code</th><th>Item Name</th><th><p>Total Weight <br>[Weight per unit(added in item master)* quantity] </p></th><th><P>Total Net Weight <br>(added manually in sales invoice)</P></th><th><P>Difference <br>(In %)</P></th><th> Over/Under </th></tr>"""
+        for item in doc.items:
+            if item.total_net_weight > item.total_weight:
+                msg2 +="<tr align='center'><td>"+item.item_code+"</td><td>"+ item.item_name+"</td><td>"+ str(item.total_weight)+"</td><td>"+ str(item.total_net_weight)+"</td><td>"+str(round(((item.total_net_weight*100)/(item.total_weight )if item.total_weight !=0 else 0)-(100),2))+"</td>"
+                if item.total_weight ==0:
+                    msg2+= "<td>"+'Update weight per unit in item master to get the result'+"</td></tr>"
+                else:
+                    msg2+="<td>"+'over weight' +"</td></tr>"
+
+        msg2 +="</table><br>"
+        msg3="""Thanks and Regards"""
+        msg=msg1+msg2+msg3 
+        frappe.sendmail(recipients=[owner,approver], sender="support-ethal-atri-erp@atriina.com", subject="<Alert>Item weight greater than its original weight", message=msg)
 
 @frappe.whitelist()
 def before_submit_stock_entry(doc, method):
