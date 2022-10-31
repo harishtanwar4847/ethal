@@ -143,7 +143,8 @@ doc_events = {
 		"after_insert": "ethal.accounts.set_average_price"
 	},	
 	"Purchase Invoice": {
-		"before_submit": "ethal.accounts.set_approver_name"
+		"before_submit": "ethal.accounts.set_approver_name",
+		"before_save": "ethal.accounts.purchase_invoice_item_tax"
 	},
 	"Material Request": {
 		"before_submit": "ethal.accounts.set_approver_name"

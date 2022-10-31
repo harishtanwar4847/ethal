@@ -28,6 +28,16 @@ def set_approver_name(doc, method):
     doc.approver_date = doc.modified
 
 @frappe.whitelist()
+def purchase_invoice_item_tax(doc, method):
+    if "VAT" in  doc.taxes_and_charges:
+        for i in doc.items:
+            i.vat_amount = (i.amount*15)/100
+    elif "VAT" not in doc.taxes_and_charges:
+        for i in doc.items:
+            i.vat_amount = 0
+
+
+@frappe.whitelist()
 def set_approver_name_and_sent_mail(doc, method):
     doc.approver_person = doc.modified_by
     doc.approver_date = doc.modified
