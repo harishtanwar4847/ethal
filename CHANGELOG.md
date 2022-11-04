@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.1.5-ho] - 2022-04-11
+
+### Added
+
+- [Feat: Add VAT amount field in Purchase invoice item and E-tax report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/310)
+
 ## [v2.1.4-ho] - 2022-10-14
 
 ### Added
