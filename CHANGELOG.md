@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v2.2.2] - 2022-11-04
+
+### Added
+
+- [Feat : monthly report of raw material, packaging & components | Adding asset name in spare parts installed qty report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/309)
+
+
 ## [v2.2.1] - 2022-10-07
 
 ### Added
