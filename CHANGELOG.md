@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v2.1.5-ho-fix] - 2022-11-07
+
+### Added
+
+- [Fix: Purchase invoice item vat amount changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/311)
+
+
 ## [v2.1.5-ho] - 2022-11-04
 
 ### Added
