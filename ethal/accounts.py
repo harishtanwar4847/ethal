@@ -29,12 +29,12 @@ def set_approver_name(doc, method):
 
 @frappe.whitelist()
 def purchase_invoice_item_tax(doc, method):
-    if "VAT" in  doc.taxes_and_charges:
-        for i in doc.items:
-            i.vat_amount = (i.amount*15)/100
-    elif "VAT" not in doc.taxes_and_charges:
+    if not doc.taxes_and_charges or "VAT" not in doc.taxes_and_charges:
         for i in doc.items:
             i.vat_amount = 0
+    elif "VAT" in  doc.taxes_and_charges:
+        for i in doc.items:
+            i.vat_amount = (i.amount*15)/100
 
 
 @frappe.whitelist()
