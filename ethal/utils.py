@@ -151,7 +151,6 @@ def send_purchase_api_message_Purchase_Order(doc, method):
 		frappe.db.commit()
 		doc.reload()
 
-
 # Purchase Receipt
 
 def send_purchase_api_message_Purchase_Receipt(doc, method):
