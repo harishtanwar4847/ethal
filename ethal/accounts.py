@@ -26,7 +26,7 @@ def before_submit_all_doctypes(doc, method):
 def set_approver_name(doc, method):
     doc.approver_person = doc.modified_by
     doc.approver_date = doc.modified
-    
+  
 @frappe.whitelist()
 def before_submit_stock_entry(doc, method):
     if doc.value_difference > 1:
