@@ -145,6 +145,12 @@ def send_purchase_api_message_Purchase_Order(doc, method):
 	
 	telegram_bot_settings.send_telegram_message(message, 'Purchase')
 
+	if not doc.approver_person:
+		frappe.db.set_value('Purchase Order', {'name': doc.name}, 'approver_person', doc.modified_by)
+		frappe.db.set_value('Purchase Order', {'name': doc.name}, 'approver_date', doc.modified)
+		frappe.db.commit()
+		doc.reload()
+
 # Purchase Receipt
 
 def send_purchase_api_message_Purchase_Receipt(doc, method):
