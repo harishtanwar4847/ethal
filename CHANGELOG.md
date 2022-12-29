@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.3] - 2022-12-29
+
+### Added
+
+- [Fix: On submit purchase order set approver person](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/312)
+
 ## [v2.2.2] - 2022-11-04
 
 ### Added
