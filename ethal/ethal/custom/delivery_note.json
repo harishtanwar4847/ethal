@@ -1275,7 +1275,7 @@
    "doctype_or_field": "DocField",
    "field_name": "naming_series",
    "idx": 0,
-   "modified": "2022-10-07 08:51:01.831177",
+   "modified": "2023-01-02 13:18:37.423394",
    "modified_by": "Administrator",
    "name": "Delivery Note-naming_series-default",
    "owner": "Administrator",
@@ -1299,7 +1299,7 @@
    "doctype_or_field": "DocField",
    "field_name": "naming_series",
    "idx": 0,
-   "modified": "2022-10-07 08:51:01.753251",
+   "modified": "2023-01-02 13:18:37.347181",
    "modified_by": "Administrator",
    "name": "Delivery Note-naming_series-options",
    "owner": "Administrator",
@@ -1309,7 +1309,7 @@
    "property": "options",
    "property_type": "Text",
    "row_name": null,
-   "value": "\nDN-DB-.YYYY.-\nDN-TU-.YYYY.-\nDN-KA-.YYYY.-"
+   "value": "\nDN-DB-.YYYY.-\nDN-TU-.YYYY.-\nDN-KA-.YYYY.-\nDN-DB-2022-\nDN-TU-2022-\nDN-KA-2022-"
   },
   {
    "_assign": null,

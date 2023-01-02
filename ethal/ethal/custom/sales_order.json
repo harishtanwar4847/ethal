@@ -931,7 +931,7 @@
    "doctype_or_field": "DocField",
    "field_name": "naming_series",
    "idx": 0,
-   "modified": "2022-10-07 08:38:44.077047",
+   "modified": "2023-01-02 13:10:36.955435",
    "modified_by": "Administrator",
    "name": "Sales Order-naming_series-default",
    "owner": "Administrator",
@@ -955,7 +955,7 @@
    "doctype_or_field": "DocField",
    "field_name": "naming_series",
    "idx": 0,
-   "modified": "2022-10-07 08:38:44.031567",
+   "modified": "2023-01-02 13:10:36.882233",
    "modified_by": "Administrator",
    "name": "Sales Order-naming_series-options",
    "owner": "Administrator",
@@ -965,7 +965,7 @@
    "property": "options",
    "property_type": "Text",
    "row_name": null,
-   "value": "\nSAL-ORD-DB-.YYYY.-\nSAL-ORD-TU-.YYYY.-\nSAL-ORD-KA-.YYYY.-"
+   "value": "\nSAL-ORD-DB-.YYYY.-\nSAL-ORD-TU-.YYYY.-\nSAL-ORD-KA-.YYYY.-\nSAL-ORD-DB-2022-\nSAL-ORD-TU-2022-\nSAL-ORD-KA-2022-"
   },
   {
    "_assign": null,
