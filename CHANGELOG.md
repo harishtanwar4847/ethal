@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v2.1.7-ho] - 2022-01-02
+
+### Added
+
+- [Fix: 2022 naming series added in payment entry,sales order,sales invoice,material request,journal entry,delivery note,purchase order,purchase request,purchase invoice](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/313)
+
+
 ## [v2.1.6-ho] - 2022-11-07
 
 ### Added

@@ -795,7 +795,7 @@
    "doctype_or_field": "DocField",
    "field_name": "naming_series",
    "idx": 0,
-   "modified": "2022-09-07 08:08:36.535670",
+   "modified": "2023-01-02 13:22:34.948241",
    "modified_by": "Administrator",
    "name": "Purchase Order-naming_series-default",
    "owner": "Administrator",
@@ -819,7 +819,7 @@
    "doctype_or_field": "DocField",
    "field_name": "naming_series",
    "idx": 0,
-   "modified": "2022-09-07 08:08:36.359911",
+   "modified": "2023-01-02 13:22:34.886841",
    "modified_by": "Administrator",
    "name": "Purchase Order-naming_series-options",
    "owner": "Administrator",
@@ -829,7 +829,7 @@
    "property": "options",
    "property_type": "Text",
    "row_name": null,
-   "value": "\nPO-DB-.YYYY.-\nPO-HO-.YYYY.-\nPO-IMPORT-.YYYY.-"
+   "value": "\nPO-DB-.YYYY.-\nPO-HO-.YYYY.-\nPO-IMPORT-.YYYY.-\nPO-DB-2022-\nPO-HO-2022-\nPO-IMPORT-2022-"
   },
   {
    "_assign": null,

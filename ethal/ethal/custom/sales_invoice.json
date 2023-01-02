@@ -2449,7 +2449,7 @@
    "doctype_or_field": "DocField",
    "field_name": "naming_series",
    "idx": 0,
-   "modified": "2022-10-07 08:41:16.279823",
+   "modified": "2023-01-02 13:12:45.467695",
    "modified_by": "Administrator",
    "name": "Sales Invoice-naming_series-default",
    "owner": "Administrator",
@@ -2473,7 +2473,7 @@
    "doctype_or_field": "DocField",
    "field_name": "naming_series",
    "idx": 0,
-   "modified": "2022-10-07 08:41:16.212509",
+   "modified": "2023-01-02 13:12:45.398389",
    "modified_by": "Administrator",
    "name": "Sales Invoice-naming_series-options",
    "owner": "Administrator",
@@ -2483,7 +2483,7 @@
    "property": "options",
    "property_type": "Text",
    "row_name": null,
-   "value": "ACSI-DB-.YYYY.-\nACSI-NTU-.YYYY.-\nACSI-TU-.YYYY.-\nCSI-KA-.YYYY.-"
+   "value": "ACSI-DB-.YYYY.-\nACSI-NTU-.YYYY.-\nACSI-TU-.YYYY.-\nCSI-KA-.YYYY.-\nACSI-DB-2022-\nACSI-NTU-2022-\nACSI-TU-2022-\nCSI-KA-2022-"
   },
   {
    "_assign": null,
