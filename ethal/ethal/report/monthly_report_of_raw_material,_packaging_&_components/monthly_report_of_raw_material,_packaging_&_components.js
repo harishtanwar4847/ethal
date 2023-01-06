@@ -8,11 +8,18 @@ frappe.query_reports["Monthly Report of Raw material, packaging & components"] =
             "default":1
         },
         {
-            "fieldname":"year",
-            "label":("Year"),
-            "fieldtype":"Select",
-            "options":[2020,2021,2022,2023],
-            "default":2023
-        },
+			"fieldname":"year",
+			"label": __("Year"),
+			"fieldtype": "Link",
+			"options":'Fiscal Year',
+			"default": frappe.sys_defaults.fiscal_year
+		},
+		{
+			"fieldname":"company",
+			"label": __("Company"),
+			"fieldtype": "Link",
+			"options": "Company",
+			"default": frappe.defaults.get_user_default("Company")
+		},
 ]
 }
