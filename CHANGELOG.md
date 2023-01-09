@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.4] - 2020-01-09
+
+### Added
+
+- [Feat: In Monthly Report of Raw material, packaging & components day wise and company filter added](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/314)
+
 ## [v2.2.3] - 2022-12-29
 
 ### Added
