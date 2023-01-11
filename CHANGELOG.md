@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.1.8-ho] - 2022-01-11
+
+### Added
+
+- [Feat: Custom trial balance for party report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/315)
+
 ## [v2.1.7-ho] - 2022-01-02
 
 ### Added
