@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.5] - 2023-01-12
+
+### Added
+
+- [feat: Fg stock report 4 warehouse columns quantity shows desc order | Monthly report of raw material all 0 value rows remove](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/316)
+
 ## [v2.2.4] - 2023-01-09
 
 ### Added
