@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.1.9-ho] - 2023-02-02
+
+### Added
+
+- [Feat: Custom Stock balance report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/317)
+
 ## [v2.1.8-ho] - 2023-01-11
 
 ### Added
