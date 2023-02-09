@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.6] - 2023-02-09
+
+### Added
+
+- [Feat: Reorder qty new report created using querry report and changes in Fg Stock report KE warehouse replace to TU warehouse and vise-versa](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/319)
+
 ## [v2.2.5] - 2023-01-13
 
 ### Added
