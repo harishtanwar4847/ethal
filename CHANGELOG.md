@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.7] - 2023-02-15
+
+### Added
+
+- [Fix: Report reorder qty order qty formula change and reorder status add](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/320)
+
 ## [v2.2.6] - 2023-02-09
 
 ### Added
