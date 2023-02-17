@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+# [v2.2.8] - 2023-02-17
+
+### Added
+
+- [Feat: Reorder qty report change column names and fix balance qty](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/321)
+
 ## [v2.2.7] - 2023-02-15
 
 ### Added
