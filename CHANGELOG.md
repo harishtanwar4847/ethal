@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+# [v2.2.9] - 2023-03-08
+
+### Added
+
+- [Create log function added in init py](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/322)
+
+
 # [v2.2.8] - 2023-02-17
 
 ### Added
