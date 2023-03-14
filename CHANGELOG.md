@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.0-ho] - 2023-03-14
+
+### Added
+
+- [Create log in init file](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/324)
+
 ## [v2.1.9-ho] - 2023-02-02
 
 ### Added
