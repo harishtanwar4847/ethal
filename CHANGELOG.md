@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.1-ho] - 2023-03-21
+
+### Added
+
+- [Comment all telegram Api in hooks.py](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/325)
+
 ## [v2.2.0-ho] - 2023-03-14
 
 ### Added

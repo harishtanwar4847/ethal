@@ -123,7 +123,7 @@ doc_events = {
 	"Payment Entry": {
 		"validate": "ethal.accounts.before_insert_payment_entry",
 		"before_submit": "ethal.accounts.set_approver_name",
-		"on_submit": "ethal.utils.send_accounts_api_message"
+		# "on_submit": "ethal.utils.send_accounts_api_message"
 	},
 	# "Stock Entry": {
 	# 	"before_submit": "ethal.accounts.before_submit_stock_entry"
@@ -134,7 +134,7 @@ doc_events = {
 	},
 	"Sales Order": {
 		"before_submit": "ethal.accounts.set_approver_name",
-		"on_submit" : "ethal.utils.send_sales_api_message_sales_order"
+		# "on_submit" : "ethal.utils.send_sales_api_message_sales_order"
 	},
 	"Purchase Order": {
 		"before_submit": "ethal.accounts.set_approver_name",
@@ -177,13 +177,13 @@ doc_events = {
 		"after_insert": "ethal.utils.shareholder_set_payeename"
 	},
 	"Delivery Note": {
-		"on_submit" : "ethal.utils.send_sales_api_message"
+		# "on_submit" : "ethal.utils.send_sales_api_message"
 	},
 	"Purchase Receipt": {
-		"on_submit": "ethal.utils.send_stock_api_message"
+		# "on_submit": "ethal.utils.send_stock_api_message"
 	},
 	"Material Request": {
-		"on_submit": "ethal.utils.send_purchase_api_message"
+		# "on_submit": "ethal.utils.send_purchase_api_message"
 	},
 	"Asset Maintenance": {
 		"on_update": "ethal.assets.update_asset_task"
