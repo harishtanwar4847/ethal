@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+# [v2.3.0] - 2023-03-25
+
+### Added
+
+- [Fix: Remove Telegram Api form all doctype](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/326)
+
 # [v2.2.9] - 2023-03-08
 
 ### Added
