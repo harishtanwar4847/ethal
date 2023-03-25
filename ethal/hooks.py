@@ -130,7 +130,7 @@ doc_events = {
 	"Sales Invoice": {
 		"validate": "ethal.accounts.before_insert_sales_invoice",
 		"before_submit": "ethal.accounts.set_approver_name",
-		"on_submit" : "ethal.utils.send_sales_api_message_sales_invoice"
+		# "on_submit" : "ethal.utils.send_sales_api_message_sales_invoice"
 
 	},
 	"Sales Order": {
@@ -148,11 +148,11 @@ doc_events = {
 	},
 	"Material Request": {
 		"before_submit": "ethal.accounts.set_approver_name",
-		"on_submit": "ethal.utils.send_purchase_api_message"
+		# "on_submit": "ethal.utils.send_purchase_api_message"
 	},
 	"Purchase Receipt": {
 		"before_submit": "ethal.accounts.set_approver_name",
-		"on_submit": "ethal.utils.send_purchase_api_message_Purchase_Receipt"
+		# "on_submit": "ethal.utils.send_purchase_api_message_Purchase_Receipt"
 	},
 	"Journal Entry": {
 		"before_submit": "ethal.accounts.set_approver_name"
@@ -179,7 +179,7 @@ doc_events = {
 		"after_insert": "ethal.utils.shareholder_set_payeename"
 	},
 	"Delivery Note": {
-		"on_submit" : "ethal.utils.send_sales_api_message"
+		# "on_submit" : "ethal.utils.send_sales_api_message"
 	},
 	"Asset Maintenance": {
 		"on_update": "ethal.assets.update_asset_task"
