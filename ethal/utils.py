@@ -129,21 +129,21 @@ def send_purchase_api_message(doc, method):
 # Purchase Order
 
 def send_purchase_api_message_Purchase_Order(doc, method):
-	doc_link = get_url_to_form(doc.doctype, doc.name)
-	item_details = frappe.db.get_all('Purchase Order Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
-	if item_details:
-		details='Item Details:'
-		items = ''
-		for i in item_details:
-			item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
-			items = items + item
-		items_details = details+items
+	# doc_link = get_url_to_form(doc.doctype, doc.name)
+	# item_details = frappe.db.get_all('Purchase Order Item', filters={'parent': doc.name}, fields=['item_name', 'qty', 'rate', 'amount'])
+	# if item_details:
+	# 	details='Item Details:'
+	# 	items = ''
+	# 	for i in item_details:
+	# 		item = '\nItem Name: {}, Qty: {}, Rate: {}, Amount: {}'.format(i['item_name'], i['qty'], i['rate'], i['amount'])
+	# 		items = items + item
+	# 	items_details = details+items
 	
-	message = '{} {} has been submitted. \nSupplier: {} \nPurchase For: {} \nOverhead Type: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.supplier, doc.purchase_for, doc.overhead_type, items_details, doc.grand_total, doc_link)
+	# message = '{} {} has been submitted. \nSupplier: {} \nPurchase For: {} \nOverhead Type: {} \n{} \nGrand Total: {} \nPlease check it out. {}'.format(doc.doctype, doc.name, doc.supplier, doc.purchase_for, doc.overhead_type, items_details, doc.grand_total, doc_link)
 	
-	telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
+	# telegram_bot_settings = frappe.get_doc('Telegram Bot Settings')
 	
-	telegram_bot_settings.send_telegram_message(message, 'Purchase')
+	# telegram_bot_settings.send_telegram_message(message, 'Purchase')
 
 	if not doc.approver_person:
 		frappe.db.set_value('Purchase Order', {'name': doc.name}, 'approver_person', doc.modified_by)
