@@ -1,4 +1,4 @@
-# Copyright (c) 2013, Atrina Technologies Pvt. Ltd. and contributors
+## Copyright (c) 2013, Atrina Technologies Pvt. Ltd. and contributors
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
@@ -20,10 +20,70 @@ def add_one_by_one(l):
 
 def indirect_income(filters):
 	lst_42000 = get_monthly_gl_credit_no_opening("42", filters)
-	lst_42000.insert(0,"Indirect Income")
+	lst_42000.insert(0,"Other Income/Indirect Income")
 	fin = [lst_42000]
 	return fin
 
+def utilities(filters):
+	lst_52340 = get_monthly_gl_debit_no_opening("52340", filters)
+	lst_53340 = get_monthly_gl_debit_no_opening("53340", filters)
+	lst_51340 = get_monthly_gl_debit_no_opening("51340", filters)
+	lst_54340 = get_monthly_gl_debit_no_opening("54340", filters)
+	final = [a+b+c+d for a,b,c,d in zip(lst_52340,lst_53340,lst_51340,lst_54340)]
+
+	print("lst_52340",lst_52340)
+	print("lst_53340",lst_53340)
+	print("lst_51340",lst_51340)
+	print("lst_54340",lst_54340)
+
+	
+	final.insert(0,"Utilities- Power and Water")
+	fin = [final]
+	return fin
+
+def raw_material_purchase(filters):
+	lst_51000 = get_monthly_gl_debit_no_opening("51000-01", filters)
+	lst_52000 = get_monthly_gl_debit_no_opening("52000-01", filters)
+	lst_53000 = get_monthly_gl_debit_no_opening("53000-01", filters)
+	lst_54000 = get_monthly_gl_debit_no_opening("54000-01", filters)
+	final = [a+b+c+d for a,b,c,d in zip(lst_51000,lst_52000,lst_53000,lst_54000)]
+	final.insert(0,"Raw materials purchase ")
+	fin = [final]
+	return fin
+
+def depreciation(filters):
+	lst_65000 = get_monthly_gl_debit_no_opening("65000", filters)
+	lst_54200 = get_monthly_gl_debit_no_opening("52000", filters)
+	lst_53200 = get_monthly_gl_debit_no_opening("53200", filters)
+	lst_52200 = get_monthly_gl_debit_no_opening("52200", filters)
+	lst_51200 = get_monthly_gl_debit_no_opening("51200", filters)
+
+	final = [a+b+c+d+e for a,b,c,d,e in zip(lst_65000,lst_54200,lst_53200,lst_52200,lst_51200)]
+	final.insert(0,"Depreciation")
+	fin = [final]
+	return fin
+
+def store_repair_machinery_rent(filters):
+	lst_52320 = get_monthly_gl_debit_no_opening("52320", filters)
+	lst_52330 = get_monthly_gl_debit_no_opening("52330", filters)
+	lst_53320 = get_monthly_gl_debit_no_opening("53320", filters)
+	lst_53330 = get_monthly_gl_debit_no_opening("53330", filters)
+	lst_54320 = get_monthly_gl_debit_no_opening("54320", filters)
+	lst_54330 = get_monthly_gl_debit_no_opening("54330", filters)
+	final = [a+b+c+d+e+f for a,b,c,d,e,f in zip(lst_52320,lst_52330,lst_53320,lst_53330,lst_54320,lst_54330)]
+	final.insert(0,"Stores & Repair, Machinery rent")
+	fin = [final]
+	return fin
+
+def manpower_cost(filters):
+	lst_52100 = get_monthly_gl_debit_no_opening("52100", filters)
+	lst_53100 = get_monthly_gl_debit_no_opening("53100", filters)
+
+	final = [a+b for a,b in zip(lst_52100,lst_53100)]
+	final.insert(0,"Manpower Cost")
+	fin = [final]
+	return fin
+	
 def sales_net_of_taxes(filters):
 	lst_41000 = get_monthly_gl_credit_no_opening("41", filters)
 	lst_41000.insert(0,"Sales Net of Taxes")
@@ -58,99 +118,46 @@ def total_sales_net_of_taxes(filters):
 	final = [final]
 	return final
 
-def power_consumed(filters):
-	lst_54400_01 = get_monthly_gl_debit_no_opening("54400-01", filters)
-	lst_54400_01.insert(0,"Power-Consumed")
-	fin = [lst_54400_01]
-	return fin
+def total_variable_cost(filters):
+	l1 = raw_material_purchase(filters)
+	for i in l1:
+		l11 = i
+	l11.pop(0)
+	l2 = manpower_cost(filters)
+	for i in l2:
+		l22 = i
+	l22.pop(0)
+	l3 = utilities(filters)
+	for i in l3:
+		l33 = i
+	l33.pop(0)
+	l4 = store_repair_machinery_rent(filters)
+	for i in l4:
+		l44 = i
+	l44.pop(0)
+	l5 = depreciation(filters)
+	for i in l5:
+		l55 = i
+	l55.pop(0)
 
-def consumables(filters):
-	lst_54200_06 = get_monthly_gl_debit_no_opening("54200-06", filters)
-	lst_54200_06.insert(0,"Consumables")
-	fin = [lst_54200_06]
-	return fin
-
-def out_sourcing_costs(filters):
-	lst_51000_02 = get_monthly_gl_debit_no_opening("51000-02", filters)
-	lst_52000_04 = get_monthly_gl_debit_no_opening("52000-04", filters)
-	lst_53000_03 = get_monthly_gl_debit_no_opening("53000-03", filters)
-	lst_55000_01 = get_monthly_gl_debit_no_opening("55000-01", filters)
-	final = [a+b+c+d for a,b,c,d in zip(lst_51000_02,lst_52000_04,lst_53000_03,lst_55000_01)]
-	final.insert(0,"Out Sourcing Cost")
-	fin = [final]
-	return fin
-
-def packing_cost(filters):
-	lst_52000_03 = get_monthly_gl_debit_no_opening("52000-03", filters)
-	lst_52000_03.insert(0,"Packing Cost")
-	fin = [lst_52000_03]
-	return fin
-
-def total_stores(filters):
-	lst_54200 = get_monthly_gl_debit_no_opening("542", filters)
-	lst_54200_06 = get_monthly_gl_debit_no_opening("54200-06", filters)
-	final = [a-b for a,b in zip(lst_54200,lst_54200_06)]
-	final.insert(0,"stores")
-	fin = [final]
-	return fin
-
-def fuel_diesel(filters):
-	lst_51000_03 = get_monthly_gl_debit_no_opening("51000-03", filters)
-	lst_51000_03.insert(0,"Fuel - Diesel")
-	fin = [lst_51000_03]
-	return fin
-
-def raw_materials_consumed(filters):
-	lst_50000 = get_monthly_gl_debit_no_opening("5", filters)
-	lst_51000_02 = get_monthly_gl_debit_no_opening("51000-02", filters)
-	lst_52000_03 = get_monthly_gl_debit_no_opening("52000-03", filters)
-	lst_51000_03 = get_monthly_gl_debit_no_opening("51000-03", filters)
-
-
-	fin = [a-b-c-d for a,b,c,d in zip(lst_50000,lst_51000_02,lst_52000_03,lst_51000_03)]
-	fin.insert(0,"Raw materials - Consumed")
-	final = [fin]
+	final = [a+b+c+d+e for a,b,c,d,e in zip(l11,l22,l33,l44,l55)]
+	final.insert(0,"Total Variable cost (TVC)")
+	final = [final]
 	return final
 
-def total_variable_cost(filters):
-	rmc = raw_materials_consumed(filters)
-	for i in rmc:
-		rmc_1 = i
-	rmc_1.pop(0)
-
-	pc = power_consumed(filters)
-	for i in pc:
-		pc_1 = i
-	pc_1.pop(0)
-
-	con = consumables(filters)
-	for i in con:
-		con_1 = i
-	con_1.pop(0)
-
-	osc = out_sourcing_costs(filters)
-	for i in osc:
-		osc_1 = i
-	osc_1.pop(0)
-
-	pac_cos = packing_cost(filters)
-	for i in pac_cos:
-		pac_cos_1 = i
-	pac_cos_1.pop(0)
-
-	fd = fuel_diesel(filters)
-	for i in fd:
-		fd_1 = i
-	fd_1.pop(0)
-
-	stores = total_stores(filters)
-	for i in stores:
-		stores_1 = i
-	stores_1.pop(0)
-
-	fin = [a+b+c+d+e+f+j for a,b,c,d,e,f,j in zip(rmc_1,pc_1,con_1,osc_1,pac_cos_1,fd_1,stores_1)]
-	fin.insert(0,"Total Variable Cost")
-	final = [fin]
+def pre_rm_to_sale(filters):
+	l1 = raw_material_purchase(filters)
+	for i in l1:
+		l11 = i
+	l11.pop(0)
+	l2 = sales_net_of_taxes(filters)
+	for i in l2:
+		l22 = i
+	l22.pop(0)
+	
+	final = [(a/b)*100 for a,b in zip(l11,l22)]
+	final.insert(0,"% RM to Sale")
+	final = [final]
 	return final
 
 def throughput(filters):
@@ -184,10 +191,10 @@ def operating_expenses(filters):
 	return fin
 
 def interest_count(filters):
-	lst_62000_03 = get_monthly_gl_debit_no_opening("62000-03", filters)
-	lst_62000_04 = get_monthly_gl_debit_no_opening("62000-04", filters)
-	lst_62000_05 = get_monthly_gl_debit_no_opening("62000-05", filters)
-	final = [a+b+c for a,b,c in zip(lst_62000_03,lst_62000_04,lst_62000_05)]
+	lst_21200_04 = get_monthly_gl_credit_no_opening("21200-04", filters)
+	lst_21200_05 = get_monthly_gl_credit_no_opening("21200-05", filters)
+	lst_22100_02 = get_monthly_gl_credit_no_opening("22100-02", filters)
+	final = [a+b+c for a,b,c in zip(lst_21200_04,lst_21200_05,lst_22100_02)]
 	final.insert(0,"Interest")
 	fin = [final]
 	return fin
@@ -229,70 +236,52 @@ def profit_before_taxes_percentage(filters):
 	fin = [final]
 	return fin
 
-def receivables_count(filters):
-	lst_11200 = get_monthly_gl_debit("112", filters)
-	# final_1 = [x - y for x, y in zip(lst_11200,lst_11200[1:])]
-	# final_1.append(lst_11200[0])
-	lst_11200.insert(0,"Receivables")
-	fin = [lst_11200]
+
+
+def customer_advance(filters):
+	lst_11200_01 = get_monthly_gl_debit("11200-01", filters)
+	lst_11200_01.insert(0,"Advance (Debtors-Customer Advances)")
+	fin = [lst_11200_01]
 	return fin
 
-def advance_to_supplier(filters):
-	lst_21000_01 = get_monthly_gl_credit("21000-01", filters)
-	# final_1 = [x - y for x, y in zip(lst_21000_01,lst_21000_01[1:])]
-	# final_1.append(lst_21000_01[0])
-	lst_21000_01.insert(0,"Advance to Supplier")
-	fin = [lst_21000_01]
-	return fin
+def advance_other(filters):
+	lst_11200_02 = get_monthly_gl_debit("11200-02", filters)
+	lst_11200_03 = get_monthly_gl_debit	("11200-03", filters)
+	lst_11200_04 = get_monthly_gl_debit	("11200-04", filters)
+	lst_11200_05 = get_monthly_gl_debit	("11200-05", filters)
+	lst_11200_06 = get_monthly_gl_debit	("11200-06", filters)
+	lst_11210 = get_monthly_gl_debit	("11210", filters)
+	lst_11220 = get_monthly_gl_debit	("11220", filters)
+	lst_11230 = get_monthly_gl_debit	("11231", filters)
+	lst_11600 = get_monthly_gl_debit	("1160", filters)
 
-def rm_count(filters):
-	lst_11510_01 = get_monthly_gl_debit("11510-01", filters)
-	lst_11510_05 = get_monthly_gl_debit("11510-05", filters)
-	lst_11510_06 = get_monthly_gl_debit("11510-06", filters)
-	final = [a+b+c for a,b,c in zip(lst_11510_01,lst_11510_05,lst_11510_06)]
-	# final_1 = [x - y for x, y in zip(final,final[1:])]
-	# final_1.append(final[0])
-	final.insert(0,"RM")
+	final = [a+b+c+d+e+f+g+h+i for a,b,c,d,e,f,g,h,i in zip(lst_11200_02,lst_11200_03,lst_11200_04,lst_11200_05,lst_11200_06,lst_11210,lst_11220,lst_11230,lst_11600)]
+	final.insert(0,"Advance Other")
 	fin = [final]
 	return fin
 
-def wip_count(filters):
-	lst_11510_02 = get_monthly_gl_debit("11510-02", filters)
-	lst_11510_03 = get_monthly_gl_debit("11510-03", filters)
-	lst_11510_07 = get_monthly_gl_debit("11510-07", filters)
-	lst_11510_08 = get_monthly_gl_debit("11510-08", filters)
-	lst_11510_09 = get_monthly_gl_debit("11510-09", filters)
-	lst_11510_10 = get_monthly_gl_debit("11510-10", filters)
-	lst_11520_01 = get_monthly_gl_debit("11520-01", filters)
-	final = [a+b+c+d+e+f+g for a,b,c,d,e,f,g in zip(lst_11510_02,lst_11510_03,lst_11510_07,lst_11510_08,lst_11510_09,lst_11510_10,lst_11520_01)]
-	# final_1 = [x - y for x, y in zip(final,final[1:])]
-	# final_1.append(final[0])
-	final.insert(0,"WIP")
-	fin = [final]
+def inventory(filters):
+	lst_11420 = get_monthly_gl_debit("11420", filters)
+	lst_11420.insert(0,"Inventory")
+	fin = [lst_11420]
 	return fin
 
-def fg_count(filters):
-	lst_11510_11 = get_monthly_gl_debit("11510-11", filters)
-	lst_11520_02 = get_monthly_gl_debit("11520-02", filters)
-	final = [a+b for a,b in zip(lst_11510_11,lst_11520_02)]
-	# final_1 = [x - y for x, y in zip(final,final[1:])]
-	# final_1.append(final[0])
-	final.insert(0,"FG")
-	fin = [final]
+def stock_in_hand(filters):
+	lst_11500 = get_monthly_gl_debit("115", filters)
+	lst_11500.insert(0,"Stock in hand")
+	fin = [lst_11500]
 	return fin
+
 
 def overdue_receivables(filters):
-	lst_11200 = get_monthly_gl_debit("112", filters)
-	lst = []
-	for i in range(len(lst_11200)):
-		if i == 0:
-			lst.append(lst_11200[i])
-		else:
-			nb = sum(lst_11200[0:i+1]) - lst_11200[i]
-			lst.append(nb)
-	lst.insert(0,"Overdue Receivables")
-	fin = [lst]
+	lst_11300_01 = get_monthly_gl_debit("11300_01", filters)
+	lst_11300_02 = get_monthly_gl_debit("11510-02", filters)
+	lst_11300_03 = get_monthly_gl_debit_no_opening("11510-03", filters)
+	final = [a+b+c for a,b,c in zip(lst_11300_01,lst_11300_02,lst_11300_03)]
+	final.insert(0,"Overdue Receivables")
+	fin = [final]
 	return fin
+
 
 def get_monthly_gl_credit(account, filters):
 		a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
@@ -403,9 +392,9 @@ def get_monthly_gl_debit(account, filters):
 def get_monthly_gl_credit_no_opening(account, filters):
 	
 	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
-	from `tabGL Entry` where account like "{0}%" 
-	and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
+	from `tabGL Entry` where account like "{0}%" and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 	lst=[]
+
 	for i in a:
 		lst.append(i[0])
 	
@@ -421,6 +410,7 @@ def get_monthly_gl_credit_no_opening(account, filters):
 	from `tabGL Entry` where account like "{0}%" 
 	and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 	lst_1=[]
+
 	for i in b:
 		lst_1.append(i[0])
 	
@@ -445,65 +435,13 @@ def get_monthly_gl_credit_no_opening(account, filters):
 
 	return fin_abs
 
-def get_monthly_gl_debit(account, filters):
-	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
-	from `tabGL Entry` where account like "{0}%" 
-	and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
-	lst=[]
-	for i in a:
-		lst.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst:
-			a.append([j,0])
-	a.sort()
-	lst_a= []
-	for i in a:
-		lst_a.append(i[1])
-
-
-	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
-	from `tabGL Entry` where account like "{0}%" 
-	and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
-	lst_1=[]
-	for i in b:
-		lst_1.append(i[0])
-	
-	for j in range(1,13):
-		if j not in lst_1:
-			b.append([j,0])
-	b.sort()
-	lst_b= []
-	for i in b:
-		lst_b.append(i[1])
-
-	res_a = [a-b for a,b in zip(lst_a,lst_b)]
-
-	# print("get_monthly_gl_debit ======> ",res_a)
-
-	def add_one_by_one(l):
-		new_l = []
-		cumsum = 0
-		for elt in l:
-			cumsum += elt
-			new_l.append(cumsum)
-		return new_l
-
-	fin = add_one_by_one(res_a)
-	# print("opening and total added is =====> ", fin)
-
-	fin_abs= []
-	for i in fin:
-		abs_val = abs(i)
-		fin_abs.append(abs_val)
-
-	return fin_abs
 
 def get_monthly_gl_debit_no_opening(account,filters):
 	a = frappe.db.sql("""select MONTH(posting_date) as month, sum(debit) 
 	from `tabGL Entry` where account like "{0}%" 
 	and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
 	lst=[]
+
 	for i in a:
 		lst.append(i[0])
 	
@@ -519,6 +457,7 @@ def get_monthly_gl_debit_no_opening(account,filters):
 	b = frappe.db.sql("""select MONTH(posting_date) as month, sum(credit) 
 	from `tabGL Entry` where account like "{0}%" 
 	and YEAR(posting_date) = {1} GROUP BY MONTH(posting_date) ORDER BY month;""".format(account, filters['year']), as_list=True)
+
 	lst_1=[]
 	for i in b:
 		lst_1.append(i[0])
@@ -533,10 +472,7 @@ def get_monthly_gl_debit_no_opening(account,filters):
 
 	res_a = [a-b for a,b in zip(lst_a,lst_b)]
 
-	# print("get_monthly_gl_debit ======> ",res_a)
-
 	fin = res_a
-	# print("opening and total added is =====> ", fin)
 
 	fin_abs= []
 	for i in fin:
@@ -546,66 +482,51 @@ def get_monthly_gl_debit_no_opening(account,filters):
 	return fin_abs
 
 def gross_working_capital(filters):
-	rc = receivables_count(filters)
+	rc = customer_advance(filters)
 	for i in rc:
 		rc_1 = i
 	rc_1.pop(0)
 
-	ats = advance_to_supplier(filters)
+	ats = advance_other(filters)
 	for i in ats:
 		ats_1 = i
 	ats_1.pop(0)
 
-	rmc = rm_count(filters)
+	rmc = inventory(filters)
 	for i in rmc:
 		rmc_1 = i
 	rmc_1.pop(0)
 
-	wipc = wip_count(filters)
+	wipc = overdue_receivables(filters)
 	for i in wipc:
 		wipc_1 = i
 	wipc_1.pop(0)
 
-	fgc = fg_count(filters)
-	for i in fgc:
-		fgc_1 = i
-	fgc_1.pop(0)
 
-	ovr = overdue_receivables(filters)
-	for i in ovr:
-		ovr_1 = i
-	ovr_1.pop(0)
-
-	final = [(a+b+c+d+e+f) for a,b,c,d,e,f in zip(rc_1,ats_1,rmc_1,wipc_1,fgc_1,ovr_1)]
+	final = [(a+b+c+d) for a,b,c,d in zip(rc_1,ats_1,rmc_1,wipc_1)]
 	final.insert(0,"Gross Working Capital")
 	fin = [final]
 	return fin
 
 def total_payable(filters):
-	lst_21000_01 = get_monthly_gl_credit("21000-01", filters)
+	lst_21200 = get_monthly_gl_credit("212", filters)
 	lst_21100 = get_monthly_gl_credit("211", filters)
 	lst_21300 = get_monthly_gl_credit("213", filters)
 	lst_21400 = get_monthly_gl_credit("214", filters)
+	lst_22200 = get_monthly_gl_credit("22200", filters)
 
-	final = [(a+b+c+d) for a,b,c,d in zip(lst_21000_01,lst_21100,lst_21300,lst_21400)]
+	final = [(a+b+c+d)-(e) for a,b,c,d,e in zip(lst_21200,lst_21100,lst_21300,lst_21400,lst_22200)]
 	final.insert(0,"Total Payable (other than bank and cash)")
 	fin = [final]
 	return fin
 
 def overdue_payable(filters):
-	tp = total_payable(filters)
-	for i in tp:
-		tp_1 = i
-	tp_1.pop(0)
-	lst = []
-	for i in range(len(tp_1)):
-		if i == 0:
-			lst.append(tp_1[i])
-		else:
-			nb = sum(tp_1[0:i+1]) - tp_1[i]
-			lst.append(nb)
-	lst.insert(0,"Overdue Payable")
-	fin = [lst]
+	lst_22200 = get_monthly_gl_credit("222", filters)
+	lst_21300 = get_monthly_gl_credit("213", filters)
+
+	final = [(a+b) for a,b in zip(lst_21300,lst_22200)]
+	final.insert(0,"Overdue payables")
+	fin = [final]
 	return fin
 
 def net_working_capital(filters):
@@ -619,12 +540,8 @@ def net_working_capital(filters):
 		tp_1 = i
 	tp_1.pop(0)
 
-	op = overdue_payable(filters)
-	for i in op:
-		op_1 = i
-	op_1.pop(0)
 	
-	final = [a-b-c for a,b,c in zip(gwc_1, tp_1, op_1)]
+	final = [a-b for a,b in zip(gwc_1, tp_1)]
 	final.insert(0,"Net Working Capital")
 	fin = [final]
 	return fin
@@ -662,21 +579,24 @@ def operational_free_cash_score(filters):
 	return fin
 
 def capital_expenditure(filters):
-	lst_12000 = get_monthly_gl_debit_no_opening("12", filters)
+	lst_11300_04 = get_monthly_gl_debit_no_opening("11300-04", filters)
 	lst_11700 = get_monthly_gl_debit_no_opening("117", filters)
-	lst_11410_01 = get_monthly_gl_debit_no_opening("11410-01", filters)
+	lst_11410 = get_monthly_gl_debit_no_opening("11410", filters)
+	lst_12100 = get_monthly_gl_debit_no_opening("12100", filters)
+	lst_12200 = get_monthly_gl_debit_no_opening("12200", filters)
+	lst_12300 = get_monthly_gl_debit_no_opening("12300", filters)
+	lst_supense = get_monthly_gl_debit_no_opening("Suspense", filters)
 
-	final = [a+b+c for a,b,c in zip(lst_12000,lst_11700,lst_11410_01)]
+	final = [a+b+c+d+e+f+g for a,b,c,d,e,f,g in zip(lst_11300_04,lst_11700,lst_11410,lst_12100,lst_12200,lst_12300,lst_supense)]
 	final.insert(0,"Capital Expenditure")
 	fin = [final]
 	return fin
 
 def working_capital_term_loan(filters):
-	lst_21200_02 = get_monthly_gl_credit_no_opening("21200-02",filters)
-	lst_21200_01 = get_monthly_gl_credit_no_opening("21200-01",filters)
-	lst_22100 = get_monthly_gl_credit_no_opening("221",filters)
+	lst_64000_04 = get_monthly_gl_credit_no_opening("64000-04",filters)
+	lst_64000_05 = get_monthly_gl_credit_no_opening("64000-05",filters)
 
-	final = [a+b+c for a,b,c in zip(lst_21200_02,lst_21200_01,lst_22100)]
+	final = [a+b for a,b in zip(lst_64000_04,lst_64000_05)]
 	final.insert(0,"Working Capital Term Loan")
 	fin = [final]
 	return fin
@@ -688,30 +608,28 @@ def balance_in_bank_and_cash(filters):
 	return fin
 
 def get_data(filters):
-	ii = indirect_income(filters)
 	snt = sales_net_of_taxes(filters)
 	svcf = stock_valuation_change_in_fg(filters)
+	ii = indirect_income(filters)
 	tsnt = total_sales_net_of_taxes(filters)
-	pc = power_consumed(filters)
-	con = consumables(filters)
-	osc = out_sourcing_costs(filters)
-	pac_cos = packing_cost(filters)
-	strs = total_stores(filters)
-	fd = fuel_diesel(filters)
-	rmco = raw_materials_consumed(filters)
 	tvc = total_variable_cost(filters)
+	prts = pre_rm_to_sale(filters)
+	rmp = raw_material_purchase(filters)
+	mc = manpower_cost(filters)
+	ut = utilities(filters)
+	srmr = store_repair_machinery_rent(filters)
+	dp = depreciation(filters)
 	thp = throughput(filters)
 	oe = operating_expenses(filters)
 	ic = interest_count(filters)
 	pbt = profit_before_taxes(filters)
 	pbtp = profit_before_taxes_percentage(filters)
-	rc = receivables_count(filters)
-	ats = advance_to_supplier(filters)
-	rmc = rm_count(filters)
-	wipc = wip_count(filters)
-	fgc = fg_count(filters)
-	ovr = overdue_receivables(filters)
 	gwc = gross_working_capital(filters)
+	ca = customer_advance(filters)
+	ao = advance_other(filters)
+	iv = inventory(filters)
+	sih = stock_in_hand(filters)
+	ovr = overdue_receivables(filters)
 	tp = total_payable(filters)
 	op = overdue_payable(filters)
 	nwc = net_working_capital(filters)
@@ -720,8 +638,9 @@ def get_data(filters):
 	ce = capital_expenditure(filters)
 	wctl = working_capital_term_loan(filters)
 	bibc = balance_in_bank_and_cash(filters)
-
-	return ii+snt+svcf+tsnt+pc+con+osc+pac_cos+strs+fd+rmco+tvc+thp+oe+ic+pbt+pbtp+gwc+rc+ats+rmc+wipc+fgc+ovr+tp+op+nwc+ofcf+ofcr+ce+wctl+bibc
+	
+	
+	return snt+svcf+ii+tsnt+tvc+prts+rmp+mc+ut+srmr+dp+thp+oe+ic+pbt+pbtp+gwc+ca+ao+iv+sih+ovr+tp+op+nwc+ofcf+ofcr+ce+wctl+bibc
 
 
 	

@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v2.2.2-ho] - 2023-04-11
+
+### Added
+
+- [Feat: OFCF report changes as per new accounts values](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/327)
+
+
 ## [v2.2.1-ho] - 2023-03-21
 
 ### Added
