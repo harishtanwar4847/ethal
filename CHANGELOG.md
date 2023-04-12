@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.2-ho+1] - 2023-04-12
+
+### Added
+
+- [Fix: OFCF report fix](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/328)
+
 ## [v2.2.2-ho] - 2023-04-11
 
 ### Added
