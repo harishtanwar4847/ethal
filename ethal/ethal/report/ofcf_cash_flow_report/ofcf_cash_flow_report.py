@@ -155,7 +155,7 @@ def pre_rm_to_sale(filters):
 		l22 = i
 	l22.pop(0)
 	
-	final = [(a/b)*100 for a,b in zip(l11,l22)]
+	final = [(a/b)*100 if a!=0 and b!=0 else 0 for a,b in zip(l11,l22)]
 	final.insert(0,"% RM to Sale")
 	final = [final]
 	return final
