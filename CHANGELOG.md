@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [v2.2.3-ho+1] - 2023-04-20
+
+### Added
+
+- [Feat: Account changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/330)
+
+
 ## [v2.2.3-ho] - 2023-04-20
 
 ### Added
