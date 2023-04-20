@@ -30,12 +30,6 @@ def utilities(filters):
 	lst_51340 = get_monthly_gl_debit_no_opening("51340", filters)
 	lst_54340 = get_monthly_gl_debit_no_opening("54340", filters)
 	final = [a+b+c+d for a,b,c,d in zip(lst_52340,lst_53340,lst_51340,lst_54340)]
-
-	print("lst_52340",lst_52340)
-	print("lst_53340",lst_53340)
-	print("lst_51340",lst_51340)
-	print("lst_54340",lst_54340)
-
 	
 	final.insert(0,"Utilities- Power and Water")
 	fin = [final]
@@ -52,13 +46,13 @@ def raw_material_purchase(filters):
 	return fin
 
 def depreciation(filters):
-	lst_65000 = get_monthly_gl_debit_no_opening("65000", filters)
-	lst_54200 = get_monthly_gl_debit_no_opening("52000", filters)
-	lst_53200 = get_monthly_gl_debit_no_opening("53200", filters)
-	lst_52200 = get_monthly_gl_debit_no_opening("52200", filters)
-	lst_51200 = get_monthly_gl_debit_no_opening("51200", filters)
+	lst_53200 = get_monthly_gl_debit_no_opening("53200-01", filters)
+	lst_52200 = get_monthly_gl_debit_no_opening("52200-01", filters)
 
-	final = [a+b+c+d+e for a,b,c,d,e in zip(lst_65000,lst_54200,lst_53200,lst_52200,lst_51200)]
+	print("lst_53200",lst_53200)
+	print("lst_52200",lst_52200)
+
+	final = [a+b for a,b in zip(lst_53200,lst_52200)]
 	final.insert(0,"Depreciation")
 	fin = [final]
 	return fin
@@ -269,15 +263,18 @@ def advance_other(filters):
 	return fin
 
 def inventory(filters):
-	lst_11420 = get_monthly_gl_debit("11420", filters)
+	lst_11420 = get_monthly_gl_debit_no_opening("11420", filters)
 	lst_11420.insert(0,"Inventory")
 	fin = [lst_11420]
 	return fin
 
 def stock_in_hand(filters):
-	lst_11500 = get_monthly_gl_debit("115", filters)
-	lst_11500.insert(0,"Stock in hand")
-	fin = [lst_11500]
+	lst_11510 = get_monthly_gl_debit_no_opening("11510", filters)
+	lst_11520 = get_monthly_gl_debit_no_opening("11520", filters)
+	
+	final = [a+b for a,b in zip(lst_11510,lst_11520)]
+	final.insert(0,"Stock In Hand")
+	fin = [final]
 	return fin
 
 
