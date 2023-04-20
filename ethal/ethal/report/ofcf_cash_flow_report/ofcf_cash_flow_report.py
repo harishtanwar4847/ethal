@@ -76,10 +76,17 @@ def store_repair_machinery_rent(filters):
 	return fin
 
 def manpower_cost(filters):
+	lst_51100 = get_monthly_gl_debit_no_opening("51100",filters)
 	lst_52100 = get_monthly_gl_debit_no_opening("52100", filters)
 	lst_53100 = get_monthly_gl_debit_no_opening("53100", filters)
+	lst_54100 = get_monthly_gl_debit_no_opening("54100", filters)
+	lst_51310 = get_monthly_gl_debit_no_opening("51310", filters)
+	lst_52310 = get_monthly_gl_debit_no_opening("52310", filters)
+	lst_53210 = get_monthly_gl_debit_no_opening("53210", filters)
+	lst_54310 = get_monthly_gl_debit_no_opening("54310", filters)
 
-	final = [a+b for a,b in zip(lst_52100,lst_53100)]
+
+	final = [a+b+c+d+e+f+g+h for a,b,c,d,e,f,g,h in zip(lst_51100,lst_52100,lst_53100,lst_54100,lst_51310,lst_52310,lst_53210,lst_54310)]
 	final.insert(0,"Manpower Cost")
 	fin = [final]
 	return fin
@@ -91,9 +98,10 @@ def sales_net_of_taxes(filters):
 	return fin
 
 def stock_valuation_change_in_fg(filters):
-	lst_11510_11 = get_monthly_gl_debit("11510-11", filters)
+	lst_11510_11 = get_monthly_gl_debit("11510-03", filters)
 	lst_11520_02 = get_monthly_gl_debit("11520-02", filters)
-	final = [a+b for a,b in zip(lst_11510_11, lst_11520_02)]
+	lst_11530_02 = get_monthly_gl_debit("11530-02", filters)
+	final = [a+b+c for a,b,c in zip(lst_11510_11, lst_11520_02, lst_11530_02)]
 	final_1 = [x - y for x, y in zip(final[:-1],final[1:])]
 	final_1.insert(0,final[0])
 	final_1.insert(0,"Stock Valuation Change in FG")
@@ -239,7 +247,7 @@ def profit_before_taxes_percentage(filters):
 
 
 def customer_advance(filters):
-	lst_11200_01 = get_monthly_gl_debit("11200-01", filters)
+	lst_11200_01 = get_monthly_gl_credit("11200-01", filters)
 	lst_11200_01.insert(0,"Advance (Debtors-Customer Advances)")
 	fin = [lst_11200_01]
 	return fin
@@ -274,13 +282,18 @@ def stock_in_hand(filters):
 
 
 def overdue_receivables(filters):
-	lst_11300_01 = get_monthly_gl_debit("11300_01", filters)
-	lst_11300_02 = get_monthly_gl_debit("11510-02", filters)
-	lst_11300_03 = get_monthly_gl_debit_no_opening("11510-03", filters)
-	final = [a+b+c for a,b,c in zip(lst_11300_01,lst_11300_02,lst_11300_03)]
-	final.insert(0,"Overdue Receivables")
-	fin = [final]
+	# lst_11300_01 = get_monthly_gl_debit("11300_01", filters)
+	# lst_11300_02 = get_monthly_gl_debit("11510-02", filters)
+	# lst_11300_03 = get_monthly_gl_debit_no_opening("11510-03", filters)
+	# final = [a+b+c for a,b,c in zip(lst_11300_01,lst_11300_02,lst_11300_03)]
+	# final.insert(0,"Overdue Receivables")
+	# fin = [final]
+	# return fin
+	lst_11200_01 = get_monthly_gl_debit("11200-01", filters)
+	lst_11200_01.insert(0,"Overdue Receivables")
+	fin = [lst_11200_01]
 	return fin
+
 
 
 def get_monthly_gl_credit(account, filters):
@@ -593,10 +606,10 @@ def capital_expenditure(filters):
 	return fin
 
 def working_capital_term_loan(filters):
-	lst_64000_04 = get_monthly_gl_credit_no_opening("64000-04",filters)
-	lst_64000_05 = get_monthly_gl_credit_no_opening("64000-05",filters)
+	lst_21200_01 = get_monthly_gl_credit_no_opening("21200-01",filters)
+	lst_21100 = get_monthly_gl_credit_no_opening("21100",filters)
 
-	final = [a+b for a,b in zip(lst_64000_04,lst_64000_05)]
+	final = [a+b for a,b in zip(lst_21200_01,lst_21200_01)]
 	final.insert(0,"Working Capital Term Loan")
 	fin = [final]
 	return fin
