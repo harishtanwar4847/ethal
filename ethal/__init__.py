@@ -4,7 +4,7 @@ import frappe
 import json
 import os
 
-__version__ = 'v2.2.3-ho+1'
+__version__ = 'v2.2.4-ho'
 
 def create_log(log, file_name):
     try:

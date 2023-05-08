@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.4-ho] - 2023-05-08
+
+### Added
+
+- [Feat: Product Revenue Report Changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/331)
+
 ## [v2.2.3-ho+1] - 2023-04-20
 
 ### Added
