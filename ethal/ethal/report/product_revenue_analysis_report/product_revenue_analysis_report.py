@@ -575,7 +575,7 @@ def period_wise_columns_query(filters, trans):
 			_(filters.get("fiscal_year")) + " ("+ _("Amt") + "):Currency:120",
 			_(filters.get("fiscal_year")) + " ("+ _("Rate per KG") + "):Float:180",
 			_(filters.get("fiscal_year")) + " ("+ _("Percentage") + "):Percent:180",]
-		query_details = " SUM(t2.stock_qty), SUM(t2.total_net_weight), SUM(t2.base_net_amount), SUM(t2.base_net_amount) / SUM(t2.stock_qty), Null,"
+		query_details = " SUM(t2.stock_qty), SUM(t2.total_net_weight), SUM(t2.base_net_amount), SUM(t2.base_net_amount) / SUM(t2.total_net_weight), Null,"
 		
 	query_details += 'SUM(t2.stock_qty), SUM(t2.base_net_amount)'
 	
@@ -599,7 +599,7 @@ def get_period_wise_query(bet_dates, trans_date, query_details):
 	query_details += """SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.stock_qty, NULL)),
 					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.total_net_weight, NULL)),
 					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.base_net_amount, NULL)),
-					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.base_net_amount, NULL))/SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.stock_qty, NULL)), 
+					SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.base_net_amount, NULL))/SUM(IF(t1.%(trans_date)s BETWEEN '%(sd)s' AND '%(ed)s', t2.total_net_weight, NULL)), 
 					Null,
 				""" % {"trans_date": trans_date, "sd": bet_dates[0],"ed": bet_dates[1]}
 	return query_details

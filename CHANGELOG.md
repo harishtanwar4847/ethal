@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.5-ho] - 2023-05-10
+
+### Added
+
+- [Fix : Product revenue analysis rate per column changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/332)
+
 ## [v2.2.4-ho] - 2023-05-08
 
 ### Added
