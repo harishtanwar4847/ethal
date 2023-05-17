@@ -81,3 +81,16 @@ def set_average_price(doc, method):
         """.format(items['item_code'], doc.name), debug=1)
         frappe.db.set_value('Purchase Order Item', {'parent': doc.name, 'item_code': items['item_code']}, 'average_price', average_price[0][0]) 
         frappe.db.commit()  
+
+def on_update_purchase_order(doc,method):
+    if doc.status == "Closed":
+        a = []
+        for i in doc.items:
+            a.append(i.material_request)
+        unique_list = []
+        for x in a:
+            if x not in unique_list:
+                unique_list.append(x)
+        for j in unique_list:
+            frappe.db.set_value("Material Request",j,"status","Closed")
+            frappe.db.commit()

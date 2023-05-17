@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+# [v2.4.0] - 2023-05-17
+
+### Added
+
+- [Add the new status in PRF and change PRF status when PO Closed](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/333)
+
 # [v2.3.0] - 2023-03-25
 
 ### Added

@@ -141,7 +141,8 @@ doc_events = {
 	},
 	"Purchase Order": {
 		"after_insert": "ethal.accounts.set_average_price",
-		"on_submit": "ethal.utils.send_purchase_api_message_Purchase_Order"
+		"on_submit": "ethal.utils.send_purchase_api_message_Purchase_Order",
+        "on_change":"ethal.accounts.on_update_purchase_order"
 	},	
 	"Purchase Invoice": {
 		"before_submit": "ethal.accounts.set_approver_name"
