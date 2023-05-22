@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+# [v2.4.1] - 2023-05-22
+
+### Added
+
+- [Feat : Custom Stock Ledger Report](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/334)
+
 # [v2.4.0] - 2023-05-17
 
 ### Added
