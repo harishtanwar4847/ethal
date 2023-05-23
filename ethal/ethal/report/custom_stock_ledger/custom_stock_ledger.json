@@ -11,15 +11,16 @@
  "is_standard": "Yes",
  "json": "{}",
  "letter_head": "Ethal - Default",
- "modified": "2023-05-22 12:14:06.113826",
+ "modified": "2023-05-23 14:35:28.775084",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Custom Stock Ledger",
  "owner": "Administrator",
  "prepared_report": 0,
+ "query": "select\nse.workflow_state as \"Status::200\",\nse.creation as \"Date::300\",\ns.item_code as \"Item:Link/Item:150\",\ni.item_name as \"Item Name::200\",\ni.stock_uom as \"Stock UOM::100\",\nIFNULL((select sle.actual_qty from `tabStock Ledger Entry` as sle where sle.name = s.name and sle.item_code= s.item_code and sle.actual_qty >=0),0) as \"IN Qty::100\",\nIFNULL((select sle.actual_qty from `tabStock Ledger Entry` as sle where sle.name = s.name and sle.item_code= s.item_code and sle.actual_qty < 0),0) as \"OUT Qty::100\",\nIFNULL((select sle.qty_after_transaction from `tabStock Ledger Entry` as sle where sle.name = s.name and sle.item_code= s.item_code ),0) as \"Balance Qty::100\",\ns.voucher_no as \"Voucher:Link/Stock Entry:200\",\ns.warehouse as \"Warehouse::200\",\nse.remarks as \"Remark::300\"\nfrom `tabStock Ledger Entry` as s left join `tabItem` as i\non s.item_code = i.name \nleft join `tabStock Entry` as se\non se.name=s.voucher_no\nwhere s.voucher_type = \"Stock Entry\" and se.stock_entry_type='Material Issue' and cast(se.creation as date) >= %(from_date)s and cast(se.creation as date) <= %(to_date)s and s.voucher_no like \"MAT-STE-SIV-%%\" and se.workflow_state != \"Cancelled\" and s.company = %(company)s\nunion\nselect \nsen.workflow_state as \"Status::200\",\nsen.creation as \"Date::300\",\nsei.item_code as \"Item:Link/Item:150\",\nsei.item_name as \"Item Name::200\",\nsei.stock_uom as \"Stock UOM::100\",\nIFNULL((select sle.actual_qty from `tabStock Ledger Entry` as sle where sle.name = sen.name and sle.item_code= sei.item_code and sle.actual_qty >=0),0) as \"IN Qty::100\",\n-ABS(sei.qty) as \"OUT Qty::100\",\nIFNULL((select sle.qty_after_transaction from `tabStock Ledger Entry` as sle where sle.name = sen.name and sle.item_code= sei.item_code ),0) as \"Balance Oty::100\",\nsen.name as \"Voucher:Link/Stock Entry:200\",\nsei.s_warehouse as \"Warehouse::200\",\nsen.remarks as \"Remark::300\"\nfrom `tabStock Entry` as sen \nleft join `tabStock Entry Detail` as sei \non sen.name=sei.parent\nwhere sen.workflow_state = \"Created\" and cast(sen.creation as date) >= %(from_date)s and cast(sen.creation as date) <= %(to_date)s and sen.name like \"MAT-STE-SIV-%%\" and sen.stock_entry_type='Material Issue' and sen.company = %(company)s",
  "ref_doctype": "Stock Ledger Entry",
  "report_name": "Custom Stock Ledger",
- "report_type": "Script Report",
+ "report_type": "Query Report",
  "roles": [
   {
    "role": "Stock User"
