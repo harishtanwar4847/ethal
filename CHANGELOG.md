@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+# [v2.4.3] - 2023-06-07
+
+### Added
+
+- [Fix : STOCK BALANCE AS PER WAREHOUSE CIRCLE STORE ( INHOUSE ) - E21 changes](https://gitlab.com/atri-tech/atri-maintainers/ethal/-/merge_requests/337)
+
+
 # [v2.4.2] - 2023-06-02
 
 ### Added
