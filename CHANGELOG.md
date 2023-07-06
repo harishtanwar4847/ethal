@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+# [v2.4.4] - 2023-07-06
+
+### Added
+
+- [Feat : Validation on Purchase order naming](https://github.com/atrina-technologies-pvt-ltd/ethal/pull/2)
+
 # [v2.4.3] - 2023-06-07
 
 ### Added
