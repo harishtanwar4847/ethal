@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.6-ho] - 2023-07-06
+
+### Added
+
+- [Fix : Payment Entry Checked date and checked person](https://github.com/atrina-technologies-pvt-ltd/ethal/pull/1)
+
 ## [v2.2.5-ho] - 2023-05-10
 
 ### Added
