@@ -122,7 +122,7 @@ doc_events = {
     },
 	"Payment Entry": {
 		"validate": "ethal.accounts.before_insert_payment_entry",
-		"before_submit": "ethal.accounts.set_approver_name",
+		"before_submit": "ethal.utils.set_approver_name",
 		# "on_submit": "ethal.utils.send_accounts_api_message"
 	},
 	# "Stock Entry": {
