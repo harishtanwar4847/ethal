@@ -219,7 +219,8 @@ scheduler_events = {
 }
 
 doctype_js = {
-	'Asset': 'public/js/asset.js'
+	'Asset': 'public/js/asset.js',
+    'Purchase Order': 'public/js/purchase_order.js'
 }
 
 # Scheduled Tasks
