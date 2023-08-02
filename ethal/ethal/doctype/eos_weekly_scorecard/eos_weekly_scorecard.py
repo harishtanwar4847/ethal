@@ -23,88 +23,94 @@ from erpnext.accounts.report.customer_ledger_summary.customer_ledger_summary imp
 class EOSWeeklyScorecard(Document):
 	def validate(self):
 		for idx, val in enumerate(self.eos_details):
-			if val.parameter == 'Achieved':
-				a= val.idx - 2
-				previous_values = self.eos_details[a].actual / self.eos_details[a].target if self.eos_details[a].actual and self.eos_details[a].target else 0
-				val.actual = previous_values * 100
-				
-			if val.division == 'UD-TU' and val.parameter == 'Despatch - Utensils':
-				sales_invoice = frappe.db.get_all('Sales Invoice', filters={'posting_date': [ 'between', [self.from_date, self.to_date]], 'naming_series': ['like', '%'+'TU'+'%'], 'docstatus': 1 }, fields=['name'])	
-				net_weight_total = 0
-				if sales_invoice:
-					for i in sales_invoice:
-						net_weight_amount = frappe.db.sql("""
-							select sum(si.total_net_weight) 
-							from `tabSales Invoice Item` as si
-							join `tabItem` as i
-							on si.item_code =  i.name
-							where i.item_group = 'FINISHED GOODS' and si.parent = '{0}'
-						""".format(i['name']))
-						net_weight_total += net_weight_amount[0][0] if net_weight_amount[0][0] != None else 0
-				val.actual = net_weight_total /1000	
+			if val.auto_compute_ == 1:
+				if 'Achieved' in val.parameter :
+					a= val.idx - 2
+					previous_values = self.eos_details[a].actual / self.eos_details[a].target if self.eos_details[a].actual and self.eos_details[a].target else 0
+					val.actual = previous_values * 100
 
-			if val.division == 'UD-DB' and val.parameter == 'Despatch - Utensils':
-				sales_invoice = frappe.db.get_all('Sales Invoice', filters={'posting_date': [ 'between', [self.from_date, self.to_date]], 'naming_series': ['like', '%'+'DB'+'%'], 'docstatus': 1 }, fields=['name'])	
-				net_weight_total = 0
-				if sales_invoice:
-					for i in sales_invoice:
-						net_weight_amount = frappe.db.sql("""
-							select sum(si.total_net_weight) 
-							from `tabSales Invoice Item` as si
-							join `tabItem` as i
-							on si.item_code =  i.name
-							where i.item_group = 'FINISHED GOODS' and si.parent = '{0}' 
-						""".format(i['name']))
-						net_weight_total += net_weight_amount[0][0] if net_weight_amount[0][0] != None else 0
-				val.actual = net_weight_total /1000	
+					print(self.eos_details[a].actual)
+					print(self.eos_details[a].target)
 
-			if val.parameter == 'Sales Price':
-				net_weight_total = 0
-				sales_invoice_weight = frappe.db.sql("""
-					select sum(sii.total_net_weight)
-					from `tabSales Invoice Item` as sii
-					join `tabSales Invoice` as si
-					on si.name = sii.parent
-					join `tabItem` as i
-					on sii.item_code =  i.name
-					where i.item_group = 'FINISHED GOODS' and si.posting_date between '{0}' and '{1}' and si.docstatus = 1
-				""".format(self.from_date, self.to_date))
-				if sales_invoice_weight:
-					net_weight_total += sales_invoice_weight[0][0] if sales_invoice_weight[0][0] != None else 0
-				sales_invoice_price = frappe.db.sql("""
-					select sum(sii.amount)
-					from `tabSales Invoice Item` as sii
-					join `tabSales Invoice` as si
-					on si.name = sii.parent
-					where si.posting_date between '{0}' and '{1}' and si.docstatus = 1
-				""".format(self.from_date, self.to_date))
-				price = 0
-				if sales_invoice_price:
-					price += sales_invoice_price[0][0] if sales_invoice_price[0][0] != None else 0
-				val.actual = price / net_weight_total if net_weight_total != 0 else 0
+					print(previous_values)
+					
+				if val.division == 'UD-TU' and val.parameter == 'Despatch - Utensils':
+					sales_invoice = frappe.db.get_all('Sales Invoice', filters={'posting_date': [ 'between', [self.from_date, self.to_date]], 'naming_series': ['like', '%'+'TU'+'%'], 'docstatus': 1 }, fields=['name'])	
+					net_weight_total = 0
+					if sales_invoice:
+						for i in sales_invoice:
+							net_weight_amount = frappe.db.sql("""
+								select sum(si.total_net_weight) 
+								from `tabSales Invoice Item` as si
+								join `tabItem` as i
+								on si.item_code =  i.name
+								where i.item_group = 'FINISHED GOODS' and si.parent = '{0}'
+							""".format(i['name']))
+							net_weight_total += net_weight_amount[0][0] if net_weight_amount[0][0] != None else 0
+					val.actual = net_weight_total /1000	
 
-			if val.parameter == 'Cash Balance':
-				year = frappe.defaults.get_user_default("fiscal_year")
-				cash_balance = calculate('11100 - Cash and Bank - E21', year, self.from_date, self.to_date)
-				val.actual = cash_balance / 1000000
+				if val.division == 'UD-DB' and val.parameter == 'Despatch - Utensils':
+					sales_invoice = frappe.db.get_all('Sales Invoice', filters={'posting_date': [ 'between', [self.from_date, self.to_date]], 'naming_series': ['like', '%'+'DB'+'%'], 'docstatus': 1 }, fields=['name'])	
+					net_weight_total = 0
+					if sales_invoice:
+						for i in sales_invoice:
+							net_weight_amount = frappe.db.sql("""
+								select sum(si.total_net_weight) 
+								from `tabSales Invoice Item` as si
+								join `tabItem` as i
+								on si.item_code =  i.name
+								where i.item_group = 'FINISHED GOODS' and si.parent = '{0}' 
+							""".format(i['name']))
+							net_weight_total += net_weight_amount[0][0] if net_weight_amount[0][0] != None else 0
+					val.actual = net_weight_total /1000	
 
-			filters = frappe._dict({'company': 'Ethal 2021', 
-							'from_date': self.from_date, 
-							'to_date': self.to_date
-							})	
-			customer_ledger_summary = execute(filters)
-			positive_balance = 0
-			negative_balance = 0
-			if val.parameter == 'Customer Advances':
-				for i in customer_ledger_summary[1]:
-					if i['closing_balance'] < 0:
-						negative_balance += i['closing_balance']
-					val.actual = negative_balance / 1000000
-			if val.parameter == 'Debtors':
-				for i in customer_ledger_summary[1]:
-					if i['closing_balance'] > 0:
-						positive_balance += i['closing_balance']
-					val.actual = positive_balance / 1000000
+				if val.parameter == 'Sales Price':
+					net_weight_total = 0
+					sales_invoice_weight = frappe.db.sql("""
+						select sum(sii.total_net_weight)
+						from `tabSales Invoice Item` as sii
+						join `tabSales Invoice` as si
+						on si.name = sii.parent
+						join `tabItem` as i
+						on sii.item_code =  i.name
+						where i.item_group = 'FINISHED GOODS' and si.posting_date between '{0}' and '{1}' and si.docstatus = 1
+					""".format(self.from_date, self.to_date))
+					if sales_invoice_weight:
+						net_weight_total += sales_invoice_weight[0][0] if sales_invoice_weight[0][0] != None else 0
+					sales_invoice_price = frappe.db.sql("""
+						select sum(sii.amount)
+						from `tabSales Invoice Item` as sii
+						join `tabSales Invoice` as si
+						on si.name = sii.parent
+						where si.posting_date between '{0}' and '{1}' and si.docstatus = 1
+					""".format(self.from_date, self.to_date))
+					price = 0
+					if sales_invoice_price:
+						price += sales_invoice_price[0][0] if sales_invoice_price[0][0] != None else 0
+					val.actual = price / net_weight_total if net_weight_total != 0 else 0
+
+				if val.parameter == 'Cash Balance':
+					year = frappe.defaults.get_user_default("fiscal_year")
+					cash_balance = calculate('11100 - Cash and Bank - E21', year, self.from_date, self.to_date)
+					val.actual = cash_balance / 1000000
+
+				filters = frappe._dict({'company': 'Ethal 2021', 
+								'from_date': self.from_date, 
+								'to_date': self.to_date
+								})	
+				customer_ledger_summary = execute(filters)
+				positive_balance = 0
+				negative_balance = 0
+				if val.parameter == 'Customer Advances':
+					for i in customer_ledger_summary[1]:
+						if i['closing_balance'] < 0:
+							negative_balance += i['closing_balance']
+						val.actual = negative_balance / 1000000
+				if val.parameter == 'Debtors':
+					for i in customer_ledger_summary[1]:
+						if i['closing_balance'] > 0:
+							positive_balance += i['closing_balance']
+						val.actual = positive_balance / 1000000
 
 @frappe.whitelist()
 def get_previous_record(doc):
