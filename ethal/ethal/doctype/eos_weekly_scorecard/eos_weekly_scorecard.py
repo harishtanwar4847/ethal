@@ -29,10 +29,6 @@ class EOSWeeklyScorecard(Document):
 					previous_values = self.eos_details[a].actual / self.eos_details[a].target if self.eos_details[a].actual and self.eos_details[a].target else 0
 					val.actual = previous_values * 100
 
-					print(self.eos_details[a].actual)
-					print(self.eos_details[a].target)
-
-					print(previous_values)
 					
 				if val.division == 'UD-TU' and val.parameter == 'Despatch - Utensils':
 					sales_invoice = frappe.db.get_all('Sales Invoice', filters={'posting_date': [ 'between', [self.from_date, self.to_date]], 'naming_series': ['like', '%'+'TU'+'%'], 'docstatus': 1 }, fields=['name'])	
