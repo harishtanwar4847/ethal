@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "creation": "2021-03-30 14:40:20.569825",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -8,8 +9,10 @@
   "responsibility",
   "responsible_name",
   "parameter",
+  "desired",
   "column_break_5",
   "uom",
+  "auto_compute_",
   "target",
   "actual",
   "section_break_9",
@@ -22,7 +25,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Division",
-   "options": "\nCD\nUD-DB\nUD-TU\nAccounts"
+   "options": "\nCD\nUD-DB\nUD-TU\nAccounts\nUD-KE\nSD\nENGG."
   },
   {
    "columns": 2,
@@ -46,7 +49,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "UOM",
-   "options": "\nMT\n%\nMM\nLTS\nETB / KG\nETB,  Millions"
+   "options": "\nMT\n%\nMM\nLTS\nETB / KG\nETB,  Millions\nNos\nHours"
   },
   {
    "columns": 1,
@@ -63,7 +66,8 @@
    "fieldname": "actual",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Actual"
+   "label": "Actual",
+   "read_only_depends_on": "eval: doc.auto_compute_==1 ;"
   },
   {
    "fieldname": "remarks",
@@ -84,10 +88,25 @@
   {
    "fieldname": "section_break_9",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_compute_",
+   "fieldtype": "Check",
+   "label": "Auto compute %"
+  },
+  {
+   "fieldname": "desired",
+   "fieldtype": "Select",
+   "label": "Desired",
+   "options": "More\nLess",
+   "reqd": 1
   }
  ],
+ "index_web_pages_for_search": 1,
  "istable": 1,
- "modified": "2021-05-21 18:47:41.802955",
+ "links": [],
+ "modified": "2023-07-18 09:23:44.601396",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "EOS Weekly Scorecard Details",

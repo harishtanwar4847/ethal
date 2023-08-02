@@ -5,19 +5,48 @@ from __future__ import unicode_literals
 import frappe
 from datetime import datetime, timedelta
 import ast
+from frappe import _
+
 
 def execute(filters=None):
 	columns, data = [], []
 	d = []
-	columns = ['Division:Data:150']+['Parameter:Link/EOS Weekly Report Parameter:200']+['Responsible Person:250']
+	# columns = ['Division:Data:150']+['Parameter:Link/EOS Weekly Report Parameter:200']+['Desired:250']+['Responsible Person:250']
+	columns = [{
+			"label": _("Division"),
+			"fieldname": "division",
+			"fieldtype": "Data",
+			"width": 120
+		},
+		{
+			"label": _("Parameter"),
+			"fieldname": "parameter",
+			"fieldtype": "Link",
+			"options": "EOS Weekly Report Parameter",
+			"width": 200
+		},
+		{
+			"label": _("Responsible Person"),
+			"fieldname": "responsible_person",
+			"fieldtype": "Data",
+			"width": 200
+		},
+		{
+			"label": _("Uom"),
+			"fieldname": "uom",
+			"fieldtype": "Data",
+			"width": 200
+		}
+		]
 	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name'])
 	print(total_count_of_weeks)
 	for i in range(1, len(total_count_of_weeks)+1):
-		d.append('Target Week '+str(i)+':data:100')
-		d.append('Week '+str(i)+':data:100')
-	print(d)	
+		d.append('Target_Week_'+str(i)+':data:100')
+		d.append('Week_'+str(i)+':data:100')
+		d.append('Desired_'+str(i)+':data:100')
 	data = get_data(filters)
 	return columns+d, data
+
 
 def get_data(filters):
 
@@ -45,8 +74,8 @@ def get_data(filters):
 	from_date[0] = filters['from_date']
 	to_date[-1] = filters['to_date']
 
-	print("from date",from_date)
-	print("to date",to_date)
+	# print("from date",from_date)
+	# print("to date",to_date)
 	# total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name'], order_by="name asc")
 	# lst = []
 	# for j in total_count_of_weeks:
@@ -77,34 +106,35 @@ def get_data(filters):
 	i = 1
 	# for date in range(len(from_date)):
 	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name'], order_by="name asc")
-	print(total_count_of_weeks)
 	if total_count_of_weeks:
 		for j in total_count_of_weeks:	
 			if query == "":
-				query = """ from (Select Distinct B.division, B.parameter, B.responsible_name, B.idx from    `tabEOS Weekly Scorecard` as A 
+				query = """ from (Select Distinct B.division, B.parameter, B.responsible_name, B.idx,B.uom from `tabEOS Weekly Scorecard` as A 
 					join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
 					where A.to_date between '{0}' and '{1}' order by B.idx asc) Week{2} 
 					""".format(from_date[0], to_date[-1], i)
-				selectlist = "Select Week1.division, Week1.parameter, Week1.responsible_name"
+				
+				selectlist = "Select Week1.division, Week1.parameter, Week1.responsible_name,Week1.uom"
 		
-				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual   
+				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual ,B.desired  
 							from    `tabEOS Weekly Scorecard` as A 
 							join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
 							where A.name = '{0}') Week{1} 
 							ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
 							""".format(j['name'], 'A')
-				selectlist += ",WeekA.target ,WeekA.actual".format(i)	
+				selectlist += ",WeekA.target ,WeekA.actual,WeekA.desired".format(i)	
 										
 			else:
-				print(i)
-				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual   
+				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual,B.desired  
 							from    `tabEOS Weekly Scorecard` as A 
 							join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
 							where  A.name = '{0}') Week{1} 
 							ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
 							""".format(j['name'], i)
-				selectlist += ",Week{0}.target ,Week{0}.actual".format(i)			
+				selectlist += ",Week{0}.target ,Week{0}.actual,Week{0}.desired".format(i)			
 			i+=1		
 		query = selectlist+query+"order by Week1.idx"
-		print(query)
 		return frappe.db.sql(query)
+
+
+	

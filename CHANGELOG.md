@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [v2.2.7-ho] - 2023-08-02
+
+### Added
+- [Feat: Weekely Eos Doctype and Report Customization](https://github.com/atrina-technologies-pvt-ltd/ethal/pull/3)
+
 ## [v2.2.6-ho] - 2023-07-06
 
 ### Added
