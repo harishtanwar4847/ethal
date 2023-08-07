@@ -41,9 +41,9 @@ def execute(filters=None):
 	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name','from_date','to_date'])
 	for i in total_count_of_weeks:
 		print(i)
-		d.append('Target '+'('+str(i.from_date)+"To"+str(i.to_date)+')'+':data:100')
-		d.append('Actual '+'('+str(i.from_date)+"To"+str(i.to_date)+')'+':data:100')
-		d.append('Desired '+'('+str(i.from_date)+"To"+str(i.to_date)+')'+':data:100')
+		d.append('Target '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
+		d.append('Actual '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
+		d.append('Desired '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
 		print(d)
 	data = get_data(filters)
 	return columns+d, data
