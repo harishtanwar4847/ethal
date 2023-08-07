@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.2.9-ho] - 2023-08-07
+
+### Added
+- [Feat: Weekely Eos Report Customization add date range in column](https://github.com/atrina-technologies-pvt-ltd/ethal/pull/6)
+
+
 ## [v2.2.8-ho] - 2023-08-03
 
 ### Added
