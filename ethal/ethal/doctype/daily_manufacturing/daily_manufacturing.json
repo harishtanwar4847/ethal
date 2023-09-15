@@ -1,0 +1,335 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2023-08-08 12:17:43.804260",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "posting_date",
+  "section_break_2",
+  "shifts",
+  "section_break_9",
+  "total_no",
+  "total_heats",
+  "column_break_7",
+  "total_kg",
+  "section_break_3",
+  "attendance",
+  "section_break_6",
+  "total_present",
+  "total_ot_hours",
+  "column_break_9",
+  "total_absent",
+  "section_break_11",
+  "annealing",
+  "manufacturing_annealing_items",
+  "total",
+  "section_1",
+  "raw_material_received",
+  "section_break_4",
+  "dispatched",
+  "section_break_8",
+  "stock",
+  "section_break_16",
+  "total_opening_stock",
+  "total_receipt",
+  "column_break_17",
+  "total_issue",
+  "total_closing_stock",
+  "section_break_32",
+  "receipts_of_this_month",
+  "section_break_34",
+  "total_opening",
+  "total_change",
+  "column_break_38",
+  "total_closing",
+  "section_break_36",
+  "received",
+  "good",
+  "rejection",
+  "melting",
+  "column_break_39",
+  "rolling",
+  "sizing",
+  "others",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "raw_material_received",
+   "fieldtype": "Table",
+   "label": "Raw Material Received",
+   "options": "Raw Material Received"
+  },
+  {
+   "fieldname": "dispatched",
+   "fieldtype": "Table",
+   "label": "Dispatched",
+   "options": "Dispatched"
+  },
+  {
+   "fieldname": "stock",
+   "fieldtype": "Table",
+   "label": "Stock",
+   "options": "Daily Manufacturing Stock"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Stock",
+   "no_copy": 1,
+   "options": "Daily Manufacturing",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "annealing",
+   "fieldtype": "Link",
+   "label": "Annealing",
+   "options": "Annealing"
+  },
+  {
+   "fieldname": "section_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "manufacturing_annealing_items",
+   "fieldtype": "Table",
+   "label": "Annealing",
+   "options": "Manufacturing Annealing Items"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "label": "Total Kg"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "attendance",
+   "fieldtype": "Table",
+   "label": "Attendance",
+   "options": "Attendence"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_opening_stock",
+   "fieldtype": "Float",
+   "label": "Total Opening Stock"
+  },
+  {
+   "fieldname": "total_receipt",
+   "fieldtype": "Float",
+   "label": "Total Receipt"
+  },
+  {
+   "fieldname": "total_issue",
+   "fieldtype": "Float",
+   "label": "Total Issue"
+  },
+  {
+   "fieldname": "total_closing_stock",
+   "fieldtype": "Float",
+   "label": "Total Closing Stock"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_present",
+   "fieldtype": "Float",
+   "label": "Total Present"
+  },
+  {
+   "fieldname": "total_absent",
+   "fieldtype": "Float",
+   "label": "Total Absent"
+  },
+  {
+   "fieldname": "total_ot_hours",
+   "fieldtype": "Float",
+   "label": "Total OT (Hours)"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": " Series",
+   "options": "Daily.-Manf-.YYYY.-"
+  },
+  {
+   "fieldname": "shifts",
+   "fieldtype": "Table",
+   "label": "Shifts",
+   "options": "Shift"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_no",
+   "fieldtype": "Float",
+   "label": "Total No"
+  },
+  {
+   "fieldname": "total_heats",
+   "fieldtype": "Float",
+   "label": "Total Heats"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_kg",
+   "fieldtype": "Float",
+   "label": "Total Kg"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_32",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "receipts_of_this_month",
+   "fieldtype": "Table",
+   "label": "Receipts Of This Month",
+   "options": "Receipt Month"
+  },
+  {
+   "fieldname": "section_break_34",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_36",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "received",
+   "fieldtype": "Float",
+   "label": "Received",
+   "precision": "2"
+  },
+  {
+   "fieldname": "good",
+   "fieldtype": "Float",
+   "label": "Good",
+   "precision": "2"
+  },
+  {
+   "fieldname": "rejection",
+   "fieldtype": "Float",
+   "label": "Rejection",
+   "precision": "2"
+  },
+  {
+   "fieldname": "melting",
+   "fieldtype": "Float",
+   "label": "Melting",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_39",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rolling",
+   "fieldtype": "Float",
+   "label": "Rolling",
+   "precision": "2"
+  },
+  {
+   "fieldname": "sizing",
+   "fieldtype": "Float",
+   "label": "Sizing",
+   "precision": "2"
+  },
+  {
+   "fieldname": "others",
+   "fieldtype": "Float",
+   "label": "Others",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_opening",
+   "fieldtype": "Float",
+   "label": "Total Opening"
+  },
+  {
+   "fieldname": "total_change",
+   "fieldtype": "Float",
+   "label": "Total Change"
+  },
+  {
+   "fieldname": "column_break_38",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_closing",
+   "fieldtype": "Float",
+   "label": "Total Closing"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-24 14:54:58.354986",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Daily Manufacturing",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

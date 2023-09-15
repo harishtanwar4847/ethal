@@ -1,6 +1,6 @@
 {
  "actions": [],
- "creation": "2021-02-04 14:18:08.301433",
+ "creation": "2023-08-09 08:45:47.611785",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -8,7 +8,8 @@
   "in_time",
   "out_time",
   "box_no",
-  "kg"
+  "kg",
+  "id"
  ],
  "fields": [
   {
@@ -24,25 +25,30 @@
    "label": "Out Time"
   },
   {
+   "fieldname": "box_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Box No"
+  },
+  {
    "fieldname": "kg",
    "fieldtype": "Float",
    "in_list_view": 1,
    "label": "KG"
   },
   {
-   "fieldname": "box_no",
+   "fieldname": "id",
    "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Box No"
+   "label": "Id"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-08-09 09:11:08.561212",
+ "modified": "2023-08-09 09:19:01.714121",
  "modified_by": "Administrator",
  "module": "Ethal",
- "name": "Annealing Items",
+ "name": "Manufacturing Annealing Items",
  "owner": "Administrator",
  "permissions": [],
  "quick_entry": 1,
