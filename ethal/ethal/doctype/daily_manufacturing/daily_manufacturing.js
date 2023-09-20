@@ -61,7 +61,6 @@ frappe.ui.form.on('Daily Manufacturing', {
 			})
 		}
 		if (frm.doc.stock == undefined) {
-			console.log("aala")
 			frappe.call({
 				'method': 'ethal.ethal.doctype.daily_manufacturing.daily_manufacturing.get_previous_record_stock',
 				'args': {
