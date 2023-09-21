@@ -170,13 +170,17 @@ class DailyManufacturing(Document):
 
 
 
-	# def on_update(self):
-	# 	item = frappe.get_all("Receipt Month", filters = {"Parent":self.name,"item":"Good circle:"}, fields = ["*"])
+	def on_update(self):
 
-	# 	self.good = flt(item[0]['change'])
-	# 	print(self.good)
-	# 	self.rejection = flt(self.melting) + flt(self.rolling) + flt(self.sizing) + flt(self.others)
-	# 	self.received = flt(self.good) + flt(self.rejection)
+		if self.receipts_of_this_month: 
+			item = frappe.get_all("Receipt Month", filters = {"Parent":self.name,"item":"Good circle"}, fields = ["*"])
+			if item:
+				self.good = flt(item[0]['change'])
+			else: 
+				self.good = 0
+			print(self.good)
+			self.rejection = flt(self.melting) + flt(self.rolling) + flt(self.sizing) + flt(self.others)
+			self.received = flt(self.good) + flt(self.rejection)
 
 
 
