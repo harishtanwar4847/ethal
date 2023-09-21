@@ -80,6 +80,7 @@ class DailyManufacturing(Document):
 		for i in ledger_doc:
 			supplier = frappe.get_doc("Purchase Receipt", i.voucher_no).as_dict()
 			if not frappe.db.exists("Raw Material Received",{"Id":i.name}):
+				print("inside condition")
 				self.append("raw_material_received",{
 					"item_name": i.item_code,
 					"purchase_receipt_no": i.voucher_no,
@@ -169,14 +170,13 @@ class DailyManufacturing(Document):
 
 
 
-	def on_update(self):
-		item = frappe.get_all("Receipt Month", filters = {"Parent":self.name,"item":"Good circle:"}, fields = ["*"])
-		print(item[0])
+	# def on_update(self):
+	# 	item = frappe.get_all("Receipt Month", filters = {"Parent":self.name,"item":"Good circle:"}, fields = ["*"])
 
-		self.good = flt(item[0]['change'])
-		print(self.good)
-		self.rejection = flt(self.melting) + flt(self.rolling) + flt(self.sizing) + flt(self.others)
-		self.received = flt(self.good) + flt(self.rejection)
+	# 	self.good = flt(item[0]['change'])
+	# 	print(self.good)
+	# 	self.rejection = flt(self.melting) + flt(self.rolling) + flt(self.sizing) + flt(self.others)
+	# 	self.received = flt(self.good) + flt(self.rejection)
 
 
 
