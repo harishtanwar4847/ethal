@@ -16,7 +16,7 @@ def execute(filters=None):
 			"label": _("Division"),
 			"fieldname": "division",
 			"fieldtype": "Data",
-			"width": 120
+			"width": 100
 		},
 		{
 			"label": _("Parameter"),
@@ -29,22 +29,29 @@ def execute(filters=None):
 			"label": _("Responsible Person"),
 			"fieldname": "responsible_person",
 			"fieldtype": "Data",
-			"width": 200
+			"width": 180
 		},
 		{
 			"label": _("Uom"),
 			"fieldname": "uom",
 			"fieldtype": "Data",
-			"width": 200
+			"width": 110,
 		}
 		]
+	
+
 	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name','from_date','to_date'])
 	for i in total_count_of_weeks:
-		print(i)
 		d.append('Target '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
 		d.append('Actual '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
-		d.append('Desired '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
-		print(d)
+		desired_column = {
+        "label": _("Desired") + ' (' + str(i.from_date) + " To " + str(i.to_date) + ')',
+        "fieldname": "desired_" + i.name,  # Unique fieldname for each "Desired" column
+        "fieldtype": "Data",
+        "width": 50,
+        "hidden": 1  # Set hidden property to 1 to hide the column
+    	}
+		d.append(desired_column)
 	data = get_data(filters)
 	return columns+d, data
 
@@ -117,7 +124,7 @@ def get_data(filters):
 				
 				selectlist = "Select Week1.division, Week1.parameter, Week1.responsible_name,Week1.uom"
 		
-				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual ,B.desired  
+				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, Round(B.target,2) as target, Round(B.actual,2) as actual, B.desired  
 							from    `tabEOS Weekly Scorecard` as A 
 							join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
 							where A.name = '{0}') Week{1} 
@@ -126,7 +133,7 @@ def get_data(filters):
 				selectlist += ",WeekA.target ,WeekA.actual,WeekA.desired".format(i)	
 										
 			else:
-				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, B.target, B.actual,B.desired  
+				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, Round(B.target,2) as target, Round(B.actual,2) as actual, B.desired  
 							from    `tabEOS Weekly Scorecard` as A 
 							join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
 							where  A.name = '{0}') Week{1} 
