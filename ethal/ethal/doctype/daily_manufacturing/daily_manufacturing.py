@@ -72,37 +72,41 @@ class DailyManufacturing(Document):
 		# 		i.purchase_receipt_no = ""
 		# 		i.accepeted_qty = 0
 		# 		i.supplier_name = ""
-		today = frappe.utils.nowdate()
+		# today = frappe.utils.nowdate()
 
-		ledger_doc = frappe.get_all("Stock Ledger Entry", filters = {"posting_date":today, "voucher_type" : "Purchase Receipt",}, fields = ["*"])
-		
+		ledger_doc = frappe.get_all("Purchase Receipt", filters = {"posting_date":self.posting_date}, fields = ["*"])
 
 		for i in ledger_doc:
-			supplier = frappe.get_doc("Purchase Receipt", i.voucher_no).as_dict()
-			if not frappe.db.exists("Raw Material Received",{"Id":i.name}):
-				print("inside condition")
-				self.append("raw_material_received",{
-					"item_name": i.item_code,
-					"purchase_receipt_no": i.voucher_no,
-					"accepeted_qty": i.actual_qty,
-					"supplier_name":supplier.supplier,
-					"id": i.name
+			purchase_item = frappe.get_all("Purchase Receipt Item", filters = {"parent":i.name}, fields = ["*"])
+			print(purchase_item)
+			for j in purchase_item:
+		# 	supplier = frappe.get_doc("Purchase Receipt", i.voucher_no).as_dict()
+				if not frappe.db.exists("Raw Material Received",{"Id":i.name}):
+					print("inside condition")
+					self.append("raw_material_received",{
+						"item_name": j.item_code,
+						"purchase_receipt_no": i.name,
+						"accepeted_qty": j.qty,
+						"supplier_name":i.supplier,
+						"id": i.name
 				})
 				
 
-		delivery_note = frappe.get_all("Stock Ledger Entry", filters = {"posting_date":today, "voucher_type" : "Delivery Note",}, fields = ["*"])
+		delivery_note = frappe.get_all("Delivery Note", filters = {"posting_date":self.posting_date}, fields = ["*"])
 		
 
 		for i in delivery_note:
-			customer = frappe.get_doc("Delivery Note", i.voucher_no).as_dict()
-			if not frappe.db.exists("Dispatched",{"Id":i.name}):
-				self.append("dispatched",{
-					"item_name": i.item_code,
-					"delivery_note": i.voucher_no,
-					"qty": abs(i.actual_qty),
-					"customer":customer.customer,
-					"id": i.name
-				})
+			delivered_item = frappe.get_all("Delivery Note Item", filters = {"parent":i.name}, fields = ["*"])
+		# 	customer = frappe.get_doc("Delivery Note", i.voucher_no).as_dict()
+			for j in delivered_item:
+				if not frappe.db.exists("Dispatched",{"Id":i.name}):
+					self.append("dispatched",{
+						"item_name": j.item_code,
+						"delivery_note": i.name,
+						"qty": j.qty,
+						"customer":i.customer,
+						"id": i.name
+					})
 
 		# delivered_item_list = frappe.db.sql("""select item_code from `tabStock Ledger Entry`  where DATE(creation) = CURDATE() and voucher_type = 'Purchase Receipt'""")
 		# lst2= []
@@ -131,11 +135,12 @@ class DailyManufacturing(Document):
 		closing_total = 0
 		for i in self.stock:
 			if i.item:
-				opening_qty = frappe.db.sql("""select qty_after_transaction from `tabStock Ledger Entry` where item_code = %s and DATE(creation) < CURDATE() order by creation desc limit 1""",i.item)
+				opening_qty = frappe.db.sql("""select qty_after_transaction from `tabStock Ledger Entry` where item_code = %s and DATE(posting_date) < %s order by creation desc limit 1""",(i.item,self.posting_date))
 				
-				receipt_qty = frappe.db.sql("""select sum(actual_qty) from `tabStock Ledger Entry` where item_code = %s and DATE(creation) = CURDATE() and voucher_type = 'Purchase Receipt' """,i.item)
+				receipt_qty = frappe.db.sql("""select sum(actual_qty) from `tabStock Ledger Entry` where item_code = %s and DATE(posting_date) = %s and voucher_type = 'Purchase Receipt' """,(i.item,self.posting_date))
 
-				issue = frappe.db.sql("""select abs(sum(actual_qty)) from `tabStock Ledger Entry` where item_code = %s and DATE(creation) = CURDATE() and voucher_type = 'Stock Entry' and actual_qty < 0 """,i.item)
+				issue = frappe.db.sql("""select abs(sum(actual_qty)) from `tabStock Ledger Entry` where item_code = %s and DATE(posting_date) = %s and voucher_type = 'Stock Entry'
+				and actual_qty < 0 """,(i.item,self.posting_date))
 
 				i.opening_stock = flt(opening_qty[0][0])
 				i.receipt = flt(receipt_qty[0][0])

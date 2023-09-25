@@ -32,21 +32,21 @@
    "label": "Supplier Name"
   },
   {
-   "fieldname": "accepeted_qty",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Accepeted Qty"
-  },
-  {
    "fieldname": "id",
    "fieldtype": "Data",
    "label": "Id"
+  },
+  {
+   "fieldname": "accepeted_qty",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Accepted Qty"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-09-20 14:23:24.592533",
+ "modified": "2023-09-25 12:24:41.612512",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "Raw Material Received",
