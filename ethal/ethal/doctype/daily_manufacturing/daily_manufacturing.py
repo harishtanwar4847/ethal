@@ -5,6 +5,7 @@ import frappe
 from frappe.model.document import Document
 from frappe.utils.data import flt
 import datetime
+from frappe.utils import getdate
 
 class DailyManufacturing(Document):
 	def before_save(self):
