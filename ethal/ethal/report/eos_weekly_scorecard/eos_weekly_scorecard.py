@@ -40,11 +40,11 @@ def execute(filters=None):
 		]
 	
 
-	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name','from_date','to_date'],order_by='from_date ASC')
+	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']]),'docstatus':1}, ['name','from_date','to_date'],order_by='from_date ASC')
 	print(total_count_of_weeks)
 	for i in total_count_of_weeks:
-		d.append('Target '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
-		d.append('Actual '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
+		d.append('Target '+'('+str(i.from_date)+" To "+ str(i.to_date)+')'+':data:270')
+		d.append('Actual '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:270')
 		desired_column = {
         "label": _("Desired") + ' (' + str(i.from_date) + " To " + str(i.to_date) + ')',
         "fieldname": "desired_" + i.name,  # Unique fieldname for each "Desired" column
@@ -114,7 +114,7 @@ def get_data(filters):
 	selectlist = ""
 	i = 1
 	# for date in range(len(from_date)):
-	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name'], order_by="name asc")
+	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']]),'docstatus':1}, ['name'], order_by="name asc")
 	if total_count_of_weeks:
 		for j in total_count_of_weeks:	
 			if query == "":
@@ -128,7 +128,7 @@ def get_data(filters):
 				# query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, Round(B.target,2) as target, Round(B.actual,2) as actual, B.desired  
 				# 			from    `tabEOS Weekly Scorecard` as A 
 				# 			join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
-				# 			where A.name = '{0}') Week{1} 
+				# 			where A.name = '{0}' and A.docstatus = 1) Week{1} 
 				# 			ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
 				# 			""".format(j['name'], 'A')
 				# selectlist += ",WeekA.target ,WeekA.actual,WeekA.desired".format(i)	
@@ -148,7 +148,7 @@ def get_data(filters):
 						ON
 							A.name = B.parent
 						WHERE
-							A.name = '{0}'
+							A.name = '{0}' and A.docstatus = 1
 					) Week{1} 
 					ON
 						Week1.division = Week{1}.division
@@ -163,7 +163,7 @@ def get_data(filters):
 				# query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, Round(B.target,2) as target, Round(B.actual,2) as actual, B.desired  
 				# 			from    `tabEOS Weekly Scorecard` as A 
 				# 			join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
-				# 			where  A.name = '{0}') Week{1} 
+				# 			where  A.name = '{0}' and A.docstatus = 1 ) Week{1} 
 				# 			ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
 				# 			""".format(j['name'], i)
 				# selectlist += ",Week{0}.target ,Week{0}.actual,Week{0}.desired".format(i)	
@@ -183,7 +183,7 @@ def get_data(filters):
 						ON
 							A.name = B.parent
 						WHERE
-							A.name = '{0}'
+							A.name = '{0}' and A.docstatus = 1
 					) Week{1}
 					ON
 						Week1.division = Week{1}.division
