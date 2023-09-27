@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+# [v2.5.0-uat] - 2023-09-27
+
+### Added
+
+- [Feat : Daily manufacturing Doctype and Print Format](https://github.com/atrina-technologies-pvt-ltd/ethal/pull/8)
+
+
+
 # [v2.4.4] - 2023-07-06
 
 ### Added
