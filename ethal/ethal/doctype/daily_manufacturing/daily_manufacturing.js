@@ -78,7 +78,5 @@ frappe.ui.form.on('Daily Manufacturing', {
 				cur_frm.refresh_fields("stock");
 			})
 		}
-
-
 	}
 });

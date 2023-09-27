@@ -78,7 +78,7 @@ class DailyManufacturing(Document):
 		ledger_doc = frappe.get_all("Purchase Receipt", filters = {"posting_date":self.posting_date}, fields = ["*"])
 
 		for i in ledger_doc:
-			purchase_item = frappe.get_all("Purchase Receipt Item", filters = {"parent":i.name}, fields = ["*"])
+			purchase_item = frappe.get_all("Purchase Receipt Item", filters = {"parent":i.name,"item_group":'RAW MATERIAL'}, fields = ["*"])
 			print(purchase_item)
 			for j in purchase_item:
 		# 	supplier = frappe.get_doc("Purchase Receipt", i.voucher_no).as_dict()
