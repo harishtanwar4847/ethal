@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "creation": "2023-08-08 12:17:10.349061",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_name",
+  "purchase_receipt_no",
+  "supplier_name",
+  "accepeted_qty",
+  "id"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Name",
+   "options": "Item"
+  },
+  {
+   "fieldname": "purchase_receipt_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Purchase Receipt No"
+  },
+  {
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Supplier Name"
+  },
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "label": "Id"
+  },
+  {
+   "fieldname": "accepeted_qty",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Accepted Qty"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-09-25 12:24:41.612512",
+ "modified_by": "Administrator",
+ "module": "Ethal",
+ "name": "Raw Material Received",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
