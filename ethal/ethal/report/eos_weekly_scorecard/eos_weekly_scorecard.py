@@ -16,7 +16,7 @@ def execute(filters=None):
 			"label": _("Division"),
 			"fieldname": "division",
 			"fieldtype": "Data",
-			"width": 100
+			"width": 80
 		},
 		{
 			"label": _("Parameter"),
@@ -29,7 +29,7 @@ def execute(filters=None):
 			"label": _("Responsible Person"),
 			"fieldname": "responsible_person",
 			"fieldtype": "Data",
-			"width": 180
+			"width": 140
 		},
 		{
 			"label": _("Uom"),
@@ -48,7 +48,7 @@ def execute(filters=None):
 		"label": _("Week ") + str(i),
         "fieldname": "week_" + str(i),  # Unique fieldname for each "Desired" column
         "fieldtype": "Data",
-        "width": 100,
+        "width": 80,
 		}
 		d.append(target_column)
 
@@ -56,15 +56,14 @@ def execute(filters=None):
 		"label": _("Actual ") + str(i),
 		"fieldname": "actual_"+ str(i), 
 		"fieldtype": "Data",
-		"width": 70,
+		"width": 73,
 		"size":20
 		}
 		d.append(actual_column)
-		# d.append('Actual '+str(i)+':data:270')
 		
 		desired_column = {
         "label": _("Desired ") + str(i),
-        "fieldname": "desired_",  # Unique fieldname for each "Desired" column
+        "fieldname": "desired_"+str(i),  # Unique fieldname for each "Desired" column
         "fieldtype": "Data",
         "width": 50,
         "hidden": 1  # Set hidden property to 1 to hide the column
@@ -173,9 +172,7 @@ def get_data(filters):
 						AND Week1.responsible_name = Week{1}.responsible_name
 				""".format(j['name'], 'A')
 
-				selectlist += ", COALESCE(WeekA.target, 'NA'), COALESCE(WeekA.actual, 'NA'), COALESCE(WeekA.desired, 'NA')".format(i)
-
-										
+				selectlist += ", COALESCE(WeekA.target, 'NA'), COALESCE(WeekA.actual, 'NA'), COALESCE(WeekA.desired, 'NA')".format(i)								
 			else:
 				# query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, Round(B.target,2) as target, Round(B.actual,2) as actual, B.desired  
 				# 			from    `tabEOS Weekly Scorecard` as A 
@@ -212,7 +209,4 @@ def get_data(filters):
 						
 			i+=1		
 		query = selectlist+query+"order by Week1.idx"
-		return frappe.db.sql(query)
-
-
-	
+		return frappe.db.sql(query)	

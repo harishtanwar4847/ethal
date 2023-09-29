@@ -46,38 +46,34 @@ frappe.query_reports["EOS Weekly Scorecard"] = {
 
 		 for (let i = 0; i < final_array.length; i++) {
 			for (let j = 0; j < final_array[i].length; j++) {
-			    let a = final_array[i][0]
-			    let b = final_array[i][1]
-			    let c = final_array[i][2]
+			    let actual = final_array[i][0]
+			    let week = final_array[i][1]
+			    let desired = final_array[i][2]
 			    
-			    if (column.fieldname == a && data[c] == 'More' && (((data[a]/data[b])*100)>= 10.01)){
-					value = `<div style="background-color:#6EFF33">${value}</div>`;
-			    }
-			    else if (column.fieldname == a && data[c] == 'More' && (((data[a]/data[b])*100) == 5) || (((data[a]/data[b])*100) == -5)){
-					value = `<div style="background-color:#6EFF33">${value}</div>`;
-				}
-			    else if (column.fieldname == a && data[c] == 'More' && (((data[a]/data[b])*100) == 10) || (((data[a]/data[b])*100) == -10)){
-					value = `<div style="background-color:#FFFF33">${value}</div>`;
-				}
-				else if (column.fieldname == a && data[c] == 'More' && (((data[a]/data[b])*100) >= -10.01)){
-					value = `<div style="background-color:#FF3333">${value}</div>`;
-				}
-				else if (column.fieldname == a && data[c] == 'Less' && (((data[a]/data[b])*100) >= 10.01)){
-					value = `<div style="background-color:#FF3333">${value}</div>`;
-				}
-				else if (column.fieldname == a && data[c] == 'Less' && (((data[a]/data[b])*100) >= -10.01)){
-					value = `<div style="background-color:#6EFF33">${value}</div>`;
-				}
-				else if (column.fieldname == a && data[c] == 'Less' && (((data[a]/data[b])*100) == 10) || (((data[a]/data[b])*100) == -10)){
-					value = `<div style="background-color:#FFFF33">${value}</div>`;
-				}
-				else if (column.fieldname == a && data[c] == 'Less' && (((data[a]/data[b])*100) == 5) || (((data[a]/data[b])*100) == -5)){
-					value = `<div style="background-color:#6EFF33">${value}</div>`;
-				}
+			    const percentageDifference = ((data[actual] - data[week]) / data[week]) * 100;
+				if (column.fieldname == actual) {
+					if (data[desired] === "More") {
+						if (percentageDifference <= 5 && percentageDifference >= -5) {
+						value = `<div style="background-color:#6EFF33">${value}</div>`; // Within +/- 5%, GREEN
+						} else if (percentageDifference <= -5.01) {
+						value = `<div style="background-color:#FF3333">${value}</div>`; // Less than -5.01%, RED
+						} else if (percentageDifference >= 5.01) {
+						value = `<div style="background-color:#6EFF33">${value}</div>`; // More than 5.01%, GREEN
+						}
+					} else if (data[desired] === "Less") {
+						if (percentageDifference <= 5 && percentageDifference >= -5) {
+						value = `<div style="background-color:#6EFF33">${value}</div>`; // Within +/- 5%, GREEN
+						} else if (percentageDifference <= -5.01) {
+						value = `<div style="background-color:#6EFF33">${value}</div>`; // Less than -5.01%, GREEN
+						} else if (percentageDifference >= 5.01) {
+						value = `<div style="background-color:#FF3333">${value}</div>`; // More than 5.01%, RED
+						}
+					}			
+				} 
 			}
-		 }
+		}
 
-		return value;
-    },
+	return value;
+},
 
 }
