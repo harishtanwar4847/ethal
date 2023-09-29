@@ -52,7 +52,7 @@ frappe.query_reports["EOS Weekly Scorecard"] = {
 			    
 			    const percentageDifference = ((data[actual] - data[week]) / data[week]) * 100;
 				if (column.fieldname == actual) {
-					if (data[desired] === "More") {
+					if (data[desired] == "More") {
 						if (percentageDifference <= 5 && percentageDifference >= -5) {
 						value = `<div style="background-color:#6EFF33">${value}</div>`; // Within +/- 5%, GREEN
 						} else if (percentageDifference <= -5.01) {
@@ -60,7 +60,7 @@ frappe.query_reports["EOS Weekly Scorecard"] = {
 						} else if (percentageDifference >= 5.01) {
 						value = `<div style="background-color:#6EFF33">${value}</div>`; // More than 5.01%, GREEN
 						}
-					} else if (data[desired] === "Less") {
+					} else if (data[desired] == "Less") {
 						if (percentageDifference <= 5 && percentageDifference >= -5) {
 						value = `<div style="background-color:#6EFF33">${value}</div>`; // Within +/- 5%, GREEN
 						} else if (percentageDifference <= -5.01) {
