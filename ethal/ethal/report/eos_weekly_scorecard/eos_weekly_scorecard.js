@@ -25,7 +25,7 @@ frappe.query_reports["EOS Weekly Scorecard"] = {
 		var obj_lst = Object.keys(data)
 
 	    const array1 = obj_lst.filter((str) => str.startsWith('actual'));
-		const array2 = obj_lst.filter((str) => str.startsWith('target'));
+		const array2 = obj_lst.filter((str) => str.startsWith('week'));
 		const array3 = obj_lst.filter((str) => str.startsWith('desired'));
 		const zip = (...arr) => {
 			const zipped = [];

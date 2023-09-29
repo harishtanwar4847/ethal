@@ -42,22 +42,29 @@ def execute(filters=None):
 
 	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']]),'docstatus':1}, ['name','from_date','to_date'],order_by='from_date ASC')
 	print(total_count_of_weeks)
-	for i in total_count_of_weeks:
+	for i in range(1, len(total_count_of_weeks)+1):
 		# d.append('Target '+'('+str(i.from_date)+" To "+ str(i.to_date)+')'+':data:100')
 		target_column = {
-		"label": _("Target") + ' (' + str(i.from_date) + " To " + str(i.to_date) + ')',
-        "fieldname": "target_" + i.name,  # Unique fieldname for each "Desired" column
+		"label": _("Week ") + str(i),
+        "fieldname": "week_" + str(i),  # Unique fieldname for each "Desired" column
         "fieldtype": "Data",
         "width": 100,
-		"fontsize":5
 		}
 		d.append(target_column)
 
-		d.append('Actual '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:270')
+		actual_column = {
+		"label": _("Actual ") + str(i),
+		"fieldname": "actual_"+ str(i), 
+		"fieldtype": "Data",
+		"width": 70,
+		"size":20
+		}
+		d.append(actual_column)
+		# d.append('Actual '+str(i)+':data:270')
 		
 		desired_column = {
-        "label": _("Desired") + ' (' + str(i.from_date) + " To " + str(i.to_date) + ')',
-        "fieldname": "desired_" + i.name,  # Unique fieldname for each "Desired" column
+        "label": _("Desired ") + str(i),
+        "fieldname": "desired_",  # Unique fieldname for each "Desired" column
         "fieldtype": "Data",
         "width": 50,
         "hidden": 1  # Set hidden property to 1 to hide the column
@@ -124,7 +131,7 @@ def get_data(filters):
 	selectlist = ""
 	i = 1
 	# for date in range(len(from_date)):
-	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']]),'docstatus':1}, ['name'], order_by="name asc")
+	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']]),'docstatus':1}, ['name'], order_by="from_date asc")
 	if total_count_of_weeks:
 		for j in total_count_of_weeks:	
 			if query == "":
