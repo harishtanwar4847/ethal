@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [v2.3.0-ho-uat] - 2023-09-29
+## [v2.3.0-ho-dev] - 2023-09-29
+
+### Added
+- [Feat: Change in color code| change in column name and width](https://github.com/atrina-technologies-pvt-ltd/ethal/pull/9)
+
 ## [v2.2.9+1-ho] - 2023-09-21
 
 ### Added

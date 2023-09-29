@@ -28,7 +28,7 @@
    "options": "\nCD\nUD-DB\nUD-TU\nAccounts\nUD-KE\nSD\nENGG."
   },
   {
-   "columns": 2,
+   "columns": 1,
    "fieldname": "responsibility",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -36,12 +36,13 @@
    "options": "Employee"
   },
   {
-   "columns": 2,
+   "columns": 1,
    "fieldname": "parameter",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Parameter",
-   "options": "EOS Weekly Report Parameter"
+   "options": "EOS Weekly Report Parameter",
+   "reqd": 1
   },
   {
    "columns": 1,
@@ -75,6 +76,7 @@
    "label": "Remarks"
   },
   {
+   "columns": 2,
    "fetch_from": "responsibility.employee_name",
    "fieldname": "responsible_name",
    "fieldtype": "Data",
@@ -97,8 +99,10 @@
    "label": "Auto compute %"
   },
   {
+   "columns": 1,
    "fieldname": "desired",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Desired",
    "options": "More\nLess",
    "reqd": 1
@@ -107,7 +111,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-08-03 09:16:44.874753",
+ "modified": "2023-09-26 13:52:44.778945",
  "modified_by": "Administrator",
  "module": "Ethal",
  "name": "EOS Weekly Scorecard Details",
