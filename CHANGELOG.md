@@ -7,7 +7,6 @@
 ### Added
 - [Feat: change width](https://github.com/atrina-technologies-pvt-ltd/ethal/pull/11)
 
-
 ## [v2.3.0-ho-uat] - 2023-09-29
 ## [v2.3.0-ho-dev] - 2023-09-29
 
