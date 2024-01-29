@@ -16,7 +16,7 @@ def execute(filters=None):
 			"label": _("Division"),
 			"fieldname": "division",
 			"fieldtype": "Data",
-			"width": 100
+			"width": 80
 		},
 		{
 			"label": _("Parameter"),
@@ -29,7 +29,7 @@ def execute(filters=None):
 			"label": _("Responsible Person"),
 			"fieldname": "responsible_person",
 			"fieldtype": "Data",
-			"width": 180
+			"width": 140
 		},
 		{
 			"label": _("Uom"),
@@ -40,13 +40,30 @@ def execute(filters=None):
 		]
 	
 
-	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name','from_date','to_date'])
-	for i in total_count_of_weeks:
-		d.append('Target '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
-		d.append('Actual '+'('+str(i.from_date)+" To "+str(i.to_date)+')'+':data:100')
+	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']]),'docstatus':1}, ['name','from_date','to_date'],order_by='from_date ASC')
+	print(total_count_of_weeks)
+	for i in range(1, len(total_count_of_weeks)+1):
+		# d.append('Target '+'('+str(i.from_date)+" To "+ str(i.to_date)+')'+':data:100')
+		target_column = {
+		"label": _("Week ") + str(i),
+        "fieldname": "week_" + str(i),  # Unique fieldname for each "Desired" column
+        "fieldtype": "Data",
+        "width": 80,
+		}
+		d.append(target_column)
+
+		actual_column = {
+		"label": _("Actual ") + str(i),
+		"fieldname": "actual_"+ str(i), 
+		"fieldtype": "Data",
+		"width": 73,
+		"size":20
+		}
+		d.append(actual_column)
+		
 		desired_column = {
-        "label": _("Desired") + ' (' + str(i.from_date) + " To " + str(i.to_date) + ')',
-        "fieldname": "desired_" + i.name,  # Unique fieldname for each "Desired" column
+        "label": _("Desired ") + str(i),
+        "fieldname": "desired_"+str(i),  # Unique fieldname for each "Desired" column
         "fieldtype": "Data",
         "width": 50,
         "hidden": 1  # Set hidden property to 1 to hide the column
@@ -113,7 +130,7 @@ def get_data(filters):
 	selectlist = ""
 	i = 1
 	# for date in range(len(from_date)):
-	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']])}, ['name'], order_by="name asc")
+	total_count_of_weeks = frappe.db.get_all('EOS Weekly Scorecard', {'to_date': ('between', [filters['from_date'], filters['to_date']]),'docstatus':1}, ['name'], order_by="from_date asc")
 	if total_count_of_weeks:
 		for j in total_count_of_weeks:	
 			if query == "":
@@ -124,25 +141,72 @@ def get_data(filters):
 				
 				selectlist = "Select Week1.division, Week1.parameter, Week1.responsible_name,Week1.uom"
 		
-				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, Round(B.target,2) as target, Round(B.actual,2) as actual, B.desired  
-							from    `tabEOS Weekly Scorecard` as A 
-							join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
-							where A.name = '{0}') Week{1} 
-							ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
-							""".format(j['name'], 'A')
-				selectlist += ",WeekA.target ,WeekA.actual,WeekA.desired".format(i)	
-										
+				# query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, Round(B.target,2) as target, Round(B.actual,2) as actual, B.desired  
+				# 			from    `tabEOS Weekly Scorecard` as A 
+				# 			join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
+				# 			where A.name = '{0}' and A.docstatus = 1) Week{1} 
+				# 			ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
+				# 			""".format(j['name'], 'A')
+				# selectlist += ",WeekA.target ,WeekA.actual,WeekA.desired".format(i)	
+				query += """ 
+					LEFT JOIN (
+						SELECT DISTINCT
+							B.division,
+							B.parameter,
+							B.responsible_name,
+							COALESCE(Round(B.target, 2), 'NA') as target,
+							COALESCE(Round(B.actual, 2), 'NA') as actual,
+							COALESCE(B.desired, 'NA') as desired
+						FROM
+							`tabEOS Weekly Scorecard` as A 
+						JOIN
+							`tabEOS Weekly Scorecard Details` as B
+						ON
+							A.name = B.parent
+						WHERE
+							A.name = '{0}' and A.docstatus = 1
+					) Week{1} 
+					ON
+						Week1.division = Week{1}.division
+						AND Week1.parameter = Week{1}.parameter
+						AND Week1.responsible_name = Week{1}.responsible_name
+				""".format(j['name'], 'A')
+
+				selectlist += ", COALESCE(WeekA.target, 'NA'), COALESCE(WeekA.actual, 'NA'), COALESCE(WeekA.desired, 'NA')".format(i)								
 			else:
-				query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, Round(B.target,2) as target, Round(B.actual,2) as actual, B.desired  
-							from    `tabEOS Weekly Scorecard` as A 
-							join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
-							where  A.name = '{0}') Week{1} 
-							ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
-							""".format(j['name'], i)
-				selectlist += ",Week{0}.target ,Week{0}.actual,Week{0}.desired".format(i)			
+				# query += """ Left JOIN (select distinct B.division, B.parameter, B.responsible_name, Round(B.target,2) as target, Round(B.actual,2) as actual, B.desired  
+				# 			from    `tabEOS Weekly Scorecard` as A 
+				# 			join `tabEOS Weekly Scorecard Details` as B on A.name = B.parent 
+				# 			where  A.name = '{0}' and A.docstatus = 1 ) Week{1} 
+				# 			ON Week1.division = Week{1}.division AND Week1.parameter = Week{1}.parameter AND Week1.responsible_name = Week{1}.responsible_name
+				# 			""".format(j['name'], i)
+				# selectlist += ",Week{0}.target ,Week{0}.actual,Week{0}.desired".format(i)	
+				query += """
+					LEFT JOIN (
+						SELECT DISTINCT
+							B.division,
+							B.parameter,
+							B.responsible_name,
+							COALESCE(Round(B.target, 2), 'NA') as target,
+							COALESCE(Round(B.actual, 2), 'NA') as actual,
+							COALESCE(B.desired, 'NA') as desired
+						FROM
+							`tabEOS Weekly Scorecard` as A
+						JOIN
+							`tabEOS Weekly Scorecard Details` as B
+						ON
+							A.name = B.parent
+						WHERE
+							A.name = '{0}' and A.docstatus = 1
+					) Week{1}
+					ON
+						Week1.division = Week{1}.division
+						AND Week1.parameter = Week{1}.parameter
+						AND Week1.responsible_name = Week{1}.responsible_name
+				""".format(j['name'], i)
+
+				selectlist += ", COALESCE(Week{0}.target, 'NA'), COALESCE(Week{0}.actual, 'NA'), COALESCE(Week{0}.desired, 'NA')".format(i)
+						
 			i+=1		
 		query = selectlist+query+"order by Week1.idx"
-		return frappe.db.sql(query)
-
-
-	
+		return frappe.db.sql(query)	
