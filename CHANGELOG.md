@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+# [v2.4.5] - 2024-02-19
+
+### Added
+
+- [Feat :Issued Stock Entry Report| Add Issued To in Stock Entry Detail Table ](https://github.com/atrina-technologies-pvt-ltd/ethal/pull/14)
+
+
 # [v2.4.4] - 2023-07-06
 
 ### Added
